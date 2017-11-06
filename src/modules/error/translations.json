@@ -1,0 +1,14 @@
+{
+  "REQUIRED": {
+    "en": "required",
+    "sv": "obligatorisk"
+  },
+  "MIN_LENGTH": {
+    "en": "minst {{limit}} tecken",
+    "sv": "more then {{limit}} characters"
+  },
+  "MAX_LENGTH": {
+    "en": "inte mer än {{limit}} tecken",
+    "sv": "at least {{limit}} characters"
+  }
+}

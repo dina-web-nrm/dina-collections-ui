@@ -1,0 +1,312 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots modules/commonUi/Navbar Default state 1`] = `
+<div>
+  <div
+    className="ui large menu"
+  >
+    <div
+      className="ui container"
+    >
+      <div
+        className="right menu"
+      >
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          <p>
+            John Doe
+          </p>
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          <p>
+            medium
+          </p>
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          <button
+            className="ui button"
+            disabled={undefined}
+            onClick={[Function]}
+            role="button"
+            tabIndex={undefined}
+          >
+            <span>
+              Logout
+            </span>
+          </button>
+        </div>
+        <div
+          className="item"
+          onClick={[Function]}
+        >
+          <div
+            aria-busy={undefined}
+            aria-disabled={undefined}
+            aria-expanded={false}
+            aria-multiselectable={undefined}
+            className="ui button floating labeled dropdown icon"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onMouseDown={[Function]}
+            role="listbox"
+            tabIndex={0}
+          >
+            <div
+              aria-live="polite"
+              className="text"
+              role="alert"
+            >
+              en
+            </div>
+            <i
+              aria-hidden="true"
+              className="world icon"
+              onClick={[Function]}
+            />
+            <div
+              className="menu transition"
+            >
+              <div
+                aria-checked={true}
+                aria-disabled={undefined}
+                aria-selected={true}
+                className="active selected item"
+                onClick={[Function]}
+                role="option"
+                style={
+                  Object {
+                    "pointerEvents": "all",
+                  }
+                }
+              >
+                <span
+                  className="text"
+                >
+                  en
+                </span>
+              </div>
+              <div
+                aria-checked={false}
+                aria-disabled={undefined}
+                aria-selected={false}
+                className="item"
+                onClick={[Function]}
+                role="option"
+                style={
+                  Object {
+                    "pointerEvents": "all",
+                  }
+                }
+              >
+                <span
+                  className="text"
+                >
+                  sv
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots modules/i18n/LanguageSelect Default 1`] = `
+<div>
+  <div
+    aria-busy={undefined}
+    aria-disabled={undefined}
+    aria-expanded={false}
+    aria-multiselectable={undefined}
+    className="ui button floating labeled dropdown icon"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onMouseDown={[Function]}
+    role="listbox"
+    tabIndex={0}
+  >
+    <div
+      aria-live="polite"
+      className="text"
+      role="alert"
+    >
+      en
+    </div>
+    <i
+      aria-hidden="true"
+      className="world icon"
+      onClick={[Function]}
+    />
+    <div
+      className="menu transition"
+    >
+      <div
+        aria-checked={true}
+        aria-disabled={undefined}
+        aria-selected={true}
+        className="active selected item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }
+      >
+        <span
+          className="text"
+        >
+          en
+        </span>
+      </div>
+      <div
+        aria-checked={false}
+        aria-disabled={undefined}
+        aria-selected={false}
+        className="item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }
+      >
+        <span
+          className="text"
+        >
+          sv
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots modules/i18n/Translate Default 1`] = `
+<div>
+  <span>
+    lastname
+  </span>
+</div>
+`;
+
+exports[`Storyshots modules/i18n/Translate Interpolation 1`] = `
+<div>
+  <span>
+    hello Anton
+  </span>
+</div>
+`;
+
+exports[`Storyshots modules/i18n/createModuleTranslate Default 1`] = `
+<div>
+  <span>
+    modules.commonUi.firstName
+  </span>
+</div>
+`;
+
+exports[`Storyshots modules/user/LoginForm Default 1`] = `
+<div>
+  <form
+    action={undefined}
+    className="ui form"
+    onSubmit={[Function]}
+  >
+    <div
+      className="ui large stacked segment"
+    >
+      <div
+        className="field"
+        style={
+          Object {
+            "position": "relative",
+          }
+        }
+      >
+        <div
+          className="ui left icon input"
+        >
+          <i
+            aria-hidden="true"
+            className="user icon"
+          />
+          <input
+            autoComplete="off"
+            disabled={undefined}
+            name="username"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder="Username"
+            tabIndex={undefined}
+            type="text"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="field"
+        style={
+          Object {
+            "position": "relative",
+          }
+        }
+      >
+        <div
+          className="ui left icon input"
+        >
+          <i
+            aria-hidden="true"
+            className="lock icon"
+          />
+          <input
+            autoComplete="off"
+            disabled={undefined}
+            name="password"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder="Password"
+            tabIndex={undefined}
+            type="password"
+            value=""
+          />
+        </div>
+      </div>
+      <button
+        className="ui green large fluid disabled button"
+        disabled={true}
+        onClick={[Function]}
+        role="button"
+        tabIndex={-1}
+        type="submit"
+      >
+        <span>
+          login
+        </span>
+      </button>
+      
+    </div>
+  </form>
+</div>
+`;
