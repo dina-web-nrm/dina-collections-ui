@@ -1,0 +1,38 @@
+import createConfigValidation from './createConfigValidation'
+import createFilteredConfig from './createFilteredConfig'
+
+export default function createModuleMap({
+  availableModules,
+  availableViews,
+  config,
+  moduleMap = {},
+  newModules = [],
+  removeModules = [],
+}) {
+  const validateConfig = createConfigValidation(newModules)
+  validateConfig(createFilteredConfig(newModules, config))
+
+  const newModuleMap = {
+    ...moduleMap,
+  }
+  newModules.forEach(module => {
+    const name = module.name
+
+    if (!availableModules[name] && !availableViews[name]) {
+      throw new Error(`Module or view with name ${name} is unknown`)
+    }
+
+    if (!newModuleMap[name]) {
+      newModuleMap[name] = module // eslint-disable-line no-param-reassign
+    }
+  })
+
+  removeModules.forEach(module => {
+    const name = module.name
+    if (newModuleMap[name]) {
+      delete newModuleMap[name] // eslint-disable-line no-param-reassign
+    }
+  })
+
+  return newModuleMap
+}

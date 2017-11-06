@@ -1,0 +1,26 @@
+{
+  "Navbar": {
+    "logout": {
+      "en": "logout",
+      "sv": "logga ut"
+    }
+  },
+  "routes": {
+    "home": {
+      "en": "start",
+      "sv": "start"
+    },
+    "about": {
+      "en": "about",
+      "sv": "om"
+    },
+    "settings": {
+      "en": "settings",
+      "sv": "inställningar"
+    },
+    "dynamic": {
+      "en": "dynamic",
+      "sv": "dynamisk"
+    }
+  }
+}
