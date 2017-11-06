@@ -21,21 +21,21 @@ export default function createListeners({
   newModules = [],
   removeModules = [],
 }) {
-  const newListners = setupListeners({ newModules })
-  const newListnerMap = {
+  const newListeners = setupListeners({ newModules })
+  const newListenerMap = {
     ...listenerMap,
-    ...newListners,
+    ...newListeners,
   }
 
   removeModules.forEach(module => {
-    const name = module.name
-    if (newListnerMap[name]) {
-      const stop = newListnerMap[name].stop
+    const { name } = module
+    if (newListenerMap[name]) {
+      const { stop } = newListenerMap[name]
       if (stop) {
         stop()
       }
-      delete newListnerMap[name] // eslint-disable-line no-param-reassign
+      delete newListenerMap[name] // eslint-disable-line no-param-reassign
     }
   })
-  return newListnerMap
+  return newListenerMap
 }

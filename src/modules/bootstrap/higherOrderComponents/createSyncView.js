@@ -12,14 +12,14 @@ export default function createSyncView({ modules = [], name, view, Wrapper }) {
   class SyncLoader extends Component {
     componentWillMount() {
       log.mount('Start')
-      const store = this.context.store
+      const { store } = this.context
       store.registerModules([view, ...modules])
       log.mount('Done')
     }
 
     componentWillUnmount() {
       log.unmount('Start')
-      const store = this.context.store
+      const { store } = this.context
       store.unregisterModules([view, ...modules])
       log.unmount('Done')
     }

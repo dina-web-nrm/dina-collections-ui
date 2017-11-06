@@ -15,8 +15,8 @@ import { AUTH_TOKEN_KEY } from './constants'
 import globalSelectors from './globalSelectors'
 import { getUserPreferences, getUser, logout } from './actionCreators'
 
-const getAuthToken = globalSelectors.getAuthToken
-const getUserPreferencesLanguage = globalSelectors.getUserPreferencesLanguage
+const { getAuthToken } = globalSelectors
+const { getUserPreferencesLanguage } = globalSelectors
 
 export default function userMiddleware() {
   return ({ dispatch, getState }) => next => action => {

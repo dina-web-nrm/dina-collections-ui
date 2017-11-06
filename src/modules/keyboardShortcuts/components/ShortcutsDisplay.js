@@ -27,7 +27,13 @@ const mapDispatchToProps = {
 
 const propTypes = {
   setShortcutsModalHidden: PropTypes.func.isRequired,
-  shortcutDescriptionList: PropTypes.array.isRequired,
+  shortcutDescriptionList: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      module: PropTypes.string,
+    })
+  ).isRequired,
   showShortcutInfo: PropTypes.bool.isRequired,
 }
 

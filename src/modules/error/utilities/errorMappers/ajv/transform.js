@@ -1,7 +1,7 @@
 import { JSON_SCHEMA_ERROR_CODES } from '../../../constants'
 
 export default function transform(error) {
-  const keyword = error.keyword
+  const { keyword } = error
   const errorCode = JSON_SCHEMA_ERROR_CODES[keyword]
   if (!keyword || !errorCode) {
     console.error(`Missing errorCode for keyword ${keyword}`) // eslint-disable-line no-console

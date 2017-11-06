@@ -44,7 +44,7 @@ export default function updateStoreEnhancer({
     log.info('Create store')
     const store = createStore(...params)
 
-    let dispatch = store.dispatch
+    let { dispatch } = store
     let chain = []
 
     const middlewareApi = {

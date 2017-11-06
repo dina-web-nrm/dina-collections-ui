@@ -38,7 +38,6 @@ const propTypes = {
 
 const defaultProps = {
   navItems: [],
-  testLink: '',
 }
 
 const NavigationSidebar = ({ isLoggedIn, logout, navItems }) => {

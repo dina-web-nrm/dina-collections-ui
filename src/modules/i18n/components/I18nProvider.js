@@ -19,8 +19,8 @@ const childContextTypes = {
 const propTypes = {
   children: PropTypes.node.isRequired,
   language: PropTypes.string.isRequired,
-  markdown: PropTypes.object.isRequired,
-  translations: PropTypes.object.isRequired,
+  markdown: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  translations: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
 }
 
 class I18nProvider extends Component {

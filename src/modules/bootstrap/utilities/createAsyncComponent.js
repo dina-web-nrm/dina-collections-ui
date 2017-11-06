@@ -15,7 +15,7 @@ export default function createAsyncComponent(loadModule) {
     componentDidMount() {
       loadModule().then(({ default: FetchedComponent, modules }) => {
         if (modules) {
-          const store = this.context.store
+          const { store } = this.context
           store.registerModules(modules)
         }
 
