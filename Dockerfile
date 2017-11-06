@@ -7,8 +7,6 @@ WORKDIR /src
 
 COPY . /src
 
-RUN npm install gulp -g
-
 RUN npm install
 
 CMD /bin/bash ./run.sh
