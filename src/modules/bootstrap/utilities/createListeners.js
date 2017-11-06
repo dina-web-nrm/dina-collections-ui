@@ -28,9 +28,9 @@ export default function createListeners({
   }
 
   removeModules.forEach(module => {
-    const name = module.name
+    const { name } = module
     if (newListnerMap[name]) {
-      const stop = newListnerMap[name].stop
+      const { stop } = newListnerMap[name]
       if (stop) {
         stop()
       }

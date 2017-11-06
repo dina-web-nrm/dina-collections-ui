@@ -45,7 +45,7 @@ export default function createAsyncView({
       this.mounting = true
       log.mount('Start')
       load().then(({ view, modules }) => {
-        const store = this.context.store
+        const { store } = this.context
         store.registerModules([view, ...modules])
         if (this.mounting) {
           this.setState({
@@ -61,7 +61,7 @@ export default function createAsyncView({
       this.mounting = false
       log.unmount('Start')
       load().then(({ view, modules }) => {
-        const store = this.context.store
+        const { store } = this.context
         store.unregisterModules([view, ...modules])
         log.unmount('Done')
       })

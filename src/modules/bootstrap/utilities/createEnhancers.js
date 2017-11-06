@@ -5,7 +5,7 @@ export default function createEnhancers(modules, config = {}) {
       if (!enhancerFactory) {
         return null
       }
-      const name = module.name
+      const { name } = module
       const moduleConfig = config[name]
       const moduleEnhancerConfig = moduleConfig && moduleConfig.enhancer
       return enhancerFactory(moduleEnhancerConfig)

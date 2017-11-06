@@ -40,8 +40,8 @@ const findShortcut = ({
   shortcutSpecifications,
   startKey,
 }) => {
-  const tagName = event.target.tagName
-  const key = event.key
+  const { tagName } = event.target
+  const { key } = event
   log.debug(`findShortcut - reveied event for key: ${key}`)
   if (!protectedTagMap[tagName] && (queue.length || key === startKey)) {
     log.debug(`findShortcut - Pushing key: ${key} to queue`)

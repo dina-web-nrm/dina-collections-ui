@@ -4,7 +4,7 @@ import { middleware as localStorageMiddleware } from 'redux-module-local-storage
 
 const getDevToolsExtensionEnhancer = () => {
   if (process.env.NODE_ENV === 'development') {
-    const devToolsExtension = window.devToolsExtension
+    const { devToolsExtension } = window
 
     if (typeof devToolsExtension === 'function') {
       return devToolsExtension

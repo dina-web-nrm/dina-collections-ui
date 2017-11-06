@@ -27,7 +27,6 @@ const propTypes = {
 
 const defaultProps = {
   color: '',
-  navItems: [],
   onChange: null,
 }
 

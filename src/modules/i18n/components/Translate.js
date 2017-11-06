@@ -9,7 +9,7 @@ const contextTypes = {
 }
 const propTypes = {
   capitalize: PropTypes.bool,
-  params: PropTypes.object,
+  params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   textKey: PropTypes.string,
   textKeys: PropTypes.arrayOf(PropTypes.string),
 }

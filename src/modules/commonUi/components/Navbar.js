@@ -42,7 +42,6 @@ const propTypes = {
 
 const defaultProps = {
   navItems: [],
-  testLink: '',
   userName: '',
 }
 

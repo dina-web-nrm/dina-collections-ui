@@ -4,7 +4,7 @@ export const createMiddlewares = (modules, config = {}) => {
     if (!middlewareFactory) {
       return middlewares
     }
-    const name = module.name
+    const { name } = module
     const moduleConfig = config[name]
     const moduleMiddlewareConfig = moduleConfig
 
@@ -29,7 +29,7 @@ export default function createMiddlewareMap({
   }
 
   removeModules.forEach(module => {
-    const name = module.name
+    const { name } = module
     if (newMiddlewareMap[name]) {
       delete newMiddlewareMap[name] // eslint-disable-line no-param-reassign
     }

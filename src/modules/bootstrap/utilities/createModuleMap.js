@@ -16,7 +16,7 @@ export default function createModuleMap({
     ...moduleMap,
   }
   newModules.forEach(module => {
-    const name = module.name
+    const { name } = module
 
     if (!availableModules[name] && !availableViews[name]) {
       throw new Error(`Module or view with name ${name} is unknown`)
@@ -28,7 +28,7 @@ export default function createModuleMap({
   })
 
   removeModules.forEach(module => {
-    const name = module.name
+    const { name } = module
     if (newModuleMap[name]) {
       delete newModuleMap[name] // eslint-disable-line no-param-reassign
     }
