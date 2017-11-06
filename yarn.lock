@@ -8665,9 +8665,9 @@ semantic-ui-react@^0.74.2:
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
-"semantic-ui@git+ssh://git@github.com:DINA-Web/dina-semantic-ui.git#anton/deactivate-install-hook":
+"semantic-ui@https://github.com/DINA-Web/dina-semantic-ui.git":
   version "2.2.13"
-  resolved "git+ssh://git@github.com:DINA-Web/dina-semantic-ui.git#037f424dcbd7cd8322c4da893c73f5abb7623066"
+  resolved "https://github.com/DINA-Web/dina-semantic-ui.git#716212de17c894778ab86c30f08dbcacee9fbd95"
   dependencies:
     better-console "*"
     del "^3.0.0"
