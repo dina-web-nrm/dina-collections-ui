@@ -1,5 +1,6 @@
 import About from './views/about/Async'
 import Home from './views/home/Async'
+import RegisterMammal from './views/registerMammal/Async'
 import Settings from './views/settings/Async'
 import Login from './views/login/Async'
 
@@ -10,6 +11,14 @@ export default [
     icon: 'home',
     name: 'home',
     path: '/',
+    requireLoggedInUser: true,
+  },
+  {
+    component: RegisterMammal,
+    exact: true,
+    icon: 'plus',
+    name: 'registerMammal',
+    path: '/registerMammal',
     requireLoggedInUser: true,
   },
   {
