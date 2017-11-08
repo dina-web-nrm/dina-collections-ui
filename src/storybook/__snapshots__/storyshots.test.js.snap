@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots modules/commonUi/Navbar Default state 1`] = `
+exports[`Storyshots coreModules/commonUi/Navbar Default state 1`] = `
 <div>
   <div
     className="ui large menu"
@@ -123,7 +123,7 @@ exports[`Storyshots modules/commonUi/Navbar Default state 1`] = `
 </div>
 `;
 
-exports[`Storyshots modules/i18n/LanguageSelect Default 1`] = `
+exports[`Storyshots coreModules/i18n/LanguageSelect Default 1`] = `
 <div>
   <div
     aria-busy={undefined}
@@ -197,7 +197,7 @@ exports[`Storyshots modules/i18n/LanguageSelect Default 1`] = `
 </div>
 `;
 
-exports[`Storyshots modules/i18n/Translate Default 1`] = `
+exports[`Storyshots coreModules/i18n/Translate Default 1`] = `
 <div>
   <span>
     lastname
@@ -205,7 +205,7 @@ exports[`Storyshots modules/i18n/Translate Default 1`] = `
 </div>
 `;
 
-exports[`Storyshots modules/i18n/Translate Interpolation 1`] = `
+exports[`Storyshots coreModules/i18n/Translate Interpolation 1`] = `
 <div>
   <span>
     hello Anton
@@ -213,7 +213,7 @@ exports[`Storyshots modules/i18n/Translate Interpolation 1`] = `
 </div>
 `;
 
-exports[`Storyshots modules/i18n/createModuleTranslate Default 1`] = `
+exports[`Storyshots coreModules/i18n/createModuleTranslate Default 1`] = `
 <div>
   <span>
     modules.commonUi.firstName
@@ -221,7 +221,7 @@ exports[`Storyshots modules/i18n/createModuleTranslate Default 1`] = `
 </div>
 `;
 
-exports[`Storyshots modules/user/LoginForm Default 1`] = `
+exports[`Storyshots coreModules/user/LoginForm Default 1`] = `
 <div>
   <form
     action={undefined}

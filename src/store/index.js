@@ -1,9 +1,10 @@
 import { createStore as reduxCreateStore, compose } from 'redux'
-import hotswapStoreEnhancer from 'modules/bootstrap/enhancer'
-import { bootstrapApplication } from 'modules/bootstrap/actionCreators'
+import hotswapStoreEnhancer from 'coreModules/bootstrap/enhancer'
+import { bootstrapApplication } from 'coreModules/bootstrap/actionCreators'
 import createLog from 'utilities/log'
-import { devToolsExtension } from '../modules/external'
-import { moduleOrder } from '../modules'
+import { devToolsExtension } from 'coreModules/external'
+import { moduleOrder as coreModules } from 'coreModules'
+import { moduleOrder as domainModules } from 'domainModules'
 
 const log = createLog('store')
 
@@ -19,7 +20,7 @@ export default function createStoreMain({
   const enhancers = [
     hotswapStoreEnhancer({
       config,
-      moduleOrder,
+      moduleOrder: [...coreModules, ...domainModules],
       viewOrder,
     }),
     devToolsExtension.enhancer && devToolsExtension.enhancer(), // dont do this in production

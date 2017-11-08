@@ -1,8 +1,8 @@
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
 import 'whatwg-fetch'
 import createStore from 'store/index'
-import { protectRoutes } from 'modules/user/utilities'
-import { I18nProvider } from 'modules/i18n/components'
+import { protectRoutes } from 'coreModules/user/utilities'
+import { I18nProvider } from 'coreModules/i18n/components'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
