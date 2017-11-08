@@ -10,7 +10,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import { Provider as ReduxProvider } from 'react-redux'
 import registerServiceWorker from 'registerServiceWorker'
 
-import { viewOrder } from './views'
+import { viewOrder } from './viewModules'
 import App from './App/Sync'
 import config from './config'
 import modules from './initialModules'

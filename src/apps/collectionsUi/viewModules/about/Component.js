@@ -1,5 +1,5 @@
 import React from 'react'
-import PageTemplate from 'modules/commonUi/components/PageTemplate'
+import PageTemplate from 'coreModules/commonUi/components/PageTemplate'
 
 export default () => (
   <PageTemplate>

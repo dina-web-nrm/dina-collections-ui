@@ -1,7 +1,7 @@
 import { Grid } from 'semantic-ui-react'
-import { RegisterMammalForm } from 'modules/collectionMammals/components'
-import { Translate } from 'modules/i18n/components'
-import PageTemplate from 'modules/commonUi/components/PageTemplate'
+import { RegisterMammalForm } from 'domainModules/collectionMammals/components'
+import { Translate } from 'coreModules/i18n/components'
+import PageTemplate from 'coreModules/commonUi/components/PageTemplate'
 import React from 'react'
 
 const RegisterMammal = () => (

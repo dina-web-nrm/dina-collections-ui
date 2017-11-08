@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Image } from 'semantic-ui-react'
-import { LoginForm } from 'modules/user/components'
-import PageTemplate from 'modules/commonUi/components/PageTemplate'
+import { LoginForm } from 'coreModules/user/components'
+import PageTemplate from 'coreModules/commonUi/components/PageTemplate'
 import logo from './logo.png'
 
 const Login = () => (

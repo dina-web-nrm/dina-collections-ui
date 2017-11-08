@@ -1,8 +1,8 @@
-import { createAsyncView } from 'modules/bootstrap/higherOrderComponents'
+import { createAsyncView } from 'coreModules/bootstrap/higherOrderComponents'
 
 export default createAsyncView({
   modules: () => {
-    return [import('modules/form')]
+    return [import('coreModules/form')]
   },
   name: 'login',
   view: () => {

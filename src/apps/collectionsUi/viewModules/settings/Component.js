@@ -2,10 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Checkbox, Segment, Icon, Table } from 'semantic-ui-react'
-import PageTemplate from 'modules/commonUi/components/PageTemplate'
-import { updateUserPreference } from 'modules/user/actionCreators'
-import globalSelectors from 'modules/user/globalSelectors'
-import { LanguageSelect, createModuleTranslate } from 'modules/i18n/components'
+import PageTemplate from 'coreModules/commonUi/components/PageTemplate'
+import { updateUserPreference } from 'coreModules/user/actionCreators'
+import globalSelectors from 'coreModules/user/globalSelectors'
+import {
+  LanguageSelect,
+  createModuleTranslate,
+} from 'coreModules/i18n/components'
 
 const ModuleTranslate = createModuleTranslate('settings')
 

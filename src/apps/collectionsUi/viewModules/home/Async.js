@@ -1,4 +1,4 @@
-import { createAsyncView } from 'modules/bootstrap/higherOrderComponents'
+import { createAsyncView } from 'coreModules/bootstrap/higherOrderComponents'
 
 export default createAsyncView({
   name: 'home',

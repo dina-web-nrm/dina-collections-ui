@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Markdown, Translate } from 'modules/i18n/components'
-import PageTemplate from 'modules/commonUi/components/PageTemplate'
+import { Markdown, Translate } from 'coreModules/i18n/components'
+import PageTemplate from 'coreModules/commonUi/components/PageTemplate'
 
 const Home = () => (
   <PageTemplate>
