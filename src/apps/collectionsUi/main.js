@@ -10,12 +10,11 @@ import { ConnectedRouter } from 'react-router-redux'
 import { Provider as ReduxProvider } from 'react-redux'
 import registerServiceWorker from 'registerServiceWorker'
 
+import { viewOrder } from './views'
 import App from './App/Sync'
-import routeSpecifications from './routeSpecifications'
 import config from './config'
 import modules from './initialModules'
-
-const viewOrder = ['app', 'about', 'home', 'login', 'settings']
+import routeSpecifications from './routeSpecifications'
 
 const store = createStore({ config, modules, viewOrder })
 
