@@ -61,6 +61,7 @@ class RawLoginForm extends Component {
             autoComplete="off"
             component={Input}
             icon="lock"
+            module="user"
             name="password"
             placeholder="Password"
             type="password"
