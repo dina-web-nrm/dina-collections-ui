@@ -1,5 +1,4 @@
 import createConfigValidation from './createConfigValidation'
-import createFilteredConfig from './createFilteredConfig'
 
 export default function createModuleMap({
   availableModules,
@@ -10,7 +9,7 @@ export default function createModuleMap({
   removeModules = [],
 }) {
   const validateConfig = createConfigValidation(newModules)
-  validateConfig(createFilteredConfig(newModules, config))
+  validateConfig(config)
 
   const newModuleMap = {
     ...moduleMap,
