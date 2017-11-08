@@ -6,7 +6,6 @@ import createListeners from './createListeners'
 
 export default function updateModuleState({
   availableModules,
-  availableViews = {},
   config,
   listenerMap = {},
   middlewareApi,
@@ -15,11 +14,9 @@ export default function updateModuleState({
   moduleOrder = [],
   newModules = [],
   removeModules = [],
-  viewOrder = [],
 }) {
   const newModuleMap = createModuleMap({
     availableModules,
-    availableViews,
     config,
     moduleMap,
     newModules,
@@ -36,7 +33,6 @@ export default function updateModuleState({
   const newMiddlewareArray = createMiddlewareArray({
     middlewareMap: newMiddlewareMap,
     moduleOrder,
-    viewOrder,
   })
 
   const newReducer = createRootReducer({

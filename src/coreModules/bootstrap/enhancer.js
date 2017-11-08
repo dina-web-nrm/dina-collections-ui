@@ -21,22 +21,11 @@ export const dep = new Dependor(
   'modules:bootstrap:enhancer'
 )
 
-export default function updateStoreEnhancer({
-  config,
-  moduleOrder = [],
-  viewOrder = [],
-}) {
+export default function updateStoreEnhancer({ config, moduleOrder = [] }) {
   const availableModules = moduleOrder.reduce((obj, moduleName) => {
     return {
       ...obj,
       [moduleName]: true,
-    }
-  }, {})
-
-  const availableViews = viewOrder.reduce((obj, viewName) => {
-    return {
-      ...obj,
-      [viewName]: true,
     }
   }, {})
 
@@ -71,12 +60,10 @@ export default function updateStoreEnhancer({
       moduleState = dep.updateModuleState({
         ...moduleState,
         availableModules,
-        availableViews,
         config,
         middlewareApi,
         moduleOrder,
         newModules: modules,
-        viewOrder,
       })
       log.debug('Module state updated')
       const { middlewareArray, reducer } = moduleState

@@ -1,19 +1,7 @@
-export default function createMiddlewareArray({
-  middlewareMap,
-  moduleOrder,
-  viewOrder,
-}) {
-  const moduleMiddlewares = moduleOrder
+export default function createMiddlewareArray({ middlewareMap, moduleOrder }) {
+  return moduleOrder
     .map(moduleName => {
       return middlewareMap[moduleName]
     })
     .filter(middleware => !!middleware)
-
-  const viewMiddlewares = viewOrder
-    .map(moduleName => {
-      return middlewareMap[moduleName]
-    })
-    .filter(middleware => !!middleware)
-
-  return [...moduleMiddlewares, ...viewMiddlewares]
 }

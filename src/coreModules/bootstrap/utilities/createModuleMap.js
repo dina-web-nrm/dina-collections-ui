@@ -2,7 +2,6 @@ import createConfigValidation from './createConfigValidation'
 
 export default function createModuleMap({
   availableModules,
-  availableViews,
   config,
   moduleMap = {},
   newModules = [],
@@ -17,8 +16,8 @@ export default function createModuleMap({
   newModules.forEach(module => {
     const { name } = module
 
-    if (!availableModules[name] && !availableViews[name]) {
-      throw new Error(`Module or view with name ${name} is unknown`)
+    if (!availableModules[name]) {
+      throw new Error(`Module with name ${name} is unknown`)
     }
 
     if (!newModuleMap[name]) {
