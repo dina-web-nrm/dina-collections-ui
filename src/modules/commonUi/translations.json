@@ -14,6 +14,10 @@
       "en": "about",
       "sv": "om"
     },
+    "registerMammal": {
+      "en": "Register mammal",
+      "sv": "Registrera däggdjur"
+    },
     "settings": {
       "en": "settings",
       "sv": "inställningar"
