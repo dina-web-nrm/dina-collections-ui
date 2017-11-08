@@ -8,7 +8,7 @@ const propTypes = {
 
 const PageTemplate = ({ children }) => {
   return (
-    <Container style={{ height: '100vh', marginTop: 30, minHeight: '400' }}>
+    <Container style={{ marginBottom: 30, marginTop: 30, minHeight: '100vh' }}>
       {children}
     </Container>
   )

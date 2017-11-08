@@ -1,0 +1,76 @@
+{
+  "cancel": {
+    "en": "Cancel",
+    "sv": "Avbryt"
+  },
+  "formContainsErrors": {
+    "en": "Form contains errors",
+    "sv": "Formuläret innehåller fel"
+  },
+  "registerMammalForm": {
+    "catalogNumber": {
+      "en": "Catalog number",
+      "sv": "Katalognummer"
+    },
+    "collectingDate": {
+      "en": "Collecting date",
+      "sv": "Insamlingsdatum"
+    },
+    "collectingInformation": {
+      "en": "Collecting information",
+      "sv": "Insamlingsinformation"
+    },
+    "collectors": {
+      "en": "Collector(s)",
+      "sv": "Insamlare"
+    },
+    "description": {
+      "en": "Description",
+      "sv": "Beskrivning"
+    },
+    "determination": {
+      "en": "Determination",
+      "sv": "Bestämning"
+    },
+    "features": {
+      "en": "Features",
+      "sv": "Egenskaper"
+    },
+    "locality": {
+      "en": "Locality",
+      "sv": "Lokalitet"
+    },
+    "normalStorageLocation": {
+      "en": "Normal storage location",
+      "sv": "Reguljär lagringsplats"
+    },
+    "physicalObjects": {
+      "en": "Physical objects",
+      "sv": "Fysiska objekt"
+    },
+    "sex": {
+      "en": "Sex",
+      "sv": "Kön"
+    },
+    "sixOrEightDigits": {
+      "en": "6 or 8 digits",
+      "sv": "6 eller 8 siffror"
+    },
+    "taxonNameEtc": {
+      "en": "Taxon name, determiner, determination date, etc.",
+      "sv": "Taxonnamn, bestämmare, bestämningsdatum, etc."
+    }
+  },
+  "save": {
+    "en": "Save",
+    "sv": "Spara"
+  },
+  "saved": {
+    "en": "Saved",
+    "sv": "Sparat"
+  },
+  "submitFailed": {
+    "en": "Could not save",
+    "sv": "Kunde inte spara"
+  }
+}

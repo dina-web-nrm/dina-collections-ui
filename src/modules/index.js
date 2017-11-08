@@ -12,4 +12,5 @@ export const moduleOrder = [
   'size',
   'user',
   'keyboardShortcuts',
+  'collectionMammals',
 ]

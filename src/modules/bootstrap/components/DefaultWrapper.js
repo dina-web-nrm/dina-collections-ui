@@ -5,7 +5,7 @@ const propTypes = {
   children: PropTypes.node.isRequired,
 }
 const DefaultWrapper = ({ children }) => {
-  return <div style={{ height: '100vh' }}>{children}</div>
+  return <div style={{ minHeight: '100vh' }}>{children}</div>
 }
 
 DefaultWrapper.propTypes = propTypes

@@ -302,7 +302,7 @@ exports[`Storyshots modules/user/LoginForm Default 1`] = `
         type="submit"
       >
         <span>
-          login
+          Log in
         </span>
       </button>
       

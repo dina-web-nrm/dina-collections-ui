@@ -20,7 +20,7 @@ export default function reducer(state = initState, action) {
 
         return {
           ...state,
-          endpoints: apiConfig.endpoints,
+          endpoints: apiConfig.endpointKeyPathnameMap,
         }
       }
       return state

@@ -57,12 +57,6 @@ export const validateEndpoints = (config, endpoints) => {
       throw new Error(`Api not configured for ${endpointKey}`)
     }
   })
-
-  Object.keys(endpointKeyPathnameMap).forEach(endpointKey => {
-    if (!(endpoints && endpoints[endpointKey])) {
-      throw new Error(`Api got unknown endpoint configured for ${endpointKey}`)
-    }
-  })
 }
 
 export default function createConfigValidation(modules) {
