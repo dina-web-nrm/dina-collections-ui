@@ -1,6 +1,5 @@
 import { createStore as reduxCreateStore, compose } from 'redux'
 import hotswapStoreEnhancer from 'coreModules/bootstrap/enhancer'
-import { bootstrapApplication } from 'coreModules/bootstrap/actionCreators'
 import createLog from 'utilities/log'
 import { devToolsExtension } from 'coreModules/external'
 import { moduleOrder as coreModuleOrder } from 'coreModules'
@@ -9,7 +8,6 @@ import { moduleOrder as domainModuleOrder } from 'domainModules'
 const log = createLog('store')
 
 export default function createStoreMain({
-  bootstrap = true,
   config,
   initialState = {},
   modules,
@@ -33,9 +31,6 @@ export default function createStoreMain({
   log.info('Register modules start')
   store.registerModules(modules)
   log.info('Register modules done')
-  if (bootstrap) {
-    store.dispatch(bootstrapApplication(config))
-  }
 
   return store
 }
