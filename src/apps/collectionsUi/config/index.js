@@ -8,6 +8,7 @@ const config = {
     endpointKeyPathnameMap: {
       GET_USER: '/auth/realms/dina/protocol/openid-connect/userinfo',
       LOG_IN: '/auth/realms/dina/protocol/openid-connect/token',
+      REGISTER_MAMMAL: 'TBD',
     },
   },
   devToolsExtension:
