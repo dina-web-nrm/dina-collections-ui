@@ -1,7 +1,7 @@
 import Dependor from 'utilities/Dependor'
 import { push } from 'react-router-redux'
 
-import { KEYBOARD_SHORTCUTS_TRIGGER } from 'modules/keyboardShortcuts/actionTypes'
+import { KEYBOARD_SHORTCUTS_TRIGGER } from 'coreModules/keyboardShortcuts/actionTypes'
 import {
   navigateToAbout,
   navigateToHome,

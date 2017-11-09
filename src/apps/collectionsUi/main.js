@@ -1,8 +1,8 @@
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
 import 'whatwg-fetch'
 import createStore from 'store/index'
-import { protectRoutes } from 'modules/user/utilities'
-import { I18nProvider } from 'modules/i18n/components'
+import { protectRoutes } from 'coreModules/user/utilities'
+import { I18nProvider } from 'coreModules/i18n/components'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -10,7 +10,7 @@ import { ConnectedRouter } from 'react-router-redux'
 import { Provider as ReduxProvider } from 'react-redux'
 import registerServiceWorker from 'registerServiceWorker'
 
-import { viewOrder } from './views'
+import { viewOrder } from './viewModules'
 import App from './App/Sync'
 import config from './config'
 import modules from './initialModules'

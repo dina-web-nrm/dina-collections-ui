@@ -5,9 +5,9 @@ import {
   NavigationSidebar,
   Footer,
   ViewWrap,
-} from 'modules/commonUi/components'
+} from 'coreModules/commonUi/components'
 
-import { ShortcutsDisplay } from 'modules/keyboardShortcuts/components'
+import { ShortcutsDisplay } from 'coreModules/keyboardShortcuts/components'
 
 const propTypes = {
   routes: PropTypes.arrayOf(PropTypes.object).isRequired,

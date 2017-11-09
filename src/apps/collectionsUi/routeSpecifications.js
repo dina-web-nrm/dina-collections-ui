@@ -1,8 +1,8 @@
-import About from './views/about/Async'
-import Home from './views/home/Async'
-import RegisterMammal from './views/registerMammal/Async'
-import Settings from './views/settings/Async'
-import Login from './views/login/Async'
+import About from './viewModules/about/Async'
+import Home from './viewModules/home/Async'
+import RegisterMammal from './viewModules/registerMammal/Async'
+import Settings from './viewModules/settings/Async'
+import Login from './viewModules/login/Async'
 
 export default [
   {

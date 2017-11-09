@@ -1,12 +1,12 @@
-import * as api from 'modules/api'
-import * as bootstrap from 'modules/bootstrap'
-import * as commonUi from 'modules/commonUi'
-import * as error from 'modules/error'
-import * as external from 'modules/external'
-import * as form from 'modules/form'
-import * as i18n from 'modules/i18n'
-import * as size from 'modules/size'
-import * as user from 'modules/user'
+import * as api from 'coreModules/api'
+import * as bootstrap from 'coreModules/bootstrap'
+import * as commonUi from 'coreModules/commonUi'
+import * as error from 'coreModules/error'
+import * as external from 'coreModules/external'
+import * as form from 'coreModules/form'
+import * as i18n from 'coreModules/i18n'
+import * as size from 'coreModules/size'
+import * as user from 'coreModules/user'
 
 const externalArray = Object.keys(external).map(key => {
   return external[key]
