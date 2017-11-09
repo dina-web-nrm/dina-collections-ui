@@ -10,13 +10,15 @@ before_install:
 cache: yarn
 
 script:
-  - export MERGE_PR_BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo ""; fi)
+  - export PUSH_BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo ""; fi)
+  - echo "PUSH_BRANCH=$PUSH_BRANCH, TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST, TRAVIS_BRANCH=$TRAVIS_BRANCH"
   - yarn build
   - yarn test
 
 after_success:
   - export PUSH_BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo ""; fi)
-  - if [ "$PUSH_BRANCH" == “master” ]; then
+  - echo "PUSH_BRANCH=$PUSH_BRANCH, TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST, TRAVIS_BRANCH=$TRAVIS_BRANCH"
+  - if [ "$PUSH_BRANCH" == "master" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker build -t dina-collections-ui .;
     docker tag dina-collections-ui dina/dina-collections-ui;
