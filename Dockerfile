@@ -1,12 +1,6 @@
-FROM node:6.3.1
+FROM nginx
 
-RUN apt-get update && \
-    apt-get install -y nginx
+# Add produciton build of Collection manager to public folder.
+ADD ./build/ /usr/share/nginx/html
 
-WORKDIR /src
-
-COPY . /src
-
-RUN npm install
-
-CMD /bin/bash ./run.sh
+COPY ./nginx.conf /etc/nginx/conf.d/
