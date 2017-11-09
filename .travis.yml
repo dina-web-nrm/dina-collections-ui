@@ -16,7 +16,7 @@ script:
 
 after_success:
   - export PUSH_BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo ""; fi)
-  - if [ $PUSH_BRANCH == “master” ]; then
+  - if [ "$PUSH_BRANCH" == “master” ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker build -t dina-collections-ui .;
     docker tag dina-collections-ui dina/dina-collections-ui;
