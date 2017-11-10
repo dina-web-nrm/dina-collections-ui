@@ -10,8 +10,7 @@ before_install:
 cache: yarn
 
 script:
-  - export PUSH_BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo ""; fi)
-  - echo "PUSH_BRANCH=$PUSH_BRANCH, TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST, TRAVIS_BRANCH=$TRAVIS_BRANCH"
+  - REACT_APP_ENABLE_ENDPOINT_MOCKS=true
   - yarn build
   - yarn test
 
@@ -19,6 +18,17 @@ after_success:
   - export PUSH_BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo ""; fi)
   - echo "PUSH_BRANCH=$PUSH_BRANCH, TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST, TRAVIS_BRANCH=$TRAVIS_BRANCH"
   - if [ "$PUSH_BRANCH" == "master" ]; then
+    echo "Start mock docker build";
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker build -t dina-collections-ui-mock .;
+    docker tag dina-collections-ui-mock dina/dina-collections-ui-mock;
+    docker push dina/dina-collections-ui-mock;
+    fi
+  - if [ "$PUSH_BRANCH" == "master" ]; then
+    echo "Start build";
+    REACT_APP_ENABLE_ENDPOINT_MOCKS=false;
+    yarn build;
+    echo "Start docker build";
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker build -t dina-collections-ui .;
     docker tag dina-collections-ui dina/dina-collections-ui;
