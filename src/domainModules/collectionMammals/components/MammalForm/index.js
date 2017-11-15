@@ -9,9 +9,9 @@ import createLog from 'utilities/log'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Input } from 'coreModules/form/components'
 import { registerMammal } from '../../actionCreators'
-import { registerMammalRequest } from '../../schemas'
+import { mammal } from '../../schemas'
 
-const log = createLog('modules:collectionMammals:RegisterMammal')
+const log = createLog('modules:collectionMammals:MammalForm')
 const ModuleTranslate = createModuleTranslate('collectionMammals')
 
 const mapDispatchToProps = {
@@ -34,7 +34,7 @@ const defaultProps = {
   error: '',
 }
 
-class RawRegisterMammal extends Component {
+class RawMammalForm extends Component {
   constructor(props) {
     super(props)
     this.handleRegisterMammal = this.handleRegisterMammal.bind(this)
@@ -220,12 +220,12 @@ class RawRegisterMammal extends Component {
   }
 }
 
-RawRegisterMammal.propTypes = propTypes
-RawRegisterMammal.defaultProps = defaultProps
+RawMammalForm.propTypes = propTypes
+RawMammalForm.defaultProps = defaultProps
 
-export const RegisterMammal = reduxForm({
-  form: 'registerMammal',
-  validate: createFormSchemaValidator(registerMammalRequest),
-})(RawRegisterMammal)
+export const MammalForm = reduxForm({
+  form: 'mammalForm',
+  validate: createFormSchemaValidator(mammal),
+})(RawMammalForm)
 
-export default compose(connect(null, mapDispatchToProps))(RegisterMammal)
+export default compose(connect(null, mapDispatchToProps))(MammalForm)
