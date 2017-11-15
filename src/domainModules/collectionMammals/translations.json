@@ -7,59 +7,53 @@
     "en": "Form contains errors",
     "sv": "Formuläret innehåller fel"
   },
-  "registerMammalForm": {
-    "catalogNumber": {
-      "en": "Catalog number",
-      "sv": "Katalognummer"
-    },
-    "collectingDate": {
-      "en": "Collecting date",
-      "sv": "Insamlingsdatum"
-    },
-    "collectingInformation": {
-      "en": "Collecting information",
-      "sv": "Insamlingsinformation"
-    },
-    "collectors": {
-      "en": "Collector(s)",
-      "sv": "Insamlare"
-    },
-    "description": {
-      "en": "Description",
-      "sv": "Beskrivning"
-    },
-    "determination": {
-      "en": "Determination",
-      "sv": "Bestämning"
-    },
-    "features": {
-      "en": "Features",
-      "sv": "Egenskaper"
-    },
-    "locality": {
-      "en": "Locality",
-      "sv": "Lokalitet"
-    },
-    "normalStorageLocation": {
-      "en": "Normal storage location",
-      "sv": "Reguljär lagringsplats"
-    },
-    "physicalObjects": {
-      "en": "Physical objects",
-      "sv": "Fysiska objekt"
-    },
-    "sex": {
-      "en": "Sex",
-      "sv": "Kön"
-    },
-    "sixOrEightDigits": {
-      "en": "6 or 8 digits",
-      "sv": "6 eller 8 siffror"
-    },
-    "taxonNameEtc": {
-      "en": "Taxon name, determiner, determination date, etc.",
-      "sv": "Taxonnamn, bestämmare, bestämningsdatum, etc."
-    }
+  "catalogNumber": {
+    "en": "Catalog number",
+    "sv": "Katalognummer"
+  },
+  "clearSearchParameters": {
+    "en": "Clear search parameters",
+    "sv": "Rensa sökparametrar"
+  },
+  "collectingDate": {
+    "en": "Collecting date",
+    "sv": "Insamlingsdatum"
+  },
+  "collectingInformation": {
+    "en": "Collecting information",
+    "sv": "Insamlingsinformation"
+  },
+  "collectors": {
+    "en": "Collector(s)",
+    "sv": "Insamlare"
+  },
+  "description": {
+    "en": "Description",
+    "sv": "Beskrivning"
+  },
+  "determination": {
+    "en": "Determination",
+    "sv": "Bestämning"
+  },
+  "features": {
+    "en": "Features",
+    "sv": "Egenskaper"
+  },
+  "locality": {
+    "en": "Locality",
+    "sv": "Lokalitet"
+  },
+  "noRecordsFound": {
+    "en": "No matching records found",
+    "sv": "Inga matchande utdrag funna"
+  },
+  "normalStorageLocation": {
+    "en": "Normal storage location",
+    "sv": "Reguljär lagringsplats"
+  },
+  "physicalObjects": {
+    "en": "Physical objects",
+    "sv": "Fysiska objekt"
   },
   "save": {
     "en": "Save",
@@ -69,8 +63,28 @@
     "en": "Saved",
     "sv": "Sparat"
   },
+  "search": {
+    "en": "Search",
+    "sv": "Sök"
+  },
+  "sex": {
+    "en": "Sex",
+    "sv": "Kön"
+  },
+  "sixOrEightDigits": {
+    "en": "6 or 8 digits",
+    "sv": "6 eller 8 siffror"
+  },
   "submitFailed": {
     "en": "Could not save",
     "sv": "Kunde inte spara"
+  },
+  "taxonName": {
+    "en": "Taxon name",
+    "sv": "Taxonnamn"
+  },
+  "taxonNameEtc": {
+    "en": "Taxon name, determiner, determination date, etc.",
+    "sv": "Taxonnamn, bestämmare, bestämningsdatum, etc."
   }
 }
