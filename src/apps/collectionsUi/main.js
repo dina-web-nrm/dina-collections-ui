@@ -33,4 +33,6 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
-registerServiceWorker()
+if (process.env.REACT_APP_ENABLE_SERVICE_WORKER === 'true') {
+  registerServiceWorker()
+}
