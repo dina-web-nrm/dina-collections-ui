@@ -32,7 +32,7 @@ export default function requireLoggedOutUser(ComposedComponent) {
     }
     checkAuth(loggedIn, userLoading) {
       if (!userLoading && loggedIn) {
-        this.props.push('/')
+        this.props.push('/app')
       }
     }
 
