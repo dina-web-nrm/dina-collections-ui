@@ -1,4 +1,4 @@
-import About from './viewModules/about/Async'
+import EditMammal from './viewModules/editMammal/Async'
 import Home from './viewModules/home/Async'
 import LookupMammals from './viewModules/lookupMammals/Async'
 import RegisterMammal from './viewModules/registerMammal/Async'
@@ -19,15 +19,23 @@ export default [
     exact: true,
     icon: 'plus',
     name: 'registerMammal',
-    path: '/app/registerMammal',
+    path: '/app/mammals/register',
     requireLoggedInUser: true,
   },
   {
-    component: About,
+    component: EditMammal,
+    exact: false,
+    icon: 'edit',
+    name: 'editMammal',
+    path: '/app/mammals/:id/edit',
+    requireLoggedInUser: true,
+  },
+  {
+    component: LookupMammals,
     exact: true,
-    icon: 'theme',
-    name: 'about',
-    path: '/app/about-us',
+    icon: 'search',
+    name: 'lookupMammals',
+    path: '/app/mammals/lookup',
     requireLoggedInUser: true,
   },
   {

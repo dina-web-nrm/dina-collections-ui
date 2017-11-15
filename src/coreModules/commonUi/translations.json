@@ -14,6 +14,14 @@
       "en": "about",
       "sv": "om"
     },
+    "editMammal": {
+      "en": "Edit mammal",
+      "sv": "Redigera däggdjur"
+    },
+    "lookupMammals": {
+      "en": "Lookup mammals",
+      "sv": "Sök däggdjur"
+    },
     "registerMammal": {
       "en": "Register mammal",
       "sv": "Registrera däggdjur"
