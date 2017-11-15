@@ -10,8 +10,7 @@ before_install:
 cache: yarn
 
 script:
-  - REACT_APP_ENABLE_ENDPOINT_MOCKS=true
-  - yarn build
+  - yarn build:mock
   - yarn test
 
 after_success:
@@ -26,7 +25,6 @@ after_success:
     fi
   - if [ "$PUSH_BRANCH" == "master" ]; then
     echo "Start build";
-    REACT_APP_ENABLE_ENDPOINT_MOCKS=false;
     yarn build;
     echo "Start docker build";
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
