@@ -7,7 +7,7 @@ import React from 'react'
 const RegisterMammal = () => (
   <PageTemplate>
     <h1>
-      <Translate textKey="modules.registerMammal.registerMammal" />
+      <Translate textKey="modules.editMammal.editMammal" />
     </h1>
     <Grid textAlign="left" verticalAlign="middle">
       <Grid.Column>

@@ -9,8 +9,33 @@ export const mammal = {
     locality: { type: 'string' },
     normalStorageLocation: { type: 'string' },
     sex: { type: 'string' },
+    taxonName: { type: 'string' },
   },
   required: [],
+}
+
+export const lookupMammalsRequest = {
+  additionalProperties: false,
+  properties: {},
+  required: [],
+  type: 'object',
+}
+
+export const lookupMammalsResponse = {
+  additionalProperties: false,
+  properties: {
+    error: { type: 'object' },
+    result: {
+      items: [
+        {
+          ...mammal,
+        },
+      ],
+      type: 'array',
+      uniqueItems: true,
+    },
+  },
+  required: ['result'],
 }
 
 export const registerMammalRequest = {

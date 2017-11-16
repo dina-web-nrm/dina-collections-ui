@@ -1,3 +1,11 @@
+import clearSearchParameters from './clearSearchParameters'
+import lookupMammals from './lookupMammals'
 import registerMammal from './registerMammal'
+import updateSearchParameter from './updateSearchParameter'
 
-export { registerMammal }
+export {
+  clearSearchParameters,
+  lookupMammals,
+  registerMammal,
+  updateSearchParameter,
+}

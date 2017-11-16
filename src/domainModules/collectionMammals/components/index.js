@@ -1,3 +1,4 @@
-import RegisterMammalForm from './RegisterMammalForm'
+import MammalForm from './MammalForm'
+import LookupMammals from './LookupMammals'
 
-export { RegisterMammalForm }
+export { LookupMammals, MammalForm }

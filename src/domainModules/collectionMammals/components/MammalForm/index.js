@@ -8,10 +8,10 @@ import { createFormSchemaValidator } from 'coreModules/error/utilities'
 import createLog from 'utilities/log'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Input } from 'coreModules/form/components'
-import { registerMammal } from '../actionCreators'
-import { registerMammalRequest } from '../schemas'
+import { registerMammal } from '../../actionCreators'
+import { mammal } from '../../schemas'
 
-const log = createLog('modules:collectionMammals:RegisterMammal')
+const log = createLog('modules:collectionMammals:MammalForm')
 const ModuleTranslate = createModuleTranslate('collectionMammals')
 
 const mapDispatchToProps = {
@@ -34,7 +34,7 @@ const defaultProps = {
   error: '',
 }
 
-class RawRegisterMammal extends Component {
+class RawMammalForm extends Component {
   constructor(props) {
     super(props)
     this.handleRegisterMammal = this.handleRegisterMammal.bind(this)
@@ -73,12 +73,8 @@ class RawRegisterMammal extends Component {
               <Field
                 autoComplete="off"
                 component={Input}
-                helpText={
-                  <ModuleTranslate textKey="registerMammalForm.sixOrEightDigits" />
-                }
-                label={
-                  <ModuleTranslate textKey="registerMammalForm.catalogNumber" />
-                }
+                helpText={<ModuleTranslate textKey="sixOrEightDigits" />}
+                label={<ModuleTranslate textKey="catalogNumber" />}
                 module="collectionMammals"
                 name="catalogNumber"
                 required
@@ -89,14 +85,12 @@ class RawRegisterMammal extends Component {
         </Segment>
         <Segment>
           <Header size="medium">
-            <ModuleTranslate textKey="registerMammalForm.determination" />
+            <ModuleTranslate textKey="determination" />
           </Header>
           <Field
             autoComplete="off"
             component={Input}
-            label={
-              <ModuleTranslate textKey="registerMammalForm.taxonNameEtc" />
-            }
+            label={<ModuleTranslate textKey="taxonNameEtc" />}
             module="collectionMammals"
             name="determination"
             type="text"
@@ -104,16 +98,14 @@ class RawRegisterMammal extends Component {
         </Segment>
         <Segment>
           <Header size="medium">
-            <ModuleTranslate textKey="registerMammalForm.collectingInformation" />
+            <ModuleTranslate textKey="collectingInformation" />
           </Header>
           <Grid textAlign="left" verticalAlign="middle">
             <Grid.Column computer={8} mobile={16}>
               <Field
                 autoComplete="off"
                 component={Input}
-                label={
-                  <ModuleTranslate textKey="registerMammalForm.locality" />
-                }
+                label={<ModuleTranslate textKey="locality" />}
                 module="collectionMammals"
                 name="locality"
                 type="text"
@@ -123,9 +115,7 @@ class RawRegisterMammal extends Component {
               <Field
                 autoComplete="off"
                 component={Input}
-                label={
-                  <ModuleTranslate textKey="registerMammalForm.collectingDate" />
-                }
+                label={<ModuleTranslate textKey="collectingDate" />}
                 module="collectionMammals"
                 name="collectingDate"
                 type="text"
@@ -135,9 +125,7 @@ class RawRegisterMammal extends Component {
               <Field
                 autoComplete="off"
                 component={Input}
-                label={
-                  <ModuleTranslate textKey="registerMammalForm.collectors" />
-                }
+                label={<ModuleTranslate textKey="collectors" />}
                 module="collectionMammals"
                 name="collectors"
                 type="text"
@@ -147,14 +135,14 @@ class RawRegisterMammal extends Component {
         </Segment>
         <Segment>
           <Header size="medium">
-            <ModuleTranslate textKey="registerMammalForm.features" />
+            <ModuleTranslate textKey="features" />
           </Header>
           <Grid textAlign="left" verticalAlign="middle">
             <Grid.Column computer={8} mobile={16}>
               <Field
                 autoComplete="off"
                 component={Input}
-                label={<ModuleTranslate textKey="registerMammalForm.sex" />}
+                label={<ModuleTranslate textKey="sex" />}
                 module="collectionMammals"
                 name="sex"
                 type="text"
@@ -164,16 +152,14 @@ class RawRegisterMammal extends Component {
         </Segment>
         <Segment>
           <Header size="medium">
-            <ModuleTranslate textKey="registerMammalForm.physicalObjects" />
+            <ModuleTranslate textKey="physicalObjects" />
           </Header>
           <Grid textAlign="left" verticalAlign="middle">
             <Grid.Column computer={8} mobile={16}>
               <Field
                 autoComplete="off"
                 component={Input}
-                label={
-                  <ModuleTranslate textKey="registerMammalForm.description" />
-                }
+                label={<ModuleTranslate textKey="description" />}
                 module="collectionMammals"
                 name="description"
                 type="text"
@@ -183,9 +169,7 @@ class RawRegisterMammal extends Component {
               <Field
                 autoComplete="off"
                 component={Input}
-                label={
-                  <ModuleTranslate textKey="registerMammalForm.normalStorageLocation" />
-                }
+                label={<ModuleTranslate textKey="normalStorageLocation" />}
                 module="collectionMammals"
                 name="normalStorageLocation"
                 type="text"
@@ -236,12 +220,12 @@ class RawRegisterMammal extends Component {
   }
 }
 
-RawRegisterMammal.propTypes = propTypes
-RawRegisterMammal.defaultProps = defaultProps
+RawMammalForm.propTypes = propTypes
+RawMammalForm.defaultProps = defaultProps
 
-export const RegisterMammal = reduxForm({
-  form: 'registerMammal',
-  validate: createFormSchemaValidator(registerMammalRequest),
-})(RawRegisterMammal)
+export const MammalForm = reduxForm({
+  form: 'mammalForm',
+  validate: createFormSchemaValidator(mammal),
+})(RawMammalForm)
 
-export default compose(connect(null, mapDispatchToProps))(RegisterMammal)
+export default compose(connect(null, mapDispatchToProps))(MammalForm)

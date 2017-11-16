@@ -1,7 +1,8 @@
 export const viewOrder = [
   'app',
-  'about',
+  'editMammal',
   'home',
+  'lookupMammals',
   'registerMammal',
   'login',
   'settings',
