@@ -2,7 +2,7 @@
 const base = require('./base.json')
 const info = require('./info.json')
 const tags = require('./tags.json')
-const paths = require('./paths.json')
+const paths = require('./paths/index.json')
 const definitions = require('./definitions/index.json')
 const securityDefinitions = require('./securityDefinitions.json')
 

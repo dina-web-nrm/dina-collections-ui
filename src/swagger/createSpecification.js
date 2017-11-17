@@ -24,7 +24,56 @@ function compileDefinitions() {
   )
 }
 
+function compileParameters() {
+  const parametersPath = path.join(__dirname, 'specification', 'parameters')
+  const files = fs.readdirSync(parametersPath)
+  const result = files.reduce((parameters, fileName) => {
+    if (fileName === 'index.json') {
+      return parameters
+    }
+
+    const parameter = require(path.join(parametersPath, fileName))
+    const name = fileName.replace('.json', '')
+    parameters[name] = parameter
+    return parameters
+  }, {})
+
+  fs.writeFileSync(
+    path.join(parametersPath, 'index.json'),
+    JSON.stringify(result),
+    null,
+    2
+  )
+}
+
+function compilePaths() {
+  const pathsPath = path.join(__dirname, 'specification', 'paths')
+  const files = fs.readdirSync(pathsPath)
+  const result = files.reduce((paths, fileName) => {
+    if (fileName === 'index.json') {
+      return paths
+    }
+
+    const parameter = require(path.join(pathsPath, fileName))
+    const name = fileName
+      .replace('.json', '')
+      .split(':')
+      .join('/')
+    paths[`/${name}`] = parameter
+    return paths
+  }, {})
+
+  fs.writeFileSync(
+    path.join(pathsPath, 'index.json'),
+    JSON.stringify(result),
+    null,
+    2
+  )
+}
+
 compileDefinitions()
+compileParameters()
+compilePaths()
 const specification = buildSpecification()
 
 fs.writeFileSync(
