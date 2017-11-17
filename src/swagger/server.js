@@ -5,7 +5,7 @@ const swaggerTools = require('swagger-tools')
 
 const app = express()
 const swaggerSpecFileName = `test.swagger.json`
-const swaggerPath = path.join(__dirname, `./${swaggerSpecFileName}`)
+const swaggerPath = path.join(__dirname, 'build', swaggerSpecFileName)
 const swaggerDoc = require(swaggerPath)
 
 // const {

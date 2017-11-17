@@ -4,7 +4,7 @@
     "summary": "Finds individualGroups",
     "description":
       "Here is a description",
-    "operationId": "findPetsByStatus",
+    "operationId": "getIndividualGroups",
     "produces": ["application/json"],
     "parameters": [
       {

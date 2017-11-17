@@ -8,11 +8,11 @@ const specification = buildSwaggerSpecification()
 const models = buildModels()
 
 fs.writeFileSync(
-  path.join(__dirname, 'test.swagger.json'),
+  path.join(__dirname, 'build', 'test.swagger.json'),
   JSON.stringify(specification, null, 2)
 )
 
 fs.writeFileSync(
-  path.join(__dirname, 'test.models.json'),
+  path.join(__dirname, 'build', 'test.models.json'),
   JSON.stringify(models, null, 2)
 )

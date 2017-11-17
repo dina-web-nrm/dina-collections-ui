@@ -9,6 +9,8 @@ import ReactDOM from 'react-dom'
 import { ConnectedRouter } from 'react-router-redux'
 import { Provider as ReduxProvider } from 'react-redux'
 import registerServiceWorker from 'registerServiceWorker'
+import Swagger from 'swagger-client'
+import swaggerSpec from 'swagger/build/test.swagger.json'
 
 import { viewOrder } from './viewModules'
 import App from './App/Sync'
@@ -36,3 +38,13 @@ ReactDOM.render(
 if (process.env.REACT_APP_ENABLE_SERVICE_WORKER === 'true') {
   registerServiceWorker()
 }
+
+Swagger({ spec: swaggerSpec }).then(client => {
+  console.log('client', client)
+  client.apis.pet
+    .getIndividualGroups({ status: '123' })
+    .then(res => console.log('res', res))
+    .catch(err => {
+      console.log('err', err)
+    })
+})
