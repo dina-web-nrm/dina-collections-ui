@@ -1,0 +1,11 @@
+{
+  "id": "catalogedUnit",
+  "additionalProperties": false,
+  "properties": {
+    "catalogNumber": { "type": "string" },
+    "id": { "type": "integer" },
+    "individualGroup": { "$ref": "individualGroup" }
+  },
+  "required": ["catalogNumber"]
+}
+

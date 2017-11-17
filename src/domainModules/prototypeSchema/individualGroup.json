@@ -1,0 +1,9 @@
+{
+  "id": "individualGroup",
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "integer" },
+    "version": { "type": "integer" }
+  },
+  "required": []
+}

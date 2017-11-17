@@ -1,0 +1,4232 @@
+swagger: '2.0'
+info:
+  version: 0.6.1
+  title: Zuul API
+  description: >
+    [API Specification in YAML](/swagger.yml)
+
+    [Proxy path config](/proxy-paths)
+
+
+    Test user
+
+    ---------
+
+
+    Here is a test user (hard coded, and for now copy pasta from
+    config/index.json)
+
+
+    ```
+
+    accountName: tommy10
+
+    email: foo@bar.com
+
+    password: tommytyckerommig
+
+    authHeader: Bearer
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50TmFtZSI6ImZvby1iYXIiLCJlbWFpbCI6ImZvb0BiYXIuY29tIn0.EQLmLHBzRD5nZovyM08sMCTQoqd-LKGOBD19Pj6IPs4
+
+    ```
+
+
+    <form action="#" onSubmit="return handleUpdateAuthenticationFields()">
+      <label>Authentication Header</label><br/>
+      <input id="authentication" type="text" style="margin: 5px 5px 5px 5px; border: 1px solid gray; height: 2.5em; border-radius: 4px; width: 100%;" value="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50TmFtZSI6ImZvby1iYXIiLCJlbWFpbCI6ImZvb0BiYXIuY29tIn0.EQLmLHBzRD5nZovyM08sMCTQoqd-LKGOBD19Pj6IPs4" /><br/>
+      <button type="submit" style="margin: 5px 5px 5px 5px; border: 1px solid gray; background-color: white; height: 2.5em; border-radius: 4px;" >Update</button>
+    </form>
+
+
+    <script>
+
+    function handleUpdateAuthenticationFields(e) {
+      if (e) {
+        e.preventDefault()
+      }
+      var authentication = document.getElementById("authentication").value;
+      updateAuthenticationFields(authentication)
+    }
+
+
+    function updateAuthenticationFields(authentication) {
+      var inputs, i;
+      inputs = document.getElementsByTagName('input');
+      for (i = 0; i < inputs.length; i++) {
+          var tempInput = inputs[i]
+          if (tempInput.name === "Authorization") {
+            tempInput.value = "Bearer " + authentication
+          }
+      }
+    }
+
+    setTimeout(fillInputs, 2000);
+
+    function fillInputs() {
+      console.log("Filling inputs")
+      handleUpdateAuthenticationFields();
+    }
+
+    </script>
+
+    Conventions
+
+    ===========
+
+
+    To make it easier to populate the redux store we have the following
+    convention.
+
+
+    All resource responses are scoped within its own object, like so:
+
+
+    **GET /user**
+
+    ```
+
+    {
+        user: {
+            // the user object
+        }
+    }
+
+    ```
+
+
+    Responses from actions are not. However, there is the possibility to include
+    resources in action responses, and these will be scoped as above, like so:
+
+
+    **POST /authentication/actions/login?include=user**
+
+    ```
+
+    {
+        token: “TOKEN12345”,
+        user: {
+            // the user object
+        }
+    }
+
+    ```
+
+    Proxy
+
+    ===========
+
+    If you have apiswag started with the zuul proxy running, paths\* in
+    ./config/paths.js
+
+    will be forwarded to zuul
+
+
+    \*Only paths that are not containing \*/{something}/\* at the moment.
+host: 'localhost:10010'
+basePath: /v0
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /authentication/actions/login:
+    post:
+      summary: Authenticate an existing user
+      description: |
+        Retrieves an JWT-token.
+      tags:
+        - authentication
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - name: authenticationDetails
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/AuthenticationRequest'
+        - name: include
+          description: |
+            wallet, gamingLimits, realityCheck, nyxSessionId
+          in: query
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Authentication'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/AuthenticationError'
+        '403':
+          description: >-
+            Exclusion error - the user or support has excluded the user from the
+            service
+          schema:
+            $ref: '#/definitions/ExclusionError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /authentication/actions/refresh:
+    post:
+      summary: Refresh token
+      description: >
+        Get a new JWT-token.
+
+
+        NOTE: The RefreshResponse model is the same as the Authentication model,
+        but without the includes.
+      tags:
+        - authentication
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: include
+          description: |
+            wallet, realityCheck
+          in: query
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Authentication'
+        '401':
+          description: Not authorized
+          schema:
+            $ref: '#/definitions/AuthenticationError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /authentication/actions/requestPasswordReset:
+    post:
+      summary: Request a reset password email
+      description: >
+        Checks if the email exists for any user, if it does it sends a reset
+        password email to that address.
+
+
+        TODO:
+          - Is the 400 response needed?
+      tags:
+        - authentication
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/domain'
+        - name: resetPasswordRequest
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ResetPasswordRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/emptyObject'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '404':
+          description: Email not found
+          schema:
+            $ref: '#/definitions/NotFoundError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /authentication/actions/resetPassword:
+    post:
+      summary: Resets password for a not logged in user
+      description: >
+        Resets the password for a not logged in user. (Password reset-code used
+        from /requestPasswordReset.)
+
+
+        TODO:
+          - Comply with password strength requirements
+      tags:
+        - authentication
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - name: resetPasswordInput
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ResetPasswordInput'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/emptyObject'
+        '400':
+          description: >-
+            Password reset-code not valid -or- password not strong enough / not
+            a valid pattern
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /authentication/actions/signup:
+    post:
+      summary: Registers a new user
+      description: >
+        Registers a new user. depositLimitPeriod is required for UK
+        jurisdiction.
+
+        If set to a value that is not NONE depositLimitAmount is required
+
+
+        TODO:
+          - Pattern errors for phone numbers
+          - Pattern error for zip-code
+          - Pattern error for nationalIdSE
+          - Pattern error for nickName
+      tags:
+        - authentication
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/domain'
+        - name: user
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/RegisterUserRequest'
+        - name: include
+          description: |
+            wallet, gamingLimits, realityCheck, nyxSessionId
+          in: query
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Authentication'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /authentication/actions/logout:
+    post:
+      summary: Log out the user
+      description: |
+        Log out the user.
+      tags:
+        - authentication
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/emptyObject'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /authentication/actions/changePassword:
+    post:
+      summary: Change the user's password
+      description: |
+        Changes the user's password.
+      tags:
+        - authentication
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: changePassword
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/ChangePasswordRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/emptyObject'
+        '400':
+          description: >-
+            Missing parameters or new password not strong enough / not a valid
+            pattern
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /authentication/actions/verifyEmail:
+    post:
+      summary: Verify the user's email
+      description: |
+        Verify the user's email with a verify email code.
+      tags:
+        - authentication
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/domain'
+        - name: verifyEmailCode
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/verifyEmailCode'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/emptyObject'
+        '400':
+          description: Verify email code not valid
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /authentication/actions/requestVerifyEmail:
+    post:
+      summary: Request a email verification to be sent to the users email.
+      description: |
+        Request a email verification to be sent to the users email.
+      tags:
+        - authentication
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/emptyObject'
+        '400':
+          description: No validation code for user
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /authentication/sportsToken:
+    get:
+      summary: Get a temporary token used for Sportsbook
+      description: |
+        Get a temporary token used for Sportsbook.
+      tags:
+        - authentication
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/SportsTokenResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /user:
+    get:
+      summary: Get the logged in user
+      description: >
+        Get the logged in user. Includes are available for an aggregated
+        response.
+      tags:
+        - user
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: include
+          description: |
+            wallet,gamingLimits
+          in: query
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetUserResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /user/actions/updateUserDetails:
+    post:
+      summary: Update user information
+      description: |
+        **WORK IN PROGRESS**
+      tags:
+        - user
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/authorization'
+        - $ref: '#/parameters/operator'
+        - name: updateUserRequest
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateUserRequest'
+      responses:
+        '200':
+          description: User update successful
+          schema:
+            $ref: '#/definitions/GetUserResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/user/actions/acceptedTermsAndConditions/{version}':
+    post:
+      summary: Accepts the terms and conditions
+      description: |
+        Accepts a specific(current) version of the TaC.
+      tags:
+        - user
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - $ref: '#/parameters/tacVersion'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AcceptedTermsAndConditionsResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+    get:
+      summary: Check accepted TaC Version
+      description: |
+        Check if a user has accepted a specific(current) version of the TaC.
+      tags:
+        - user
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - $ref: '#/parameters/tacVersion'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AcceptedTermsAndConditionsResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /user/actions/selfExclude:
+    post:
+      summary: Exclude the user from the system
+      description: >
+        **WORK IN PROGRESS**
+
+
+        A user may choose to exclude themself from the system, either
+        temporarily or permanently
+
+        (a user may also be excluded by support.). This will trigger a
+        fund-withdrawal.
+
+        When attempting to access the system while excluded the client will
+        recieve an error stating
+
+        if it was the user itself or support which excluded the user from the
+        system.
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: timeout
+          in: body
+          description: The duration for which the user is to be disabled.
+          required: true
+          schema:
+            $ref: '#/definitions/SelfExclusionRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/SelfExclusionResponse'
+        '400':
+          description: BadRequestError
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /user/actions/lockAccount:
+    post:
+      summary: 'Take a break, or lock users account'
+      description: >
+        **WORK IN PROGRESS**
+
+        A user may choose to take a break, or lock their account for a set
+        amount for time.
+
+        Similar to the self exclusion but does not trigger a fund-withdrawal.
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: timeout
+          in: body
+          description: The duration for which the user is to be disabled.
+          required: true
+          schema:
+            $ref: '#/definitions/LockAccountRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/LockAccountResponse'
+        '400':
+          description: BadRequestError
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /messages:
+    get:
+      summary: Get messages for user
+      description: |
+        Get the logged in user's messages.
+      tags:
+        - messages
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetMessagesResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/messages/{id}':
+    delete:
+      summary: Delete a message
+      description: |
+        Delete a logged in user's messages based on id.
+      tags:
+        - messages
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - $ref: '#/parameters/id'
+      responses:
+        '200':
+          description: Deletion successful
+          schema:
+            $ref: '#/definitions/emptyObject'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/messages/{id}/actions/setRead':
+    post:
+      summary: Mark message as read/unread
+      description: |
+        Mark the messages as read/unread.
+        Mock has messages with id 1-5.
+      tags:
+        - messages
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - $ref: '#/parameters/id'
+        - name: setRead
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SetReadRequest'
+      responses:
+        '200':
+          description: Message update successful
+          schema:
+            $ref: '#/definitions/MessageResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /history/transactions:
+    get:
+      summary: Get transaction history for user
+      description: |
+        **WORK IN PROGRESS**
+      tags:
+        - history
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: from
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: to
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: lastID
+          in: query
+          required: false
+          type: string
+        - name: type
+          in: query
+          required: false
+          type: string
+          enum:
+            - CANCELWITHDRAW
+            - WITHDRAWAL
+            - WITHDRAWPENDING
+            - DEPOSIT
+            - NOTE
+            - FEE
+            - CORRECTION
+            - BONUSCORRECTION
+        - name: id
+          in: query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetTransactionHistoryResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /history/gaming:
+    get:
+      summary: Get gaming history for user
+      description: |
+        **WORK IN PROGRESS**
+      tags:
+        - history
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: from
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: to
+          in: query
+          required: false
+          type: string
+          format: date-time
+        - name: lastID
+          in: query
+          required: false
+          type: string
+        - name: type
+          in: query
+          required: false
+          type: string
+        - name: id
+          in: query
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetGamingHistoryResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /history/legacyTransactions:
+    get:
+      summary: Get legacy transaction history for user
+      description: |
+        **WORK IN PROGRESS**
+      tags:
+        - history
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: beforeTransactionID
+          in: query
+          required: false
+          type: integer
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetLegacyTransactionHistoryResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /payments/config:
+    get:
+      summary: Get the configuration for creating iframe urls which talk to paymentIQ
+      description: |
+        The zuul endpoint will return the configuration data needed to create
+        the url for the different payment iframes.</br>
+        \*Note the "_" in some of the attribute names.
+      tags:
+        - payments
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetPaymentsConfigResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /casinoGames:
+    get:
+      summary: Get casino games
+      description: |
+        Return all games available for the specified platform.
+        If user is authed userProperties will be included in the response
+
+        The fields property can be used to only return the id and userProperties
+        by providing ?fields=id,userProperties
+      tags:
+        - products - casino games
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/currency'
+        - $ref: '#/parameters/gameFields'
+        - $ref: '#/parameters/isMobile'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetCasinoGamesResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/casinoGames/{gameId}':
+    get:
+      summary: Get casino game
+      description: |
+        Return casino game
+      tags:
+        - products - casino game
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/currency'
+        - $ref: '#/parameters/gameFields'
+        - $ref: '#/parameters/isMobile'
+        - name: gameId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetCasinoGamesResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/casinoGames/{gameId}/actions/createGameUrl':
+    post:
+      summary: Get URL for playing a game
+      description: >
+        Get URL to the game provider. The URL is then used in an iframe to play
+        the specified game.
+      tags:
+        - products - casino games
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: gameId
+          in: path
+          required: true
+          type: string
+        - name: casinoUrlRequest
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/CasinoGameUrlRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetCasinoGameUrlResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '404':
+          description: Game not found
+          schema:
+            $ref: '#/definitions/NotFoundError'
+        '500':
+          description: InternalServerError
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/casinoGames/{gameId}/actions/favorite':
+    post:
+      summary: Set game as favorite
+      description: |
+        **WORK IN PROGRESS**
+
+        TODO:
+          - Mock it
+      tags:
+        - products - casino games
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: gameId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Favoriting successful
+          schema:
+            $ref: '#/definitions/CasinoGame'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/casinoGames/{gameId}/actions/unfavorite':
+    post:
+      summary: Unset game as favorite
+      description: |
+        **WORK IN PROGRESS**
+
+        TODO:
+          - Mock it
+      tags:
+        - products - casino games
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: gameId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Deletion successful
+          schema:
+            $ref: '#/definitions/CasinoGame'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /casinoGameWinners:
+    get:
+      summary: Get casino game winners
+      description: |
+        Get an array of recent winners in casino games.
+      tags:
+        - products - casino games
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/currency'
+        - $ref: '#/parameters/isMobile'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetCasinoGameWinnersResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /liveCasinoGames:
+    get:
+      summary: Get live casino games
+      description: |
+        Return all live casino games available for the specified platform.
+      tags:
+        - products - live casino
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/currency'
+        - $ref: '#/parameters/isMobile'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetLiveCasinoGamesResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/liveCasinoGames/{gameId}/actions/createGameUrl':
+    post:
+      summary: Get URL for playing a game
+      description: >
+        Get URL to the game provider. The URL is then used in an iframe to play
+        the specified game.
+      tags:
+        - products - live casino
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: gameId
+          in: path
+          required: true
+          type: string
+        - name: liveCasinoGameUrlRequest
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/LiveCasinoGameUrlRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetLiveCasinoGameUrlResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '404':
+          description: Game not found
+          schema:
+            $ref: '#/definitions/NotFoundError'
+        '500':
+          description: InternalServerError
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /poker/actions/createBrowserClientUrl:
+    post:
+      summary: Creates an URL for playing in the poker browser client
+      description: |
+        Get URL for playing in the poker browser client.
+      tags:
+        - products - poker
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: browserClientUrlRequest
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/BrowserClientUrlRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UrlResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: InternalServerError
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /sports/actions/createLiveBettingUrl:
+    post:
+      summary: Get live betting URL for sportsbook
+      description: >
+        **WORK IN PROGRESS**
+
+
+        Get URL to the sportsbook provider. The URL is then used in an iframe to
+        view and interact with the sportsbook.
+      tags:
+        - products - sportsbook
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: liveBettingUrlRequest
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/LiveBettingUrlRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UrlResponse'
+        '403':
+          description: Error auth fails
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/NotFoundError'
+        '500':
+          description: InternalServerError
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /sports/actions/createSuperLiveUrl:
+    post:
+      summary: Get super live URL for sportsbook
+      description: >
+        **WORK IN PROGRESS**
+
+
+        Get URL to the sportsbook provider. The URL is then used in an iframe to
+        view and interact with the sportsbook.
+      tags:
+        - products - sportsbook
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: superLiveUrlRequest
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SuperLiveUrlRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UrlResponse'
+        '403':
+          description: Error auth fails
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/NotFoundError'
+        '500':
+          description: InternalServerError
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /sports/actions/createSportsNewsUrl:
+    post:
+      summary: Get sports news URL for sportsbook
+      description: >
+        **WORK IN PROGRESS**
+
+
+        Get URL to the sportsbook provider. The URL is then used in an iframe to
+        view and interact with the sportsbook.
+      tags:
+        - products - sportsbook
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: sportsNewsUrlRequest
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SportsNewsUrlRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UrlResponse'
+        '403':
+          description: Error auth fails
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/NotFoundError'
+        '500':
+          description: InternalServerError
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /sports/actions/placeHotbet:
+    post:
+      summary: Place a hotbet
+      description: >
+        **WORK IN PROGRESS**
+
+
+        Get URL to the sportsbook provider. The URL is then used in an iframe to
+        view and interact with the sportsbook.
+      tags:
+        - products - sportsbook
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: hotbet
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PlaceHotbetRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/emptyObject'
+        '403':
+          description: Error auth fails
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/NotFoundError'
+        '500':
+          description: InternalServerError
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /sports/hotbets:
+    get:
+      summary: Get a list of hotBets
+      description: |
+        **WORK IN PROGRESS**
+        Get a list of hotbets
+      tags:
+        - products - sportsbook
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetHotbetsResponse'
+        '403':
+          description: Error auth fails
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '404':
+          description: Not found
+          schema:
+            $ref: '#/definitions/NotFoundError'
+        '500':
+          description: InternalServerError
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /gamingLimits:
+    get:
+      summary: Get the user's loss and turnover limits
+      description: >
+        **WORK IN PROGRESS**
+
+        ONLY USED FOR THE LOSS AND TURNOVER AND DEPOSIT LIMITS (Usable NYX
+        limits)
+
+        Get an object with the current, remaining and coming loss and turnover
+        and deposit limit.
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetGamingLimitsResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+    post:
+      summary: Set a new gaming limit
+      description: |
+        **WORK IN PROGRESS**
+
+        Set a new loss or turnover limit for the user.
+
+        TODO:
+          - Depending on how limits will work, this might should be PUT instead
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: gamingLimit
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PostGamingLimitRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmptyResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /gamingLimits/actions/confirm:
+    post:
+      summary: Confirm increased limits
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmptyResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /gamingLimits/actions/revoke:
+    post:
+      summary: Confirm increased limits
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/EmptyResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /sessionLimit:
+    get:
+      summary: Get the user's session limits
+      description: |
+        **WORK IN PROGRESS**
+        Get an object with the current, remaining and coming session limit.
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetSessionLimitResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+    post:
+      summary: Update the session limit value
+      description: |
+        **WORK IN PROGRESS**
+
+        Update the session limit for the logged in user.
+
+        TODO:
+          - 200 -> 204
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: sessionLimit
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PutSessionLimitRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PutSessionLimitResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /realityCheck:
+    get:
+      summary: Get reality check info
+      description: >
+        A time in ms will be provided on the user. After this time has passed
+        the user will be prompted for a reality check.
+
+        A reality check means that the user will see information on how much was
+        spent the since login (see in sparkle documentation).
+
+
+        TODO:
+          - This might be needed to be includable (and remove timeToRealityCheck form user)
+          - Both accept and updateInterval should be in PATCH verb instead
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetRealityCheckResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /realityCheck/actions/updateInterval:
+    post:
+      summary: Sets the interval of reality checks
+      description: >
+        A client can update what interval should be used for the reality
+        check.<br/>
+
+        &emsp;timeToRealityCheck less than 0 means disabled (default)<br/>
+
+        &emsp;timeToRealityCheck ∈ R<br/>
+
+        &emsp;timeToRealityCheck greater or equal to 0 means interval set to
+        timeToRealityCheck ms.
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: timeToRealityCheck
+          in: body
+          description: The new time to reality value
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateRealityCheckRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UpdateRealityCheckResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+  /realityCheck/actions/accept:
+    post:
+      summary: Reset time to reality and stay logged in
+      description: >
+        The user accepts the reality check in favor of logging out. Resets the
+        time for the next reality check.
+
+
+        TODO:
+          - 200 -> 204
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AcceptedRealityCheckResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+  /casinoSessionReminder:
+    get:
+      summary: Get Casino session reminder info
+      description: >
+        A time in minutes will be provided on the user. After this time has
+        passed the user will be prompted for a reality check.
+
+        A reality check means that the user will see information on how much was
+        spent the since login (see in sparkle documentation).
+
+
+        TODO:
+          - This might be needed to be includable (and remove casinoSessionReminder form user)
+          - Both accept and updateInterval should be in PATCH verb instead
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetCasinoSessionReminderResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /casinoSessionReminder/actions/updateInterval:
+    post:
+      summary: Sets the interval of casino session reminder
+      description: >
+        A client can update what interval should be used for the casino session
+        reminder.<br/>
+
+        &emsp;casinoSessionReminder -1 means disabled (default)<br/>
+
+        &emsp;casinoSessionReminder greater to 0 means interval set to
+        minutes.<br/>
+
+        &emsp;casinoSessionReminder 0 will give BAD REQUEST response status
+      tags:
+        - responsible gaming
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/authorization'
+        - name: casinoSessionReminder
+          in: body
+          description: The new time to reality value
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateCasinoSessionReminderRequest'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/UpdateCasinoSessionReminderResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+  /bonuses:
+    get:
+      summary: Not specified
+      description: |
+        **WORK IN PROGRESS**
+      tags:
+        - bonuses
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetBonusesResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/bonuses/{bonusId}/actions/forfeit':
+    post:
+      tags:
+        - bonuses
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: bonusId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ForfeitBonusResponse'
+        '403':
+          description: Error auth fails
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/bonuses/{bonusId}/actions/select':
+    post:
+      tags:
+        - bonuses
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - name: bonusId
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/emptyObject'
+        '403':
+          description: Error auth fails
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /bonuses/available:
+    get:
+      tags:
+        - bonuses
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - name: Authorization
+          in: header
+          description: auth-header
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AvailableBonusesResponse'
+        '403':
+          description: Error auth fails
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '500':
+          description: Error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /wallet:
+    get:
+      summary: Get the user's wallet
+      description: |
+        Get the user's wallet, which contains a summary of the user's money.
+
+        TODO:
+          - Is "open bets" still part of reqs?
+          - Do proper errors
+          - Mock response
+          - Poker might need another model (cash-back/rake?)
+      tags:
+        - wallet
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetWalletResponse'
+        '401':
+          description: Unauthorized error
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+        '403':
+          description: Forbidden error
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /campaignContent:
+    get:
+      summary: Get campaign content
+      description: |
+        Get campaign content, either for logged in user or not logged in.
+
+        TODO:
+          - Specify possible errors
+          - Add mock (and transform the raw data as needed)
+          - OK to filter on lang? (...or do we need to change lang quick in frontend?)
+          - OK to filter on view? (...a new request for every page)
+      tags:
+        - campaigns
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/authorization'
+        - $ref: '#/parameters/language'
+        - $ref: '#/parameters/view'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetCampaignContentResponse'
+        '400':
+          description: Bad request error
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /whitelistedCountries:
+    get:
+      summary: Get whitelisted countries
+      description: |
+        Get an array of whitelisted countries.
+
+        TODO:
+          - Possible 400 errors
+      tags:
+        - other
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - $ref: '#/parameters/operator'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GetWhitelistedCountriesResponse'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/geolocation/{ip}/country':
+    get:
+      summary: Get geolocation details
+      description: |
+        Will fetch the country for the ip of the caller. If the ip is included
+        as a query param then this ip will be looked up instead
+      tags:
+        - other
+        - '*ZUUL - Integrated errors'
+      parameters:
+        - name: ip
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/GeolocationDetails'
+        '400':
+          description: 'Bad request error: Ip wrong format'
+          schema:
+            $ref: '#/definitions/BadRequestError'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  '/person/swedish/{nationalIdSE}':
+    get:
+      summary: Get person details from social security number
+      description: |
+        TODO:
+          - Maybe rename /person to something more descriptive
+          - Mock it
+      tags:
+        - other
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/operator'
+        - $ref: '#/parameters/nationalIdSE'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PersonDetails'
+        '500':
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/InternalServerError'
+  /identityCheck:
+    post:
+      summary: Authorize payment transactions.
+      description: |
+        Authorize payment transactions by verifying the identity of the
+        authenticated user.
+      tags:
+        - payments
+        - '*ZUUL - Integrated working'
+      parameters:
+        - $ref: '#/parameters/authorization'
+        - name: paymentTransaction
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/PaymentTransaction'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/IdentityCheckResponse'
+        '403':
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/IdentityCheckForbiddenError'
+parameters:
+  address:
+    name: address
+    in: query
+    type: string
+  authorization:
+    name: Authorization
+    description: Encoded JWT token
+    in: header
+    type: string
+  currency:
+    name: currency
+    description: currency code
+    in: query
+    required: true
+    type: string
+    enum:
+      - SEK
+      - NOK
+      - EUR
+      - PLN
+      - GBP
+      - CAD
+      - AUS
+  demoMode:
+    name: demoMode
+    required: false
+    in: query
+    type: boolean
+  gameFields:
+    name: fields
+    description: >
+      Comma separated string that when present only these fields will be
+      included in
+
+      the response.
+    in: query
+    type: string
+  id:
+    name: id
+    in: path
+    required: true
+    type: string
+  isMobile:
+    name: isMobile
+    description: |
+      if the user is mobile or not. required if fetching casinoGames
+    in: query
+    type: boolean
+  language:
+    name: language
+    required: true
+    in: query
+    type: string
+    enum:
+      - sv
+      - fi
+      - 'no'
+      - en
+      - int
+      - br
+      - es
+  lobbyUrl:
+    name: lobbyUrl
+    required: false
+    in: query
+    type: boolean
+  nickName:
+    name: nickName
+    in: query
+    type: string
+  nationalIdSE:
+    name: nationalIdSE
+    required: true
+    in: path
+    type: string
+  operator:
+    name: X-Operator
+    description: operator-header
+    default: RedbetUK
+    in: header
+    type: string
+    enum:
+      - RedbetUK
+      - RedbetMT
+      - WhitebetUK
+      - WhitebetMT
+      - WinningroomUK
+      - WinningroomMT
+      - BertilMT
+      - MamaMiaMT
+  domain:
+    name: X-Domain
+    description: domain-header
+    default: 'localhost:4321'
+    in: header
+    type: string
+  tacVersion:
+    name: version
+    required: true
+    in: path
+    type: string
+  view:
+    name: view
+    required: true
+    in: query
+    type: string
+  isSegmented:
+    name: isSegmented
+    description: |
+      if the campaign content should be segmentet or not
+    in: query
+    type: boolean
+definitions:
+  NotSpecified:
+    description: |
+      To be specified
+    properties:
+      id:
+        type: string
+  NotSpecifiedCollection:
+    description: |
+      To be specified
+    type: array
+    items:
+      $ref: '#/definitions/NotSpecified'
+  AuthenticationRequest:
+    description: |
+      Authentication Details
+    $ref: '#/definitions/AuthenticationCredentials'
+  AuthenticationCredentials:
+    required:
+      - accountName
+      - password
+    description: |
+      Authentication Details
+    properties:
+      accountName:
+        $ref: '#/definitions/accountName'
+      password:
+        $ref: '#/definitions/password'
+      device:
+        $ref: '#/definitions/device'
+  ResetPasswordInput:
+    required:
+      - password
+      - passwordResetCode
+    properties:
+      password:
+        $ref: '#/definitions/password'
+      passwordResetCode:
+        $ref: '#/definitions/passwordResetCode'
+  RegisterUserRequest:
+    required:
+      - accountName
+      - address
+      - birthday
+      - city
+      - country
+      - email
+      - password
+      - firstName
+      - currency
+      - lastName
+      - sex
+      - zip
+      - acceptedTaCVersion
+    description: |
+      User resource
+    properties:
+      accountName:
+        $ref: '#/definitions/accountName'
+      address:
+        $ref: '#/definitions/address'
+      birthday:
+        $ref: '#/definitions/birthday'
+      city:
+        $ref: '#/definitions/city'
+      country:
+        $ref: '#/definitions/country'
+      language:
+        $ref: '#/definitions/language'
+      email:
+        $ref: '#/definitions/email'
+      password:
+        $ref: '#/definitions/password'
+      firstName:
+        $ref: '#/definitions/firstName'
+      currency:
+        $ref: '#/definitions/currency'
+      lastName:
+        $ref: '#/definitions/lastName'
+      mobileNumber:
+        $ref: '#/definitions/mobileNumber'
+      phoneNumber:
+        $ref: '#/definitions/phoneNumber'
+      sex:
+        $ref: '#/definitions/sex'
+      nationalIdSE:
+        $ref: '#/definitions/nationalIdSE'
+      zip:
+        $ref: '#/definitions/zip'
+      depositLimitPeriod:
+        $ref: '#/definitions/registerDepositLimitPeriod'
+      depositLimitAmount:
+        $ref: '#/definitions/money'
+      acceptedTaCVersion:
+        $ref: '#/definitions/tacVersion'
+      affiliateToken:
+        $ref: '#/definitions/affiliateToken'
+  UpdateUserRequest:
+    type: object
+    description: |
+      Update user request
+    properties:
+      address:
+        $ref: '#/definitions/address'
+      country:
+        $ref: '#/definitions/country'
+      city:
+        $ref: '#/definitions/city'
+      mobileNumber:
+        $ref: '#/definitions/mobileNumber'
+      zip:
+        $ref: '#/definitions/zip'
+      passwordCurrent:
+        $ref: '#/definitions/password'
+  ChangePasswordRequest:
+    type: object
+    required:
+      - oldPassword
+      - newPassword
+    properties:
+      oldPassword:
+        $ref: '#/definitions/password'
+      newPassword:
+        $ref: '#/definitions/password'
+  GetGameUrlInput:
+    type: object
+    required:
+      - language
+      - isMobile
+    properties:
+      language:
+        $ref: '#/definitions/language'
+      isMobile:
+        type: boolean
+      accountName:
+        $ref: '#/definitions/accountName'
+      keepAliveUrl:
+        type: boolean
+      lobbyUrl:
+        type: string
+  Authentication:
+    description: |
+      Authentication resource
+    properties:
+      token:
+        $ref: '#/definitions/authorizationToken'
+      user:
+        description: |
+          Need to be included, not populated by default
+        $ref: '#/definitions/User'
+      wallet:
+        description: |
+          Need to be included, not populated by default
+        $ref: '#/definitions/Wallet'
+      gamingLimits:
+        description: |
+          Need to be included, not populated by default
+        $ref: '#/definitions/GamingLimits'
+      realityCheck:
+        description: |
+          Need to be included, not populated by default
+        $ref: '#/definitions/RealityCheck'
+      nyxSessionId:
+        description: |
+          Need to be included, not populated by default
+        $ref: '#/definitions/nyxSession'
+  RefreshResponse:
+    description: |
+      The same as Authentication but without the includes
+    properties:
+      token:
+        $ref: '#/definitions/authorizationToken'
+  GetUserResponse:
+    properties:
+      user:
+        $ref: '#/definitions/User'
+      wallet:
+        description: |
+          Needs to be included, not populated by default.
+        $ref: '#/definitions/Wallet'
+      gamingLimits:
+        description: |
+          Needs to be included, not populated by default.
+        $ref: '#/definitions/GamingLimits'
+  User:
+    required:
+      - acceptedTaCVersion
+      - accountName
+      - address
+      - birthday
+      - city
+      - country
+      - email
+      - firstName
+      - currency
+      - language
+      - lastName
+      - nickName
+      - sex
+      - zip
+      - operator
+    description: User resource
+    properties:
+      acceptedTaCVersion:
+        $ref: '#/definitions/tacVersion'
+      accountName:
+        $ref: '#/definitions/accountName'
+      address:
+        $ref: '#/definitions/address'
+      birthday:
+        $ref: '#/definitions/birthday'
+      city:
+        $ref: '#/definitions/city'
+      country:
+        $ref: '#/definitions/country'
+      email:
+        $ref: '#/definitions/email'
+      firstName:
+        $ref: '#/definitions/firstName'
+      currency:
+        $ref: '#/definitions/currency'
+      language:
+        $ref: '#/definitions/language'
+      lastName:
+        $ref: '#/definitions/lastName'
+      mobileNumber:
+        $ref: '#/definitions/mobileNumber'
+      nickName:
+        $ref: '#/definitions/nickName'
+      phoneNumber:
+        $ref: '#/definitions/phoneNumber'
+      sex:
+        $ref: '#/definitions/sex'
+      nationalIdSE:
+        $ref: '#/definitions/nationalIdSE'
+      zip:
+        $ref: '#/definitions/zip'
+      operator:
+        $ref: '#/definitions/operator'
+  Message:
+    properties:
+      id:
+        $ref: '#/definitions/id'
+      subject:
+        type: string
+      body:
+        type: string
+      timestamp:
+        $ref: '#/definitions/timestamp'
+      isRead:
+        type: boolean
+  Messages:
+    type: array
+    items:
+      $ref: '#/definitions/Message'
+  MessageResponse:
+    properties:
+      message:
+        $ref: '#/definitions/Message'
+  GetMessagesResponse:
+    properties:
+      messages:
+        $ref: '#/definitions/Messages'
+  GetGamingHistoryResponse:
+    properties:
+      gamingHistory:
+        $ref: '#/definitions/GamingHistory'
+  GetTransactionHistoryResponse:
+    properties:
+      transactionHistory:
+        $ref: '#/definitions/TransactionHistory'
+  GetGamingHistoryItemResponse:
+    properties:
+      gamingHistoryItem:
+        $ref: '#/definitions/GamingHistoryItem'
+  GetLegacyTransactionHistoryResponse:
+    properties:
+      transactions:
+        $ref: '#/definitions/LegacyTransactions'
+  GetLegacyTransactionHistoryItemResponse:
+    properties:
+      legacyTransactionHistoryItem:
+        $ref: '#/definitions/LegacyTransactionHistoryItem'
+  GamingHistory:
+    type: array
+    items:
+      $ref: '#/definitions/GamingHistoryItem'
+  GamingHistoryItem:
+    description: |
+      A transaction between wallet-games/products
+    required:
+      - id
+      - gameId
+      - gameType
+      - gameName
+      - roundId
+      - created
+      - wager
+      - result
+    properties:
+      id:
+        type: string
+      gameId:
+        type: string
+      gameType:
+        type: string
+      gameName:
+        type: string
+      roundId:
+        type: string
+      created:
+        $ref: '#/definitions/timestamp'
+      type:
+        type: string
+      description:
+        type: string
+      wager:
+        $ref: '#/definitions/money'
+      result:
+        $ref: '#/definitions/money'
+  TransactionHistory:
+    type: array
+    items:
+      $ref: '#/definitions/TransactionHistoryItem'
+  TransactionHistoryItem:
+    description: |
+      A transaction, either a withdrawal or a deposit with funds
+    required:
+      - id
+      - created
+      - type
+      - status
+      - amount
+    properties:
+      id:
+        type: string
+      created:
+        $ref: '#/definitions/timestamp'
+      type:
+        type: string
+        enum:
+          - CANCELWITHDRAW
+          - WITHDRAWAL
+          - WITHDRAWPENDING
+          - DEPOSIT
+          - NOTE
+          - FEE
+          - CORRECTION
+          - BONUSCORRECTION
+          - REGISTRATION
+          - IMPORT
+      status:
+        type: string
+        enum:
+          - P
+          - C
+          - A
+          - HELD_BY_SECURITY
+          - FAILED_SECURITY_CHECK
+          - ROLLED_BACK
+          - AWAITING_CONFIRMATION
+          - FAILED_INSUFFICIENT_FUNDS
+          - SETTLED
+          - CANCELLED
+      description:
+        type: string
+      paymentType:
+        type: string
+      amount:
+        $ref: '#/definitions/money'
+  LegacyTransactions:
+    type: array
+    items:
+      $ref: '#/definitions/LegacyTransactionHistoryItem'
+  LegacyTransactionHistoryItem:
+    description: |
+      A legacy transaction from Sparkle
+    required:
+      - productTransactionID
+      - productTransactionType
+      - productTransactionCategory
+      - status
+      - amount
+      - created
+      - lastModified
+    properties:
+      productTransactionID:
+        type: string
+      productTransactionType:
+        type: string
+      productTransactionCategory:
+        type: string
+        enum:
+          - DEPOSIT
+          - WITHDRAW
+          - STATISTICS_IMPORT
+      status:
+        type: string
+        enum:
+          - NEW
+          - SUCCESS
+          - FAILED
+          - PROCESSING
+      amount:
+        $ref: '#/definitions/money'
+      created:
+        $ref: '#/definitions/timestamp'
+      lastModified:
+        $ref: '#/definitions/timestamp'
+  SelfExclusionRequest:
+    description: >
+      Model for the response sent when a client wants to selfexclude the current
+      user.
+    required:
+      - timeout
+    properties:
+      timeout:
+        $ref: '#/definitions/selfExclusionTimeout'
+  SelfExclusionResponse:
+    description: >
+      Model for the response sent when a client wants to selfexclude the current
+      user.
+    required:
+      - timeout
+    properties:
+      timeout:
+        $ref: '#/definitions/selfExclusionTimeout'
+  RealityCheck:
+    description: >
+      Model for the response sent when a client checks how much time is left
+      until reality.
+
+
+      TODO:
+        - Define/remove message property
+    required:
+      - timeLoggedIn
+      - timeToRealityCheck
+    properties:
+      currency:
+        $ref: '#/definitions/currency'
+      losses:
+        $ref: '#/definitions/money'
+      message:
+        type: string
+      timeLoggedIn:
+        $ref: '#/definitions/duration'
+      timeToRealityCheck:
+        $ref: '#/definitions/timeToRealityCheck'
+      totalResult:
+        $ref: '#/definitions/money'
+      totalWager:
+        $ref: '#/definitions/money'
+      winnings:
+        $ref: '#/definitions/money'
+  GetRealityCheckResponse:
+    properties:
+      realityCheck:
+        $ref: '#/definitions/RealityCheck'
+  AcceptedRealityCheckResponse:
+    description: |
+      Model for the response sent when a client accepts reality.
+    required:
+      - timeToRealityCheck
+    properties:
+      timeToRealityCheck:
+        $ref: '#/definitions/timeToRealityCheck'
+  UpdateRealityCheckRequest:
+    description: |
+      Model for the request received when a client updates reality.
+    required:
+      - timeToRealityCheck
+    properties:
+      timeToRealityCheck:
+        $ref: '#/definitions/timeToRealityCheck'
+  UpdateRealityCheckResponse:
+    description: |
+      Model for the response sent when a client updates reality.
+    required:
+      - timeToRealityCheck
+    properties:
+      timeToRealityCheck:
+        $ref: '#/definitions/timeToRealityCheck'
+  CasinoSessionReminder:
+    description: >
+      Model for the response sent when a client checks how much time is left
+      until reality.
+
+
+      TODO:
+        - Define/remove message property
+    required:
+      - casinoSessionReminder
+    properties:
+      casinoSessionReminder:
+        $ref: '#/definitions/casinoSessionReminder'
+  GetCasinoSessionReminderResponse:
+    properties:
+      casinoSessionReminder:
+        $ref: '#/definitions/casinoSessionReminder'
+  UpdateCasinoSessionReminderRequest:
+    description: |
+      Model for the request received when a client updates reality.
+    required:
+      - casinoSessionReminder
+    properties:
+      casinoSessionReminder:
+        $ref: '#/definitions/casinoSessionReminder'
+  UpdateCasinoSessionReminderResponse:
+    description: |
+      Model for the response sent when a client updates reality.
+    required:
+      - casinoSessionReminder
+    properties:
+      casinoSessionReminder:
+        $ref: '#/definitions/casinoSessionReminder'
+  CasinoGame:
+    description: |
+      Model for CasinoGame
+    required:
+      - id
+    properties:
+      id:
+        $ref: '#/definitions/gameId'
+      strings:
+        $ref: '#/definitions/GameStrings'
+      assets:
+        $ref: '#/definitions/GameAssets'
+      properties:
+        $ref: '#/definitions/GameProperties'
+      userProperties:
+        $ref: '#/definitions/GameUserProperties'
+      tags:
+        type: array
+        items:
+          $ref: '#/definitions/GameTag'
+      totalJackpot:
+        $ref: '#/definitions/money'
+      jackpots:
+        type: array
+        items:
+          $ref: '#/definitions/Jackpot'
+  LiveCasinoGame:
+    description: |
+      Model for LiveCasinoGame
+    required:
+      - id
+      - gameId
+      - strings
+      - assets
+      - properties
+      - sorting
+      - tags
+      - jackpots
+      - table
+    properties:
+      id:
+        $ref: '#/definitions/liveGameId'
+      gameId:
+        $ref: '#/definitions/gameId'
+      strings:
+        $ref: '#/definitions/GameStrings'
+      assets:
+        $ref: '#/definitions/GameAssets'
+      properties:
+        $ref: '#/definitions/LiveGameProperties'
+      userProperties:
+        $ref: '#/definitions/GameUserProperties'
+      sorting:
+        $ref: '#/definitions/GameSorting'
+      tags:
+        type: array
+        items:
+          $ref: '#/definitions/GameTag'
+      totalJackpot:
+        $ref: '#/definitions/money'
+      jackpots:
+        type: array
+        items:
+          $ref: '#/definitions/Jackpot'
+      table:
+        type: string
+  CasinoGames:
+    type: array
+    items:
+      $ref: '#/definitions/CasinoGame'
+  LiveCasinoGames:
+    type: array
+    items:
+      $ref: '#/definitions/LiveCasinoGame'
+  GetCasinoGamesResponse:
+    type: object
+    required:
+      - casinoGames
+    properties:
+      casinoGames:
+        $ref: '#/definitions/CasinoGames'
+  GetLiveCasinoGamesResponse:
+    type: object
+    required:
+      - liveCasinoGames
+    properties:
+      liveCasinoGames:
+        $ref: '#/definitions/LiveCasinoGames'
+  CasinoGameUrlRequest:
+    type: object
+    required:
+      - language
+      - currency
+      - isMobile
+      - demoMode
+      - frontendBaseUrl
+      - apiBaseUrl
+    properties:
+      language:
+        $ref: '#/definitions/language'
+      currency:
+        $ref: '#/definitions/currency'
+      isMobile:
+        type: boolean
+      demoMode:
+        type: boolean
+      lobbyUrl:
+        $ref: '#/definitions/url'
+      relLobbyUrl:
+        $ref: '#/definitions/urlPath'
+      frontendBaseUrl:
+        $ref: '#/definitions/baseUrl'
+      apiBaseUrl:
+        $ref: '#/definitions/baseUrl'
+  GetCasinoGameUrlResponse:
+    properties:
+      url:
+        $ref: '#/definitions/url'
+  LiveCasinoGameUrlRequest:
+    type: object
+    required:
+      - language
+      - currency
+      - isMobile
+      - demoMode
+      - table
+      - frontendBaseUrl
+      - apiBaseUrl
+    properties:
+      language:
+        $ref: '#/definitions/language'
+      currency:
+        $ref: '#/definitions/currency'
+      isMobile:
+        type: boolean
+      demoMode:
+        type: boolean
+      lobbyUrl:
+        $ref: '#/definitions/url'
+      relLobbyUrl:
+        $ref: '#/definitions/urlPath'
+      table:
+        type: string
+      frontendBaseUrl:
+        $ref: '#/definitions/baseUrl'
+      apiBaseUrl:
+        $ref: '#/definitions/baseUrl'
+  GetLiveCasinoGameUrlResponse:
+    properties:
+      url:
+        $ref: '#/definitions/url'
+  GameStrings:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        $ref: '#/definitions/localizedString'
+      description:
+        $ref: '#/definitions/localizedString'
+      longDescription:
+        $ref: '#/definitions/localizedMarkdown'
+  Jackpot:
+    type: object
+    required:
+      - amount
+    properties:
+      amount:
+        $ref: '#/definitions/money'
+  GameAssets:
+    type: object
+    required:
+      - logo
+      - smallThumbnail
+      - bigThumbnail
+      - masonryBigThumbnail
+      - masonrySmallThumbnail
+      - background
+    properties:
+      logo:
+        $ref: '#/definitions/url'
+      smallThumbnail:
+        $ref: '#/definitions/url'
+      bigThumbnail:
+        $ref: '#/definitions/url'
+      masonryBigThumbnail:
+        $ref: '#/definitions/url'
+      masonrySmallThumbnail:
+        $ref: '#/definitions/url'
+      background:
+        $ref: '#/definitions/url'
+  GameProperties:
+    type: object
+    required:
+      - aspectRatio
+      - developer
+      - dateAdded
+      - type
+      - functions
+    properties:
+      aspectRatio:
+        type: array
+        items:
+          type: number
+          minItems: 2
+          maxItems: 2
+      developer:
+        type: string
+      dateAdded:
+        $ref: '#/definitions/timestamp'
+      type:
+        type: string
+        description: |
+          These need to be uniformed ex slot, table, classic, live
+        enum:
+          - classic-slot
+          - other
+          - scratch-card
+          - table-game
+          - video-poker
+          - video-slot
+          - virtual-sports
+          - live-casino
+          - mini-games
+          - baccarat
+          - blackjack
+          - probability
+          - jackpot-game
+      themes:
+        type: array
+        items:
+          type: string
+          enum:
+            - monsters
+            - movies & tv
+            - fantasy
+            - animal
+            - oriental
+            - retro
+            - vegas
+            - historic
+            - adventures
+      functions:
+        type: array
+        items:
+          type: string
+          enum:
+            - auto-spin
+            - quick-spin
+            - bonus-mode
+            - free-spin-feature
+            - win-both-ways
+            - special-wilds
+      lines:
+        type: number
+      reels:
+        type: array
+        items:
+          type: number
+      volatility:
+        type: string
+        enum:
+          - very-high
+          - high
+          - medium
+          - low
+          - very-low
+      sorting:
+        $ref: '#/definitions/GameSorting'
+  LiveGameProperties:
+    type: object
+    required:
+      - aspectRatio
+      - developer
+      - dateAdded
+      - type
+      - maxBet
+      - minBet
+      - slotsUnlimited
+      - tableName
+    properties:
+      aspectRatio:
+        type: array
+        items:
+          type: number
+          minItems: 2
+          maxItems: 2
+      developer:
+        type: string
+      dateAdded:
+        $ref: '#/definitions/timestamp'
+      type:
+        type: string
+        description: ''
+        enum:
+          - baccarat
+          - blackjack
+          - roulette
+          - poker
+      minBet:
+        type: number
+        description: minimum bet
+      maxBet:
+        type: number
+        description: maximum bet
+      slotsUnlimited:
+        type: boolean
+        description: >
+          Indicates if there is an unlimited number of players can join the
+          table
+
+          If this is false, then it will be accompanied with slotsTotal field.
+
+          In the case of only NetEnt games, we also provide slotsAvailable
+      slotsTotal:
+        type: number
+        description: >
+          Total number of slots for players on the table (Present if
+          slotsUnlimited is false)
+      slotsAvailable:
+        type: number
+        description: |
+          Available slots for players on table (only provided by NetEnt)
+      tableName:
+        type: string
+        description: |
+          Name of table given provider
+      tableLanguage:
+        type: string
+        description: |
+          Language of table (only provided by NetEnt)
+      dealerName:
+        type: string
+        description: |
+          Name of dealer (only provided by NetEnt)
+  GameUserProperties:
+    type: object
+    properties:
+      lastPlayed:
+        $ref: '#/definitions/timestamp'
+      favorite:
+        type: boolean
+  GameSorting:
+    type: object
+    required:
+      - recommended
+      - popularity
+      - hotness
+      - magic
+    properties:
+      recommended:
+        type: number
+        minimum: 0
+        maximum: 100
+      popularity:
+        type: number
+        minimum: 0
+        maximum: 100
+      hotness:
+        type: number
+        minimum: 0
+        maximum: 100
+      magic:
+        type: number
+        minimum: 0
+        maximum: 100
+  GameTag:
+    type: string
+  CasinoGameWinner:
+    required:
+      - date
+      - gameId
+      - amount
+      - winner
+    properties:
+      date:
+        $ref: '#/definitions/timestamp'
+      gameId:
+        $ref: '#/definitions/gameId'
+      amount:
+        $ref: '#/definitions/money'
+      winner:
+        type: string
+  CasinoGameWinners:
+    type: array
+    items:
+      $ref: '#/definitions/CasinoGameWinner'
+  GetCasinoGameWinnersResponse:
+    properties:
+      casinoGameWinners:
+        $ref: '#/definitions/CasinoGameWinners'
+  BrowserClientUrlRequest:
+    type: object
+    required:
+      - language
+      - isMobile
+    properties:
+      language:
+        $ref: '#/definitions/language'
+      isMobile:
+        type: boolean
+  GamingLimitField:
+    type: string
+    enum:
+      - loss
+      - turnover
+      - deposit
+  GamingLimitInterval:
+    type: string
+    enum:
+      - day
+      - week
+      - month
+  GamingLimitComing:
+    type: object
+    required:
+      - date
+    properties:
+      dayLoss:
+        $ref: '#/definitions/money'
+      weekLoss:
+        $ref: '#/definitions/money'
+      monthLoss:
+        $ref: '#/definitions/money'
+      dayTurnover:
+        $ref: '#/definitions/money'
+      weekTurnover:
+        $ref: '#/definitions/money'
+      monthTurnover:
+        $ref: '#/definitions/money'
+      date:
+        $ref: '#/definitions/timestamp'
+  GamingLimitComingList:
+    type: array
+    items:
+      $ref: '#/definitions/GamingLimitComing'
+  GamingLimitCurrent:
+    type: object
+    properties:
+      dayLoss:
+        $ref: '#/definitions/money'
+      weekLoss:
+        $ref: '#/definitions/money'
+      monthLoss:
+        $ref: '#/definitions/money'
+      dayTurnover:
+        $ref: '#/definitions/money'
+      weekTurnover:
+        $ref: '#/definitions/money'
+      monthTurnover:
+        $ref: '#/definitions/money'
+  GamingLimitRemaining:
+    type: object
+    properties:
+      dayLoss:
+        $ref: '#/definitions/money'
+      weekLoss:
+        $ref: '#/definitions/money'
+      monthLoss:
+        $ref: '#/definitions/money'
+      dayTurnover:
+        $ref: '#/definitions/money'
+      weekTurnover:
+        $ref: '#/definitions/money'
+      monthTurnover:
+        $ref: '#/definitions/money'
+  GamingLimitGroup:
+    type: string
+    enum:
+      - betLimits
+      - depositLimits
+  GamingLimitType:
+    type: string
+    enum:
+      - monetary
+  GamingLimitRemainingAmount:
+    $ref: '#/definitions/money'
+  GamingLimit:
+    type: object
+    required:
+      - current
+      - group
+      - remaining
+      - type
+      - remainingAmount
+    properties:
+      coming:
+        $ref: '#/definitions/GamingLimitComingList'
+      current:
+        $ref: '#/definitions/GamingLimitCurrent'
+      remaining:
+        $ref: '#/definitions/GamingLimitRemaining'
+      group:
+        $ref: '#/definitions/GamingLimitGroup'
+      type:
+        $ref: '#/definitions/GamingLimitType'
+      remainingAmount:
+        $ref: '#/definitions/GamingLimitRemainingAmount'
+  GamingLimits:
+    type: array
+    items:
+      $ref: '#/definitions/GamingLimit'
+  GetGamingLimitsResponse:
+    required:
+      - gamingLimits
+    properties:
+      gamingLimits:
+        $ref: '#/definitions/GamingLimits'
+  PostGamingLimitRequest:
+    type: object
+    required:
+      - type
+      - interval
+      - value
+    properties:
+      type:
+        $ref: '#/definitions/GamingLimitField'
+      interval:
+        $ref: '#/definitions/GamingLimitInterval'
+      value:
+        $ref: '#/definitions/money'
+  ComingSessionLimit:
+    type: object
+    properties:
+      timestamp:
+        $ref: '#/definitions/timestamp'
+      newLimit:
+        $ref: '#/definitions/sessionLimit'
+  SessionLimit:
+    type: object
+    properties:
+      current:
+        $ref: '#/definitions/sessionLimit'
+      remaining:
+        $ref: '#/definitions/sessionLimit'
+      coming:
+        $ref: '#/definitions/ComingSessionLimit'
+  GetSessionLimitResponse:
+    type: object
+    properties:
+      sessionLimit:
+        $ref: '#/definitions/SessionLimit'
+  PutSessionLimitRequest:
+    type: object
+    properties:
+      newLimit:
+        type: number
+  PutSessionLimitResponse:
+    type: object
+    properties:
+      sessionLimit:
+        $ref: '#/definitions/SessionLimit'
+  ComingDepositLimit:
+    type: object
+    properties:
+      timestamp:
+        $ref: '#/definitions/timestamp'
+      newLimit:
+        $ref: '#/definitions/money'
+  DepositLimit:
+    type: object
+    required:
+      - coming
+    properties:
+      current:
+        $ref: '#/definitions/money'
+      remaining:
+        $ref: '#/definitions/money'
+      coming:
+        type: array
+        items:
+          $ref: '#/definitions/ComingDepositLimit'
+  DepositLimits:
+    type: object
+    properties:
+      daily:
+        $ref: '#/definitions/DepositLimit'
+      weekly:
+        $ref: '#/definitions/DepositLimit'
+      monthly:
+        $ref: '#/definitions/DepositLimit'
+  ComingTurnoverLimit:
+    type: object
+    properties:
+      timestamp:
+        $ref: '#/definitions/timestamp'
+      newLimit:
+        $ref: '#/definitions/money'
+  TurnoverLimit:
+    type: object
+    required:
+      - coming
+    properties:
+      current:
+        $ref: '#/definitions/money'
+      remaining:
+        $ref: '#/definitions/money'
+      coming:
+        type: array
+        items:
+          $ref: '#/definitions/ComingTurnoverLimit'
+  TurnoverLimits:
+    type: object
+    properties:
+      daily:
+        $ref: '#/definitions/TurnoverLimit'
+      weekly:
+        $ref: '#/definitions/TurnoverLimit'
+      monthly:
+        $ref: '#/definitions/TurnoverLimit'
+  ComingLossLimit:
+    type: object
+    properties:
+      timestamp:
+        $ref: '#/definitions/timestamp'
+      newLimit:
+        $ref: '#/definitions/money'
+  LossLimit:
+    type: object
+    required:
+      - coming
+    properties:
+      current:
+        $ref: '#/definitions/money'
+      remaining:
+        $ref: '#/definitions/money'
+      coming:
+        type: array
+        items:
+          $ref: '#/definitions/ComingLossLimit'
+  LossLimits:
+    type: object
+    properties:
+      daily:
+        $ref: '#/definitions/LossLimit'
+      weekly:
+        $ref: '#/definitions/LossLimit'
+      monthly:
+        $ref: '#/definitions/LossLimit'
+  LockAccountResponse:
+    type: object
+    properties:
+      timeout:
+        $ref: '#/definitions/lockAccountTimeout'
+  LockAccountRequest:
+    type: object
+    required:
+      - timeout
+    properties:
+      timeout:
+        $ref: '#/definitions/lockAccountTimeout'
+  ProductGroup:
+    type: string
+    enum:
+      - CASINO
+      - BETTING
+      - POKER
+      - INTERNAL_SYSTEM
+  Wallet:
+    required:
+      - totalBalance
+      - cashBalance
+      - totalBonusBalance
+      - subSystemBalances
+    properties:
+      currency:
+        $ref: '#/definitions/currency'
+      totalBalance:
+        $ref: '#/definitions/money'
+      cashBalance:
+        $ref: '#/definitions/money'
+      totalBonusBalance:
+        $ref: '#/definitions/money'
+      subSystemBalances:
+        type: array
+        items:
+          $ref: '#/definitions/SubSystemBalances'
+  GetWalletResponse:
+    properties:
+      wallet:
+        $ref: '#/definitions/Wallet'
+  SubSystemBalances:
+    properties:
+      bonusBalance:
+        $ref: '#/definitions/money'
+      pendingBonusBalance:
+        $ref: '#/definitions/money'
+      subSystem:
+        type: string
+      subSystemId:
+        type: integer
+  PaymentsConfig:
+    required:
+      - accountID
+      - apiUrl
+      - desktopChannel
+      - mobileChannel
+      - iframeUrl
+      - merchantID
+      - nyxSession
+      - operator
+    description: |
+      Configuration data for talking with payment IQ
+    properties:
+      accountID:
+        type: string
+      apiUrl:
+        $ref: '#/definitions/url'
+      desktopChannel:
+        type: string
+      mobileChannel:
+        type: string
+      iframeUrl:
+        $ref: '#/definitions/url'
+      merchantID:
+        type: string
+      nyxSession:
+        $ref: '#/definitions/nyxSession'
+      operator:
+        $ref: '#/definitions/operator'
+  GetPaymentsConfigResponse:
+    type: object
+    properties:
+      config:
+        $ref: '#/definitions/PaymentsConfig'
+  CampaignContent:
+    type: object
+    properties:
+      assets:
+        type: object
+        properties:
+          backgroundImage:
+            $ref: '#/definitions/CampaignBackgroundImage'
+          backgroundOverlay:
+            $ref: '#/definitions/CampaignBackgroundOverlay'
+          headlineText:
+            $ref: '#/definitions/CampaignHeadlineText'
+          salesText:
+            $ref: '#/definitions/CampaignSalesText'
+          linkText:
+            $ref: '#/definitions/CampaignLinkText'
+          linkAction:
+            $ref: '#/definitions/CampaignLinkAction'
+      contentObjectType:
+        type: string
+  CampaignBackgroundImage:
+    type: object
+    properties:
+      assetType:
+        type: string
+      url:
+        $ref: '#/definitions/url'
+  CampaignBackgroundOverlay:
+    type: object
+    properties:
+      assetType:
+        type: string
+      text:
+        type: string
+  CampaignHeadlineText:
+    type: object
+    properties:
+      assetType:
+        type: string
+      text:
+        type: string
+  CampaignSalesText:
+    type: object
+    properties:
+      assetType:
+        type: string
+      markdown:
+        type: string
+  CampaignLinkText:
+    type: object
+    properties:
+      assetType:
+        type: string
+      text:
+        type: string
+  CampaignLinkAction:
+    type: object
+    properties:
+      assetType:
+        type: string
+      action:
+        $ref: '#/definitions/url'
+  GetCampaignContentResponse:
+    type: object
+    properties:
+      campaignContent:
+        type: object
+        properties:
+          layoutName:
+            $ref: '#/definitions/CampaignContent'
+  WhitelistedCountries:
+    type: array
+    items:
+      $ref: '#/definitions/country'
+  GetWhitelistedCountriesResponse:
+    type: object
+    properties:
+      whitelistedCountries:
+        $ref: '#/definitions/WhitelistedCountries'
+  GeolocationDetails:
+    type: object
+    properties:
+      countryCode:
+        $ref: '#/definitions/country'
+  PersonDetails:
+    type: object
+    properties:
+      person:
+        type: object
+        properties:
+          firstName:
+            $ref: '#/definitions/firstName'
+          lastName:
+            $ref: '#/definitions/lastName'
+          address:
+            $ref: '#/definitions/address'
+          zip:
+            $ref: '#/definitions/zip'
+          city:
+            $ref: '#/definitions/city'
+  AcceptedTermsAndConditionsResponse:
+    type: object
+    properties:
+      accepted:
+        type: boolean
+  BonusTypeParams:
+    type: object
+    properties:
+      releasedAmount:
+        $ref: '#/definitions/money'
+      maxReleasedAmount:
+        $ref: '#/definitions/money'
+      turnoverGoal:
+        $ref: '#/definitions/money'
+      turnoverCurrent:
+        $ref: '#/definitions/money'
+      completionRate:
+        $ref: '#/definitions/money'
+  Bonus:
+    type: object
+    properties:
+      id:
+        $ref: '#/definitions/id'
+      status:
+        type: string
+      title:
+        type: string
+      expiryDate:
+        type: string
+        format: date-time
+      currency:
+        $ref: '#/definitions/currency'
+      product:
+        type: string
+        enum:
+          - casino
+          - poker
+          - bingo
+          - live-casino
+          - sports
+      type:
+        type: string
+        enum:
+          - turnover-bonus
+      typeParams:
+        $ref: '#/definitions/BonusTypeParams'
+  Bonuses:
+    type: array
+    items:
+      $ref: '#/definitions/Bonus'
+  ForfeitBonusResponse:
+    type: object
+    properties:
+      bonusId:
+        $ref: '#/definitions/id'
+  GetBonusesResponse:
+    type: object
+    properties:
+      bonuses:
+        $ref: '#/definitions/Bonuses'
+  GetBonusResponse:
+    type: object
+    properties:
+      bonus:
+        $ref: '#/definitions/Bonus'
+  AvailableBonus:
+    type: object
+    properties:
+      id:
+        $ref: '#/definitions/id'
+      status:
+        type: string
+      title:
+        type: string
+      expiryDate:
+        type: string
+        format: date-time
+      product:
+        type: string
+        enum:
+          - poker
+          - casino
+          - liveCasino
+      currency:
+        $ref: '#/definitions/currency'
+      type:
+        type: string
+        enum:
+          - turnover-bonus
+  AvailableBonuses:
+    type: array
+    items:
+      $ref: '#/definitions/AvailableBonus'
+  AvailableBonusesRequest:
+    type: object
+    properties:
+      type:
+        type: string
+  AvailableBonusesResponse:
+    type: object
+    properties:
+      bonuses:
+        $ref: '#/definitions/AvailableBonuses'
+  ResetPasswordRequest:
+    type: object
+    properties:
+      email:
+        $ref: '#/definitions/email'
+  SetReadRequest:
+    type: object
+    properties:
+      read:
+        type: boolean
+  Hotbet:
+    type: object
+    properties:
+      time:
+        $ref: '#/definitions/timestamp'
+      league:
+        type: string
+      firstTeam:
+        type: string
+      secondTeam:
+        type: string
+      bets:
+        type: array
+        items:
+          type: string
+          enum:
+            - 7/5
+            - 7/4
+            - 15/8
+  Hotbets:
+    type: array
+    items:
+      $ref: '#/definitions/Hotbet'
+  GetHotbetsResponse:
+    type: object
+    properties:
+      hotbets:
+        $ref: '#/definitions/Hotbets'
+  PlaceHotbetRequest:
+    type: object
+    properties:
+      id:
+        type: string
+      bet:
+        type: string
+        enum:
+          - 7/5
+          - 7/4
+          - 15/8
+  UrlResponse:
+    type: object
+    properties:
+      url:
+        $ref: '#/definitions/url'
+  LiveBettingUrlRequest:
+    type: object
+    required:
+      - language
+      - currency
+      - isMobile
+    properties:
+      language:
+        $ref: '#/definitions/language'
+      currency:
+        $ref: '#/definitions/currency'
+      isMobile:
+        type: boolean
+  SuperLiveUrlRequest:
+    type: object
+    required:
+      - language
+      - currency
+      - isMobile
+    properties:
+      language:
+        $ref: '#/definitions/language'
+      currency:
+        $ref: '#/definitions/currency'
+      isMobile:
+        type: boolean
+  SportsNewsUrlRequest:
+    type: object
+    required:
+      - language
+      - currency
+      - isMobile
+    properties:
+      language:
+        $ref: '#/definitions/language'
+      currency:
+        $ref: '#/definitions/currency'
+      isMobile:
+        type: boolean
+  EmptyResponse:
+    type: object
+  PaymentTransaction:
+    type: object
+    required:
+      - type
+      - amount
+      - method
+    properties:
+      type:
+        $ref: '#/definitions/paymentType'
+      amount:
+        $ref: '#/definitions/money'
+      method:
+        $ref: '#/definitions/paymentMethod'
+  IdentityCheckResponse:
+    properties:
+      kycStatus:
+        $ref: '#/definitions/kycStatus'
+  SportsTokenResponse:
+    type: object
+    properties:
+      sportsToken:
+        $ref: '#/definitions/sportsToken'
+  accountName:
+    type: string
+    example: tommy10
+  verifyEmailCode:
+    type: object
+    properties:
+      code:
+        type: string
+        example: feaf657faejn1
+  address:
+    description: Street and number. (no special validation rule)
+    type: string
+    example: Supergatan 2
+  authorizationToken:
+    description: Encoded JWT token
+    type: string
+    example: >-
+      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+  birthday:
+    description: Birthday as a date
+    type: string
+    format: date
+    example: '1970-01-01'
+  callingCode:
+    description: |
+      Format: /^[+|00]d+/i
+    type: string
+    example: '+46'
+  city:
+    type: string
+    example: Stockholm
+  country:
+    type: string
+    enum:
+      - UZ
+      - CH
+      - PW
+      - LB
+      - GU
+      - TK
+      - BF
+      - NU
+      - SL
+      - MV
+      - SJ
+      - AQ
+      - AX
+      - CM
+      - EG
+      - UY
+      - KI
+      - BM
+      - GN
+      - ML
+      - IN
+      - TC
+      - MW
+      - NZ
+      - BI
+      - MN
+      - JM
+      - NE
+      - IT
+      - SK
+      - IM
+      - LI
+      - 'NO'
+      - YU
+      - CA
+      - DM
+      - KZ
+      - LR
+      - PE
+      - ZM
+      - CC
+      - VU
+      - KE
+      - IE
+      - IO
+      - PA
+      - AT
+      - TT
+      - ZA
+      - BJ
+      - GD
+      - CY
+      - AR
+      - AN
+      - ST
+      - JE
+      - BR
+      - TZ
+      - BT
+      - MP
+      - MD
+      - CF
+      - GA
+      - BD
+      - GG
+      - LT
+      - NR
+      - CL
+      - TV
+      - CR
+      - KN
+      - LC
+      - LU
+      - FI
+      - CO
+      - DE
+      - JP
+      - BV
+      - GR
+      - ME
+      - NP
+      - MK
+      - MZ
+      - LV
+      - TJ
+      - EH
+      - AD
+      - BB
+      - AW
+      - NG
+      - HT
+      - MX
+      - AG
+      - SB
+      - MS
+      - KM
+      - TM
+      - WS
+      - GB
+      - IS
+      - VC
+      - GI
+      - SI
+      - TW
+      - TO
+      - CZ
+      - DO
+      - KR
+      - MC
+      - RS
+      - BS
+      - BN
+      - VN
+      - SV
+      - CI
+      - BW
+      - KY
+      - BY
+      - VA
+      - GE
+      - MH
+      - SZ
+      - CV
+      - VE
+      - FM
+      - AM
+      - GW
+      - MT
+      - PY
+      - AU
+      - CG
+      - DJ
+      - PN
+      - NL
+      - RU
+      - GH
+      - TG
+      - CS
+      - LK
+      - MO
+      - CX
+      - GQ
+      - SM
+      - FJ
+      - GM
+      - VG
+      - SN
+      - TD
+      - AI
+      - MG
+      - CD
+      - PR
+      - FK
+      - PL
+      - EE
+      - TL
+      - PS
+      - HM
+      - SE
+      - CK
+      - SH
+      - SC
+      - LS
+      - BZ
+      - FO
+      - BO
+      - SR
+  currency:
+    type: string
+    enum:
+      - SEK
+      - NOK
+      - EUR
+      - PLN
+      - GBP
+      - CAD
+      - AUD
+  depositLimit:
+    type: number
+  depositLimitField:
+    type: string
+    enum:
+      - DAY
+      - WEEK
+      - MONTH
+  depositLimitValue:
+    type: number
+  device:
+    type: string
+    enum:
+      - mobile
+      - desktop
+      - poker
+  duration:
+    type: number
+  email:
+    type: string
+    example: foo@bar.com
+  emptyObject:
+    type: object
+  excludeAccountDuration:
+    type: number
+  firstName:
+    description: First name of the user. (no special validation rule)
+    type: string
+    example: Sven
+  gameId:
+    type: string
+    example: taco-brothers
+  liveGameId:
+    type: string
+    example: evolution-blackjack-zixzea8nrf1675oh
+  gameName:
+    type: string
+    example: GTA V
+  gamingLimitDomain:
+    type: string
+    enum:
+      - MONEY
+      - TIME
+  gamingLimitPeriod:
+    type: string
+    enum:
+      - DAY
+      - WEEK
+      - MONTH
+  gamingLimitStatus:
+    type: string
+    enum:
+      - ACTIVE
+      - NEXT
+  gamingLimitType:
+    type: string
+    enum:
+      - DEPOSIT
+      - LOSS
+      - TURNOVER
+      - TIME_LOGGED_IN
+  id:
+    description: General example of an id
+    type: string
+    example: 0123456789
+  language:
+    type: string
+    enum:
+      - sv
+      - fi
+      - en
+      - de
+      - pl
+      - 'no'
+  lastName:
+    description: Last name of the user. (no special validation rule)
+    type: string
+    example: Svensson
+  localizedString:
+    type: string
+    example: Detta är en text på svenska
+  localizedMarkdown:
+    description: LocalizedMarkdown
+    type: string
+    example: |
+      \# This is markdown header
+      This is markdown text
+  lockAccountTimeout:
+    type: number
+  mobileNumber:
+    type: string
+    example: '+46707805530'
+  money:
+    description: Amount of money as a string
+    type: string
+    example: 20.00 SEK
+  nickName:
+    type: string
+    example: Grosshandlaren
+  nyxSession:
+    type: string
+    example: 'RedbetMT:c3e2ef84b46c14f61b3eb5d2587f4266_113492085'
+  operator:
+    type: string
+    example: RedbetMT
+  password:
+    type: string
+    example: tommytyckerommig
+  passwordResetCode:
+    type: string
+    example: feaf657faejn1
+  phoneNumber:
+    type: string
+    example: '+4645716775'
+  registerDepositLimitPeriod:
+    type: string
+    enum:
+      - ''
+      - none
+      - day
+      - week
+      - month
+  selfExclusionTimeout:
+    type: number
+  sessionLimit:
+    type: number
+  sex:
+    type: string
+    enum:
+      - M
+      - F
+      - O
+  nationalIdSE:
+    type: string
+    example: '198705236829'
+  timestamp:
+    type: string
+    format: date-time
+  timeToRealityCheck:
+    type: number
+  casinoSessionReminder:
+    type: number
+  timeZone:
+    description: |
+      Format: /"GMT"? [+-] hh ":"? MM?/
+    type: string
+    example: 'GMT-02:00'
+  url:
+    description: Full url
+    type: string
+    example: 'https://foo-bar/alice.png'
+  urlPath:
+    description: Path of a URL
+    type: string
+    example: /path/of/a/url
+  baseUrl:
+    description: Base url
+    type: string
+    example: 'https://www.brand.com'
+  view:
+    type: string
+    enum:
+      - home
+  zip:
+    description: |
+      Format: /^[a-z0-9\- ]+$/i
+    type: string
+    example: '11253'
+  tacVersion:
+    description: |
+      Format: /^v[0-9]\.[0-9]\.[0-9]$/i
+    type: string
+    example: v0.0.0
+  affiliateToken:
+    type: string
+  paymentType:
+    type: string
+    enum:
+      - deposit
+      - withdrawal
+  paymentMethod:
+    type: string
+    enum:
+      - creditcard
+      - banklocal
+  kycStatus:
+    type: string
+    enum:
+      - Passed
+      - PassedPartially
+      - EnhancedIdentityCheckNeeded
+  sportsToken:
+    type: string
+    example: f7bec862-6eed-4d1f-af7a-f435b7a0502b
+  BadRequestError:
+    description: General bad request error
+    required:
+      - errorCode
+    properties:
+      message:
+        type: string
+      errorCode:
+        type: string
+        enum:
+          - ENUM_MISMATCH
+          - SCHEMA_VALIDATION_FAILED
+          - INCLUDE_ERROR
+          - REQUIRED
+          - PARAMETER_LIMIT_ERROR
+          - ERROR_CODE_NOT_FOUND
+          - INVALID_TYPE
+          - PARAMETER_ERROR
+          - HEADER_MISSING
+          - INVALID
+          - SIGNUP_FAILED
+          - WRONG_PASSWORD
+          - INVALID_PARAMETERS
+          - USER_ERROR
+          - MISSING_PARAMS
+          - FAILED_IP_LOOKUP
+          - BAD_REQUEST
+          - COUNTRY_BLACKLISTED
+          - NONE_UK_NOT_ALLOWED
+      parameterErrors:
+        type: array
+        items:
+          $ref: '#/definitions/ParameterError'
+  UnauthorizedError:
+    description: General 401
+    required:
+      - errorCode
+    properties:
+      message:
+        type: string
+      errorCode:
+        type: string
+        enum:
+          - UNAUTHORIZED
+          - FORBIDDEN
+          - MULTIPLE_ACCOUNTS_CONTACT_SUPPORT
+  ForbiddenError:
+    description: General 403
+    required:
+      - errorCode
+    properties:
+      errorCode:
+        type: string
+        enum:
+          - FORBIDDEN
+          - USER_LOCKED_SelfExcluded
+          - USER_LOCKED_TakeABreak
+  NotFoundError:
+    description: General 404
+    required:
+      - errorCode
+    properties:
+      message:
+        type: string
+      errorCode:
+        type: string
+        enum:
+          - ENTITY_NOT_FOUND
+          - RESOURCE_NOT_FOUND
+          - PATH_NOT_IN_SWAGGER_SPEC
+  InternalServerError:
+    description: General internal server error
+    required:
+      - errorCode
+    properties:
+      message:
+        type: string
+      errorCode:
+        type: string
+      parameterErrors:
+        type: array
+        items:
+          $ref: '#/definitions/ParameterError'
+  AuthenticationError:
+    required:
+      - errorCode
+    properties:
+      message:
+        type: string
+      errorCode:
+        type: string
+        enum:
+          - UNAUTHORIZED
+          - AUTH_INVALID_PASSWORD
+          - AUTH_NO_SUCH_USER
+          - AUTH_TOO_MANY_ATTEMPTS
+          - PARAMETER_ERROR
+  RegisterForbiddenError:
+    required:
+      - errorCode
+    properties:
+      message:
+        type: string
+      errorCode:
+        type: string
+        enum:
+          - SCHEMA_VALIDATION_FAILED
+          - INCLUDE_ERROR
+          - REQUIRED
+          - DUPLICATE
+          - PARAMETER_ERROR
+      parameterErrors:
+        type: array
+        items:
+          $ref: '#/definitions/ParameterError'
+  ExclusionError:
+    required:
+      - errorCode
+    properties:
+      message:
+        type: string
+      errorCode:
+        type: string
+        enum:
+          - ACCOUNT_EXCLUDED_BY_USER
+          - ACCOUNT_EXCLUDED_BY_SUPPORT
+          - ACCOUNT_LOCKED_TOO_MANY_FAILED_LOGIN_ATTEMPTS
+  ParameterError:
+    description: General parameter error
+    required:
+      - errorCode
+      - parameter
+    properties:
+      message:
+        type: string
+      parameter:
+        type: string
+      errorCode:
+        type: string
+        enum:
+          - ENUM_MISMATCH
+          - OBJECT_MISSING_REQUIRED_PROPERTY
+          - PARAMETER_LIMIT_ERROR
+          - INVALID_TYPE
+          - DUPLICATE
+          - INVALID
+          - PATTERN
+          - REQUIRED
+          - MAXIMUM
+          - INVALID_FORMAT
+          - MINIMUM
+          - ALREADY_TAKEN
+          - INVALID_TRANSACTION_ID
+          - NOT_INTEGER
+          - UNKNOWN_VERSION
+          - TOO_LOW
+          - TOO_HIGH
+  DummyError:
+    description: DummyError
+    properties:
+      empty:
+        type: string
+  IdentityCheckForbiddenError:
+    description: 403 Forbidden
+    required:
+      - errorCode
+    properties:
+      errorCode:
+        type: string
+        enum:
+          - IDENTITY_CHECK_FAILED_CONTACT_SUPPORT

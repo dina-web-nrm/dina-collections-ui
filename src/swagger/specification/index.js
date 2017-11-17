@@ -1,0 +1,19 @@
+/* eslint-disable sort-keys */
+const base = require('./base.json')
+const info = require('./info.json')
+const tags = require('./tags.json')
+const paths = require('./paths.json')
+const definitions = require('./definitions/index.json')
+const securityDefinitions = require('./securityDefinitions.json')
+
+const schemes = ['http']
+
+module.exports = function buildSpecification() {
+  base.info = info
+  base.tags = tags
+  base.paths = paths
+  base.definitions = definitions
+  base.schemes = schemes
+  base.securityDefinitions = securityDefinitions
+  return base
+}
