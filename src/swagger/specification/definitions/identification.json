@@ -1,0 +1,10 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "appliesToIndividualGroupId": { "type": "integer" },
+    "id": { "type": "integer" },
+    "identificationText": { "type": "string" },
+    "version": { "type": "integer" }
+  },
+  "required": ["identificationText"]
+}

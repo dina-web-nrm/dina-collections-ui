@@ -1,0 +1,179 @@
+{
+  "catalogedUnit": {
+    "properties": {
+      "catalogNumber": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer"
+      },
+      "individualGroup": {
+        "$ref": "individualGroup"
+      }
+    },
+    "required": [
+      "catalogNumber"
+    ],
+    "id": "catalogedUnit"
+  },
+  "featureObservation": {
+    "additionalProperties": false,
+    "properties": {
+      "appliesToIndividualGroupId": {
+        "type": "integer"
+      },
+      "featureObservationText": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer"
+      },
+      "isOfFeatureObservationTypeId": {
+        "type": "integer"
+      },
+      "version": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "featureObservationText",
+      "isOfFeatureObservationTypeId"
+    ],
+    "id": "featureObservation"
+  },
+  "identification": {
+    "additionalProperties": false,
+    "properties": {
+      "appliesToIndividualGroupId": {
+        "type": "integer"
+      },
+      "id": {
+        "type": "integer"
+      },
+      "identificationText": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "identificationText"
+    ],
+    "id": "identification"
+  },
+  "individualGroup": {
+    "additionalProperties": true,
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "physicalUnits": {
+        "type": "array",
+        "items": {
+          "$ref": "physicalUnit"
+        }
+      },
+      "identifications": {
+        "type": "array",
+        "items": {
+          "$ref": "identification"
+        }
+      },
+      "occurances": {
+        "type": "array",
+        "items": {
+          "$ref": "occurance"
+        }
+      },
+      "featureObservations": {
+        "type": "array",
+        "items": {
+          "$ref": "featureObservation"
+        }
+      }
+    },
+    "required": [
+      "id"
+    ],
+    "id": "individualGroup"
+  },
+  "occurance": {
+    "additionalProperties": false,
+    "properties": {
+      "collectorsText": {
+        "type": "string"
+      },
+      "dayEnd": {
+        "type": "string"
+      },
+      "dayStart": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer"
+      },
+      "involvesIndividualGroupId": {
+        "type": "integer"
+      },
+      "localityText": {
+        "type": "string"
+      },
+      "monthEnd": {
+        "type": "string"
+      },
+      "monthStart": {
+        "type": "string"
+      },
+      "occurrenceDateText": {
+        "type": "string"
+      },
+      "version": {
+        "type": "integer"
+      },
+      "yearEnd": {
+        "type": "string"
+      },
+      "yearStart": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "id"
+    ],
+    "id": "occurance"
+  },
+  "physicalUnit": {
+    "additionalProperties": false,
+    "properties": {
+      "belongsToCatalogedUnitId": {
+        "type": "integer"
+      },
+      "id": {
+        "type": "integer"
+      },
+      "isCollectedAtOccurrenceId": {
+        "type": "integer"
+      },
+      "normalStorageLocation": {
+        "type": "string"
+      },
+      "physicalUnitText": {
+        "type": "string"
+      },
+      "representsIndividualGroupId": {
+        "type": "integer"
+      },
+      "version": {
+        "type": "integer"
+      }
+    },
+    "required": [
+      "id"
+    ],
+    "id": "physicalUnit"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "additionalProperties": true,
+  "properties": {
+    "id": { "type": "integer" },
+    "version": { "type": "integer" },
+    "physicalUnits": {
+      "type": "array",
+      "items": {
+        "$ref": "__ROOT__physicalUnit"
+      }
+    },
+    "identifications": {
+      "type": "array",
+      "items": {
+        "$ref": "__ROOT__identification"
+      }
+    },
+    "occurances": {
+      "type": "array",
+      "items": {
+        "$ref": "__ROOT__occurance"
+      }
+    },
+    "featureObservations": {
+      "type": "array",
+      "items": {
+        "$ref": "__ROOT__featureObservation"
+      }
+    }
+  },
+  "required": ["id"]
+}

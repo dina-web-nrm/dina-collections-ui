@@ -1,0 +1,11 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "appliesToIndividualGroupId": { "type": "integer" },
+    "featureObservationText": { "type": "string" },
+    "id": { "type": "integer" },
+    "isOfFeatureObservationTypeId": { "type": "integer" },
+    "version": { "type": "integer" }
+  },
+  "required": ["featureObservationText", "isOfFeatureObservationTypeId"]
+}

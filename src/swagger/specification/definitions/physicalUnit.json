@@ -1,0 +1,13 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "belongsToCatalogedUnitId": { "type": "integer" },
+    "id": { "type": "integer" },
+    "isCollectedAtOccurrenceId": { "type": "integer" },
+    "normalStorageLocation": { "type": "string" },
+    "physicalUnitText": { "type": "string" },
+    "representsIndividualGroupId": { "type": "integer" },
+    "version": { "type": "integer" }
+  },
+  "required": ["id"]
+}

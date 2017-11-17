@@ -1,0 +1,18 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "collectorsText": { "type": "string" },
+    "dayEnd": { "type": "string" },
+    "dayStart": { "type": "string" },
+    "id": { "type": "integer" },
+    "involvesIndividualGroupId": { "type": "integer" },
+    "localityText": { "type": "string" },
+    "monthEnd": { "type": "string" },
+    "monthStart": { "type": "string" },
+    "occurrenceDateText": { "type": "string" },
+    "version": { "type": "integer" },
+    "yearEnd": { "type": "string" },
+    "yearStart": { "type": "string" }
+  },
+  "required": ["id"]
+}

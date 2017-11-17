@@ -1,0 +1,44 @@
+{
+  "get": {
+    "tags": ["pet"],
+    "summary": "Finds individualGroups",
+    "description":
+      "Here is a description",
+    "operationId": "findPetsByStatus",
+    "produces": ["application/json"],
+    "parameters": [
+      {
+        "name": "status",
+        "in": "query",
+        "description": "Status values that need to be considered for filter",
+        "required": true,
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": ["available", "pending", "sold"],
+          "default": "available"
+        },
+        "collectionFormat": "multi"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "successful operation",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/individualGroup"
+          }
+        }
+      },
+      "400": {
+        "description": "Invalid status value"
+      }
+    },
+    "security": [
+      {
+        "petstore_auth": ["write:pets", "read:pets"]
+      }
+    ]
+  }
+}
