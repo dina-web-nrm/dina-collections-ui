@@ -1,4 +1,5 @@
 export const viewOrder = [
+  'public',
   'app',
   'editMammal',
   'home',
