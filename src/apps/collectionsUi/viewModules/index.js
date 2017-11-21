@@ -6,4 +6,5 @@ export const viewOrder = [
   'registerMammal',
   'login',
   'settings',
+  'pageNotFound',
 ]
