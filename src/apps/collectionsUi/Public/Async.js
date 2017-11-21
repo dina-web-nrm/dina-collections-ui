@@ -1,8 +1,8 @@
 import { createAsyncView } from 'coreModules/bootstrap/higherOrderComponents'
-import { name } from './index'
+import { MODULE_NAME } from './constants'
 
 export default createAsyncView({
-  name,
+  name: MODULE_NAME,
   view: () => {
     return import('./index.js')
   },
