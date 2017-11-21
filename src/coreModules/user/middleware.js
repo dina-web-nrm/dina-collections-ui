@@ -40,9 +40,9 @@ export default function userMiddleware() {
       }
       // might make sense to move this to the app level
       case USER_GET_USER_PREFERENCES_SUCCESS: {
-        const preferedLanguage = getUserPreferencesLanguage(getState())
-        if (preferedLanguage) {
-          dispatch(setLanguage(preferedLanguage))
+        const preferredLanguage = getUserPreferencesLanguage(getState())
+        if (preferredLanguage) {
+          dispatch(setLanguage(preferredLanguage))
         }
 
         break
