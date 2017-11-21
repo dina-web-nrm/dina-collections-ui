@@ -2,6 +2,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { createProvider } from 'react-redux'
+import { ConnectedRouter } from 'react-router-redux'
 import {
   boolean,
   object,
@@ -10,6 +11,7 @@ import {
   withKnobs,
 } from '@storybook/addon-knobs'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
+import defaultTestConfig from 'utilities/test/defaultTestConfig'
 import createTestStore from 'utilities/test/createTestStore'
 import {
   createModuleTranslate,
@@ -17,6 +19,8 @@ import {
   LanguageSelect,
   Translate,
 } from './index'
+
+const config = defaultTestConfig()
 
 storiesOf('coreModules/i18n/Translate', module)
   .addDecorator(withKnobs)
@@ -35,6 +39,7 @@ storiesOf('coreModules/i18n/Translate', module)
 
     const textKey = text('textKey', 'lastName')
     const store = createTestStore({
+      config,
       initialState: {
         i18n: {
           availableLanguages: ['en', 'sv'],
@@ -55,9 +60,11 @@ storiesOf('coreModules/i18n/Translate', module)
     })
     return (
       <Provider store={store}>
-        <I18nProvider>
-          <Translate capitalize={capitalize} textKey={textKey} />
-        </I18nProvider>
+        <ConnectedRouter history={config.routing}>
+          <I18nProvider>
+            <Translate capitalize={capitalize} textKey={textKey} />
+          </I18nProvider>
+        </ConnectedRouter>
       </Provider>
     )
   })
@@ -79,6 +86,7 @@ storiesOf('coreModules/i18n/Translate', module)
 
     const textKey = text('textKey', 'greet')
     const store = createTestStore({
+      config,
       initialState: {
         i18n: {
           availableLanguages: ['en', 'sv'],
@@ -96,13 +104,15 @@ storiesOf('coreModules/i18n/Translate', module)
 
     return (
       <Provider store={store}>
-        <I18nProvider>
-          <Translate
-            capitalize={capitalize}
-            params={params}
-            textKey={textKey}
-          />
-        </I18nProvider>
+        <ConnectedRouter history={config.routing}>
+          <I18nProvider>
+            <Translate
+              capitalize={capitalize}
+              params={params}
+              textKey={textKey}
+            />
+          </I18nProvider>
+        </ConnectedRouter>
       </Provider>
     )
   })
@@ -137,6 +147,7 @@ storiesOf('coreModules/i18n/createModuleTranslate', module)
     const Component = createModuleTranslate(moduleName)
 
     const store = createTestStore({
+      config,
       initialState: {
         i18n: {
           availableLanguages: ['en', 'sv'],
@@ -171,9 +182,11 @@ storiesOf('coreModules/i18n/createModuleTranslate', module)
     })
     return (
       <Provider store={store}>
-        <I18nProvider>
-          <Component capitalize={capitalize} textKey={textKey} />
-        </I18nProvider>
+        <ConnectedRouter history={config.routing}>
+          <I18nProvider>
+            <Component capitalize={capitalize} textKey={textKey} />
+          </I18nProvider>
+        </ConnectedRouter>
       </Provider>
     )
   })
@@ -192,6 +205,7 @@ storiesOf('coreModules/i18n/LanguageSelect', module)
     )
 
     const store = createTestStore({
+      config,
       initialState: {
         i18n: {
           availableLanguages: ['en', 'sv'],
@@ -209,9 +223,11 @@ storiesOf('coreModules/i18n/LanguageSelect', module)
 
     return (
       <Provider store={store}>
-        <I18nProvider>
-          <LanguageSelect />
-        </I18nProvider>
+        <ConnectedRouter history={config.routing}>
+          <I18nProvider>
+            <LanguageSelect />
+          </I18nProvider>
+        </ConnectedRouter>
       </Provider>
     )
   })

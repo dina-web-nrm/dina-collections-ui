@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react'
-import { Router } from 'react-router-dom'
+import { ConnectedRouter } from 'react-router-redux'
 import { Provider } from 'react-redux'
 import { storiesOf } from '@storybook/react'
 import { withKnobs, text } from '@storybook/addon-knobs'
@@ -34,11 +34,11 @@ stories.add(
 
     return (
       <Provider store={store}>
-        <I18nProvider>
-          <Router history={config.routing}>
+        <ConnectedRouter history={config.routing}>
+          <I18nProvider>
             <Navbar testLink={testLink} />
-          </Router>
-        </I18nProvider>
+          </I18nProvider>
+        </ConnectedRouter>
       </Provider>
     )
   })
