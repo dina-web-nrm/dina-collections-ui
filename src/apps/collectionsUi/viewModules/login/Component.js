@@ -1,7 +1,9 @@
 import React from 'react'
 import { Grid, Image } from 'semantic-ui-react'
 import { LoginForm } from 'coreModules/user/components'
+import { requireLoggedOut } from 'coreModules/user/higherOrderComponents'
 import PageTemplate from 'coreModules/commonUi/components/PageTemplate'
+
 import logo from './logo.png'
 
 const Login = () => (
@@ -17,4 +19,4 @@ const Login = () => (
   </PageTemplate>
 )
 
-export default Login
+export default requireLoggedOut(Login)
