@@ -7,7 +7,7 @@ import {
 } from './schemas'
 
 export const LOOKUP_MAMMALS = {
-  inputValidation: createSystemSchemaValidator(lookupMammalsRequest),
+  inputBodyValidation: createSystemSchemaValidator(lookupMammalsRequest),
   key: 'LOOKUP_MAMMALS',
   mock: ({ requestData }) => {
     if (
@@ -58,7 +58,7 @@ export const LOOKUP_MAMMALS = {
 }
 
 export const REGISTER_MAMMAL = {
-  inputValidation: createSystemSchemaValidator(registerMammalRequest),
+  inputBodyValidation: createSystemSchemaValidator(registerMammalRequest),
   key: 'REGISTER_MAMMAL',
   mock: ({ requestData }) => requestData.userInput.body,
   outputValidation: createSystemSchemaValidator(registerMammalResponse),

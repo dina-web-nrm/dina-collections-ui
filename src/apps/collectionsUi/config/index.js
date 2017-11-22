@@ -5,12 +5,6 @@ const history = createHistory()
 const config = {
   api: {
     enableEndpointMocks: process.env.REACT_APP_ENABLE_ENDPOINT_MOCKS === 'true',
-    endpointKeyPathnameMap: {
-      GET_USER: '/auth/realms/dina/protocol/openid-connect/userinfo',
-      LOG_IN: '/auth/realms/dina/protocol/openid-connect/token',
-      LOOKUP_MAMMALS: 'TBD',
-      REGISTER_MAMMAL: 'TBD',
-    },
   },
   devToolsExtension:
     process.env.NODE_ENV === 'development' &&

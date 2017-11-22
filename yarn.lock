@@ -2865,6 +2865,10 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
+"dina-schema@https://github.com/DINA-Web/dina-schema.git":
+  version "0.1.0"
+  resolved "https://github.com/DINA-Web/dina-schema.git#c40adbaee061d83c28e8e1d9b352618aa74566c1"
+
 discontinuous-range@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/discontinuous-range/-/discontinuous-range-1.0.0.tgz#e38331f0844bba49b9a9cb71c771585aab1bc65a"

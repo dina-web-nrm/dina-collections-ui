@@ -31,10 +31,6 @@ export const addModuleToEndpoints = (endpoints, module) => {
   }
 }
 
-export const extractRequiredEndpoints = modules => {
-  return modules.reduce(addModuleToEndpoints, {})
-}
-
 export const validateConfigWithSchema = (config, configSchemas = {}) => {
   Object.keys(configSchemas).forEach(moduleName => {
     const moduleSchema = configSchemas[moduleName]
@@ -51,27 +47,9 @@ export const validateConfigWithSchema = (config, configSchemas = {}) => {
     }
   })
 }
-
-export const validateEndpoints = (config, endpoints = {}) => {
-  const endpointKeyPathnameMap =
-    config && config.api && config.api.endpointKeyPathnameMap
-
-  if (!endpointKeyPathnameMap) {
-    throw new Error('Missing endpointKeyPathnameMap in API config')
-  }
-
-  Object.keys(endpoints).forEach(endpointKey => {
-    if (!endpointKeyPathnameMap[endpointKey]) {
-      throw new Error(`Api not configured for ${endpointKey}`)
-    }
-  })
-}
-
 export default function createConfigValidation(modules) {
   const configSchemas = extractConfigSchemas(modules)
-  const endpoints = extractRequiredEndpoints(modules)
   return (config = {}) => {
     validateConfigWithSchema(config, configSchemas)
-    validateEndpoints(config, endpoints)
   }
 }
