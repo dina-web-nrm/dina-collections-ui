@@ -1,1 +1,1 @@
-export const moduleOrder = ['collectionMammals']
+export const moduleOrder = ['dataModel', 'collectionMammals']
