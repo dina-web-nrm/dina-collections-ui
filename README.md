@@ -12,24 +12,25 @@ Below you will find some information on how to get started and perform common ta
 This guide assumes you have `git` installed
 
 1. [Install nvm](https://github.com/creationix/nvm#installation)
-2. Install Node.js version 6.11.5 (current [v6 LTS version](https://github.com/nodejs/Release) as of Nov 2017)
+2. Install Node.js version 8.9.1
+
 ```
-nvm install 6.11.5
+nvm install 8.9.1
 ```
-3. Set Node v6.11.5 as default
+3. Set Node v8.9.1 as default
 ```
-nvm alias default v6.11.5
+nvm alias default v8.9.1
 ```
 4. [Install yarn](https://yarnpkg.com/lang/en/docs/install/)
 5. Clone the repository
 ```
-git clone https://github.com/dina/xxx
+git clone https://github.com/DINA-Web/dina-collections-ui.git
 ```
-6. Move into directory 
+6. Move into directory
 ```
-cd xxx
+cd dina-collections-ui
 ```
-7. Install dependencies 
+7. Install dependencies
 ```
 yarn
 ```
