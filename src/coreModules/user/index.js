@@ -6,7 +6,6 @@ import * as endpoints from './endpoints'
 import * as higherOrderComponents from './higherOrderComponents'
 import * as selectors from './selectors'
 import * as shortcuts from './shortcuts'
-import * as utilities from './utilities'
 import globalSelectors from './globalSelectors'
 import middleware from './middleware'
 import reducer from './reducer'
@@ -28,5 +27,4 @@ export {
   selectors,
   shortcuts,
   translations,
-  utilities,
 }

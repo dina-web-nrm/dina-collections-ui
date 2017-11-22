@@ -1,4 +1,5 @@
 export const viewOrder = [
+  'public',
   'app',
   'editMammal',
   'home',
@@ -6,4 +7,5 @@ export const viewOrder = [
   'registerMammal',
   'login',
   'settings',
+  'pageNotFound',
 ]

@@ -1,6 +1,8 @@
 import React, { Children, Component } from 'react'
 import PropTypes from 'prop-types'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 import globalSelectors from '../globalSelectors'
 
@@ -39,4 +41,6 @@ class I18nProvider extends Component {
 I18nProvider.childContextTypes = childContextTypes
 I18nProvider.propTypes = propTypes
 
-export default connect(mapStateToProps)(I18nProvider)
+// using withRouter to avoid location updates being blocked
+// https://reacttraining.com/react-router/web/guides/dealing-with-update-blocking
+export default compose(withRouter, connect(mapStateToProps))(I18nProvider)

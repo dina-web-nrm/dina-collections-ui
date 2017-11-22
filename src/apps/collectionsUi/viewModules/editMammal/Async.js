@@ -1,4 +1,5 @@
 import { createAsyncView } from 'coreModules/bootstrap/higherOrderComponents'
+import { MODULE_NAME } from './constants'
 
 export default createAsyncView({
   modules: () => {
@@ -7,7 +8,7 @@ export default createAsyncView({
       import('domainModules/collectionMammals'),
     ]
   },
-  name: 'EditMammal',
+  name: MODULE_NAME,
   view: () => {
     return import('./index.js')
   },
