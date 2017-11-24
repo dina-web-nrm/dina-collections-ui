@@ -1,6 +1,6 @@
 import { createSystemSchemaValidator } from 'coreModules/error/utilities'
 import createMockDataFromSchema from 'utilities/createMockDataFromSchema'
-import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
+import { buildEndpointSpec } from 'coreModules/api/specEndpointFactory'
 
 import { user, loginRequest, loginResponse } from './schemas'
 
