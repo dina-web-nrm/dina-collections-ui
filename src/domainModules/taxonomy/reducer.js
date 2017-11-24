@@ -18,7 +18,7 @@ const initialState = {
     error: null,
     loading: false,
     result: [],
-    searchFilterName: '',
+    searchFilterName: null,
     searchType: 'partial', // not possible to change for now
   },
 }
