@@ -6,10 +6,6 @@ export default function createConfig() {
   return {
     api: {
       enableEndpointMocks: true,
-      endpointKeyPathnameMap: {
-        GET_USER: '/auth/realms/dina/protocol/openid-connect/userinfo',
-        LOG_IN: '/auth/realms/dina/protocol/openid-connect/token',
-      },
     },
     i18n: {
       availableLanguages: ['en', 'sv'],

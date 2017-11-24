@@ -4,9 +4,7 @@ import createConfigValidation, {
   addModuleToEndpoints,
   addModuleToValidations,
   extractConfigSchemas,
-  extractRequiredEndpoints,
   validateConfigWithSchema,
-  validateEndpoints,
 } from './createConfigValidation'
 
 describe('coreModules/bootstrap/utilities/createConfigValidation', () => {
@@ -183,30 +181,6 @@ describe('coreModules/bootstrap/utilities/createConfigValidation', () => {
     })
   })
 
-  describe('extractRequiredEndpoints', () => {
-    it('returns map with endpoints', () => {
-      const apiEndpoints = { GET: '/resource' }
-      const userEndpoints = { REGISTER_USER: '/users' }
-      const modules = [
-        {
-          endpoints: apiEndpoints,
-          name: 'api',
-        },
-        {
-          endpoints: userEndpoints,
-          name: 'user',
-        },
-      ]
-      const testValue = extractRequiredEndpoints(modules)
-      const expectedResult = {
-        GET: '/resource',
-        REGISTER_USER: '/users',
-      }
-
-      expect(testValue).toEqual(expectedResult)
-    })
-  })
-
   describe('validateConfigWithSchema', () => {
     it('throws Error for missing config', () => {
       const availableLanguages = ['en', 'sv']
@@ -327,48 +301,6 @@ describe('coreModules/bootstrap/utilities/createConfigValidation', () => {
       expect(() => validateConfigWithSchema(config, configSchema)).not.toThrow(
         Error
       )
-    })
-  })
-
-  describe('validateEndpoints', () => {
-    it('throws for missing config.api.endpointKeyPathnameMap', () => {
-      expect(() => validateEndpoints()).toThrow(
-        'Missing endpointKeyPathnameMap in API config'
-      )
-    })
-    it('throws for missing endpointKey in endpointKeyPathnameMap', () => {
-      const config = {
-        api: {
-          endpointKeyPathnameMap: {
-            REGISTER_USER: '/users/register',
-            // no UPDATE_USER
-          },
-        },
-      }
-      const endpoints = {
-        REGISTER_USER: {},
-        UPDATE_USER: {},
-      }
-
-      expect(() => validateEndpoints(config, endpoints)).toThrow(
-        'Api not configured for UPDATE_USER'
-      )
-    })
-    it('does not throw for valid endpoints', () => {
-      const config = {
-        api: {
-          endpointKeyPathnameMap: {
-            REGISTER_USER: '/users/register',
-            UPDATE_USER: '/users',
-          },
-        },
-      }
-      const endpoints = {
-        REGISTER_USER: {},
-        UPDATE_USER: {},
-      }
-
-      expect(() => validateEndpoints(config, endpoints)).not.toThrow(Error)
     })
   })
 

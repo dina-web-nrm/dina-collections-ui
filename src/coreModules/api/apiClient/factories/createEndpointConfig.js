@@ -6,7 +6,7 @@ export const endpointConfigSchema = {
         type: 'string',
       },
     },
-    inputValidation: {
+    inputBodyValidation: {
       not: {
         type: 'string',
       },
@@ -23,6 +23,9 @@ export const endpointConfigSchema = {
       not: {
         type: 'string',
       },
+    },
+    pathname: {
+      type: 'string',
     },
     resultParser: {
       not: {

@@ -15,9 +15,6 @@ export const apiConfigSchema = {
     enableEndpointMocks: {
       type: 'boolean',
     },
-    endpointKeyPathnameMap: {
-      type: 'object',
-    },
     mock: {
       type: 'object',
     },
