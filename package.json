@@ -12,6 +12,11 @@
       "target": "https://alpha-keycloak.dina-web.net",
       "xfwd": true,
       "changeOrigin": true
+    },
+    "/taxon": {
+      "target": "https://alpha-slimtaxonomy.dina-web.net",
+      "xfwd": true,
+      "changeOrigin": true
     }
   },
   "dependencies": {
