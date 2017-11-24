@@ -47,8 +47,18 @@ const Field = ({
       required={required}
       style={{ position: 'relative' }}
     >
-      {label && <label htmlFor={input.name}>{label}</label>}
-      {helpText && <p>{helpText}</p>}
+      {label && (
+        <label htmlFor={input.name}>
+          {label}
+          {
+            // this ugly stuff is required since currently translations can only
+            // be components
+          }
+          {helpText && ' ('}
+          {helpText && helpText}
+          {helpText && ')'}
+        </label>
+      )}
       <Input
         icon={icon}
         iconPosition={icon && iconPosition}
