@@ -16,9 +16,13 @@ const FormSchemaError = ({ errors, scope }) => {
   return (
     <Message negative>
       <Label.Group color="red" size="tiny">
-        {errors.map((error, index) => {
+        {errors.map(error => {
+          const key = JSON.stringify({
+            errorCode: error.errorCode || {},
+            params: error.params || {},
+          })
           return (
-            <Label key={index}>
+            <Label key={key}>
               <ModuleTranslate
                 capitalize
                 module="error"

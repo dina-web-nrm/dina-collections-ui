@@ -45,6 +45,7 @@ const propTypes = {
 
 const defaultProps = {
   error: '',
+  schemaErrors: [],
 }
 
 class RawMammalForm extends Component {
