@@ -85,7 +85,7 @@
     "watch-css": "npm run build-css && node-less-chokidar src/ -o src/ --watch --recursive"
   },
   "pre-push": [
-    "update-git-dependencies",
+    "update-git-dependencies"
   ],
   "devDependencies": {
     "@storybook/addon-actions": "3.2.12",
