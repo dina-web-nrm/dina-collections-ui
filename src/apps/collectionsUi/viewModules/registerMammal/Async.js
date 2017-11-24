@@ -5,6 +5,7 @@ export default createAsyncView({
   modules: () => {
     return [
       import('coreModules/form'),
+      import('domainModules/taxonomy'),
       import('domainModules/collectionMammals'),
     ]
   },
