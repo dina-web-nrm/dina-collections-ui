@@ -1,4 +1,104 @@
 {
+  "catalogedUnit": {
+    "sixOrEightDigits": {
+      "en": "6 or 8 digits",
+      "sv": "6 eller 8 siffror"
+    },
+    "catalogNumber": {
+      "en": "Catalog number",
+      "sv": "Katalognummer"
+    },
+    "storedUnderTaxonName": {
+      "en": "Stored under name",
+      "sv": "Förvaras under namn"
+    },
+    "publishRecord": {
+      "en": "Record published",
+      "sv": "Publiserad"
+    }
+  },
+  "determination": {
+    "determination": {
+      "en": "Determination",
+      "sv": "Bestämning"
+    },
+    "identificationText": {
+      "en": "Identification text",
+      "sv": "Identifieringstext"
+    }
+  },
+  "occurrences": {
+    "collectingInformation": {
+      "en": "Collecting information",
+      "sv": "Insamlingsinformation"
+    },
+    "expeditionText": {
+      "en": "Expedition description",
+      "sv": ""
+    },
+    "localityText": {
+      "en": "Locality text",
+      "sv": ""
+    },
+    "startTime": {
+      "en": "Start time",
+      "sv": ""
+    },
+    "yearStart": {
+      "en": "Year",
+      "sv": ""
+    },
+    "monthStart": {
+      "en": "Month",
+      "sv": ""
+    },
+    "dayStart": {
+      "en": "Day",
+      "sv": ""
+    },
+    "endTime": {
+      "en": "End time",
+      "sv": ""
+    },
+    "yearEnd": {
+      "en": "Year",
+      "sv": ""
+    },
+    "monthEnd": {
+      "en": "Month",
+      "sv": ""
+    },
+    "dayEnd": {
+      "en": "Day",
+      "sv": ""
+    },
+    "occurrenceDateText": {
+      "en": "Date free text",
+      "sv": ""
+    },
+    "collectorsText": {
+      "en": "Collectors text",
+      "sv": ""
+    }
+  },
+  "featureObservation": {
+    "features": {
+      "en": "Features",
+      "sv": "Egenskaper"
+    },
+    "sex": {
+      "en": "Sex",
+      "sv": ""
+    },
+    "age": {
+      "en": "Age",
+      "sv": ""
+    },
+    "ageDeterminationMethod": {
+      "en": "Age determination method",
+      "sv": ""
+    }
+  },
   "cancel": {
     "en": "Cancel",
     "sv": "Avbryt"
@@ -7,10 +107,7 @@
     "en": "Form contains errors",
     "sv": "Formuläret innehåller fel"
   },
-  "catalogNumber": {
-    "en": "Catalog number",
-    "sv": "Katalognummer"
-  },
+
   "clearSearchParameters": {
     "en": "Clear search parameters",
     "sv": "Rensa sökparametrar"
@@ -19,10 +116,6 @@
     "en": "Collecting date",
     "sv": "Insamlingsdatum"
   },
-  "collectingInformation": {
-    "en": "Collecting information",
-    "sv": "Insamlingsinformation"
-  },
   "collectors": {
     "en": "Collector(s)",
     "sv": "Insamlare"
@@ -30,14 +123,6 @@
   "description": {
     "en": "Description",
     "sv": "Beskrivning"
-  },
-  "determination": {
-    "en": "Determination",
-    "sv": "Bestämning"
-  },
-  "features": {
-    "en": "Features",
-    "sv": "Egenskaper"
   },
   "locality": {
     "en": "Locality",
@@ -70,10 +155,6 @@
   "sex": {
     "en": "Sex",
     "sv": "Kön"
-  },
-  "sixOrEightDigits": {
-    "en": "6 or 8 digits",
-    "sv": "6 eller 8 siffror"
   },
   "submitFailed": {
     "en": "Could not save",
