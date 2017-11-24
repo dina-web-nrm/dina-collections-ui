@@ -26,7 +26,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "classnames": "^2.2.5",
     "debug": "^3.1.0",
-    "dina-schema": "https://github.com/DINA-Web/dina-schema.git",
+    "dina-schema": "https://github.com/DINA-Web/dina-schema.git#master",
     "dns": "file:./src/mock/dns",
     "glob": "^7.1.2",
     "history": "^4.7.2",
@@ -53,7 +53,7 @@
     "redux-logger": "^3.0.6",
     "redux-module-local-storage": "^1.1.0",
     "reselect": "^3.0.1",
-    "semantic-ui": "https://github.com/DINA-Web/dina-semantic-ui.git",
+    "semantic-ui": "https://github.com/DINA-Web/dina-semantic-ui.git#master",
     "semantic-ui-react": "^0.74.2",
     "watch-glob": "^0.1.3",
     "whatwg-fetch": "^2.0.3"
