@@ -11,14 +11,19 @@ export default () => {
   return (
     <Segment>
       <Header size="medium">
-        <ModuleTranslate textKey="determination" />
+        <ModuleTranslate scope="determination" textKey="determination" />
       </Header>
       <Grid textAlign="left" verticalAlign="middle">
         <Grid.Column computer={3} mobile={16}>
           <Field
             autoComplete="off"
             component={Input}
-            label={<ModuleTranslate textKey="identificationText" />}
+            label={
+              <ModuleTranslate
+                scope="determination"
+                textKey="identificationText"
+              />
+            }
             module="collectionMammals"
             name="identifications[0].identificationText"
             type="text"

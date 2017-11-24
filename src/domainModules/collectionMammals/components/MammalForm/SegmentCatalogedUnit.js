@@ -5,7 +5,9 @@ import { Field } from 'redux-form'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Checkbox, Input } from 'coreModules/form/components'
 
-const ModuleTranslate = createModuleTranslate('collectionMammals')
+const ModuleTranslate = createModuleTranslate('collectionMammals', {
+  scope: 'catalogedUnit',
+})
 
 export default () => {
   return (
@@ -38,7 +40,7 @@ export default () => {
           <Field
             autoComplete="off"
             component={Checkbox}
-            label={<ModuleTranslate textKey="storedUnderTaxonName" />}
+            label={<ModuleTranslate textKey="publishRecord" />}
             module="collectionMammals"
             name="physicalUnits[0].catalogedUnit.publishRecord"
             required

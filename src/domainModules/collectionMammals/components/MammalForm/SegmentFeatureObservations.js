@@ -5,7 +5,9 @@ import { Field } from 'redux-form'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Input } from 'coreModules/form/components'
 
-const ModuleTranslate = createModuleTranslate('collectionMammals')
+const ModuleTranslate = createModuleTranslate('collectionMammals', {
+  scope: 'featureObservation',
+})
 
 export const buildPath = (name, index = 0) => {
   return `featureObservations[${index}].${name}`
@@ -30,10 +32,11 @@ export default () => {
           <Field
             autoComplete="off"
             component={Input}
-            value="sex"
             module="collectionMammals"
             name={buildPath('type', 0)}
+            style={{ display: 'none' }}
             type="text"
+            value="sex"
           />
         </Grid.Column>
         <Grid.Column computer={8} mobile={16}>
@@ -56,11 +59,11 @@ export default () => {
           <Field
             autoComplete="off"
             component={Input}
-            value="sex"
-            label={<ModuleTranslate textKey="" />}
             module="collectionMammals"
             name={buildPath('type', 1)}
+            style={{ display: 'none' }}
             type="text"
+            value="sex"
           />
         </Grid.Column>
       </Grid>

@@ -5,7 +5,9 @@ import { Field } from 'redux-form'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Input } from 'coreModules/form/components'
 
-const ModuleTranslate = createModuleTranslate('collectionMammals')
+const ModuleTranslate = createModuleTranslate('collectionMammals', {
+  scope: 'physicalUnit',
+})
 
 export const buildPath = name => {
   return `physicalUnits[0].${name}`
@@ -34,7 +36,6 @@ export default () => {
             component={Input}
             label={<ModuleTranslate textKey="normalStorageLocation" />}
             module="collectionMammals"
-            name="normalStorageLocation"
             name={buildPath('normalStorageLocation')}
             type="text"
           />

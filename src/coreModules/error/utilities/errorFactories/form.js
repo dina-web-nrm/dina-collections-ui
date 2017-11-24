@@ -26,7 +26,7 @@ export const transformToReduxFormError = transformedAjvErrors => {
         transformedAjvError
       )
 
-      if (isGeneralSchemaError) {
+      if (isGeneralSchemaError(transformedAjvError)) {
         objectPath.set(reduxFormError, 'schemaErrors', [
           ...reduxFormError.schemaErrors,
           reduxFormParameterError,
@@ -36,7 +36,7 @@ export const transformToReduxFormError = transformedAjvErrors => {
       }
 
       const { fullPath } = transformedAjvError
-      objectPath.set(reduxFormParameterError, fullPath, reduxFormParameterError)
+      objectPath.set(reduxFormError, fullPath, reduxFormParameterError)
       return reduxFormError
     },
     {

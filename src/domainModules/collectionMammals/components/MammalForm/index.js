@@ -138,6 +138,15 @@ RawMammalForm.defaultProps = defaultProps
 
 export const MammalForm = reduxForm({
   form: 'mammalForm',
+  initialValues: {
+    physicalUnits: [
+      {
+        catalogedUnit: {
+          catalogNumber: '',
+        },
+      },
+    ],
+  },
   validate: createFormModelSchemaValidator({
     model: 'individualGroup',
   }),

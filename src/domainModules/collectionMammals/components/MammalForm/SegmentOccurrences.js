@@ -5,7 +5,9 @@ import { Field } from 'redux-form'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Input } from 'coreModules/form/components'
 
-const ModuleTranslate = createModuleTranslate('collectionMammals')
+const ModuleTranslate = createModuleTranslate('collectionMammals', {
+  scope: 'occurrences',
+})
 
 export const buildPath = name => {
   return `occurrences[0].${name}`
