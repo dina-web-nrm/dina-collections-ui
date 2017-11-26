@@ -18,8 +18,11 @@ export default function createApiMiddleware(apiClientOptions) {
   return ({ dispatch, getState }) => {
     const apiClient = createApiClient({
       ...apiClientOptions,
-      buildAuthHeaders: () => {
-        return buildAuthHeaders(getState())
+      headerFormatter: headers => {
+        return {
+          ...headers,
+          ...buildAuthHeaders(getState()),
+        }
       },
       systemValidate,
     })

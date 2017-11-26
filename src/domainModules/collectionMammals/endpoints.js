@@ -7,14 +7,14 @@ import {
 } from './schemas'
 
 export const LOOKUP_MAMMALS = {
-  inputBodyValidation: createSystemSchemaValidator(lookupMammalsRequest),
+  bodyValidation: createSystemSchemaValidator(lookupMammalsRequest),
   key: 'LOOKUP_MAMMALS',
-  mock: ({ requestData }) => {
+  mock: ({ request }) => {
     if (
-      requestData.userInput &&
-      requestData.userInput.queryParams &&
-      requestData.userInput.queryParams.catalogNumber &&
-      requestData.userInput.queryParams.taxonName
+      request &&
+      request.queryParams &&
+      request.queryParams.catalogNumber &&
+      request.queryParams.taxonName
     ) {
       return {
         result: [
@@ -23,11 +23,7 @@ export const LOOKUP_MAMMALS = {
       }
     }
 
-    if (
-      requestData.userInput &&
-      requestData.userInput.queryParams &&
-      requestData.userInput.queryParams.catalogNumber
-    ) {
+    if (request && request.queryParams && request.queryParams.catalogNumber) {
       return {
         result: [
           { catalogNumber: 'matching number', taxonName: 'Elit Praesent' },
@@ -35,11 +31,7 @@ export const LOOKUP_MAMMALS = {
       }
     }
 
-    if (
-      requestData.userInput &&
-      requestData.userInput.queryParams &&
-      requestData.userInput.queryParams.taxonName
-    ) {
+    if (request && request.queryParams && request.queryParams.taxonName) {
       return {
         result: [{ catalogNumber: '201705005', taxonName: 'matching taxon' }],
       }
@@ -54,12 +46,12 @@ export const LOOKUP_MAMMALS = {
       ],
     }
   },
-  outputValidation: createSystemSchemaValidator(lookupMammalsResponse),
+  responseValidation: createSystemSchemaValidator(lookupMammalsResponse),
 }
 
 export const REGISTER_MAMMAL = {
-  inputBodyValidation: createSystemSchemaValidator(registerMammalRequest),
+  bodyValidation: createSystemSchemaValidator(registerMammalRequest),
   key: 'REGISTER_MAMMAL',
-  mock: ({ requestData }) => requestData.userInput.body,
-  outputValidation: createSystemSchemaValidator(registerMammalResponse),
+  mock: ({ request }) => request.body,
+  responseValidation: createSystemSchemaValidator(registerMammalResponse),
 }

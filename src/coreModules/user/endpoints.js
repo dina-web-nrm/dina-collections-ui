@@ -12,26 +12,32 @@ export const LOG_IN = buildEndpointSpec({
       grant_type: 'password',
     }
   },
-  inputBodyValidation: createSystemSchemaValidator(loginRequest),
+  bodyValidation: createSystemSchemaValidator(loginRequest),
+  headerFormatter: userInputHeaders => {
+    return {
+      ...userInputHeaders,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }
+  },
   mock: () => createMockDataFromSchema(loginResponse),
   operationId: 'loginUser',
-  outputValidation: createSystemSchemaValidator(loginResponse),
-  resultParser: result => {
+  responseParser: result => {
     return {
       accessToken: result.access_token,
     }
   },
+  responseValidation: createSystemSchemaValidator(loginResponse),
 })
 
 export const GET_USER = buildEndpointSpec({
   mock: () => createMockDataFromSchema(user),
   operationId: 'getUser',
-  outputValidation: createSystemSchemaValidator(user),
   pathname: '/auth/realms/dina/protocol/openid-connect/userinfo',
-  resultParser: result => {
+  responseParser: result => {
     return {
       email: result.email,
       username: result.preferred_username,
     }
   },
+  responseValidation: createSystemSchemaValidator(user),
 })
