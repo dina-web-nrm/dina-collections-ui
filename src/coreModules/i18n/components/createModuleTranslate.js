@@ -6,9 +6,9 @@ const propTypes = {
   textKey: PropTypes.string.isRequired,
 }
 
-export default function createModuleTranslate(moduleName) {
+export default function createModuleTranslate(moduleName, { scope = '' } = {}) {
   const ModuleTranslateWrapper = ({ ...rest }) => {
-    return <ModuleTranslate {...rest} module={moduleName} />
+    return <ModuleTranslate scope={scope} {...rest} module={moduleName} />
   }
   ModuleTranslateWrapper.propTypes = propTypes
   return ModuleTranslateWrapper
