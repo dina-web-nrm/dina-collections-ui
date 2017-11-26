@@ -1,4 +1,14 @@
 {
+  "schemaErrors": {
+    "ADDITIONAL_PROPERTIES": {
+      "en": "Form contains additional unknown properties: {{fullPath}}: {{additionalProperty}}",
+      "sv": "Formuläret innehåller ottilåtna fält: {{fullPath}}: {{additionalProperty}}"
+    },
+    "REQUIRED": {
+      "en": "Required: {{fullPath}}",
+      "sv": "Obligatorisk: {{fullPath}}"
+    }
+  },
   "MIN_LENGTH": {
     "en": "Must be at least {{limit}} characters",
     "sv": "Måste vara minst {{limit}} tecken"
