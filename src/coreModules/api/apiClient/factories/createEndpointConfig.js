@@ -6,7 +6,12 @@ export const endpointConfigSchema = {
         type: 'string',
       },
     },
-    inputBodyValidation: {
+    bodyValidation: {
+      not: {
+        type: 'string',
+      },
+    },
+    headerFormatter: {
       not: {
         type: 'string',
       },
@@ -19,15 +24,15 @@ export const endpointConfigSchema = {
         type: 'string',
       },
     },
-    outputValidation: {
+    pathname: {
+      type: 'string',
+    },
+    responseParser: {
       not: {
         type: 'string',
       },
     },
-    pathname: {
-      type: 'string',
-    },
-    resultParser: {
+    responseValidation: {
       not: {
         type: 'string',
       },

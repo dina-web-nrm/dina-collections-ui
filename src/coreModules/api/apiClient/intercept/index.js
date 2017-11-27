@@ -2,7 +2,7 @@ export default function intercept({
   apiConfig,
   endpointConfig,
   methodConfig,
-  requestData,
+  request,
 }) {
   return Promise.resolve().then(() => {
     const { mock: apiMock, cache, enableEndpointMocks } = apiConfig
@@ -13,7 +13,7 @@ export default function intercept({
         apiConfig,
         endpointConfig,
         methodConfig,
-        requestData,
+        request,
       })
       if (mockResult) {
         return mockResult
@@ -25,7 +25,7 @@ export default function intercept({
         apiConfig,
         endpointConfig,
         methodConfig,
-        requestData,
+        request,
       })
       if (mockResult) {
         return mockResult

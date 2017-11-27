@@ -1,11 +1,6 @@
 export const apiConfigSchema = {
   additionalProperties: false,
   properties: {
-    buildAuthHeaders: {
-      not: {
-        type: 'string',
-      },
-    },
     cache: {
       type: 'object',
     },
@@ -14,6 +9,11 @@ export const apiConfigSchema = {
     },
     enableEndpointMocks: {
       type: 'boolean',
+    },
+    headerFormatter: {
+      not: {
+        type: 'string',
+      },
     },
     mock: {
       type: 'object',
