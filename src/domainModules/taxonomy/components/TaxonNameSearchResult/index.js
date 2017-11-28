@@ -4,14 +4,14 @@ import PropTypes from 'prop-types'
 const propTypes = {
   content: PropTypes.shape({
     attributes: PropTypes.shape({
-      scientific_name: PropTypes.string.isRequired,
+      scientificName: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 }
 
 function TaxonomyAutocompleteResult({ content }) {
   const scientificName =
-    content && content.attributes && content.attributes.scientific_name
+    content && content.attributes && content.attributes.scientificName
 
   return scientificName ? <div>{scientificName}</div> : null
 }

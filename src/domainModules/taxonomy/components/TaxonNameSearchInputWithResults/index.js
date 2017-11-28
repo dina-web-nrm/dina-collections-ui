@@ -41,7 +41,7 @@ const propTypes = {
   taxonSearchResults: PropTypes.arrayOf(
     PropTypes.shape({
       attributes: PropTypes.shape({
-        scientific_name: PropTypes.string.isRequired,
+        scientificName: PropTypes.string.isRequired,
       }).isRequired,
     })
   ).isRequired,
@@ -95,9 +95,9 @@ class TaxonNameSearchInputWithResults extends Component {
       result &&
       result.content &&
       result.content.attributes &&
-      result.content.attributes.scientific_name
+      result.content.attributes.scientificName
     ) {
-      const value = result.content.attributes.scientific_name
+      const value = result.content.attributes.scientificName
 
       // keep search and name in sync to ensure that if the user focuses the
       // input again, it should show the current taxonName as suggestion instead
