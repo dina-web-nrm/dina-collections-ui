@@ -1,5 +1,9 @@
 import validateRequest from '../validateRequest'
 
+const formatInput = (input, formatter) => {
+  return formatter ? formatter(input) : input
+}
+
 export default function createRequest({
   apiConfig,
   endpointConfig,
@@ -31,24 +35,16 @@ export default function createRequest({
   ]
 
   return Promise.all([
+    Promise.resolve(formatInput(userInputBody, bodyFormatter)),
     Promise.resolve(
-      bodyFormatter ? bodyFormatter(userInputBody) : userInputBody
-    ),
-    Promise.resolve(
-      headerFormatters.reduce((sequence, formatter) => {
+      headerFormatters.reduce((sequence, headerFormatter) => {
         return sequence.then(headers => {
-          return Promise.resolve(formatter ? formatter(headers) : headers)
+          return Promise.resolve(formatInput(headers, headerFormatter))
         })
       }, Promise.resolve(userInputHeaders))
     ),
-    Promise.resolve(
-      pathFormatter ? pathFormatter(userInputPathParams) : userInputPathParams
-    ),
-    Promise.resolve(
-      queryFormatter
-        ? queryFormatter(userInputQueryParams)
-        : userInputQueryParams
-    ),
+    Promise.resolve(formatInput(userInputPathParams, pathFormatter)),
+    Promise.resolve(formatInput(userInputQueryParams, queryFormatter)),
   ]).then(([body, headers, pathParams, queryParams]) => {
     const request = {
       body,
