@@ -19,7 +19,7 @@ export default () => {
         <ModuleTranslate textKey="features" />
       </Header>
       <Grid textAlign="left" verticalAlign="top">
-        <Grid.Column computer={8} mobile={16}>
+        <Grid.Column computer={4} mobile={16} tablet={8}>
           <Field
             autoComplete="off"
             component={Input}
@@ -28,17 +28,8 @@ export default () => {
             name={buildPath('featureObservationText', 0)}
             type="text"
           />
-          <Field
-            autoComplete="off"
-            component={Input}
-            module="collectionMammals"
-            name={buildPath('type', 0)}
-            style={{ display: 'none' }}
-            type="text"
-            value="sex"
-          />
         </Grid.Column>
-        <Grid.Column computer={8} mobile={16}>
+        <Grid.Column computer={4} mobile={16} tablet={8}>
           <Field
             autoComplete="off"
             component={Input}
@@ -47,6 +38,8 @@ export default () => {
             name={buildPath('featureObservationText', 1)}
             type="text"
           />
+        </Grid.Column>
+        <Grid.Column computer={8} mobile={16}>
           <Field
             autoComplete="off"
             component={Input}
@@ -55,14 +48,15 @@ export default () => {
             name={buildPath('methodText', 1)}
             type="text"
           />
+        </Grid.Column>
+        <Grid.Column computer={8} mobile={16}>
           <Field
             autoComplete="off"
             component={Input}
+            label={<ModuleTranslate textKey="ageStage" />}
             module="collectionMammals"
-            name={buildPath('type', 1)}
-            style={{ display: 'none' }}
+            name={buildPath('featureObservationText', 2)}
             type="text"
-            value="sex"
           />
         </Grid.Column>
       </Grid>

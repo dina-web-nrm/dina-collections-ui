@@ -102,7 +102,7 @@ const SegmentDetermination = ({ taxonName, taxonNameFieldKey }) => {
           />
         </Grid.Column>
         <Grid.Row>
-          <Grid.Column computer={5} mobile={16}>
+          <Grid.Column computer={4} mobile={8}>
             <Field
               autoComplete="off"
               component={Input}
@@ -112,7 +112,7 @@ const SegmentDetermination = ({ taxonName, taxonNameFieldKey }) => {
               type="text"
             />
           </Grid.Column>
-          <Grid.Column computer={5} mobile={16}>
+          <Grid.Column computer={2} mobile={4}>
             <Field
               autoComplete="off"
               component={Input}
@@ -123,7 +123,7 @@ const SegmentDetermination = ({ taxonName, taxonNameFieldKey }) => {
             />
           </Grid.Column>
 
-          <Grid.Column computer={5} mobile={16}>
+          <Grid.Column computer={2} mobile={4}>
             <Field
               autoComplete="off"
               component={Input}

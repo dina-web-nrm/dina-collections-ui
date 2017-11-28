@@ -23,7 +23,12 @@ export default () => {
           <Field
             autoComplete="off"
             component={Input}
-            label={<ModuleTranslate textKey="physicalUnitText" />}
+            label={
+              <ModuleTranslate
+                scope="physicalUnits"
+                textKey="physicalUnitText"
+              />
+            }
             module="collectionMammals"
             name={buildPath('physicalUnitText')}
             type="text"
@@ -33,9 +38,29 @@ export default () => {
           <Field
             autoComplete="off"
             component={Input}
-            label={<ModuleTranslate textKey="normalStorageLocation" />}
+            label={
+              <ModuleTranslate
+                scope="physicalUnits"
+                textKey="normalStorageLocationText"
+              />
+            }
             module="collectionMammals"
-            name={buildPath('normalStorageLocation')}
+            name={buildPath('normalStorageLocationText')}
+            type="text"
+          />
+        </Grid.Column>
+        <Grid.Column computer={8} mobile={16}>
+          <Field
+            autoComplete="off"
+            component={Input}
+            label={
+              <ModuleTranslate
+                scope="physicalUnits"
+                textKey="alternateIdentifiersText"
+              />
+            }
+            module="collectionMammals"
+            name={buildPath('alternateIdentifiersText')}
             type="text"
           />
         </Grid.Column>

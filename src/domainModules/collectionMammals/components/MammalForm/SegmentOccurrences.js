@@ -23,9 +23,9 @@ export default () => {
           <Field
             autoComplete="off"
             component={Input}
-            label={<ModuleTranslate textKey="localityText" />}
+            label={<ModuleTranslate textKey="expeditionText" />}
             module="collectionMammals"
-            name={buildPath('localityText')}
+            name={buildPath('expeditionText')}
             type="text"
           />
         </Grid.Column>
@@ -33,9 +33,9 @@ export default () => {
           <Field
             autoComplete="off"
             component={Input}
-            label={<ModuleTranslate textKey="expeditionText" />}
+            label={<ModuleTranslate textKey="localityText" />}
             module="collectionMammals"
-            name={buildPath('expeditionText')}
+            name={buildPath('localityText')}
             type="text"
           />
         </Grid.Column>
@@ -44,7 +44,7 @@ export default () => {
         <ModuleTranslate textKey="startTime" />
       </Header>
       <Grid textAlign="left" verticalAlign="middle">
-        <Grid.Column computer={5} mobile={16}>
+        <Grid.Column computer={4} mobile={8}>
           <Field
             autoComplete="off"
             component={Input}
@@ -54,7 +54,7 @@ export default () => {
             type="text"
           />
         </Grid.Column>
-        <Grid.Column computer={5} mobile={16}>
+        <Grid.Column computer={2} mobile={4}>
           <Field
             autoComplete="off"
             component={Input}
@@ -65,7 +65,7 @@ export default () => {
           />
         </Grid.Column>
 
-        <Grid.Column computer={5} mobile={16}>
+        <Grid.Column computer={2} mobile={4}>
           <Field
             autoComplete="off"
             component={Input}
@@ -80,7 +80,7 @@ export default () => {
         <ModuleTranslate textKey="endTime" />
       </Header>
       <Grid textAlign="left" verticalAlign="middle">
-        <Grid.Column computer={5} mobile={16}>
+        <Grid.Column computer={4} mobile={8}>
           <Field
             autoComplete="off"
             component={Input}
@@ -90,7 +90,7 @@ export default () => {
             type="text"
           />
         </Grid.Column>
-        <Grid.Column computer={5} mobile={16}>
+        <Grid.Column computer={2} mobile={4}>
           <Field
             autoComplete="off"
             component={Input}
@@ -101,7 +101,7 @@ export default () => {
           />
         </Grid.Column>
 
-        <Grid.Column computer={5} mobile={16}>
+        <Grid.Column computer={2} mobile={4}>
           <Field
             autoComplete="off"
             component={Input}
