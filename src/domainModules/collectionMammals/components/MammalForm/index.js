@@ -146,6 +146,11 @@ RawMammalForm.defaultProps = defaultProps
 export const MammalForm = reduxForm({
   form: FORM_NAME,
   initialValues: {
+    featureObservations: [
+      { featureObservationTypeId: 1 },
+      { featureObservationTypeId: 2 },
+      { featureObservationTypeId: 3 },
+    ],
     physicalUnits: [
       {
         catalogedUnit: {
