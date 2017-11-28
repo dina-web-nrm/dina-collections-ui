@@ -1,6 +1,11 @@
 export const methodConfigSchema = {
   additionalProperties: false,
   properties: {
+    headerFormatter: {
+      not: {
+        type: 'string',
+      },
+    },
     method: {
       type: 'string',
     },
