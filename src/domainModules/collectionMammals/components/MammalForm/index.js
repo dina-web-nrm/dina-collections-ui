@@ -5,10 +5,12 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
   formValueSelector as formValueSelectorFactory,
+  getFormSyncErrors,
   reduxForm,
   SubmissionError,
 } from 'redux-form'
 import { createFormModelSchemaValidator } from 'coreModules/error/utilities'
+import { FormSchemaError } from 'coreModules/error/components'
 import createLog from 'utilities/log'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { registerMammal } from '../../actionCreators'
@@ -25,9 +27,13 @@ const FORM_NAME = 'mammalForm'
 const TAXON_NAME_FIELD_KEY = 'identifiedTaxonNameStandardized'
 
 const formValueSelector = formValueSelectorFactory(FORM_NAME)
+const getFormSyncErrorsSelector = getFormSyncErrors(FORM_NAME)
 
 const mapStateToProps = state => {
+  const syncErrors = getFormSyncErrorsSelector(state)
+
   return {
+    schemaErrors: syncErrors && syncErrors.schemaErrors,
     taxonName: formValueSelector(state, TAXON_NAME_FIELD_KEY),
   }
 }
@@ -43,6 +49,9 @@ const propTypes = {
   pristine: PropTypes.bool.isRequired,
   registerMammal: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
+  schemaErrors: PropTypes.arrayOf(
+    PropTypes.shape({ errorCode: PropTypes.string.isRequired })
+  ),
   submitFailed: PropTypes.bool.isRequired,
   submitSucceeded: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
@@ -75,6 +84,7 @@ class RawMammalForm extends Component {
       invalid,
       pristine,
       reset,
+      schemaErrors,
       submitting,
       submitFailed,
       submitSucceeded,
@@ -114,6 +124,7 @@ class RawMammalForm extends Component {
             >
               <ModuleTranslate textKey="cancel" />
             </Button>
+            {schemaErrors && <FormSchemaError errors={schemaErrors} />}
             {invalid &&
               submitFailed && (
                 <Message
