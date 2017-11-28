@@ -21,7 +21,6 @@ export default () => {
             label={<ModuleTranslate textKey="catalogNumber" />}
             module="collectionMammals"
             name="physicalUnits[0].catalogedUnit.catalogNumber"
-            required
             type="text"
           />
         </Grid.Column>
@@ -32,7 +31,6 @@ export default () => {
             label={<ModuleTranslate textKey="storedUnderTaxonName" />}
             module="collectionMammals"
             name="physicalUnits[0].catalogedUnit.storedUnderTaxonName"
-            required
             type="text"
           />
         </Grid.Column>
@@ -43,7 +41,6 @@ export default () => {
             label={<ModuleTranslate textKey="publishRecord" />}
             module="collectionMammals"
             name="physicalUnits[0].catalogedUnit.publishRecord"
-            required
             type="checkbox"
           />
         </Grid.Column>
