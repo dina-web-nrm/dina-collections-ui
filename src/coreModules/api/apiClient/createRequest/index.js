@@ -3,6 +3,7 @@ import validateRequest from '../validateRequest'
 export default function createRequest({
   apiConfig,
   endpointConfig,
+  methodConfig,
   userInput,
 }) {
   const {
@@ -11,24 +12,35 @@ export default function createRequest({
     pathParams: userInputPathParams = {},
     queryParams: userInputQueryParams = {},
   } = userInput
+
   const { headerFormatter: apiHeaderFormatter } = apiConfig
 
   const {
     bodyFormatter,
-    headerFormatter,
+    headerFormatter: endpointHeaderFormatter,
     pathFormatter,
     queryFormatter,
   } = endpointConfig
+
+  const { headerFormatter: methodHeaderFormatter } = methodConfig
 
   return Promise.all([
     Promise.resolve(
       bodyFormatter ? bodyFormatter(userInputBody) : userInputBody
     ),
     Promise.resolve(
-      headerFormatter ? headerFormatter(userInputHeaders) : userInputHeaders
-    ).then(headers => {
-      return apiHeaderFormatter ? apiHeaderFormatter(headers) : headers
-    }),
+      apiHeaderFormatter
+        ? apiHeaderFormatter(userInputHeaders)
+        : userInputHeaders
+    )
+      .then(headers => {
+        return endpointHeaderFormatter
+          ? endpointHeaderFormatter(headers)
+          : headers
+      })
+      .then(headers => {
+        return methodHeaderFormatter ? methodHeaderFormatter(headers) : headers
+      }),
     Promise.resolve(
       pathFormatter ? pathFormatter(userInputPathParams) : userInputPathParams
     ),
