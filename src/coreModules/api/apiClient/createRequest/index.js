@@ -24,23 +24,23 @@ export default function createRequest({
 
   const { headerFormatter: methodHeaderFormatter } = methodConfig
 
+  const headerFormatters = [
+    apiHeaderFormatter,
+    endpointHeaderFormatter,
+    methodHeaderFormatter,
+  ]
+
   return Promise.all([
     Promise.resolve(
       bodyFormatter ? bodyFormatter(userInputBody) : userInputBody
     ),
     Promise.resolve(
-      apiHeaderFormatter
-        ? apiHeaderFormatter(userInputHeaders)
-        : userInputHeaders
-    )
-      .then(headers => {
-        return endpointHeaderFormatter
-          ? endpointHeaderFormatter(headers)
-          : headers
-      })
-      .then(headers => {
-        return methodHeaderFormatter ? methodHeaderFormatter(headers) : headers
-      }),
+      headerFormatters.reduce((sequence, formatter) => {
+        return sequence.then(headers => {
+          return Promise.resolve(formatter ? formatter(headers) : headers)
+        })
+      }, Promise.resolve(userInputHeaders))
+    ),
     Promise.resolve(
       pathFormatter ? pathFormatter(userInputPathParams) : userInputPathParams
     ),
