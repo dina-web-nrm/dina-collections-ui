@@ -6,12 +6,11 @@ import { Field } from 'redux-form'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Checkbox, Input } from 'coreModules/form/components'
 import { TaxonNameSearchInputWithResults } from 'domainModules/taxonomy/components'
+import { fieldNamePathFactory } from 'coreModules/form/utilities'
 
 const ModuleTranslate = createModuleTranslate('collectionMammals')
 
-export const buildPath = name => {
-  return `identifications[0].${name}`
-}
+const buildPath = fieldNamePathFactory('identifications')
 
 const propTypes = {
   taxonName: PropTypes.string.isRequired,

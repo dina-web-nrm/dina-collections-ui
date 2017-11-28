@@ -4,14 +4,13 @@ import { Field } from 'redux-form'
 
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Input } from 'coreModules/form/components'
+import { fieldNamePathFactory } from 'coreModules/form/utilities'
 
 const ModuleTranslate = createModuleTranslate('collectionMammals', {
   scope: 'featureObservation',
 })
 
-export const buildPath = (name, index = 0) => {
-  return `featureObservations[${index}].${name}`
-}
+const buildPath = fieldNamePathFactory('featureObservations')
 
 export default () => {
   return (
