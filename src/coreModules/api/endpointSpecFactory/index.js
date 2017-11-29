@@ -45,7 +45,10 @@ const getBodyValidator = ({ methodSpecification }) => {
 
   if (bodyParameter) {
     const modelName = getModelNameFromParameter(bodyParameter)
-    return createSystemModelSchemaValidator({ model: modelName })
+    return createSystemModelSchemaValidator({
+      model: modelName,
+      throwOnError: true,
+    })
   }
 
   return null
