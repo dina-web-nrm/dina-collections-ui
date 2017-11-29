@@ -14,13 +14,13 @@ export default function createResponse({
 
   return Promise.all([
     chainPromises(
-      extractMethodsFromConfigs(configs, 'responseValidation'),
+      extractMethodsFromConfigs(configs, 'validateResponse'),
       responseData
     ),
   ]).then(() => {
     return Promise.all([
       chainPromises(
-        extractMethodsFromConfigs(configs, 'responseParser'),
+        extractMethodsFromConfigs(configs, 'mapResponse'),
         responseData || {}
       ),
     ]).then(([response]) => {

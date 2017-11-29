@@ -18,13 +18,13 @@ export default function createApiMiddleware(apiClientOptions) {
   return ({ dispatch, getState }) => {
     const apiClient = createApiClient({
       ...apiClientOptions,
-      headerFormatter: headers => {
+      mapHeaders: headers => {
         return {
           ...headers,
           ...buildAuthHeaders(getState()),
         }
       },
-      responseParser: ({ json }) => json,
+      mapResponse: ({ json }) => json,
       systemValidate,
     })
     return next => action => {

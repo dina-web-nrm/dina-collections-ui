@@ -10,18 +10,18 @@ export const apiConfigSchema = {
     enableEndpointMocks: {
       type: 'boolean',
     },
-    headerFormatter: {
+    mapHeaders: {
+      not: {
+        type: 'string',
+      },
+    },
+    mapResponse: {
       not: {
         type: 'string',
       },
     },
     mock: {
       type: 'object',
-    },
-    responseParser: {
-      not: {
-        type: 'string',
-      },
     },
     systemValidate: {
       not: {

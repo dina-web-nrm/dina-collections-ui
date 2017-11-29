@@ -5,38 +5,38 @@ import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
 import { user, loginResponse } from './schemas'
 
 export const LOG_IN = buildEndpointSpec({
-  bodyFormatter: inputBody => {
+  mapBody: inputBody => {
     return {
       ...inputBody,
       client_id: 'dina-rest',
       grant_type: 'password',
     }
   },
-  headerFormatter: userInputHeaders => {
+  mapHeaders: userInputHeaders => {
     return {
       ...userInputHeaders,
       'Content-Type': 'application/x-www-form-urlencoded',
     }
   },
-  mock: () => createMockDataFromSchema(loginResponse),
-  operationId: 'loginUser',
-  responseParser: json => {
+  mapResponse: json => {
     return {
       accessToken: json.access_token,
     }
   },
-  responseValidation: createSystemSchemaValidator(loginResponse),
+  mock: () => createMockDataFromSchema(loginResponse),
+  operationId: 'loginUser',
+  validateResponse: createSystemSchemaValidator(loginResponse),
 })
 
 export const GET_USER = buildEndpointSpec({
-  mock: () => createMockDataFromSchema(user),
-  operationId: 'getUser',
-  pathname: '/auth/realms/dina/protocol/openid-connect/userinfo',
-  responseParser: json => {
+  mapResponse: json => {
     return {
       email: json.email,
       username: json.preferred_username,
     }
   },
-  responseValidation: createSystemSchemaValidator(user),
+  mock: () => createMockDataFromSchema(user),
+  operationId: 'getUser',
+  pathname: '/auth/realms/dina/protocol/openid-connect/userinfo',
+  validateResponse: createSystemSchemaValidator(user),
 })

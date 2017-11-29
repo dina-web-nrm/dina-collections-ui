@@ -61,13 +61,13 @@ export const buildEndpointSpec = ({ operationId, ...rest }) => {
   const { methodName, methodSpecification, pathname } = map[operationId]
 
   return {
-    bodyValidation: getBodyValidator({
+    operationId,
+    pathname,
+    validateBody: getBodyValidator({
       methodName,
       methodSpecification,
       pathname,
     }),
-    operationId,
-    pathname,
     ...rest,
   }
 }

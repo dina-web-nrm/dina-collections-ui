@@ -14,19 +14,19 @@ export default function createRequest({
 
   return Promise.all([
     chainPromises(
-      extractMethodsFromConfigs(configs, 'bodyFormatter'),
+      extractMethodsFromConfigs(configs, 'mapBody'),
       userInput.body || {}
     ),
     chainPromises(
-      extractMethodsFromConfigs(configs, 'headerFormatter'),
+      extractMethodsFromConfigs(configs, 'mapHeaders'),
       userInput.headers || {}
     ),
     chainPromises(
-      extractMethodsFromConfigs(configs, 'pathParamsFormatter'),
+      extractMethodsFromConfigs(configs, 'mapPathParams'),
       userInput.pathParams || {}
     ),
     chainPromises(
-      extractMethodsFromConfigs(configs, 'queryParamsFormatter'),
+      extractMethodsFromConfigs(configs, 'mapQueryParams'),
       userInput.queryParams || {}
     ),
   ]).then(([body, headers, pathParams, queryParams]) => {
@@ -39,19 +39,19 @@ export default function createRequest({
 
     return Promise.all([
       chainPromises(
-        extractMethodsFromConfigs(configs, 'bodyValidation'),
+        extractMethodsFromConfigs(configs, 'validateBody'),
         request.body
       ),
       chainPromises(
-        extractMethodsFromConfigs(configs, 'headerValidation'),
+        extractMethodsFromConfigs(configs, 'validateHeaders'),
         request.headers
       ),
       chainPromises(
-        extractMethodsFromConfigs(configs, 'pathParamsValidation'),
+        extractMethodsFromConfigs(configs, 'validatePathParams'),
         request.pathParams
       ),
       chainPromises(
-        extractMethodsFromConfigs(configs, 'queryParamsValidation'),
+        extractMethodsFromConfigs(configs, 'validateQueryParams'),
         request.queryParams
       ),
     ]).then(() => {

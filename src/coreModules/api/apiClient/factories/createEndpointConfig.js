@@ -1,17 +1,17 @@
 export const endpointConfigSchema = {
   additionalProperties: false,
   properties: {
-    bodyFormatter: {
+    mapBody: {
       not: {
         type: 'string',
       },
     },
-    bodyValidation: {
+    mapHeaders: {
       not: {
         type: 'string',
       },
     },
-    headerFormatter: {
+    mapResponse: {
       not: {
         type: 'string',
       },
@@ -27,12 +27,12 @@ export const endpointConfigSchema = {
     pathname: {
       type: 'string',
     },
-    responseParser: {
+    validateBody: {
       not: {
         type: 'string',
       },
     },
-    responseValidation: {
+    validateResponse: {
       not: {
         type: 'string',
       },
