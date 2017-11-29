@@ -53,5 +53,6 @@ export const REGISTER_MAMMAL = {
   bodyValidation: createSystemSchemaValidator(registerMammalRequest),
   key: 'REGISTER_MAMMAL',
   mock: ({ request }) => request.body,
+  pathname: '/collections/api/v01/individualGroups',
   responseValidation: createSystemSchemaValidator(registerMammalResponse),
 }
