@@ -60,6 +60,7 @@ const propTypes = {
 
 const defaultProps = {
   error: '',
+  schemaErrors: [],
   taxonName: '',
 }
 
