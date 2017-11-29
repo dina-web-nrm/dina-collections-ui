@@ -50,6 +50,12 @@ export const LOOKUP_MAMMALS = {
 }
 
 export const REGISTER_MAMMAL = {
+  headerFormatter: userInputHeaders => {
+    return {
+      ...userInputHeaders,
+      'Content-Type': 'application/json',
+    }
+  },
   bodyValidation: createSystemSchemaValidator(registerMammalRequest),
   key: 'REGISTER_MAMMAL',
   mock: ({ request }) => request.body,
