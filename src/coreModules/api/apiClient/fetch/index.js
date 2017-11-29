@@ -10,15 +10,15 @@ export default function wrappedFetch({
   methodConfig,
   request,
 }) {
-  const { requestContentType, method } = methodConfig
+  const { method } = methodConfig
   const { body, headers } = request
 
   let formattedBody
   if (Object.keys(body).length) {
-    if (requestContentType === 'json') {
-      formattedBody = createJsonBody(body)
-    } else if (requestContentType === 'form') {
+    if (headers['Content-Type'] === 'application/x-www-form-urlencoded') {
       formattedBody = createFormBody(body)
+    } else {
+      formattedBody = createJsonBody(body)
     }
   }
 
