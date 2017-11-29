@@ -1,3 +1,4 @@
+import chainPromises from 'utilities/chainPromises'
 import validateRequest from '../validateRequest'
 
 const formatInput = (input, formatter) => {
@@ -36,13 +37,7 @@ export default function createRequest({
 
   return Promise.all([
     Promise.resolve(formatInput(userInputBody, bodyFormatter)),
-    Promise.resolve(
-      headerFormatters.reduce((sequence, headerFormatter) => {
-        return sequence.then(headers => {
-          return Promise.resolve(formatInput(headers, headerFormatter))
-        })
-      }, Promise.resolve(userInputHeaders))
-    ),
+    chainPromises(headerFormatters, userInputHeaders),
     Promise.resolve(formatInput(userInputPathParams, pathFormatter)),
     Promise.resolve(formatInput(userInputQueryParams, queryFormatter)),
   ]).then(([body, headers, pathParams, queryParams]) => {
@@ -52,6 +47,7 @@ export default function createRequest({
       pathParams,
       queryParams,
     }
+
     return validateRequest({ endpointConfig, request }).then(() => {
       return request
     })
