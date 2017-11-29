@@ -3,16 +3,18 @@ import openApiSpec from 'dina-schema/build/openApi.json'
 const buildOperationIdPathnameMap = () => {
   const map = {}
   Object.keys(openApiSpec.paths).forEach(pathname => {
-    const verbs = openApiSpec.paths[pathname]
-    Object.keys(verbs).forEach(verbName => {
-      const verb = verbs[verbName]
-      if (verb.operationId)
-        map[verb.operationId] = {
+    const methods = openApiSpec.paths[pathname]
+    Object.keys(methods).forEach(methodName => {
+      const methodSpecification = methods[methodName]
+      if (methodSpecification.operationId)
+        map[methodSpecification.operationId] = {
+          methodName,
+          methodSpecification,
           pathname,
-          verbName,
         }
     })
   })
+
   return map
 }
 
