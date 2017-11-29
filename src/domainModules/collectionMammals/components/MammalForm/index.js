@@ -159,9 +159,14 @@ export const MammalForm = reduxForm({
   form: FORM_NAME,
   initialValues: {
     featureObservations: [
-      { featureObservationTypeId: 1 },
-      { featureObservationTypeId: 2 },
-      { featureObservationTypeId: 3 },
+      { featureObservationType: { featureObservationTypeName: 'sex', id: 1 } },
+      { featureObservationType: { featureObservationTypeName: 'age', id: 2 } },
+      {
+        featureObservationType: {
+          featureObservationTypeName: 'ageStage',
+          id: 3,
+        },
+      },
     ],
     physicalUnits: [
       {
