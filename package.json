@@ -17,6 +17,11 @@
       "target": "https://alpha-slimtaxonomy.dina-web.net",
       "xfwd": true,
       "changeOrigin": true
+    },
+    "/collections": {
+      "target": "https://alpha-api.dina-web.net/",
+      "xfwd": true,
+      "changeOrigin": true
     }
   },
   "dependencies": {
