@@ -9,7 +9,7 @@
   ],
   "proxy": {
     "/auth": {
-      "target": "https://alpha-keycloak.dina-web.net",
+      "target": "https://alpha-cm.dina-web.net",
       "xfwd": true,
       "changeOrigin": true
     },
