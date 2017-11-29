@@ -1,15 +1,18 @@
 import debounce from 'lodash.debounce'
 
 import createLog from 'utilities/log'
+import globalSelectors from './globalSelectors'
 import { fetchTaxonSearchResults } from './actionCreators'
 import { TAXONOMY_UPDATE_SEARCH_FILTER_NAME } from './actionTypes'
 
 const log = createLog('domainModules:taxonomy:middleware')
 
 const debounceTaxonSearch = debounce(
-  dispatch => {
+  ({ dispatch, getState }) => {
     log.debug('Debounce fetchTaxonSearchResults')
-    dispatch(fetchTaxonSearchResults())
+    if (globalSelectors.getLookupSearchFilterName(getState())) {
+      dispatch(fetchTaxonSearchResults())
+    }
   },
   500,
   {
@@ -18,12 +21,12 @@ const debounceTaxonSearch = debounce(
 )
 
 export default function taxonomyMiddleware() {
-  return ({ dispatch }) => next => action => {
+  return ({ dispatch, getState }) => next => action => {
     const result = next(action)
     switch (action.type) {
       case TAXONOMY_UPDATE_SEARCH_FILTER_NAME: {
         if (action.payload) {
-          debounceTaxonSearch(dispatch)
+          debounceTaxonSearch({ dispatch, getState })
         }
         break
       }

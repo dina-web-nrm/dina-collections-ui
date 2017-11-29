@@ -18,7 +18,7 @@ const initialState = {
     error: null,
     loading: false,
     result: [],
-    searchFilterName: '',
+    searchFilterName: null,
     searchType: 'partial', // not possible to change for now
   },
 }
@@ -26,7 +26,7 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case TAXONOMY_CLEAR_SEARCH: {
-      return setLookupResult(setLookupSearchFilterName(state, ''), [])
+      return setLookupSearchFilterName(setLookupResult(state, []), null)
     }
 
     case TAXONOMY_FETCH_SEARCH_RESULTS_REQUEST: {

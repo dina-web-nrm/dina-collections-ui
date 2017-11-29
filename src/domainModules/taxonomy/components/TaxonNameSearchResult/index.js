@@ -2,14 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const propTypes = {
-  attributes: PropTypes.shape({
-    scientific_name: PropTypes.string.isRequired,
+  content: PropTypes.shape({
+    attributes: PropTypes.shape({
+      scientificName: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
 }
 
-function TaxonomyAutocompleteResult({ attributes }) {
-  const scientificName = attributes.scientific_name
-  return <div key={scientificName}>{scientificName}</div>
+function TaxonomyAutocompleteResult({ content }) {
+  const scientificName =
+    content && content.attributes && content.attributes.scientificName
+
+  return scientificName ? <div>{scientificName}</div> : null
 }
 
 TaxonomyAutocompleteResult.propTypes = propTypes

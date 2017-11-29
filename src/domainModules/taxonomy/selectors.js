@@ -4,7 +4,9 @@ export const getLocalState = state => {
   return state.taxonomy
 }
 
-export const getLookup = state => state.lookup
+export const getLookup = state => {
+  return state.lookup
+}
 
 export const getLookupError = createSelector(getLookup, lookup => lookup.error)
 

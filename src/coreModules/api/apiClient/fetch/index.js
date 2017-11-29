@@ -8,23 +8,25 @@ export default function wrappedFetch({
   apiConfig,
   endpointConfig,
   methodConfig,
-  requestData,
+  request,
 }) {
   const { requestContentType, method } = methodConfig
-  const { body, headers } = requestData
+  const { body, headers } = request
 
   let formattedBody
-  if (requestContentType === 'json') {
-    formattedBody = createJsonBody(body)
-  } else if (requestContentType === 'form') {
-    formattedBody = createFormBody(body)
+  if (Object.keys(body).length) {
+    if (requestContentType === 'json') {
+      formattedBody = createJsonBody(body)
+    } else if (requestContentType === 'form') {
+      formattedBody = createFormBody(body)
+    }
   }
 
   const url = createUrl({
     apiConfig,
     endpointConfig,
     methodConfig,
-    requestData,
+    request,
   })
   return fetch(url, {
     body: formattedBody,

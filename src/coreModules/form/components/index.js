@@ -1,4 +1,5 @@
+import Checkbox from './Checkbox'
 import Input from './Input'
 import SearchInputWithResults from './SearchInputWithResults'
 
-export { Input, SearchInputWithResults }
+export { Checkbox, Input, SearchInputWithResults }

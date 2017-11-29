@@ -1,13 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input } from 'semantic-ui-react'
+import { Form, Checkbox } from 'semantic-ui-react'
 import { FormFieldError } from '../../error/components'
 
 const propTypes = {
   errorScope: PropTypes.string,
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  icon: PropTypes.string,
-  iconPosition: PropTypes.string,
   input: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   meta: PropTypes.shape({
@@ -21,8 +19,6 @@ const propTypes = {
 const defaultProps = {
   errorScope: undefined,
   helpText: undefined,
-  icon: undefined,
-  iconPosition: 'left',
   label: undefined,
   required: false,
 }
@@ -30,8 +26,6 @@ const defaultProps = {
 const Field = ({
   errorScope,
   label,
-  icon,
-  iconPosition,
   input,
   meta: { touched, error },
   module,
@@ -41,29 +35,24 @@ const Field = ({
   ...rest
 }) => {
   const displayError = touched && !!error
+
+  const { value, onChange: reduxFormOnChange, ...inputRest } = input
+
   return (
     <Form.Field
       error={displayError}
       required={required}
       style={{ position: 'relative' }}
     >
-      {label && (
-        <label htmlFor={input.name}>
-          {label}
-          {
-            // this ugly stuff is required since currently translations can only
-            // be components
-          }
-          {helpText && ' ('}
-          {helpText && helpText}
-          {helpText && ')'}
-        </label>
-      )}
-      <Input
-        icon={icon}
-        iconPosition={icon && iconPosition}
+      {label && <label htmlFor={input.name}>{label}</label>}
+      {helpText && <p>{helpText}</p>}
+      <Checkbox
+        checked={!!value}
+        onChange={(event, data) => {
+          reduxFormOnChange(data.checked)
+        }}
         type={type}
-        {...input}
+        {...inputRest}
         {...rest}
       />
       {displayError && (

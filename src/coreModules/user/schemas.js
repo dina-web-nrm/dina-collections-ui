@@ -34,9 +34,9 @@ export const loginRequest = {
 export const loginResponse = {
   additionalProperties: true,
   properties: {
-    accessToken: {
+    access_token: {
       type: 'string',
     },
   },
-  required: ['accessToken'],
+  required: ['access_token'],
 }

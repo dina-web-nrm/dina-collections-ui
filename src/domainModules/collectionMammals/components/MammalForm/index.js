@@ -1,18 +1,42 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Message, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { Field, reduxForm, SubmissionError } from 'redux-form'
-import { createFormSchemaValidator } from 'coreModules/error/utilities'
+import {
+  formValueSelector as formValueSelectorFactory,
+  getFormSyncErrors,
+  reduxForm,
+  SubmissionError,
+} from 'redux-form'
+import { createFormModelSchemaValidator } from 'coreModules/error/utilities'
+import { FormSchemaError } from 'coreModules/error/components'
 import createLog from 'utilities/log'
 import { createModuleTranslate } from 'coreModules/i18n/components'
-import { Input } from 'coreModules/form/components'
 import { registerMammal } from '../../actionCreators'
-import { mammal } from '../../schemas'
+import SegmentCatalogedUnit from './SegmentCatalogedUnit'
+import SegmentDetermination from './SegmentDetermination'
+import SegmentFeatureObservations from './SegmentFeatureObservations'
+import SegmentOccurrences from './SegmentOccurrences'
+import SegmentPhysicalUnits from './SegmentPhysicalUnits'
 
 const log = createLog('modules:collectionMammals:MammalForm')
 const ModuleTranslate = createModuleTranslate('collectionMammals')
+
+const FORM_NAME = 'mammalForm'
+const TAXON_NAME_FIELD_KEY = 'identifiedTaxonNameStandardized'
+
+const formValueSelector = formValueSelectorFactory(FORM_NAME)
+const getFormSyncErrorsSelector = getFormSyncErrors(FORM_NAME)
+
+const mapStateToProps = state => {
+  const syncErrors = getFormSyncErrorsSelector(state)
+
+  return {
+    schemaErrors: syncErrors && syncErrors.schemaErrors,
+    taxonName: formValueSelector(state, TAXON_NAME_FIELD_KEY),
+  }
+}
 
 const mapDispatchToProps = {
   registerMammal,
@@ -25,13 +49,19 @@ const propTypes = {
   pristine: PropTypes.bool.isRequired,
   registerMammal: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
+  schemaErrors: PropTypes.arrayOf(
+    PropTypes.shape({ errorCode: PropTypes.string.isRequired })
+  ),
   submitFailed: PropTypes.bool.isRequired,
   submitSucceeded: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
+  taxonName: PropTypes.string,
 }
 
 const defaultProps = {
   error: '',
+  schemaErrors: [],
+  taxonName: '',
 }
 
 class RawMammalForm extends Component {
@@ -55,9 +85,11 @@ class RawMammalForm extends Component {
       invalid,
       pristine,
       reset,
+      schemaErrors,
       submitting,
       submitFailed,
       submitSucceeded,
+      taxonName,
     } = this.props
 
     log.render()
@@ -67,116 +99,15 @@ class RawMammalForm extends Component {
         onSubmit={handleSubmit(this.handleRegisterMammal)}
         success={submitSucceeded}
       >
-        <Segment>
-          <Grid textAlign="left" verticalAlign="middle">
-            <Grid.Column computer={3} mobile={16}>
-              <Field
-                autoComplete="off"
-                component={Input}
-                helpText={<ModuleTranslate textKey="sixOrEightDigits" />}
-                label={<ModuleTranslate textKey="catalogNumber" />}
-                module="collectionMammals"
-                name="catalogNumber"
-                required
-                type="text"
-              />
-            </Grid.Column>
-          </Grid>
-        </Segment>
-        <Segment>
-          <Header size="medium">
-            <ModuleTranslate textKey="determination" />
-          </Header>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={<ModuleTranslate textKey="taxonNameEtc" />}
-            module="collectionMammals"
-            name="determination"
-            type="text"
-          />
-        </Segment>
-        <Segment>
-          <Header size="medium">
-            <ModuleTranslate textKey="collectingInformation" />
-          </Header>
-          <Grid textAlign="left" verticalAlign="middle">
-            <Grid.Column computer={8} mobile={16}>
-              <Field
-                autoComplete="off"
-                component={Input}
-                label={<ModuleTranslate textKey="locality" />}
-                module="collectionMammals"
-                name="locality"
-                type="text"
-              />
-            </Grid.Column>
-            <Grid.Column computer={3} mobile={16}>
-              <Field
-                autoComplete="off"
-                component={Input}
-                label={<ModuleTranslate textKey="collectingDate" />}
-                module="collectionMammals"
-                name="collectingDate"
-                type="text"
-              />
-            </Grid.Column>
-            <Grid.Column computer={5} mobile={16}>
-              <Field
-                autoComplete="off"
-                component={Input}
-                label={<ModuleTranslate textKey="collectors" />}
-                module="collectionMammals"
-                name="collectors"
-                type="text"
-              />
-            </Grid.Column>
-          </Grid>
-        </Segment>
-        <Segment>
-          <Header size="medium">
-            <ModuleTranslate textKey="features" />
-          </Header>
-          <Grid textAlign="left" verticalAlign="middle">
-            <Grid.Column computer={8} mobile={16}>
-              <Field
-                autoComplete="off"
-                component={Input}
-                label={<ModuleTranslate textKey="sex" />}
-                module="collectionMammals"
-                name="sex"
-                type="text"
-              />
-            </Grid.Column>
-          </Grid>
-        </Segment>
-        <Segment>
-          <Header size="medium">
-            <ModuleTranslate textKey="physicalObjects" />
-          </Header>
-          <Grid textAlign="left" verticalAlign="middle">
-            <Grid.Column computer={8} mobile={16}>
-              <Field
-                autoComplete="off"
-                component={Input}
-                label={<ModuleTranslate textKey="description" />}
-                module="collectionMammals"
-                name="description"
-                type="text"
-              />
-            </Grid.Column>
-            <Grid.Column computer={8} mobile={16}>
-              <Field
-                autoComplete="off"
-                component={Input}
-                label={<ModuleTranslate textKey="normalStorageLocation" />}
-                module="collectionMammals"
-                name="normalStorageLocation"
-                type="text"
-              />
-            </Grid.Column>
-          </Grid>
-        </Segment>
+        <SegmentCatalogedUnit />
+        <SegmentDetermination
+          taxonName={taxonName}
+          taxonNameFieldKey={TAXON_NAME_FIELD_KEY}
+        />
+        <SegmentOccurrences />
+        <SegmentFeatureObservations />
+        <SegmentPhysicalUnits />
+
         <Segment>
           <div>
             <Button
@@ -194,6 +125,7 @@ class RawMammalForm extends Component {
             >
               <ModuleTranslate textKey="cancel" />
             </Button>
+            {schemaErrors && <FormSchemaError errors={schemaErrors} />}
             {invalid &&
               submitFailed && (
                 <Message
@@ -224,8 +156,24 @@ RawMammalForm.propTypes = propTypes
 RawMammalForm.defaultProps = defaultProps
 
 export const MammalForm = reduxForm({
-  form: 'mammalForm',
-  validate: createFormSchemaValidator(mammal),
+  form: FORM_NAME,
+  initialValues: {
+    featureObservations: [
+      { featureObservationTypeId: 1 },
+      { featureObservationTypeId: 2 },
+      { featureObservationTypeId: 3 },
+    ],
+    physicalUnits: [
+      {
+        catalogedUnit: {
+          catalogNumber: '',
+        },
+      },
+    ],
+  },
+  validate: createFormModelSchemaValidator({
+    model: 'individualGroup',
+  }),
 })(RawMammalForm)
 
-export default compose(connect(null, mapDispatchToProps))(MammalForm)
+export default compose(connect(mapStateToProps, mapDispatchToProps))(MammalForm)

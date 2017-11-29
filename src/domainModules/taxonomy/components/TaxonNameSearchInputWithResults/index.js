@@ -30,20 +30,18 @@ const propTypes = {
     onChange: PropTypes.func.isRequired,
     value: PropTypes.string.isRequired,
   }).isRequired,
-  isLoading: PropTypes.bool.isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   meta: PropTypes.shape({
     error: PropTypes.object,
     touched: PropTypes.bool.isRequired,
   }).isRequired,
   required: PropTypes.bool,
-  results: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
   taxonName: PropTypes.string.isRequired,
   taxonSearchName: PropTypes.string,
   taxonSearchResults: PropTypes.arrayOf(
     PropTypes.shape({
       attributes: PropTypes.shape({
-        scientific_name: PropTypes.string.isRequired,
+        scientificName: PropTypes.string.isRequired,
       }).isRequired,
     })
   ).isRequired,
@@ -64,6 +62,7 @@ class TaxonNameSearchInputWithResults extends Component {
     super(props)
     this.handleResultSelect = this.handleResultSelect.bind(this)
     this.handleSearchChange = this.handleSearchChange.bind(this)
+    this.getValue = this.getValue.bind(this)
   }
 
   componentDidMount() {
@@ -78,17 +77,44 @@ class TaxonNameSearchInputWithResults extends Component {
     }
   }
 
+  getValue() {
+    const { taxonName, taxonSearchName } = this.props
+
+    const searchIsNotNull = taxonSearchName !== null
+
+    if (searchIsNotNull) {
+      return taxonSearchName
+    }
+
+    return taxonName || ''
+  }
+
   handleResultSelect(event, { result }) {
     // see Semantic docs for details: https://react.semantic-ui.com/modules/search
-    if (result && result.attributes && result.attributes.scientific_name) {
-      this.props.input.onBlur(result.attributes.scientific_name)
-      this.props.clearTaxonSearch()
+    if (
+      result &&
+      result.content &&
+      result.content.attributes &&
+      result.content.attributes.scientificName
+    ) {
+      const value = result.content.attributes.scientificName
+
+      // keep search and name in sync to ensure that if the user focuses the
+      // input again, it should show the current taxonName as suggestion instead
+      // of "no results"
+      this.props.updateTaxonSearchFilterName(value)
+      this.props.input.onBlur(value)
     }
   }
 
   handleSearchChange(event, { value }) {
     // see Semantic docs for details: https://react.semantic-ui.com/modules/search
     this.props.updateTaxonSearchFilterName(value)
+
+    if (this.props.taxonName) {
+      // empty form value, if search is renewed after taxonName selected
+      this.props.input.onChange('')
+    }
   }
 
   render() {
@@ -106,6 +132,18 @@ class TaxonNameSearchInputWithResults extends Component {
       ...rest
     } = this.props
 
+    // do not pass on non-DOM props
+    delete rest.clearTaxonSearch
+    delete rest.updateTaxonSearchFilterName
+
+    // patch each result with a key as required by SearchInputWithResults
+    const results = taxonSearchResults.map(result => {
+      return {
+        ...result,
+        key: result.id,
+      }
+    })
+
     return (
       <SearchInputWithResults
         errorScope={errorScope}
@@ -114,14 +152,14 @@ class TaxonNameSearchInputWithResults extends Component {
         helpText={helpText}
         input={{
           name: input.name,
-          value: taxonSearchName || taxonName || '',
+          value: this.getValue(),
         }}
         isLoading={taxonSearchResultsLoading}
         label={label}
         meta={meta}
         required={required}
         resultRenderer={TaxonNameSearchResult}
-        results={taxonSearchResults}
+        results={results}
         {...rest}
       />
     )

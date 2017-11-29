@@ -1,4 +1,138 @@
 {
+  "catalogedUnit": {
+    "sixOrEightDigits": {
+      "en": "6 or 8 digits",
+      "sv": "6 eller 8 siffror"
+    },
+    "catalogNumber": {
+      "en": "Catalog number",
+      "sv": "Katalognummer"
+    },
+    "storedUnderTaxonName": {
+      "en": "Stored under name",
+      "sv": "Förvaras under namn"
+    },
+    "publishRecord": {
+      "en": "Publish record",
+      "sv": "Publicera utdrag"
+    }
+  },
+  "determination": {
+    "determination": {
+      "en": "Determination",
+      "sv": "Bestämning"
+    },
+    "determinedBy": {
+      "en": "Determined by",
+      "sv": "Bestämd av"
+    },
+    "identificationText": {
+      "en": "Taxon name, determiner, determination date, etc.",
+      "sv": "Taxonnamn, bestämmare, bestämningsdatum, etc."
+    },
+    "isCurrent": {
+      "en": "Is current",
+      "sv": "Är aktuell"
+    },
+    "taxonName": {
+      "en": "Taxon name",
+      "sv": "Taxonnamn"
+    },
+    "verbatimTaxonName": {
+      "en": "Verbatim taxon name",
+      "sv": "Verbatim taxonnamn"
+    }
+  },
+  "occurrences": {
+    "collectingInformation": {
+      "en": "Collecting information",
+      "sv": "Insamlingsinformation"
+    },
+    "expeditionText": {
+      "en": "Expedition description",
+      "sv": ""
+    },
+    "localityText": {
+      "en": "Locality text",
+      "sv": ""
+    },
+    "startTime": {
+      "en": "Start time",
+      "sv": ""
+    },
+    "yearStart": {
+      "en": "Year",
+      "sv": ""
+    },
+    "monthStart": {
+      "en": "Month",
+      "sv": ""
+    },
+    "dayStart": {
+      "en": "Day",
+      "sv": ""
+    },
+    "endTime": {
+      "en": "End time",
+      "sv": ""
+    },
+    "yearEnd": {
+      "en": "Year",
+      "sv": ""
+    },
+    "monthEnd": {
+      "en": "Month",
+      "sv": ""
+    },
+    "dayEnd": {
+      "en": "Day",
+      "sv": ""
+    },
+    "occurrenceDateText": {
+      "en": "Date free text",
+      "sv": ""
+    },
+    "collectorsText": {
+      "en": "Collectors text",
+      "sv": ""
+    }
+  },
+  "featureObservation": {
+    "features": {
+      "en": "Features",
+      "sv": "Egenskaper"
+    },
+    "sex": {
+      "en": "Sex",
+      "sv": "Kön"
+    },
+    "age": {
+      "en": "Age",
+      "sv": "Ålder"
+    },
+    "ageStage": {
+      "en": "Age stage",
+      "sv": "Åldersstadium"
+    },
+    "ageDeterminationMethod": {
+      "en": "Age determination method",
+      "sv": "Åldersbestämningsmetod"
+    }
+  },
+  "physicalUnits": {
+    "alternateIdentifiersText": {
+      "en": "Alternate identifier(s)",
+      "sv": "Alternativa identifierare"
+    },
+    "normalStorageLocationText": {
+      "en": "Normal storage location",
+      "sv": "Reguljär lagringsplats"
+    },
+    "physicalUnitText": {
+      "en": "Description",
+      "sv": "Beskrivning"
+    }
+  },
   "cancel": {
     "en": "Cancel",
     "sv": "Avbryt"
@@ -27,13 +161,13 @@
     "en": "Collector(s)",
     "sv": "Insamlare"
   },
+  "day": {
+    "en": "Day",
+    "sv": "Dag"
+  },
   "description": {
     "en": "Description",
     "sv": "Beskrivning"
-  },
-  "determination": {
-    "en": "Determination",
-    "sv": "Bestämning"
   },
   "features": {
     "en": "Features",
@@ -43,17 +177,21 @@
     "en": "Locality",
     "sv": "Lokalitet"
   },
+  "month": {
+    "en": "Month",
+    "sv": "Månad"
+  },
   "noRecordsFound": {
     "en": "No matching records found",
     "sv": "Inga matchande utdrag funna"
   },
-  "normalStorageLocation": {
-    "en": "Normal storage location",
-    "sv": "Reguljär lagringsplats"
-  },
   "physicalObjects": {
     "en": "Physical objects",
     "sv": "Fysiska objekt"
+  },
+  "remarks": {
+    "en": "Remarks",
+    "sv": "Noteringar"
   },
   "save": {
     "en": "Save",
@@ -79,12 +217,8 @@
     "en": "Could not save",
     "sv": "Kunde inte spara"
   },
-  "taxonName": {
-    "en": "Taxon name",
-    "sv": "Taxonnamn"
-  },
-  "taxonNameEtc": {
-    "en": "Taxon name, determiner, determination date, etc.",
-    "sv": "Taxonnamn, bestämmare, bestämningsdatum, etc."
+  "year": {
+    "en": "Year",
+    "sv": "År"
   }
 }
