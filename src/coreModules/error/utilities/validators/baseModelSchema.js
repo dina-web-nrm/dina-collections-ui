@@ -14,13 +14,14 @@ Object.keys(models).forEach(key => {
   ajv.addSchema(models[key], key)
 })
 
+// TODO: rename model to modelName
 export default function createModelSchemaValidator({
   schema: customSchema,
   model,
   errorHandler,
 }) {
   if (model && !models[model]) {
-    throw new Error(`Unkown model: ${model}`)
+    throw new Error(`Unknown model: ${model}`)
   }
 
   if (!models[model] && !customSchema) {

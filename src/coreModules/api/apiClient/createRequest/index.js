@@ -1,8 +1,14 @@
+import chainPromises from 'utilities/chainPromises'
 import validateRequest from '../validateRequest'
+
+const formatInput = (input, formatter) => {
+  return formatter ? formatter(input) : input
+}
 
 export default function createRequest({
   apiConfig,
   endpointConfig,
+  methodConfig,
   userInput,
 }) {
   const {
@@ -11,32 +17,29 @@ export default function createRequest({
     pathParams: userInputPathParams = {},
     queryParams: userInputQueryParams = {},
   } = userInput
+
   const { headerFormatter: apiHeaderFormatter } = apiConfig
 
   const {
     bodyFormatter,
-    headerFormatter,
+    headerFormatter: endpointHeaderFormatter,
     pathFormatter,
     queryFormatter,
   } = endpointConfig
 
+  const { headerFormatter: methodHeaderFormatter } = methodConfig
+
+  const headerFormatters = [
+    apiHeaderFormatter,
+    endpointHeaderFormatter,
+    methodHeaderFormatter,
+  ]
+
   return Promise.all([
-    Promise.resolve(
-      bodyFormatter ? bodyFormatter(userInputBody) : userInputBody
-    ),
-    Promise.resolve(
-      headerFormatter ? headerFormatter(userInputHeaders) : userInputHeaders
-    ).then(headers => {
-      return apiHeaderFormatter ? apiHeaderFormatter(headers) : headers
-    }),
-    Promise.resolve(
-      pathFormatter ? pathFormatter(userInputPathParams) : userInputPathParams
-    ),
-    Promise.resolve(
-      queryFormatter
-        ? queryFormatter(userInputQueryParams)
-        : userInputQueryParams
-    ),
+    Promise.resolve(formatInput(userInputBody, bodyFormatter)),
+    chainPromises(headerFormatters, userInputHeaders),
+    Promise.resolve(formatInput(userInputPathParams, pathFormatter)),
+    Promise.resolve(formatInput(userInputQueryParams, queryFormatter)),
   ]).then(([body, headers, pathParams, queryParams]) => {
     const request = {
       body,
@@ -44,6 +47,7 @@ export default function createRequest({
       pathParams,
       queryParams,
     }
+
     return validateRequest({ endpointConfig, request }).then(() => {
       return request
     })

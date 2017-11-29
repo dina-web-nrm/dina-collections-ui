@@ -5,8 +5,13 @@ export default function createApiClient(options) {
   const apiConfig = createApiConfig(options)
   return {
     formPost: createApiMethod(apiConfig, {
+      headerFormatter: userInputHeaders => {
+        return {
+          ...userInputHeaders,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        }
+      },
       method: 'POST',
-      requestContentType: 'form',
     }),
 
     httpDelete: createApiMethod(apiConfig, {
