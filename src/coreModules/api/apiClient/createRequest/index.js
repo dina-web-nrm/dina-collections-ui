@@ -1,8 +1,7 @@
 import chainPromises from 'utilities/chainPromises'
-import validateRequest from '../validateRequest'
 
-const formatInput = (input, formatter) => {
-  return formatter ? formatter(input) : input
+const extractMethodsFromConfigs = (configs, key) => {
+  return configs.map(config => config[key])
 }
 
 export default function createRequest({
@@ -11,35 +10,25 @@ export default function createRequest({
   methodConfig,
   userInput,
 }) {
-  const {
-    body: userInputBody = {},
-    headers: userInputHeaders = {},
-    pathParams: userInputPathParams = {},
-    queryParams: userInputQueryParams = {},
-  } = userInput
-
-  const { headerFormatter: apiHeaderFormatter } = apiConfig
-
-  const {
-    bodyFormatter,
-    headerFormatter: endpointHeaderFormatter,
-    pathFormatter,
-    queryFormatter,
-  } = endpointConfig
-
-  const { headerFormatter: methodHeaderFormatter } = methodConfig
-
-  const headerFormatters = [
-    apiHeaderFormatter,
-    endpointHeaderFormatter,
-    methodHeaderFormatter,
-  ]
+  const configs = [apiConfig, endpointConfig, methodConfig]
 
   return Promise.all([
-    Promise.resolve(formatInput(userInputBody, bodyFormatter)),
-    chainPromises(headerFormatters, userInputHeaders),
-    Promise.resolve(formatInput(userInputPathParams, pathFormatter)),
-    Promise.resolve(formatInput(userInputQueryParams, queryFormatter)),
+    chainPromises(
+      extractMethodsFromConfigs(configs, 'mapBody'),
+      userInput.body || {}
+    ),
+    chainPromises(
+      extractMethodsFromConfigs(configs, 'mapHeaders'),
+      userInput.headers || {}
+    ),
+    chainPromises(
+      extractMethodsFromConfigs(configs, 'mapPathParams'),
+      userInput.pathParams || {}
+    ),
+    chainPromises(
+      extractMethodsFromConfigs(configs, 'mapQueryParams'),
+      userInput.queryParams || {}
+    ),
   ]).then(([body, headers, pathParams, queryParams]) => {
     const request = {
       body,
@@ -48,7 +37,24 @@ export default function createRequest({
       queryParams,
     }
 
-    return validateRequest({ endpointConfig, request }).then(() => {
+    return Promise.all([
+      chainPromises(
+        extractMethodsFromConfigs(configs, 'validateBody'),
+        request.body
+      ),
+      chainPromises(
+        extractMethodsFromConfigs(configs, 'validateHeaders'),
+        request.headers
+      ),
+      chainPromises(
+        extractMethodsFromConfigs(configs, 'validatePathParams'),
+        request.pathParams
+      ),
+      chainPromises(
+        extractMethodsFromConfigs(configs, 'validateQueryParams'),
+        request.queryParams
+      ),
+    ]).then(() => {
       return request
     })
   })

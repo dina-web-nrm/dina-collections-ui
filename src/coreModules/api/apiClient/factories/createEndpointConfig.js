@@ -1,44 +1,44 @@
 export const endpointConfigSchema = {
   additionalProperties: false,
   properties: {
-    bodyFormatter: {
+    mapBody: {
       not: {
         type: 'string',
       },
     },
-    bodyValidation: {
+    mapHeaders: {
       not: {
         type: 'string',
       },
     },
-    headerFormatter: {
+    mapResponse: {
       not: {
         type: 'string',
       },
-    },
-    key: {
-      type: 'string',
     },
     mock: {
       not: {
         type: 'string',
       },
     },
+    operationId: {
+      type: 'string',
+    },
     pathname: {
       type: 'string',
     },
-    responseParser: {
+    validateBody: {
       not: {
         type: 'string',
       },
     },
-    responseValidation: {
+    validateResponse: {
       not: {
         type: 'string',
       },
     },
   },
-  required: ['key'],
+  required: [],
 }
 
 export default function createEndpointConfig(

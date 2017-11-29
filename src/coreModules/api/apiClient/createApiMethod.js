@@ -39,7 +39,9 @@ export default function createApiMethod(apiConfig, methodConfigInput) {
           })
           .then(responseData => {
             return createResponse({
+              apiConfig,
               endpointConfig,
+              methodConfig,
               responseData,
             })
           })

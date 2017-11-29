@@ -8,14 +8,12 @@ const deleteScientificUnderscoreName = createDeleter([
 ])
 
 export const TAXONOMY_SEARCH = buildEndpointSpec({
-  operationId: 'getTaxaByName',
-  pathname: '/taxon',
-  responseParser: result => {
+  mapResponse: json => {
     const parsedResult = {
-      ...result,
+      ...json,
       data:
-        result.data &&
-        result.data.map(item => {
+        json.data &&
+        json.data.map(item => {
           return deleteScientificUnderscoreName(
             setScientificName(item, item.attributes.scientific_name)
           )
@@ -24,4 +22,6 @@ export const TAXONOMY_SEARCH = buildEndpointSpec({
 
     return parsedResult
   },
+  operationId: 'getTaxaByName',
+  pathname: '/taxon',
 })

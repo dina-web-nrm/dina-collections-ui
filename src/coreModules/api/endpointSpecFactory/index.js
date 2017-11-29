@@ -45,7 +45,10 @@ const getBodyValidator = ({ methodSpecification }) => {
 
   if (bodyParameter) {
     const modelName = getModelNameFromParameter(bodyParameter)
-    return createSystemModelSchemaValidator({ model: modelName })
+    return createSystemModelSchemaValidator({
+      model: modelName,
+      throwOnError: true,
+    })
   }
 
   return null
@@ -53,18 +56,19 @@ const getBodyValidator = ({ methodSpecification }) => {
 
 export const buildEndpointSpec = ({ operationId, ...rest }) => {
   if (!map[operationId]) {
-    throw new Error(`Operation id: ${operationId} unknown`)
+    console.warn(`Operation id: ${operationId} unknown`) // eslint-disable-line no-console
   }
-  const { methodName, methodSpecification, pathname } = map[operationId]
+
+  const { methodName, methodSpecification, pathname } = map[operationId] || {}
 
   return {
-    bodyValidation: getBodyValidator({
+    operationId,
+    pathname,
+    validateBody: getBodyValidator({
       methodName,
       methodSpecification,
       pathname,
     }),
-    key: operationId,
-    pathname,
     ...rest,
   }
 }

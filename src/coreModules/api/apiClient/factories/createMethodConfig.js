@@ -1,7 +1,7 @@
 export const methodConfigSchema = {
   additionalProperties: false,
   properties: {
-    headerFormatter: {
+    mapHeaders: {
       not: {
         type: 'string',
       },

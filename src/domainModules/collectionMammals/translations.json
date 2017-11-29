@@ -34,10 +34,6 @@
       "en": "Is current",
       "sv": "Är aktuell"
     },
-    "taxonName": {
-      "en": "Taxon name",
-      "sv": "Taxonnamn"
-    },
     "verbatimTaxonName": {
       "en": "Verbatim taxon name",
       "sv": "Verbatim taxonnamn"
@@ -216,6 +212,10 @@
   "submitFailed": {
     "en": "Could not save",
     "sv": "Kunde inte spara"
+  },
+  "taxonName": {
+    "en": "Taxon name",
+    "sv": "Taxonnamn"
   },
   "year": {
     "en": "Year",

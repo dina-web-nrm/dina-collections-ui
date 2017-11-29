@@ -19,6 +19,7 @@ export default function createModelSchemaValidator({
   schema: customSchema,
   model,
   errorHandler,
+  throwOnError,
 }) {
   if (model && !models[model]) {
     throw new Error(`Unknown model: ${model}`)
@@ -31,13 +32,19 @@ export default function createModelSchemaValidator({
   }
 
   const schema = models[model] || customSchema
-
   return obj => {
     const validate = ajv.compile(schema)
     const valid = validate(obj)
     if (valid) {
       return null
     }
-    return errorHandler ? errorHandler(validate.errors) : validate.errors
+
+    const error = errorHandler ? errorHandler(validate.errors) : validate.errors
+
+    if (throwOnError) {
+      throw error
+    }
+
+    return error
   }
 }

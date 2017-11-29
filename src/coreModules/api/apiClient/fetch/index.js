@@ -1,8 +1,7 @@
-import checkStatus from './checkStatus'
 import createFormBody from './createFormBody'
 import createJsonBody from './createJsonBody'
 import createUrl from './createUrl'
-import parseJSON from './parseJSON'
+import parseResponse from './parseResponse'
 
 export default function wrappedFetch({
   apiConfig,
@@ -10,15 +9,15 @@ export default function wrappedFetch({
   methodConfig,
   request,
 }) {
-  const { requestContentType, method } = methodConfig
+  const { method } = methodConfig
   const { body, headers } = request
 
   let formattedBody
   if (Object.keys(body).length) {
-    if (requestContentType === 'json') {
-      formattedBody = createJsonBody(body)
-    } else if (requestContentType === 'form') {
+    if (headers['Content-Type'] === 'application/x-www-form-urlencoded') {
       formattedBody = createFormBody(body)
+    } else {
+      formattedBody = createJsonBody(body)
     }
   }
 
@@ -32,7 +31,5 @@ export default function wrappedFetch({
     body: formattedBody,
     headers,
     method,
-  })
-    .then(parseJSON)
-    .then(checkStatus)
+  }).then(parseResponse)
 }

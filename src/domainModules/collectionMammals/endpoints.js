@@ -7,8 +7,6 @@ import {
 } from './schemas'
 
 export const LOOKUP_MAMMALS = {
-  bodyValidation: createSystemSchemaValidator(lookupMammalsRequest),
-  key: 'LOOKUP_MAMMALS',
   mock: ({ request }) => {
     if (
       request &&
@@ -46,26 +44,26 @@ export const LOOKUP_MAMMALS = {
       ],
     }
   },
-  responseValidation: createSystemSchemaValidator(lookupMammalsResponse),
+  validateBody: createSystemSchemaValidator(lookupMammalsRequest),
+  validateResponse: createSystemSchemaValidator(lookupMammalsResponse),
 }
 
 export const REGISTER_MAMMAL = buildEndpointSpec({
-  bodyFormatter: userBodyInput => {
+  mapBody: userBodyInput => {
     return {
       data: {
         attributes: userBodyInput,
       },
     }
   },
-  headerFormatter: userInputHeaders => {
+  mapHeaders: userInputHeaders => {
     return {
       ...userInputHeaders,
       'Content-Type': 'application/json',
     }
   },
-  key: 'REGISTER_MAMMAL',
   mock: ({ request }) => request.body,
   operationId: 'createIndividualGroup',
   pathname: '/collections/api/v01/individualGroups',
-  responseValidation: createSystemSchemaValidator(registerMammalResponse),
+  validateResponse: createSystemSchemaValidator(registerMammalResponse),
 })

@@ -5,7 +5,7 @@ export default function createApiClient(options) {
   const apiConfig = createApiConfig(options)
   return {
     formPost: createApiMethod(apiConfig, {
-      headerFormatter: userInputHeaders => {
+      mapHeaders: userInputHeaders => {
         return {
           ...userInputHeaders,
           'Content-Type': 'application/x-www-form-urlencoded',
