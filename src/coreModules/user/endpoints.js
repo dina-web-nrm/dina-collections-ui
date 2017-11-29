@@ -20,9 +20,9 @@ export const LOG_IN = buildEndpointSpec({
   },
   mock: () => createMockDataFromSchema(loginResponse),
   operationId: 'loginUser',
-  responseParser: result => {
+  responseParser: json => {
     return {
-      accessToken: result.access_token,
+      accessToken: json.access_token,
     }
   },
   responseValidation: createSystemSchemaValidator(loginResponse),
@@ -32,10 +32,10 @@ export const GET_USER = buildEndpointSpec({
   mock: () => createMockDataFromSchema(user),
   operationId: 'getUser',
   pathname: '/auth/realms/dina/protocol/openid-connect/userinfo',
-  responseParser: result => {
+  responseParser: json => {
     return {
-      email: result.email,
-      username: result.preferred_username,
+      email: json.email,
+      username: json.preferred_username,
     }
   },
   responseValidation: createSystemSchemaValidator(user),

@@ -18,6 +18,11 @@ export const apiConfigSchema = {
     mock: {
       type: 'object',
     },
+    responseParser: {
+      not: {
+        type: 'string',
+      },
+    },
     systemValidate: {
       not: {
         type: 'string',

@@ -24,6 +24,7 @@ export default function createApiMiddleware(apiClientOptions) {
           ...buildAuthHeaders(getState()),
         }
       },
+      responseParser: ({ json }) => json,
       systemValidate,
     })
     return next => action => {
