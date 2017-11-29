@@ -2,7 +2,7 @@ import { createSystemSchemaValidator } from 'coreModules/error/utilities'
 import createMockDataFromSchema from 'utilities/createMockDataFromSchema'
 import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
 
-import { user, loginRequest, loginResponse } from './schemas'
+import { user, loginResponse } from './schemas'
 
 export const LOG_IN = buildEndpointSpec({
   bodyFormatter: inputBody => {
@@ -12,7 +12,6 @@ export const LOG_IN = buildEndpointSpec({
       grant_type: 'password',
     }
   },
-  bodyValidation: createSystemSchemaValidator(loginRequest),
   headerFormatter: userInputHeaders => {
     return {
       ...userInputHeaders,
