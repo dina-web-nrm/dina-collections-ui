@@ -16,7 +16,7 @@ export default function intercept({
         request,
       })
       if (mockResult) {
-        return mockResult
+        return { json: mockResult }
       }
     }
 
@@ -28,7 +28,7 @@ export default function intercept({
         request,
       })
       if (mockResult) {
-        return mockResult
+        return { json: mockResult }
       }
     }
 
