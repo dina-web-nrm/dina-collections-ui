@@ -1,8 +1,7 @@
-import checkStatus from './checkStatus'
 import createFormBody from './createFormBody'
 import createJsonBody from './createJsonBody'
 import createUrl from './createUrl'
-import parseJSON from './parseJSON'
+import parseResponse from './parseResponse'
 
 export default function wrappedFetch({
   apiConfig,
@@ -32,7 +31,5 @@ export default function wrappedFetch({
     body: formattedBody,
     headers,
     method,
-  })
-    .then(parseJSON)
-    .then(checkStatus)
+  }).then(parseResponse)
 }
