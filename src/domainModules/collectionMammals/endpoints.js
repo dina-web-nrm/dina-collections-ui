@@ -50,13 +50,13 @@ export const LOOKUP_MAMMALS = {
 }
 
 export const REGISTER_MAMMAL = {
+  bodyValidation: createSystemSchemaValidator(registerMammalRequest),
   headerFormatter: userInputHeaders => {
     return {
       ...userInputHeaders,
       'Content-Type': 'application/json',
     }
   },
-  bodyValidation: createSystemSchemaValidator(registerMammalRequest),
   key: 'REGISTER_MAMMAL',
   mock: ({ request }) => request.body,
   pathname: '/collections/api/v01/individualGroups',
