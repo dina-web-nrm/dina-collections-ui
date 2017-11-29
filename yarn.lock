@@ -3145,7 +3145,7 @@ diffie-hellman@^5.0.0:
 
 "dina-schema@https://github.com/DINA-Web/dina-schema.git#master":
   version "0.1.0"
-  resolved "https://github.com/DINA-Web/dina-schema.git#1311d0ca471eefa3bf3a1a400e68db51b28f74d4"
+  resolved "https://github.com/DINA-Web/dina-schema.git#f90f40c0ecd988fc492bf501172f42ffe4367200"
 
 discontinuous-range@1.0.0:
   version "1.0.0"
