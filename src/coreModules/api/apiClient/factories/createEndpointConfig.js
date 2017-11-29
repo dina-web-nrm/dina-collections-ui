@@ -16,13 +16,13 @@ export const endpointConfigSchema = {
         type: 'string',
       },
     },
-    key: {
-      type: 'string',
-    },
     mock: {
       not: {
         type: 'string',
       },
+    },
+    operationId: {
+      type: 'string',
     },
     pathname: {
       type: 'string',
@@ -38,7 +38,7 @@ export const endpointConfigSchema = {
       },
     },
   },
-  required: ['key'],
+  required: ['operationId'],
 }
 
 export default function createEndpointConfig(
