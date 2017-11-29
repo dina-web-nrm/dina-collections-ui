@@ -1,7 +1,6 @@
 import chainPromises from 'utilities/chainPromises'
-import validateRequest from '../validateRequest'
 
-const extractFormattersFromConfigs = (configs, key) => {
+const extractMethodsFromConfigs = (configs, key) => {
   return configs.map(config => config[key])
 }
 
@@ -15,19 +14,19 @@ export default function createRequest({
 
   return Promise.all([
     chainPromises(
-      extractFormattersFromConfigs(configs, 'bodyFormatter'),
+      extractMethodsFromConfigs(configs, 'bodyFormatter'),
       userInput.body || {}
     ),
     chainPromises(
-      extractFormattersFromConfigs(configs, 'headerFormatter'),
+      extractMethodsFromConfigs(configs, 'headerFormatter'),
       userInput.headers || {}
     ),
     chainPromises(
-      extractFormattersFromConfigs(configs, 'pathParamsFormatter'),
+      extractMethodsFromConfigs(configs, 'pathParamsFormatter'),
       userInput.pathParams || {}
     ),
     chainPromises(
-      extractFormattersFromConfigs(configs, 'queryParamsFormatter'),
+      extractMethodsFromConfigs(configs, 'queryParamsFormatter'),
       userInput.queryParams || {}
     ),
   ]).then(([body, headers, pathParams, queryParams]) => {
@@ -38,7 +37,24 @@ export default function createRequest({
       queryParams,
     }
 
-    return validateRequest({ endpointConfig, request }).then(() => {
+    return Promise.all([
+      chainPromises(
+        extractMethodsFromConfigs(configs, 'bodyValidation'),
+        request.body
+      ),
+      chainPromises(
+        extractMethodsFromConfigs(configs, 'headerValidation'),
+        request.headers
+      ),
+      chainPromises(
+        extractMethodsFromConfigs(configs, 'pathParamsValidation'),
+        request.pathParams
+      ),
+      chainPromises(
+        extractMethodsFromConfigs(configs, 'queryParamsValidation'),
+        request.queryParams
+      ),
+    ]).then(() => {
       return request
     })
   })
