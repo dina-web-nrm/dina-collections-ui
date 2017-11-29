@@ -125,7 +125,9 @@ class RawMammalForm extends Component {
             >
               <ModuleTranslate textKey="cancel" />
             </Button>
-            {schemaErrors && <FormSchemaError errors={schemaErrors} />}
+            {schemaErrors.length > 0 && (
+              <FormSchemaError errors={schemaErrors} />
+            )}
             {invalid &&
               submitFailed && (
                 <Message
