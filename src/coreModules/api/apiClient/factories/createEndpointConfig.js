@@ -38,7 +38,7 @@ export const endpointConfigSchema = {
       },
     },
   },
-  required: ['operationId'],
+  required: [],
 }
 
 export default function createEndpointConfig(

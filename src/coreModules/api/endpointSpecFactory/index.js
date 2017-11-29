@@ -56,9 +56,10 @@ const getBodyValidator = ({ methodSpecification }) => {
 
 export const buildEndpointSpec = ({ operationId, ...rest }) => {
   if (!map[operationId]) {
-    throw new Error(`Operation id: ${operationId} unknown`)
+    console.warn(`Operation id: ${operationId} unknown`) // eslint-disable-line no-console
   }
-  const { methodName, methodSpecification, pathname } = map[operationId]
+
+  const { methodName, methodSpecification, pathname } = map[operationId] || {}
 
   return {
     operationId,
