@@ -1,8 +1,8 @@
+import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
 import { createSystemSchemaValidator } from 'coreModules/error/utilities'
 import {
   lookupMammalsRequest,
   lookupMammalsResponse,
-  registerMammalRequest,
   registerMammalResponse,
 } from './schemas'
 
@@ -49,8 +49,14 @@ export const LOOKUP_MAMMALS = {
   responseValidation: createSystemSchemaValidator(lookupMammalsResponse),
 }
 
-export const REGISTER_MAMMAL = {
-  bodyValidation: createSystemSchemaValidator(registerMammalRequest),
+export const REGISTER_MAMMAL = buildEndpointSpec({
+  bodyFormatter: userBodyInput => {
+    return {
+      data: {
+        attributes: userBodyInput,
+      },
+    }
+  },
   headerFormatter: userInputHeaders => {
     return {
       ...userInputHeaders,
@@ -59,6 +65,7 @@ export const REGISTER_MAMMAL = {
   },
   key: 'REGISTER_MAMMAL',
   mock: ({ request }) => request.body,
+  operationId: 'createIndividualGroup',
   pathname: '/collections/api/v01/individualGroups',
   responseValidation: createSystemSchemaValidator(registerMammalResponse),
-}
+})
