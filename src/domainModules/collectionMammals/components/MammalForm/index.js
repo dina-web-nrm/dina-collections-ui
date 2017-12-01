@@ -11,9 +11,9 @@ import {
 } from 'redux-form'
 import { createFormModelSchemaValidator } from 'coreModules/error/utilities'
 import { FormSchemaError } from 'coreModules/error/components'
+import { clearTaxonSearch } from 'domainModules/taxonomy/actionCreators'
 import createLog from 'utilities/log'
 import { createModuleTranslate } from 'coreModules/i18n/components'
-import { registerMammal } from '../../actionCreators'
 import SegmentCatalogedUnit from './SegmentCatalogedUnit'
 import SegmentDetermination from './SegmentDetermination'
 import SegmentFeatureObservations from './SegmentFeatureObservations'
@@ -30,6 +30,26 @@ const TAXON_NAME_FIELD_KEY =
 const formValueSelector = formValueSelectorFactory(FORM_NAME)
 const getFormSyncErrorsSelector = getFormSyncErrors(FORM_NAME)
 
+const INITIAL_VALUES = {
+  featureObservations: [
+    { featureObservationType: { featureObservationTypeName: 'sex', id: 1 } },
+    { featureObservationType: { featureObservationTypeName: 'age', id: 2 } },
+    {
+      featureObservationType: {
+        featureObservationTypeName: 'ageStage',
+        id: 3,
+      },
+    },
+  ],
+  physicalUnits: [
+    {
+      catalogedUnit: {
+        catalogNumber: '',
+      },
+    },
+  ],
+}
+
 const mapStateToProps = state => {
   const syncErrors = getFormSyncErrorsSelector(state)
 
@@ -40,15 +60,32 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  registerMammal,
+  clearTaxonSearch,
 }
 
 const propTypes = {
+  clearTaxonSearch: PropTypes.func.isRequired,
   error: PropTypes.string,
+  handleFormSubmit: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  individualGroup: PropTypes.shape({
+    // TODO: define and possibly centralize propTypes for individualGroup
+    identifications: PropTypes.arrayOf(
+      PropTypes.shape({
+        identifiedTaxonNameStandardized: PropTypes.string,
+      })
+    ).isRequired,
+    physicalUnits: PropTypes.arrayOf(
+      PropTypes.shape({
+        catalogedUnit: PropTypes.shape({
+          catalogNumber: PropTypes.string.isRequired,
+        }).isRequired,
+      }).isRequired
+    ).isRequired,
+  }),
+  initialize: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
-  registerMammal: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
   schemaErrors: PropTypes.arrayOf(
     PropTypes.shape({ errorCode: PropTypes.string.isRequired })
@@ -61,6 +98,7 @@ const propTypes = {
 
 const defaultProps = {
   error: '',
+  individualGroup: undefined,
   schemaErrors: [],
   taxonName: '',
 }
@@ -68,11 +106,28 @@ const defaultProps = {
 class RawMammalForm extends Component {
   constructor(props) {
     super(props)
-    this.handleRegisterMammal = this.handleRegisterMammal.bind(this)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+    this.setInitialFormValues = this.setInitialFormValues.bind(this)
+    this.setInitialFormValues(props.individualGroup || INITIAL_VALUES)
   }
 
-  handleRegisterMammal(data) {
-    return this.props.registerMammal(data).catch(error => {
+  componentWillReceiveProps(nextProps) {
+    if (this.props.individualGroup !== nextProps.individualGroup) {
+      this.setInitialFormValues(nextProps.individualGroup)
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.clearTaxonSearch()
+  }
+
+  setInitialFormValues(individualGroup) {
+    this.props.initialize(individualGroup)
+  }
+
+  handleFormSubmit(data) {
+    return this.props.handleFormSubmit(data).catch(error => {
+      // prettier-ignore
       const errorMessage = `Status: ${error.status}, message: ${
         error.error.message
       }`
@@ -100,7 +155,7 @@ class RawMammalForm extends Component {
     return (
       <Form
         error={!!error || submitFailed}
-        onSubmit={handleSubmit(this.handleRegisterMammal)}
+        onSubmit={handleSubmit(this.handleFormSubmit)}
         success={submitSucceeded}
       >
         <SegmentCatalogedUnit />
@@ -163,25 +218,6 @@ RawMammalForm.defaultProps = defaultProps
 
 export const MammalForm = reduxForm({
   form: FORM_NAME,
-  initialValues: {
-    featureObservations: [
-      { featureObservationType: { featureObservationTypeName: 'sex', id: 1 } },
-      { featureObservationType: { featureObservationTypeName: 'age', id: 2 } },
-      {
-        featureObservationType: {
-          featureObservationTypeName: 'ageStage',
-          id: 3,
-        },
-      },
-    ],
-    physicalUnits: [
-      {
-        catalogedUnit: {
-          catalogNumber: '',
-        },
-      },
-    ],
-  },
   validate: createFormModelSchemaValidator({
     model: 'individualGroup',
   }),
