@@ -7,8 +7,14 @@ import {
 import { REGISTER_MAMMAL } from '../endpoints'
 
 export default function registerMammal(formData, throwError = true) {
+  const meta = {
+    catalogNumber: formData.physicalUnits[0].catalogedUnit.catalogNumber,
+    formData,
+  }
+
   return (dispatch, getState, { apiClient }) => {
     dispatch({
+      meta,
       type: COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_REQUEST,
     })
 
@@ -59,6 +65,7 @@ export default function registerMammal(formData, throwError = true) {
       .then(
         response => {
           dispatch({
+            meta,
             payload: response,
             type: COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_SUCCESS,
           })
@@ -67,6 +74,7 @@ export default function registerMammal(formData, throwError = true) {
         error => {
           dispatch({
             error: true,
+            meta,
             payload: error,
             type: COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_FAIL,
           })
