@@ -21,7 +21,22 @@ export default function registerMammal(formData, throwError = true) {
         return immutable.del(physicalUnit, 'catalogedUnit')
       })
     )
-    attributes = immutable.set(attributes, 'featureObservations', [])
+
+    attributes = immutable.set(
+      attributes,
+      'featureObservations',
+      formData.featureObservations.filter(featureObservation => {
+        return featureObservation.featureObservationText
+      })
+    )
+
+    attributes = {
+      featureObservations: [],
+      identifications: [],
+      occurrences: [],
+      physicalUnits: [],
+      ...attributes,
+    }
 
     const body = {
       data: {
