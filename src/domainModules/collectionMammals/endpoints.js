@@ -26,9 +26,23 @@ export const GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER = buildEndpointSpec({
   mock: ({ request: { queryParams } }) => {
     return [
       {
-        identifications: [
-          { identifiedTaxonNameStandardized: 'Chironectes minimus' },
+        featureObservations: [
+          {
+            featureObservationText: 'female',
+            featureObservationType: {
+              featureObservationTypeName: 'sex',
+              id: 1,
+            },
+          },
         ],
+        identifications: [
+          {
+            identificationText: 'Water opossum',
+            identifiedByAgentText: 'Doe, J.',
+            identifiedTaxonNameStandardized: 'Chironectes minimus',
+          },
+        ],
+        occurrences: [{ id: 1, localityText: 'Hemsö' }],
         physicalUnits: [
           {
             catalogedUnit: {
