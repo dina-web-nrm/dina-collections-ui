@@ -1,6 +1,9 @@
 export const apiConfigSchema = {
   additionalProperties: false,
   properties: {
+    baseUrl: {
+      type: 'string',
+    },
     cache: {
       type: 'object',
     },

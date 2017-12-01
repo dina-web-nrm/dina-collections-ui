@@ -1,10 +1,14 @@
 import interpolateUrl from './interpolateUrl'
 import createQueryString from './createQueryString'
 
-export default function createUrl({ endpointConfig, request }) {
+export default function createUrl({ apiConfig, endpointConfig, request }) {
+  const { baseUrl } = apiConfig
   const { queryParams, pathParams } = request
 
-  const url = interpolateUrl(endpointConfig.pathname, pathParams)
+  const pathname = interpolateUrl(endpointConfig.pathname, pathParams)
+  const url = queryParams
+    ? `${pathname}?${createQueryString(queryParams)}`
+    : pathname
 
-  return queryParams ? `${url}?${createQueryString(queryParams)}` : url
+  return baseUrl ? `${baseUrl}${url}` : url
 }
