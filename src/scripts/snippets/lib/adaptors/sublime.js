@@ -48,7 +48,9 @@ const writeSnippets = snippetDefinitions => {
     const { fileName, outputFilePath, snippet, trigger } = snippetDefinition
 
     console.log(
-      `Writing snippet: ${trigger} from file: ${fileName} to path: ${outputFilePath}`
+      `Writing snippet: ${trigger} from file: ${fileName} to path: ${
+        outputFilePath
+      }`
     )
     fs.writeFileSync(outputFilePath, snippet)
   })

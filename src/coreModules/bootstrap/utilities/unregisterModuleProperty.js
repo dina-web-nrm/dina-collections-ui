@@ -20,20 +20,21 @@ export default function unregisterModuleProperty({
 
   const modules = action.payload.modules || {}
 
-  const mergedPropertyObject = Object.keys(
-    modules
-  ).reduce((obj, moduleName) => {
-    if (!obj[moduleName]) {
-      return obj
-    }
-    const newObj = {
-      ...obj,
-    }
+  const mergedPropertyObject = Object.keys(modules).reduce(
+    (obj, moduleName) => {
+      if (!obj[moduleName]) {
+        return obj
+      }
+      const newObj = {
+        ...obj,
+      }
 
-    delete newObj[moduleName] // eslint-disable-line no-param-reassign
+      delete newObj[moduleName] // eslint-disable-line no-param-reassign
 
-    return newObj
-  }, currentPropertyObject)
+      return newObj
+    },
+    currentPropertyObject
+  )
 
   if (mergedPropertyObject === currentPropertyObject) {
     return state
