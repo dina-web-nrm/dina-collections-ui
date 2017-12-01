@@ -46,29 +46,31 @@ export const getCommandShortcutMap = createSelector(getShortcuts, shortcuts => {
 export const getShortcutDescriptionList = createSelector(
   getShortcuts,
   shortcuts => {
-    return Object.keys(
-      shortcuts
-    ).reduce((shortcutDescriptionList, moduleName) => {
-      const moduleShortcuts = shortcuts[moduleName]
+    return Object.keys(shortcuts).reduce(
+      (shortcutDescriptionList, moduleName) => {
+        const moduleShortcuts = shortcuts[moduleName]
 
-      return [
-        ...shortcutDescriptionList,
-        ...Object.keys(
-          moduleShortcuts
-        ).reduce((moduleShortcutDescriptionList, shortcutKey) => {
-          const { code, description } = moduleShortcuts[shortcutKey]
-          const codeWithStartKey = `${START_KEY}${code}`
-          return [
-            ...moduleShortcutDescriptionList,
-            {
-              code: codeWithStartKey.split('').join(' + '),
-              description,
-              key: shortcutKey,
-              module: moduleName,
+        return [
+          ...shortcutDescriptionList,
+          ...Object.keys(moduleShortcuts).reduce(
+            (moduleShortcutDescriptionList, shortcutKey) => {
+              const { code, description } = moduleShortcuts[shortcutKey]
+              const codeWithStartKey = `${START_KEY}${code}`
+              return [
+                ...moduleShortcutDescriptionList,
+                {
+                  code: codeWithStartKey.split('').join(' + '),
+                  description,
+                  key: shortcutKey,
+                  module: moduleName,
+                },
+              ]
             },
-          ]
-        }, []),
-      ]
-    }, [])
+            []
+          ),
+        ]
+      },
+      []
+    )
   }
 )

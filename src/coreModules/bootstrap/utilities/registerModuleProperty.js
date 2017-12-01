@@ -15,19 +15,20 @@ export default function registerModuleProperty({
   const currentPropertyObject = objectPath.get(state, statePath)
   const modules = action.payload.modules || {}
 
-  const mergedPropertyObject = Object.keys(
-    modules
-  ).reduce((obj, moduleName) => {
-    const module = modules[moduleName]
-    if (!module[property]) {
-      return obj
-    }
+  const mergedPropertyObject = Object.keys(modules).reduce(
+    (obj, moduleName) => {
+      const module = modules[moduleName]
+      if (!module[property]) {
+        return obj
+      }
 
-    return {
-      ...obj,
-      [moduleName]: module[property],
-    }
-  }, currentPropertyObject || {})
+      return {
+        ...obj,
+        [moduleName]: module[property],
+      }
+    },
+    currentPropertyObject || {}
+  )
 
   if (mergedPropertyObject === currentPropertyObject) {
     return state

@@ -136,7 +136,8 @@ class LookupMammals extends Component {
                   <Table.Row
                     key={mammal[TABLE_COLUMNS[0]]}
                     onClick={() =>
-                      this.handleRowClick(mammal[TABLE_COLUMNS[0]])}
+                      this.handleRowClick(mammal[TABLE_COLUMNS[0]])
+                    }
                   >
                     {TABLE_COLUMNS.map(columnName => (
                       <Table.Cell key={columnName}>
