@@ -4,6 +4,17 @@ export default function parseResponse(response) {
     .then(json => json, error => ({ error, response }))
     .then(json => {
       const { status } = response
+      if (json.error && json.error.name === 'FetchError') {
+        const error = {
+          json: {
+            message: `Status code: ${status} - ${json.error.message}`,
+            status,
+            type: json.error.type,
+          },
+          status,
+        }
+        throw error
+      }
 
       if (status >= 200 && status < 300) {
         return {
@@ -13,7 +24,10 @@ export default function parseResponse(response) {
       }
 
       const error = {
-        json,
+        json: {
+          ...json,
+          status,
+        },
         status,
       }
 

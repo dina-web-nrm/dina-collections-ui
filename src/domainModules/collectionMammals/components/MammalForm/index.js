@@ -72,8 +72,11 @@ class RawMammalForm extends Component {
 
   handleRegisterMammal(data) {
     return this.props.registerMammal(data).catch(error => {
+      const errorMessage = `Status: ${error.status}, message: ${
+        error.error.message
+      }`
       throw new SubmissionError({
-        _error: error.error_description,
+        _error: errorMessage,
       })
     })
   }
@@ -129,14 +132,14 @@ class RawMammalForm extends Component {
               <FormSchemaError errors={schemaErrors} />
             )}
             {invalid &&
+              !error &&
               submitFailed && (
                 <Message
                   error
                   header={<ModuleTranslate textKey="formContainsErrors" />}
                 />
               )}
-            {!invalid &&
-              submitFailed &&
+            {submitFailed &&
               error && (
                 <Message
                   content={error}
