@@ -71,7 +71,7 @@ class App extends Component {
             />
             <Route
               component={EditMammal}
-              path={`${match.url}/mammals/:id/edit`}
+              path={`${match.url}/mammals/:catalogNumber/edit`}
             />
             <Route component={Settings} exact path={`${match.url}/settings`} />
             <Route component={PageNotFound} />
