@@ -24,7 +24,8 @@ const log = createLog('modules:collectionMammals:MammalForm')
 const ModuleTranslate = createModuleTranslate('collectionMammals')
 
 const FORM_NAME = 'mammalForm'
-const TAXON_NAME_FIELD_KEY = 'identifiedTaxonNameStandardized'
+const TAXON_NAME_FIELD_KEY =
+  'identifications[0].identifiedTaxonNameStandardized'
 
 const formValueSelector = formValueSelectorFactory(FORM_NAME)
 const getFormSyncErrorsSelector = getFormSyncErrors(FORM_NAME)
