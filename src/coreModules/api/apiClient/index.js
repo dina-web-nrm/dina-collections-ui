@@ -23,14 +23,32 @@ export default function createApiClient(options) {
     }),
 
     httpPatch: createApiMethod(apiConfig, {
+      mapHeaders: userInputHeaders => {
+        return {
+          ...userInputHeaders,
+          'Content-Type': 'application/json',
+        }
+      },
       method: 'PATCH',
     }),
 
     httpPost: createApiMethod(apiConfig, {
+      mapHeaders: userInputHeaders => {
+        return {
+          ...userInputHeaders,
+          'Content-Type': 'application/json',
+        }
+      },
       method: 'POST',
     }),
 
     httpPut: createApiMethod(apiConfig, {
+      mapHeaders: userInputHeaders => {
+        return {
+          ...userInputHeaders,
+          'Content-Type': 'application/json',
+        }
+      },
       method: 'PUT',
     }),
   }

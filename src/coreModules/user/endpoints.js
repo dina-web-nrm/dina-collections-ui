@@ -5,19 +5,6 @@ import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
 import { user, loginResponse } from './schemas'
 
 export const LOG_IN = buildEndpointSpec({
-  mapBody: inputBody => {
-    return {
-      ...inputBody,
-      client_id: 'dina-rest',
-      grant_type: 'password',
-    }
-  },
-  mapHeaders: userInputHeaders => {
-    return {
-      ...userInputHeaders,
-      'Content-Type': 'application/x-www-form-urlencoded',
-    }
-  },
   mapResponse: json => {
     return {
       accessToken: json.access_token,
