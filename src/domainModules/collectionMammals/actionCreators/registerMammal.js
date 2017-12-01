@@ -1,3 +1,4 @@
+import immutable from 'object-path-immutable'
 import {
   COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_FAIL,
   COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_REQUEST,
@@ -5,11 +6,37 @@ import {
 } from '../actionTypes'
 import { REGISTER_MAMMAL } from '../endpoints'
 
-export default function registerMammal(body, throwError = true) {
+export default function registerMammal(formData, throwError = true) {
   return (dispatch, getState, { apiClient }) => {
     dispatch({
       type: COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_REQUEST,
     })
+
+    const { catalogedUnit } = formData.physicalUnits[0]
+    let attributes = formData
+    attributes = immutable.set(
+      attributes,
+      'physicalUnits',
+      formData.physicalUnits.map(physicalUnit => {
+        return immutable.del(physicalUnit, 'catalogedUnit')
+      })
+    )
+    attributes = immutable.set(attributes, 'featureObservations', [])
+
+    const body = {
+      data: {
+        additionalData: [
+          {
+            attributes: catalogedUnit,
+            type: 'catalogedUnit',
+          },
+        ],
+        attributes: {
+          ...attributes,
+        },
+      },
+    }
+
     return apiClient
       .httpPost(REGISTER_MAMMAL, {
         body,

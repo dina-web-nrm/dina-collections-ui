@@ -24,6 +24,8 @@ export const login = (
   return authClient
     .formPost(userEndpoints.LOG_IN, {
       body: {
+        client_id: 'dina-rest',
+        grant_type: 'password',
         password,
         username,
       },

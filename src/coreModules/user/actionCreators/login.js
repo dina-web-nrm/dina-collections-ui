@@ -7,6 +7,8 @@ import { LOG_IN } from '../endpoints'
 
 export default function logIn({ username, password, throwError = true } = {}) {
   const body = {
+    client_id: 'dina-rest',
+    grant_type: 'password',
     password,
     username,
   }
