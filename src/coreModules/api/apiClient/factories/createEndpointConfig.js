@@ -1,6 +1,9 @@
 export const endpointConfigSchema = {
   additionalProperties: false,
   properties: {
+    baseUrl: {
+      type: 'string',
+    },
     mapBody: {
       not: {
         type: 'string',
