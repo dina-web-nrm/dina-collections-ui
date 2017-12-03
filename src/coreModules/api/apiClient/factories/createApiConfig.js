@@ -1,4 +1,4 @@
-export const apiConfigSchema = {
+const apiConfigSchema = {
   additionalProperties: false,
   properties: {
     baseUrl: {
@@ -38,7 +38,7 @@ export const apiConfigSchema = {
   required: [],
 }
 
-export default function createApiConfig(apiConfigInput = {}) {
+module.exports = function createApiConfig(apiConfigInput = {}) {
   const { systemValidate } = apiConfigInput
 
   const error =

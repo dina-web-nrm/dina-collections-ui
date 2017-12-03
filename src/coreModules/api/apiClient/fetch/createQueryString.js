@@ -1,4 +1,4 @@
-export default function createQueryString(params = {}) {
+module.exports = function createQueryString(params = {}) {
   return encodeURI(
     Object.keys(params)
       .filter(key => params[key] !== undefined)

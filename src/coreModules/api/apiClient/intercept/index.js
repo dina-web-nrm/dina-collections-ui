@@ -1,4 +1,4 @@
-export default function intercept({
+module.exports = function intercept({
   apiConfig,
   endpointConfig,
   methodConfig,

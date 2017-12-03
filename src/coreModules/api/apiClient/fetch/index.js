@@ -1,9 +1,9 @@
-import createFormBody from './createFormBody'
-import createJsonBody from './createJsonBody'
-import createUrl from './createUrl'
-import parseResponse from './parseResponse'
+const createFormBody = require('./createFormBody')
+const createJsonBody = require('./createJsonBody')
+const createUrl = require('./createUrl')
+const parseResponse = require('./parseResponse')
 
-export default function wrappedFetch({
+module.exports = function wrappedFetch({
   apiConfig,
   endpointConfig,
   methodConfig,

@@ -1,13 +1,13 @@
-import intercept from './intercept'
-import wrappedFetch from './fetch'
-import handleError from './error'
+const intercept = require('./intercept')
+const wrappedFetch = require('./fetch')
+const handleError = require('./error')
 
-import createEndpointConfig from './factories/createEndpointConfig'
-import createMethodConfig from './factories/createMethodConfig'
-import createResponse from './createResponse'
-import createRequest from './createRequest'
+const createEndpointConfig = require('./factories/createEndpointConfig')
+const createMethodConfig = require('./factories/createMethodConfig')
+const createResponse = require('./createResponse')
+const createRequest = require('./createRequest')
 
-export default function createApiMethod(apiConfig, methodConfigInput) {
+module.exports = function createApiMethod(apiConfig, methodConfigInput) {
   const methodConfig = createMethodConfig(methodConfigInput, apiConfig)
 
   return function apiMethod(endpointConfigInput, userInput = {}) {

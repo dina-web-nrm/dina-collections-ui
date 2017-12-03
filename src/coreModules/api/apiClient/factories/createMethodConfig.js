@@ -1,4 +1,4 @@
-export const methodConfigSchema = {
+const methodConfigSchema = {
   additionalProperties: false,
   properties: {
     mapHeaders: {
@@ -19,7 +19,10 @@ export const methodConfigSchema = {
   required: ['method', 'requestContentType', 'responseContentType'],
 }
 
-export default function createMethodConfig(methodConfigInput, apiConfigInput) {
+module.exports = function createMethodConfig(
+  methodConfigInput,
+  apiConfigInput
+) {
   const methodConfig = {
     requestContentType: 'json',
     responseContentType: 'json',

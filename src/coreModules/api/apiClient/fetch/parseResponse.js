@@ -1,4 +1,4 @@
-export default function parseResponse(response) {
+module.exports = function parseResponse(response) {
   return response
     .json()
     .then(json => json, error => ({ error, response }))

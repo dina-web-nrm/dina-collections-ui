@@ -1,3 +1,3 @@
-export default function createBody(body) {
+module.exports = function createBody(body) {
   return JSON.stringify(body)
 }
