@@ -2,27 +2,18 @@ import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
 import { createSystemSchemaValidator } from 'coreModules/error/utilities'
 import { createLookupMammalsResponse } from './mockData'
 
-import {
-  lookupMammalsRequest,
-  lookupMammalsResponse,
-  registerMammalResponse,
-} from './schemas'
+import { lookupMammalsResponse, registerMammalResponse } from './schemas'
 
 export const GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER = buildEndpointSpec({
-  mapBody: userBodyInput => {
-    return {
-      data: {
-        attributes: userBodyInput,
-      },
-    }
-  },
   mapHeaders: userInputHeaders => {
     return {
       ...userInputHeaders,
       'Content-Type': 'application/json',
     }
   },
-  mapResponse: json => json[0], // should only be one result
+  mapResponse: json => {
+    return json.data[0] // should only be one result, which holds for mammals
+  },
   mock: ({ request: { queryParams } }) => {
     return [
       {
@@ -58,11 +49,18 @@ export const GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER = buildEndpointSpec({
   validateResponse: createSystemSchemaValidator(lookupMammalsResponse),
 })
 
-export const LOOKUP_MAMMALS = {
+export const LOOKUP_MAMMALS = buildEndpointSpec({
+  mapHeaders: userInputHeaders => {
+    return {
+      ...userInputHeaders,
+      'Content-Type': 'application/json',
+    }
+  },
   mock: createLookupMammalsResponse,
-  validateBody: createSystemSchemaValidator(lookupMammalsRequest),
+  operationId: 'getIndividualGroups',
+  pathname: '/collections/api/v01/individualGroups',
   validateResponse: createSystemSchemaValidator(lookupMammalsResponse),
-}
+})
 
 export const REGISTER_MAMMAL = buildEndpointSpec({
   mock: ({ request }) => request.body,
