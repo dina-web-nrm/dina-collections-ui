@@ -73,7 +73,7 @@ class EditMammal extends Component {
           <Grid.Column>
             <MammalForm
               handleFormSubmit={updateIndividualGroup}
-              individualGroup={individualGroup}
+              individualGroup={individualGroup && individualGroup.attributes}
             />
           </Grid.Column>
         </Grid>
