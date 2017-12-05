@@ -5,7 +5,17 @@ import {
 } from '../actionTypes'
 import { LOOKUP_MAMMALS } from '../endpoints'
 
-export default function lookupMammals(queryParams) {
+export default function lookupMammals(filterParams = {}) {
+  const queryParams = Object.keys(filterParams).reduce(
+    (query, filterName) => {
+      return {
+        ...query,
+        [`filter[${filterName}]`]: filterParams[filterName],
+      }
+    },
+    { include: 'physicalUnits.catalogedUnit' } // TODO: centralize include strings
+  )
+
   return (dispatch, getState, { apiClient }) => {
     dispatch({
       type: COLLECTION_MAMMALS_LOOKUP_MAMMALS_REQUEST,
