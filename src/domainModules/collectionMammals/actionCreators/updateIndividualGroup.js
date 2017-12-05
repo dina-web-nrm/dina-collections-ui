@@ -17,7 +17,7 @@ export default function updateIndividualGroup(body, throwError = true) {
       type: COLLECTION_MAMMALS_UPDATE_INDIVIDUAL_GROUP_REQUEST,
     })
     return apiClient
-      .httpPost(UPDATE_INDIVIDUAL_GROUP, {
+      .httpPatch(UPDATE_INDIVIDUAL_GROUP, {
         body,
       })
       .then(
