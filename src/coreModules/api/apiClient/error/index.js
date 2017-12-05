@@ -1,4 +1,4 @@
-export default function handleError(error) {
+module.exports = function handleError(error) {
   if (error.json) {
     throw error.json
   }

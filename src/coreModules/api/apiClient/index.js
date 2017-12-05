@@ -1,7 +1,7 @@
-import createApiConfig from './factories/createApiConfig'
-import createApiMethod from './createApiMethod'
+const createApiConfig = require('./factories/createApiConfig')
+const createApiMethod = require('./createApiMethod')
 
-export default function createApiClient(options) {
+module.exports = function createApiClient(options) {
   const apiConfig = createApiConfig(options)
   return {
     formPost: createApiMethod(apiConfig, {

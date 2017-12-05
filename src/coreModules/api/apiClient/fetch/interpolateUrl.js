@@ -1,6 +1,6 @@
 const pathParametersRegex = /\${([a-zA-Z0-9]+)}/g
 
-export default function interpolateUrl(url, pathParams) {
+module.exports = function interpolateUrl(url, pathParams) {
   let resultURL = url
   const requiredPathParameters = resultURL.match(pathParametersRegex) || []
 

@@ -1,10 +1,10 @@
-import chainPromises from 'utilities/chainPromises'
+const chainPromises = require('utilities/chainPromises')
 
 const extractMethodsFromConfigs = (configs, key) => {
   return configs.map(config => config[key])
 }
 
-export default function createResponse({
+module.exports = function createResponse({
   apiConfig,
   endpointConfig,
   methodConfig,

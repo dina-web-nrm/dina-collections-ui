@@ -1,4 +1,4 @@
-import createQueryString from './createQueryString'
+const createQueryString = require('./createQueryString')
 
 describe('api/apiClient/preProcess/createQueryString', () => {
   it('returns query string', () => {
