@@ -7,6 +7,7 @@ module.exports = function createDb({ config }) {
   const { database, password, username } = config.db
   const sequelize = new Sequelize(database, username, password, {
     dialect: 'postgres',
+    // logging: false && log.debug,
     operatorsAliases: false,
   })
   return sequelize

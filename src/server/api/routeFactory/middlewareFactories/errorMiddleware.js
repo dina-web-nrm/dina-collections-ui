@@ -8,11 +8,10 @@ module.exports = function createErrorMiddleware() {
     /* eslint-enable no-unused-vars */
     // ensure know error or pass on other error
     log.err(`Got api error: ${err.stack}`)
-    const { data } = res.locals.result
     // set headers
     // send response depending on headers
     // set cache if applicable
     res.status(500)
-    res.send(data)
+    res.send(err)
   }
 }

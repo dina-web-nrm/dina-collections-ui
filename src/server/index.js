@@ -2,15 +2,15 @@ const createLog = require('./utilities/log')
 const createApi = require('./api')
 const createApp = require('./app')
 const createConfig = require('./config')
-const createControllers = require('./logic')
+const bootstrapDatalayer = require('./logic')
 const createKeycloak = require('./auth/keycloak')
 
 const config = createConfig()
 
 const log = createLog('server')
 
-createControllers({ config })
-  .then(controllers => {
+bootstrapDatalayer({ config })
+  .then(({ controllers }) => {
     const keycloak = createKeycloak({ config })
 
     const api = createApi({

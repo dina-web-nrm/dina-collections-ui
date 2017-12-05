@@ -1,9 +1,10 @@
 module.exports = {
-  getIndividualGroups: () => {
-    return {
-      data: {
-        a: 2,
-      },
-    }
+  getIndividualGroups: ({ controllers, ...rest }) => {
+    console.log('rest', rest)
+    return controllers.testController().then(data => {
+      return {
+        data,
+      }
+    })
   },
 }
