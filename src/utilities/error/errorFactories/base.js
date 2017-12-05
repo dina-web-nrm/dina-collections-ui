@@ -9,7 +9,6 @@ module.exports = function createError({ context, error }) {
     userInteraction = false,
     verbose = false,
   } = context
-
   const message = verbose
     ? `ERROR - ${errorCode}, ${origin}, ${type}, \n\n ${JSON.stringify(error)}`
     : `ERROR - ${errorCode}, ${origin}, ${type}`
