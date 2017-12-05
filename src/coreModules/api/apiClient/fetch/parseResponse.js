@@ -3,6 +3,7 @@ module.exports = function parseResponse(response) {
     .json()
     .then(json => json, error => ({ error, response }))
     .then(json => {
+      console.log('json', json)
       const { status } = response
       if (json.error && json.error.name === 'FetchError') {
         const error = {

@@ -8,8 +8,10 @@ const createApiClient = require('../../coreModules/api/apiClient')
 
 const dotEnvPath = path.join(__dirname, '../../../.env.test.local')
 
+const apiUrl = 'http://localhost:4444'
+
 const {
-  REACT_APP_TEST_API_URL: apiUrl,
+  // REACT_APP_TEST_API_URL: apiUrl,
   REACT_APP_TEST_AUTH_URL: authUrl,
   REACT_APP_TEST_PASSWORD: defaultPassword,
   REACT_APP_TEST_USERNAME: defaultUsername,
@@ -64,7 +66,7 @@ export const createTestClient = ({
       }
     },
     mapResponse: ({ json }) => {
-      return json
+      return json.data
     },
     validateInput,
     validateOutput,
