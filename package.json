@@ -13,10 +13,13 @@
       "xfwd": true,
       "changeOrigin": true
     },
-    "/taxon": {
+    "/taxonomy": {
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/taxonomy": ""
+      },
       "target": "https://alpha-slimtaxonomy.dina-web.net",
-      "xfwd": true,
-      "changeOrigin": true
+      "xfwd": true
     },
     "/collections": {
       "target": "https://alpha-api.dina-web.net/",
