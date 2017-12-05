@@ -69,6 +69,15 @@ export const REGISTER_MAMMAL = buildEndpointSpec({
 })
 
 export const UPDATE_INDIVIDUAL_GROUP = buildEndpointSpec({
+  mapBody: userInputBody => {
+    return {
+      ...userInputBody,
+      // TODO: ensure empty array if missing
+      featureObservations: userInputBody.featureObservations || [],
+      identifications: userInputBody.identifications || [],
+      occurrences: userInputBody.occurrences || [],
+    }
+  },
   mapHeaders: userInputHeaders => {
     return {
       ...userInputHeaders,
