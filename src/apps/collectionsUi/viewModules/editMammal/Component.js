@@ -56,7 +56,8 @@ const defaultProps = {
 class EditMammal extends Component {
   componentWillMount() {
     this.props.getIndividualGroupByCatalogNumber(
-      this.props.match.params.catalogNumber
+      this.props.match.params.catalogNumber,
+      { include: 'physicalUnits.catalogedUnit' }
     )
   }
 

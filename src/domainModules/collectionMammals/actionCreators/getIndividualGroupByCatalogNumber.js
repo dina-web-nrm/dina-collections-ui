@@ -5,8 +5,11 @@ import {
 } from '../actionTypes'
 import { GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER } from '../endpoints'
 
-export default function getIndividualGroupByCatalogNumber(catalogNumber) {
-  const meta = { catalogNumber }
+export default function getIndividualGroupByCatalogNumber(
+  catalogNumber,
+  { include = '' } = {}
+) {
+  const meta = { catalogNumber, include }
 
   return (dispatch, getState, { apiClient }) => {
     dispatch({
@@ -15,7 +18,7 @@ export default function getIndividualGroupByCatalogNumber(catalogNumber) {
     })
     return apiClient
       .httpGet(GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER, {
-        queryParams: { 'filter[catalogNumber]': catalogNumber },
+        queryParams: { 'filter[catalogNumber]': catalogNumber, include },
       })
       .then(
         response => {
