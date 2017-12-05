@@ -47,7 +47,7 @@ const SegmentDetermination = ({ taxonName, taxonNameFieldKey }) => {
               <ModuleTranslate scope="determination" textKey="taxonName" />
             }
             module="collectionMammals"
-            name={buildPath(taxonNameFieldKey)}
+            name={taxonNameFieldKey}
             taxonName={taxonName}
             type="text"
           />
