@@ -1,5 +1,3 @@
-const Sequelize = require('sequelize')
-
 module.exports = function initializeUser({ sequelize }) {
   return sequelize
   // return sequelize.define('project', {

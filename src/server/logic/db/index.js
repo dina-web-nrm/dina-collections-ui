@@ -1,4 +1,7 @@
+const createLog = require('../../utilities/log')
 const Sequelize = require('sequelize')
+
+const log = createLog('logic/db')
 
 module.exports = function createDb({ config }) {
   const { database, password, username } = config.db
@@ -9,11 +12,11 @@ module.exports = function createDb({ config }) {
   return sequelize
     .authenticate()
     .then(() => {
-      console.log('Connection has been established successfully.')
+      log.info('Connection has been established successfully.')
       return sequelize
     })
     .catch(err => {
-      console.error('Unable to connect to the database:', err)
+      log.alert('Unable to connect to the database:', err)
       return sequelize
     })
 }

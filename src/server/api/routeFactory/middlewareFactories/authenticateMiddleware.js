@@ -1,10 +1,10 @@
-const createRequest = {}
+const createLog = require('../../../utilities/log')
 
-module.exports = function createAuthenticateMiddleware({
-  apiConfig,
-  endpointConfig,
-}) {
+const log = createLog('authenticateMiddleware')
+
+module.exports = function createAuthenticateMiddleware() {
   return (req, res, next) => {
+    log.debug(`${res.locals.id}: Specific auth not implemented`)
     next()
   }
 }

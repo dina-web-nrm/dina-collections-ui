@@ -1,7 +1,6 @@
 const createEndpointConfigObject = require('../../../coreModules/api/apiClient/factories/createEndpointConfig')
 
 module.exports = function createEndpointConfig({
-  methodSpecification,
   operationId,
   pathname,
   routeHandler,

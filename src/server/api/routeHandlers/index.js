@@ -1,5 +1,5 @@
 module.exports = {
-  getIndividualGroups: ({ controllers }) => {
+  getIndividualGroups: () => {
     return {
       data: {
         a: 2,
