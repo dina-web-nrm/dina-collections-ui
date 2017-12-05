@@ -13,7 +13,7 @@ export default () => {
   return (
     <Segment>
       <Grid textAlign="left" verticalAlign="top">
-        <Grid.Column computer={3} mobile={16}>
+        <Grid.Column computer={7} mobile={16}>
           <Field
             autoComplete="off"
             component={Input}
@@ -24,10 +24,11 @@ export default () => {
             type="text"
           />
         </Grid.Column>
-        <Grid.Column computer={7} mobile={16}>
+        <Grid.Column computer={6} mobile={16}>
           <Field
             autoComplete="off"
             component={Input}
+            disabled
             label={<ModuleTranslate textKey="storedUnderTaxonName" />}
             module="collectionMammals"
             name="physicalUnits[0].catalogedUnit.storedUnderTaxonName"
@@ -38,9 +39,9 @@ export default () => {
           <Field
             autoComplete="off"
             component={Checkbox}
-            label={<ModuleTranslate textKey="publishRecord" />}
+            label={<ModuleTranslate textKey="isPublic" />}
             module="collectionMammals"
-            name="physicalUnits[0].catalogedUnit.publishRecord"
+            name="physicalUnits[0].catalogedUnit.isPublic"
             type="checkbox"
           />
         </Grid.Column>

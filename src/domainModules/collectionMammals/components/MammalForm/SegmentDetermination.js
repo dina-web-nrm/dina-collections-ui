@@ -24,35 +24,7 @@ const SegmentDetermination = ({ taxonName, taxonNameFieldKey }) => {
         <ModuleTranslate scope="determination" textKey="determination" />
       </Header>
       <Grid textAlign="left" verticalAlign="top">
-        <Grid.Column mobile={16}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={
-              <ModuleTranslate
-                scope="determination"
-                textKey="identificationText"
-              />
-            }
-            module="collectionMammals"
-            name={buildPath('identificationText')}
-            type="text"
-          />
-        </Grid.Column>
-        <Grid.Column computer={4} mobile={16} tablet={8}>
-          <Field
-            autoComplete="off"
-            component={TaxonNameSearchInputWithResults}
-            label={
-              <ModuleTranslate scope="determination" textKey="taxonName" />
-            }
-            module="collectionMammals"
-            name={taxonNameFieldKey}
-            taxonName={taxonName}
-            type="text"
-          />
-        </Grid.Column>
-        <Grid.Column computer={4} mobile={16} tablet={8}>
+        <Grid.Column computer={8} mobile={16} tablet={8}>
           <Field
             autoComplete="off"
             component={Input}
@@ -67,41 +39,34 @@ const SegmentDetermination = ({ taxonName, taxonNameFieldKey }) => {
             type="text"
           />
         </Grid.Column>
+
         <Grid.Column computer={8} mobile={16} tablet={8}>
           <Field
             autoComplete="off"
-            component={Input}
-            label={<ModuleTranslate textKey="remarks" />}
+            component={TaxonNameSearchInputWithResults}
+            label={
+              <ModuleTranslate scope="determination" textKey="taxonName" />
+            }
             module="collectionMammals"
-            name={buildPath('identificationRemarks')}
+            name={taxonNameFieldKey}
+            taxonName={taxonName}
             type="text"
           />
         </Grid.Column>
-        <Grid.Column computer={4} mobile={16} tablet={8}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={
-              <ModuleTranslate scope="determination" textKey="determinedBy" />
-            }
-            module="collectionMammals"
-            name={buildPath('identifiedByAgentText')}
-            type="text"
-          />
-        </Grid.Column>
-        <Grid.Column computer={3} mobile={16}>
-          <Field
-            autoComplete="off"
-            component={Checkbox}
-            label={
-              <ModuleTranslate scope="determination" textKey="isCurrent" />
-            }
-            module="collectionMammals"
-            name={buildPath('isCurrentIdentification')}
-            type="checkbox"
-          />
-        </Grid.Column>
+
         <Grid.Row>
+          <Grid.Column computer={8} mobile={16} tablet={8}>
+            <Field
+              autoComplete="off"
+              component={Input}
+              label={
+                <ModuleTranslate scope="determination" textKey="determinedBy" />
+              }
+              module="collectionMammals"
+              name={buildPath('identifiedByAgentText')}
+              type="text"
+            />
+          </Grid.Column>
           <Grid.Column computer={4} mobile={8}>
             <Field
               autoComplete="off"
@@ -130,6 +95,18 @@ const SegmentDetermination = ({ taxonName, taxonNameFieldKey }) => {
               label={<ModuleTranslate textKey="day" />}
               module="collectionMammals"
               name={buildPath('identifiedDay')}
+              type="text"
+            />
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column computer={8} mobile={16} tablet={8}>
+            <Field
+              autoComplete="off"
+              component={Input}
+              label={<ModuleTranslate textKey="remarks" />}
+              module="collectionMammals"
+              name={buildPath('identificationRemarks')}
               type="text"
             />
           </Grid.Column>

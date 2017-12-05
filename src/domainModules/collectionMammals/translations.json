@@ -12,9 +12,9 @@
       "en": "Stored under name",
       "sv": "Förvaras under namn"
     },
-    "publishRecord": {
-      "en": "Publish record",
-      "sv": "Publicera utdrag"
+    "isPublic": {
+      "en": "Public",
+      "sv": "Publikt"
     }
   },
   "determination": {
@@ -53,7 +53,7 @@
       "sv": ""
     },
     "startTime": {
-      "en": "Start time",
+      "en": "Time",
       "sv": ""
     },
     "yearStart": {

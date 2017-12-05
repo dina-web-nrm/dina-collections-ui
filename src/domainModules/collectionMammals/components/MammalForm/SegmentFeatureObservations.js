@@ -19,16 +19,18 @@ export default () => {
         <ModuleTranslate textKey="features" />
       </Header>
       <Grid textAlign="left" verticalAlign="top">
-        <Grid.Column computer={4} mobile={16} tablet={8}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={<ModuleTranslate textKey="sex" />}
-            module="collectionMammals"
-            name={buildPath('featureObservationText', 0)}
-            type="text"
-          />
-        </Grid.Column>
+        <Grid.Row>
+          <Grid.Column computer={4} mobile={16} tablet={8}>
+            <Field
+              autoComplete="off"
+              component={Input}
+              label={<ModuleTranslate textKey="sex" />}
+              module="collectionMammals"
+              name={buildPath('featureObservationText', 0)}
+              type="text"
+            />
+          </Grid.Column>
+        </Grid.Row>
         <Grid.Column computer={4} mobile={16} tablet={8}>
           <Field
             autoComplete="off"
@@ -39,7 +41,7 @@ export default () => {
             type="text"
           />
         </Grid.Column>
-        <Grid.Column computer={8} mobile={16}>
+        <Grid.Column computer={4} mobile={16}>
           <Field
             autoComplete="off"
             component={Input}
@@ -49,16 +51,18 @@ export default () => {
             type="text"
           />
         </Grid.Column>
-        <Grid.Column computer={8} mobile={16}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={<ModuleTranslate textKey="ageStage" />}
-            module="collectionMammals"
-            name={buildPath('featureObservationText', 2)}
-            type="text"
-          />
-        </Grid.Column>
+        <Grid.Row>
+          <Grid.Column computer={4} mobile={16}>
+            <Field
+              autoComplete="off"
+              component={Input}
+              label={<ModuleTranslate textKey="ageStage" />}
+              module="collectionMammals"
+              name={buildPath('featureObservationText', 2)}
+              type="text"
+            />
+          </Grid.Column>
+        </Grid.Row>
       </Grid>
     </Segment>
   )

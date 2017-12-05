@@ -19,17 +19,7 @@ export default () => {
         <ModuleTranslate textKey="collectingInformation" />
       </Header>
       <Grid textAlign="left" verticalAlign="top">
-        <Grid.Column computer={8} mobile={16}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={<ModuleTranslate textKey="expeditionText" />}
-            module="collectionMammals"
-            name={buildPath('expeditionText')}
-            type="text"
-          />
-        </Grid.Column>
-        <Grid.Column computer={8} mobile={16}>
+        <Grid.Column computer={16} mobile={16}>
           <Field
             autoComplete="off"
             component={Input}
@@ -39,12 +29,31 @@ export default () => {
             type="text"
           />
         </Grid.Column>
+
+        <Grid.Column computer={10} mobile={16}>
+          <Field
+            autoComplete="off"
+            component={Input}
+            label={<ModuleTranslate textKey="collectorsText" />}
+            module="collectionMammals"
+            name={buildPath('collectorsText')}
+            type="text"
+          />
+        </Grid.Column>
+
+        <Grid.Column computer={6} mobile={16}>
+          <Field
+            autoComplete="off"
+            component={Input}
+            label={<ModuleTranslate textKey="expeditionText" />}
+            module="collectionMammals"
+            name={buildPath('expeditionText')}
+            type="text"
+          />
+        </Grid.Column>
       </Grid>
-      <Header size="small">
-        <ModuleTranslate textKey="startTime" />
-      </Header>
       <Grid textAlign="left" verticalAlign="middle">
-        <Grid.Column computer={4} mobile={8}>
+        <Grid.Column computer={2} mobile={8}>
           <Field
             autoComplete="off"
             component={Input}
@@ -54,7 +63,7 @@ export default () => {
             type="text"
           />
         </Grid.Column>
-        <Grid.Column computer={2} mobile={4}>
+        <Grid.Column computer={1} mobile={4}>
           <Field
             autoComplete="off"
             component={Input}
@@ -65,7 +74,7 @@ export default () => {
           />
         </Grid.Column>
 
-        <Grid.Column computer={2} mobile={4}>
+        <Grid.Column computer={1} mobile={4}>
           <Field
             autoComplete="off"
             component={Input}
@@ -75,46 +84,7 @@ export default () => {
             type="text"
           />
         </Grid.Column>
-      </Grid>
-      <Header size="small">
-        <ModuleTranslate textKey="endTime" />
-      </Header>
-      <Grid textAlign="left" verticalAlign="middle">
-        <Grid.Column computer={4} mobile={8}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={<ModuleTranslate textKey="yearEnd" />}
-            module="collectionMammals"
-            name={buildPath('yearEnd')}
-            type="text"
-          />
-        </Grid.Column>
-        <Grid.Column computer={2} mobile={4}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={<ModuleTranslate textKey="monthEnd" />}
-            module="collectionMammals"
-            name={buildPath('monthEnd')}
-            type="text"
-          />
-        </Grid.Column>
-
-        <Grid.Column computer={2} mobile={4}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={<ModuleTranslate textKey="dayEnd" />}
-            module="collectionMammals"
-            name={buildPath('dayEnd')}
-            type="text"
-          />
-        </Grid.Column>
-      </Grid>
-
-      <Grid textAlign="left" verticalAlign="middle">
-        <Grid.Column computer={8} mobile={16}>
+        <Grid.Column computer={4} mobile={16}>
           <Field
             autoComplete="off"
             component={Input}
@@ -124,18 +94,41 @@ export default () => {
             type="text"
           />
         </Grid.Column>
-
-        <Grid.Column computer={8} mobile={16}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={<ModuleTranslate textKey="collectorsText" />}
-            module="collectionMammals"
-            name={buildPath('collectorsText')}
-            type="text"
-          />
-        </Grid.Column>
       </Grid>
     </Segment>
   )
 }
+
+// <Grid textAlign="left" verticalAlign="middle">
+//    <Grid.Column computer={4} mobile={8}>
+//      <Field
+//        autoComplete="off"
+//        component={Input}
+//        label={<ModuleTranslate textKey="yearEnd" />}
+//        module="collectionMammals"
+//        name={buildPath('yearEnd')}
+//        type="text"
+//      />
+//    </Grid.Column>
+//    <Grid.Column computer={2} mobile={4}>
+//      <Field
+//        autoComplete="off"
+//        component={Input}
+//        label={<ModuleTranslate textKey="monthEnd" />}
+//        module="collectionMammals"
+//        name={buildPath('monthEnd')}
+//        type="text"
+//      />
+//    </Grid.Column>
+
+//    <Grid.Column computer={2} mobile={4}>
+//      <Field
+//        autoComplete="off"
+//        component={Input}
+//        label={<ModuleTranslate textKey="dayEnd" />}
+//        module="collectionMammals"
+//        name={buildPath('dayEnd')}
+//        type="text"
+//      />
+//    </Grid.Column>
+//  </Grid>
