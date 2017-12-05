@@ -8,10 +8,7 @@ const deleteScientificUnderscoreName = createDeleter([
   'scientific_name',
 ])
 
-const baseUrl =
-  process.env.NODE_ENV === 'production'
-    ? 'https://alpha-slimtaxonomy.dina-web.net'
-    : ''
+const baseUrl = '/taxonomy'
 
 export const TAXONOMY_SEARCH = buildEndpointSpec({
   baseUrl,
