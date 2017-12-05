@@ -169,6 +169,14 @@
     "en": "Features",
     "sv": "Egenskaper"
   },
+  "id": {
+    "en": "Id",
+    "sv": "Id"
+  },
+  "identifiedTaxonNameStandardized": {
+    "en": "Taxon name",
+    "sv": "Taxonnamn"
+  },
   "locality": {
     "en": "Locality",
     "sv": "Lokalitet"

@@ -18,10 +18,11 @@ import selectors from '../../globalSelectors'
 const log = createLog('modules:collectionMammals:LookupMammals')
 const ModuleTranslate = createModuleTranslate('collectionMammals')
 
+const ID = 'id'
 const CATALOG_NUMBER = 'catalogNumber'
-const TAXON_NAME = 'taxonName'
+const TAXON_NAME = 'identifiedTaxonNameStandardized'
 
-const TABLE_COLUMNS = [CATALOG_NUMBER, TAXON_NAME]
+const TABLE_COLUMNS = [ID, CATALOG_NUMBER, TAXON_NAME]
 const SEARCH_PARAMETERS = [CATALOG_NUMBER, TAXON_NAME]
 
 const mapStateToProps = state => {
@@ -43,11 +44,20 @@ const propTypes = {
   push: PropTypes.func.isRequired,
   result: PropTypes.arrayOf(
     PropTypes.shape({
-      catalogNumber: PropTypes.string.isRequired,
+      attributes: PropTypes.shape({
+        physicalUnits: PropTypes.arrayOf(
+          PropTypes.shape({
+            catalogedUnit: PropTypes.shape({
+              catalogNumber: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired
+        ).isRequired,
+      }).isRequired,
     })
   ).isRequired,
   searchParameters: PropTypes.shape({
-    catalogNumber: PropTypes.string,
+    [CATALOG_NUMBER]: PropTypes.string,
+    [TAXON_NAME]: PropTypes.string,
   }).isRequired,
   updateSearchParameter: PropTypes.func.isRequired,
 }
@@ -60,10 +70,6 @@ class LookupMammals extends Component {
     this.handleSearchUpdate = this.handleSearchUpdate.bind(this)
   }
 
-  componentDidMount() {
-    this.handleLookup()
-  }
-
   handleClearAll() {
     this.props.clearSearchParameters()
     this.props.lookupMammals()
@@ -73,8 +79,8 @@ class LookupMammals extends Component {
     this.props.lookupMammals(this.props.searchParameters)
   }
 
-  handleRowClick(id) {
-    this.props.push(`/app/mammals/${id}/edit`)
+  handleRowClick(catalogNumber) {
+    this.props.push(`/app/mammals/${catalogNumber}/edit`)
   }
 
   handleSearchUpdate(key, event) {
@@ -130,18 +136,28 @@ class LookupMammals extends Component {
           </Table.Header>
           {result.length ? (
             <Table.Body>
-              {result.map(mammal => {
-                // assuming first column is unique id and can be used as key
+              {result.map(({ attributes, id }) => {
+                const {
+                  catalogNumber,
+                } = attributes.physicalUnits[0].catalogedUnit
+                const {
+                  identifiedTaxonNameStandardized,
+                } = attributes.identifications[0]
+
+                const tableValues = {
+                  catalogNumber,
+                  id,
+                  identifiedTaxonNameStandardized,
+                }
+
                 return (
                   <Table.Row
-                    key={mammal[TABLE_COLUMNS[0]]}
-                    onClick={() =>
-                      this.handleRowClick(mammal[TABLE_COLUMNS[0]])
-                    }
+                    key={id}
+                    onClick={() => this.handleRowClick(catalogNumber)}
                   >
                     {TABLE_COLUMNS.map(columnName => (
                       <Table.Cell key={columnName}>
-                        {mammal[columnName]}
+                        {tableValues[columnName]}
                       </Table.Cell>
                     ))}
                   </Table.Row>
