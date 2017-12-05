@@ -1,6 +1,7 @@
 import openApiSpec from 'dina-schema/build/openApi.json'
-
 import { createSystemModelSchemaValidator } from 'coreModules/error/utilities'
+
+const createBodyValidator = require('./createBodyValidator')
 
 const buildOperationIdPathnameMap = () => {
   const map = {}
@@ -22,52 +23,19 @@ const buildOperationIdPathnameMap = () => {
 
 const map = buildOperationIdPathnameMap()
 
-const getModelNameFromParameter = ({ schema }) => {
-  if (!schema) {
-    return null
-  }
-
-  const segments = schema.$ref.split('/')
-
-  return segments[segments.length - 1]
-}
-
-const getBodyValidator = ({ methodSpecification }) => {
-  const { parameters } = methodSpecification
-
-  if (!parameters) {
-    return null
-  }
-
-  const bodyParameter = parameters.find(parameterSpecification => {
-    return parameterSpecification.in === 'body'
-  })
-
-  if (bodyParameter) {
-    const modelName = getModelNameFromParameter(bodyParameter)
-    return createSystemModelSchemaValidator({
-      model: modelName,
-      throwOnError: true,
-    })
-  }
-
-  return null
-}
-
 export const buildEndpointSpec = ({ operationId, ...rest }) => {
   if (!map[operationId]) {
     console.warn(`Operation id: ${operationId} unknown`) // eslint-disable-line no-console
   }
 
-  const { methodName, methodSpecification, pathname } = map[operationId] || {}
+  const { methodSpecification, pathname } = map[operationId] || {}
 
   return {
     operationId,
     pathname,
-    validateBody: getBodyValidator({
-      methodName,
+    validateBody: createBodyValidator({
+      createSystemModelSchemaValidator,
       methodSpecification,
-      pathname,
     }),
     ...rest,
   }
