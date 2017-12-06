@@ -1,5 +1,5 @@
-const createLog = require('../../../utilities/log')
-const createResponse = require('../../../../coreModules/api/apiClient/createResponse')
+const createLog = require('../../../../utilities/log')
+const createResponse = require('../../../../../coreModules/api/apiClient/createResponse')
 
 const log = createLog('operationMiddleware')
 
@@ -10,7 +10,8 @@ module.exports = function createOperationMiddleware({
 }) {
   const { mock, handler } = endpointConfig
 
-  const useMock = apiConfig.mock
+  const useMock =
+    apiConfig.mock.active && (!handler || apiConfig.mock.preferred)
 
   const routeFn = useMock ? mock : handler
 

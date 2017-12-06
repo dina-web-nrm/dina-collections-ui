@@ -1,5 +1,5 @@
 // const createLog = require('../utilities/log')
-const chainPromises = require('../../utilities/chainPromises')
+const chainPromises = require('../../../utilities/chainPromises')
 const createModels = require('./models')
 const createControllers = require('./controllers')
 const createDb = require('./db')
@@ -58,20 +58,27 @@ const createRelations = sequelize => {
   )
 }
 
-module.exports = function bootstrapDatalayer({ config }) {
+module.exports = function bootstrapDatalayer({
+  config,
+  controllerFiles,
+  modelFiles,
+}) {
   return Promise.resolve().then(() => {
     return createDb({ config }).then(sequelize => {
-      return createModels({ config, sequelize }).then(models => {
+      return createModels({ config, modelFiles, sequelize }).then(models => {
         return syncModels(models).then(() => {
           return createRelations(sequelize).then(() => {
-            return createControllers({ config, models, sequelize }).then(
-              controllers => {
-                return {
-                  controllers,
-                  models,
-                }
+            return createControllers({
+              config,
+              controllerFiles,
+              models,
+              sequelize,
+            }).then(controllers => {
+              return {
+                controllers,
+                models,
               }
-            )
+            })
           })
         })
       })

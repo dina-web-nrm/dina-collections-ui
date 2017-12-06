@@ -1,15 +1,36 @@
+const openApiSpec = require('dina-schema/build/openApi.json')
 const createLog = require('./utilities/log')
-const createApi = require('./api')
-const createApp = require('./app')
+const createApi = require('./lib/api')
+const createApp = require('./lib/app')
 const createConfig = require('./config')
-const bootstrapDatalayer = require('./logic')
-const createKeycloak = require('./auth/keycloak')
+const bootstrapLogic = require('./lib/logic')
+const createKeycloak = require('./lib/auth/keycloak')
 
 const config = createConfig()
 
 const log = createLog('server')
 
-bootstrapDatalayer({ config })
+const modelFiles = [
+  'CatalogedUnit',
+  'FeatureObservationType',
+  'FeatureObservation',
+  'Identification',
+  'IndividualGroup',
+  'Occurrence',
+  'PhysicalUnit',
+]
+
+const controllerFiles = ['testController', 'createIndividualGroup']
+
+const routeHandlerFiles = ['createIndividualGroup', 'getIndividualGroups']
+
+const routeMockFiles = ['getTaxaByName']
+
+bootstrapLogic({
+  config,
+  controllerFiles,
+  modelFiles,
+})
   .then(({ controllers }) => {
     const keycloak = createKeycloak({ config })
 
@@ -17,6 +38,9 @@ bootstrapDatalayer({ config })
       config,
       controllers,
       keycloak,
+      openApiSpec,
+      routeHandlerFiles,
+      routeMockFiles,
     })
 
     const app = createApp({

@@ -1,4 +1,4 @@
-const createLog = require('../../utilities/log')
+const createLog = require('../../../utilities/log')
 const createEndpointConfig = require('./createEndpointConfig')
 const createRoute = require('./createRoute')
 

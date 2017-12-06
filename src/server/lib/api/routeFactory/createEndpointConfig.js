@@ -1,6 +1,6 @@
-const createEndpointConfigObject = require('../../../coreModules/api/apiClient/factories/createEndpointConfig')
-const createBodyValidator = require('../../../coreModules/api/endpointSpecFactory/createBodyValidator')
-const createSystemModelSchemaValidator = require('../../utilities/createSystemModelSchemaValidator')
+const createEndpointConfigObject = require('../../../../coreModules/api/apiClient/factories/createEndpointConfig')
+const createBodyValidator = require('../../../../coreModules/api/endpointSpecFactory/createBodyValidator')
+const createSystemModelSchemaValidator = require('../../../utilities/createSystemModelSchemaValidator')
 
 module.exports = function createEndpointConfig({
   methodSpecification,

@@ -1,4 +1,4 @@
-const createLog = require('../utilities/log')
+const createLog = require('../../utilities/log')
 
 const log = createLog('errorHandler')
 /* eslint-disable no-unused-vars */
