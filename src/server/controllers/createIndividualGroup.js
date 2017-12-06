@@ -51,7 +51,7 @@ module.exports = function createIndividualGroup({ sequelize }) {
           err.name === 'SequelizeValidationError' ||
           err.name === 'SequelizeUniqueConstraintError'
         ) {
-          err.status = 400
+          err.status = 400 // eslint-disable-line no-param-reassign
         }
         throw err
       })
