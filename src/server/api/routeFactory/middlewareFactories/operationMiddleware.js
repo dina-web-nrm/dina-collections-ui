@@ -39,17 +39,6 @@ module.exports = function createOperationMiddleware({
             `${res.locals.id}: Sending response ${JSON.stringify(data)}`
           )
 
-          // { cookies, data, headers }
-          // if (headers) {
-          //   res.set(headers)
-          // }
-          // if (cookies) {
-          //   Object.keys(cookies).forEach(cookieKey => {
-          //     const { value, ...options } = cookies[cookieKey]
-          //     res.set(cookieKey, value, options)
-          //   })
-          // }
-
           res.send(data)
         })
       })
