@@ -100,6 +100,8 @@
     "mount:collectionsUi": "MOUNT_APP=collectionsUi node ./src/scripts/app/mountApp.js",
     "pretty": "prettier --single-quote --write 'src/**/*.{js,jsx}'",
     "start": "NODE_PATH=./src/ npm-run-all -p watch-css markdown:watch start-js",
+    "start:server": "DEBUG='DINA*' pm2 start src/server/index.js --watch --no-daemon",
+    "stop:server": "pm2 stop index",
     "start-js": "react-scripts start",
     "storybook": "npm run update-storybook-imports && start-storybook -p 9009 -s public",
     "test": "npm run update-storybook-imports && npm run lint:js && react-scripts test --env=jsdom",

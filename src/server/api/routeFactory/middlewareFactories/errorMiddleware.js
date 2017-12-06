@@ -7,6 +7,7 @@ module.exports = function createErrorMiddleware() {
   return (err, req, res, next) => {
     /* eslint-enable no-unused-vars */
     // ensure know error or pass on other error
+    console.log('err', err)
     log.err(`Got api error: ${err.stack}`)
     // set headers
     // send response depending on headers
