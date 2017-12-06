@@ -1,14 +1,13 @@
 /* eslint-disable global-require, import/no-dynamic-require */
 
 const models = [
-  'catalogedUnit',
-  'featureObservationType',
-  'featureObservation',
-  'identification',
-  'individualGroup',
-  'occurrence',
-  'physicalUnit',
-  'user',
+  'CatalogedUnit',
+  'FeatureObservationType',
+  'FeatureObservation',
+  'Identification',
+  'IndividualGroup',
+  'Occurrence',
+  'PhysicalUnit',
 ].map(name => {
   return require(`./${name}`)
 })

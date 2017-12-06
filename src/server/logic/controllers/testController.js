@@ -1,10 +1,43 @@
 module.exports = function testController({ sequelize }) {
-  const { featureObservationType } = sequelize.models
+  const { models } = sequelize
+
   return () => {
-    return featureObservationType
-      .create({
-        featureObservationTypeName: { a: '1234' },
-      })
+    return models.IndividualGroup.create(
+      {
+        featureObservations: [
+          {
+            identificationText: 'Some identificationText',
+          },
+        ],
+        identifications: [
+          {
+            identifiedAsVerbatim: 'Some identifiedAsVerbatim text',
+          },
+        ],
+
+        version: '1234',
+      },
+      {
+        include: [
+          {
+            as: 'featureObservations',
+            model: models.FeatureObservation,
+          },
+          {
+            as: 'identifications',
+            model: models.Identification,
+          },
+          {
+            as: 'occurrences',
+            model: models.Occurrence,
+          },
+          {
+            as: 'physicalUnits',
+            model: models.PhysicalUnit,
+          },
+        ],
+      }
+    )
       .then(result => {
         return Promise.resolve(result)
       })

@@ -11,7 +11,15 @@ module.exports = function createErrorMiddleware() {
     // set headers
     // send response depending on headers
     // set cache if applicable
+    if (err.status === 400) {
+      res.status(400)
+      return res.send({
+        errors: err.errors,
+        message: err.message,
+        originalKey: err.name,
+      })
+    }
     res.status(500)
-    res.send(err)
+    return res.send(err.stack)
   }
 }

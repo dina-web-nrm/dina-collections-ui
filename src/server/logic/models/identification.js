@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 module.exports = function identification({ sequelize }) {
-  return sequelize.define('identification', {
+  return sequelize.define('Identification', {
     id: {
       autoIncrement: true,
       primaryKey: true,

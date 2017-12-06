@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 module.exports = function occurrence({ sequelize }) {
-  return sequelize.define('occurrence', {
+  return sequelize.define('Occurrence', {
     collectorsText: { allowNull: true, type: Sequelize.STRING },
     id: {
       autoIncrement: true,

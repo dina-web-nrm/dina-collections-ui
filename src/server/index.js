@@ -37,7 +37,7 @@ process.on('uncaughtException', err => {
   log.crit(err.stack)
   setTimeout(() => {
     process.exit(1)
-  }, 5000)
+  }, 10000)
 })
 
 process.on('unhandledRejection', err => {
@@ -45,5 +45,5 @@ process.on('unhandledRejection', err => {
   log.crit(err.stack)
   setTimeout(() => {
     process.exit(1)
-  }, 5000)
+  }, 10000)
 })

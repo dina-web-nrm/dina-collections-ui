@@ -1,11 +1,14 @@
 /* eslint-disable global-require, import/no-dynamic-require */
 
-const controllers = ['testController'].reduce((obj, name) => {
-  return {
-    ...obj,
-    [name]: require(`./${name}`),
-  }
-}, {})
+const controllers = ['testController', 'createIndividualGroup'].reduce(
+  (obj, name) => {
+    return {
+      ...obj,
+      [name]: require(`./${name}`),
+    }
+  },
+  {}
+)
 
 module.exports = function createControllers({ config, models, sequelize }) {
   return Promise.resolve(

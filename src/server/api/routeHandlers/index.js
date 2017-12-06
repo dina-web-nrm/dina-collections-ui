@@ -1,6 +1,12 @@
 module.exports = {
+  createIndividualGroup: ({ controllers, request }) => {
+    return controllers.createIndividualGroup(request.body.data).then(data => {
+      return {
+        data,
+      }
+    })
+  },
   getIndividualGroups: ({ controllers, ...rest }) => {
-    console.log('rest', rest)
     return controllers.testController().then(data => {
       return {
         data,

@@ -1,4 +1,5 @@
 // const createLog = require('../utilities/log')
+const chainPromises = require('../../utilities/chainPromises')
 const createModels = require('./models')
 const createControllers = require('./controllers')
 const createDb = require('./db')
@@ -6,20 +7,55 @@ const createDb = require('./db')
 // const log = createLog('logic')
 
 const syncModels = models => {
-  return Promise.all(
+  return chainPromises(
     models.map(model => {
-      return model.sync({ force: true })
+      return () => {
+        return model.sync({ force: true })
+      }
     })
   )
 }
 
 const createRelations = sequelize => {
-  const { featureObservation, featureObservationType } = sequelize.models
-  featureObservation.hasOne(featureObservationType)
+  const {
+    CatalogedUnit,
+    FeatureObservationType,
+    FeatureObservation,
+    Identification,
+    IndividualGroup,
+    Occurrence,
+    PhysicalUnit,
+  } = sequelize.models
 
-  return featureObservation.sync({ force: true }).then(() => {
-    return featureObservationType.sync({ force: true })
+  IndividualGroup.hasMany(FeatureObservation, { as: 'featureObservations' })
+  IndividualGroup.hasMany(Identification, { as: 'identifications' })
+  IndividualGroup.hasMany(Occurrence, { as: 'occurrences' })
+  IndividualGroup.hasMany(PhysicalUnit, { as: 'physicalUnits' })
+
+  FeatureObservation.hasOne(FeatureObservationType)
+
+  Occurrence.hasMany(PhysicalUnit, { as: 'physicalUnits' })
+
+  PhysicalUnit.belongsTo(CatalogedUnit, {
+    as: 'catalogedUnit',
+    foreignKey: 'catalogedUnitId',
   })
+
+  return chainPromises(
+    [
+      CatalogedUnit,
+      FeatureObservationType,
+      FeatureObservation,
+      Identification,
+      IndividualGroup,
+      Occurrence,
+      PhysicalUnit,
+    ].map(module => {
+      return () => {
+        return module.sync({ force: true })
+      }
+    })
+  )
 }
 
 module.exports = function bootstrapDatalayer({ config }) {

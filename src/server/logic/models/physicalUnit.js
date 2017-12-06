@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 module.exports = function physicalUnit({ sequelize }) {
-  return sequelize.define('physicalUnit', {
+  return sequelize.define('PhysicalUnit', {
     id: {
       autoIncrement: true,
       primaryKey: true,

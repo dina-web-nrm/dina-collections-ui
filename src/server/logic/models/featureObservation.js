@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 module.exports = function featureObservation({ sequelize }) {
-  return sequelize.define('featureObservation', {
+  return sequelize.define('FeatureObservation', {
     featureObservationText: { allowNull: true, type: Sequelize.STRING },
     // featureObservationType: Sequelize.STRING,
     id: {

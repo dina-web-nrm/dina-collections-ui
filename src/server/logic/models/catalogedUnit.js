@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 module.exports = function catalogedUnit({ sequelize }) {
-  return sequelize.define('catalogedUnit', {
+  return sequelize.define('CatalogedUnit', {
     catalogNumber: { allowNull: false, type: Sequelize.STRING },
     id: {
       autoIncrement: true,
@@ -10,7 +10,7 @@ module.exports = function catalogedUnit({ sequelize }) {
     },
     // physicalUnits: Sequelize.STRING,
     publishRecord: {
-      allowNull: false,
+      allowNull: true,
       default: false,
       type: Sequelize.BOOLEAN,
     },

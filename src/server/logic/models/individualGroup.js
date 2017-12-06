@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 
 module.exports = function individualGroup({ sequelize }) {
-  return sequelize.define('individualGroup', {
+  return sequelize.define('IndividualGroup', {
     id: {
       autoIncrement: true,
       primaryKey: true,
