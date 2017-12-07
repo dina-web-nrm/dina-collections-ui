@@ -17,7 +17,7 @@ import { createModuleTranslate } from 'coreModules/i18n/components'
 import SegmentCatalogedUnit from './SegmentCatalogedUnit'
 import SegmentDetermination from './SegmentDetermination'
 import SegmentFeatureObservations from './SegmentFeatureObservations'
-import SegmentOccurrences from './SegmentOccurrences'
+import SegmentCollectingInformation from './SegmentCollectingInformation'
 import SegmentPhysicalUnits from './SegmentPhysicalUnits'
 
 const log = createLog('modules:collectionMammals:MammalForm')
@@ -40,6 +40,12 @@ const INITIAL_VALUES = {
         id: 3,
       },
     },
+    {
+      featureObservationType: {
+        featureObservationTypeName: 'conditionAtCollecting',
+        id: 4,
+      },
+    },
   ],
   physicalUnits: [
     {
@@ -54,8 +60,10 @@ const mapStateToProps = state => {
   const syncErrors = getFormSyncErrorsSelector(state)
 
   return {
+    // TODO: make this dynamic
+    identifications: formValueSelector(state, 'identifications'),
+    occurrences: formValueSelector(state, 'occurrences'),
     schemaErrors: syncErrors && syncErrors.schemaErrors,
-    taxonName: formValueSelector(state, TAXON_NAME_FIELD_KEY),
   }
 }
 
@@ -68,11 +76,22 @@ const propTypes = {
   error: PropTypes.string,
   handleFormSubmit: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  identifications: PropTypes.arrayOf(
+    PropTypes.shape({
+      identifiedDay: PropTypes.number,
+      identifiedMonth: PropTypes.number,
+      identifiedTaxonNameStandardized: PropTypes.string,
+      identifiedYear: PropTypes.number,
+    })
+  ),
   individualGroup: PropTypes.shape({
     // TODO: define and possibly centralize propTypes for individualGroup
     identifications: PropTypes.arrayOf(
       PropTypes.shape({
+        identifiedDay: PropTypes.number,
+        identifiedMonth: PropTypes.number,
         identifiedTaxonNameStandardized: PropTypes.string,
+        identifiedYear: PropTypes.number,
       })
     ).isRequired,
     physicalUnits: PropTypes.arrayOf(
@@ -85,6 +104,13 @@ const propTypes = {
   }),
   initialize: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
+  occurrences: PropTypes.arrayOf(
+    PropTypes.shape({
+      dayStart: PropTypes.number,
+      monthStart: PropTypes.number,
+      yearStart: PropTypes.number,
+    })
+  ),
   pristine: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
   schemaErrors: PropTypes.arrayOf(
@@ -93,14 +119,14 @@ const propTypes = {
   submitFailed: PropTypes.bool.isRequired,
   submitSucceeded: PropTypes.bool.isRequired,
   submitting: PropTypes.bool.isRequired,
-  taxonName: PropTypes.string,
 }
 
 const defaultProps = {
   error: '',
+  identifications: [],
   individualGroup: undefined,
+  occurrences: [],
   schemaErrors: [],
-  taxonName: '',
 }
 
 class RawMammalForm extends Component {
@@ -126,7 +152,23 @@ class RawMammalForm extends Component {
   }
 
   handleFormSubmit(data) {
-    return this.props.handleFormSubmit(data).catch(error => {
+    const patchedData = {
+      ...data,
+    }
+
+    if (data.occurrences && data.occurrences.length) {
+      patchedData.occurrences = data.occurrences.map(occurrence => {
+        const { dayStart, monthStart, yearStart } = occurrence
+        return {
+          ...occurrence,
+          dayEnd: dayStart,
+          monthEnd: monthStart,
+          yearEnd: yearStart,
+        }
+      })
+    }
+
+    return this.props.handleFormSubmit(patchedData).catch(error => {
       // prettier-ignore
       const errorMessage = `Status: ${error.status}, message: ${
         error.error.message
@@ -141,14 +183,15 @@ class RawMammalForm extends Component {
     const {
       error,
       handleSubmit,
+      identifications,
       invalid,
+      occurrences,
       pristine,
       reset,
       schemaErrors,
       submitting,
       submitFailed,
       submitSucceeded,
-      taxonName,
     } = this.props
 
     log.render()
@@ -160,10 +203,10 @@ class RawMammalForm extends Component {
       >
         <SegmentCatalogedUnit />
         <SegmentDetermination
-          taxonName={taxonName}
+          identifications={identifications}
           taxonNameFieldKey={TAXON_NAME_FIELD_KEY}
         />
-        <SegmentOccurrences />
+        <SegmentCollectingInformation occurrences={occurrences} />
         <SegmentFeatureObservations />
         <SegmentPhysicalUnits />
 
