@@ -10,9 +10,9 @@ const propTypes = {
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   input: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
   }).isRequired,
-  isLoading: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   meta: PropTypes.shape({
     error: PropTypes.object,
@@ -25,6 +25,7 @@ const propTypes = {
 const defaultProps = {
   errorScope: undefined,
   helpText: undefined,
+  isLoading: false,
   label: undefined,
   required: false,
   resultRenderer: undefined,
