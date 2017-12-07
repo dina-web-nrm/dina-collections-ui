@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
 
-const NUMBER_TYPES = ['number', 'numberAsText']
+const PARSE_AS_NUMBER_TYPES = ['numberAsText']
+const FORMAT_AS_STRING_TYPES = ['numberAsText']
 
 const parseToNumber = value => {
   if (value === '' || value === undefined || value === null) {
@@ -32,8 +33,8 @@ const defaultProps = {
 }
 
 const FieldWrapper = ({ format, parse, type, ...rest }) => {
-  const parseAsNumber = !parse && NUMBER_TYPES.includes(type)
-  const formatAsString = !parse && NUMBER_TYPES.includes(type)
+  const parseAsNumber = !parse && PARSE_AS_NUMBER_TYPES.includes(type)
+  const formatAsString = !format && FORMAT_AS_STRING_TYPES.includes(type)
 
   return (
     <Field
