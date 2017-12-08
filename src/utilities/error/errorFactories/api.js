@@ -1,8 +1,8 @@
-import { ERROR_CODES, ORIGINS, TYPES } from '../../constants'
+import { ERROR_CODES, ORIGINS, TYPES } from '../constants'
 
 import createError from './base'
 
-export default function createFormError(error) {
+export default function createApiError(error) {
   const errorCode =
     (error.errorCode && ERROR_CODES[error.errorCode]) ||
     ERROR_CODES.DEFAULT_API_ERROR

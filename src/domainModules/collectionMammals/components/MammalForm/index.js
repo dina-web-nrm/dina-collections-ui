@@ -9,7 +9,7 @@ import {
   reduxForm,
   SubmissionError,
 } from 'redux-form'
-import { createFormModelSchemaValidator } from 'coreModules/error/utilities'
+import { createFormModelSchemaValidator } from 'utilities/error'
 import { FormSchemaError } from 'coreModules/error/components'
 import { clearTaxonSearch } from 'domainModules/taxonomy/actionCreators'
 import createLog from 'utilities/log'

@@ -1,6 +1,6 @@
 import openApiSpec from 'dina-schema/build/openApi.json'
 
-import { createSystemModelSchemaValidator } from 'coreModules/error/utilities'
+import { createSystemModelSchemaValidator } from 'utilities/error'
 
 const buildOperationIdPathnameMap = () => {
   const map = {}

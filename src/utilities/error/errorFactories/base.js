@@ -1,4 +1,4 @@
-import { ERROR_CODES } from '../../constants'
+import { ERROR_CODES } from '../constants'
 
 export default function createError({ context, error }) {
   const {
@@ -10,6 +10,7 @@ export default function createError({ context, error }) {
   } = context
 
   return {
+    _known: true,
     error,
     errorCode: errorCode || ERROR_CODES.UNKNOWN,
     message: `ERROR - ${errorCode}, ${origin}, ${type}, \n\n ${JSON.stringify(
