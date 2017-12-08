@@ -84,7 +84,7 @@ const propTypes = {
       identifiedYear: PropTypes.number,
     })
   ),
-  individualGroup: PropTypes.shape({
+  individualGroupAttributes: PropTypes.shape({
     // TODO: define and possibly centralize propTypes for individualGroup
     identifications: PropTypes.arrayOf(
       PropTypes.shape({
@@ -124,7 +124,7 @@ const propTypes = {
 const defaultProps = {
   error: '',
   identifications: [],
-  individualGroup: undefined,
+  individualGroupAttributes: undefined,
   occurrences: [],
   schemaErrors: [],
 }
@@ -134,12 +134,15 @@ class RawMammalForm extends Component {
     super(props)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
     this.setInitialFormValues = this.setInitialFormValues.bind(this)
-    this.setInitialFormValues(props.individualGroup || INITIAL_VALUES)
+    this.setInitialFormValues(props.individualGroupAttributes || INITIAL_VALUES)
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.individualGroup !== nextProps.individualGroup) {
-      this.setInitialFormValues(nextProps.individualGroup)
+    if (
+      this.props.individualGroupAttributes !==
+      nextProps.individualGroupAttributes
+    ) {
+      this.setInitialFormValues(nextProps.individualGroupAttributes)
     }
   }
 
@@ -147,8 +150,8 @@ class RawMammalForm extends Component {
     this.props.clearTaxonSearch()
   }
 
-  setInitialFormValues(individualGroup) {
-    this.props.initialize(individualGroup)
+  setInitialFormValues(individualGroupAttributes) {
+    this.props.initialize(individualGroupAttributes)
   }
 
   handleFormSubmit(data) {

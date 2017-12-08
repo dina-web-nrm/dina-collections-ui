@@ -29,18 +29,20 @@ const propTypes = {
   getIndividualGroupByCatalogNumber: PropTypes.func.isRequired,
   individualGroup: PropTypes.shape({
     // TODO: define and possibly centralize propTypes for individualGroup
-    identifications: PropTypes.arrayOf(
-      PropTypes.shape({
-        identifiedTaxonNameStandardized: PropTypes.string,
-      })
-    ).isRequired,
-    physicalUnits: PropTypes.arrayOf(
-      PropTypes.shape({
-        catalogedUnit: PropTypes.shape({
-          catalogNumber: PropTypes.string.isRequired,
-        }).isRequired,
-      }).isRequired
-    ).isRequired,
+    attributes: PropTypes.shape({
+      identifications: PropTypes.arrayOf(
+        PropTypes.shape({
+          identifiedTaxonNameStandardized: PropTypes.string,
+        })
+      ).isRequired,
+      physicalUnits: PropTypes.arrayOf(
+        PropTypes.shape({
+          catalogedUnit: PropTypes.shape({
+            catalogNumber: PropTypes.string.isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }),
   }),
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -73,7 +75,9 @@ class EditMammal extends Component {
           <Grid.Column>
             <MammalForm
               handleFormSubmit={updateIndividualGroup}
-              individualGroup={individualGroup && individualGroup.attributes}
+              individualGroupAttributes={
+                individualGroup && individualGroup.attributes
+              }
             />
           </Grid.Column>
         </Grid>
