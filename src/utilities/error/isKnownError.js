@@ -1,3 +1,4 @@
 export default function isKnownError(error) {
-  return error && error.errorCode
+  /* eslint-disable no-underscore-dangle */
+  return error && error._known
 }
