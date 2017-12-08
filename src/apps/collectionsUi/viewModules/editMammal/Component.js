@@ -85,6 +85,7 @@ class EditMammal extends Component {
               individualGroupAttributes={
                 individualGroup && individualGroup.attributes
               }
+              individualGroupId={individualGroup && individualGroup.id}
             />
           </Grid.Column>
         </Grid>

@@ -102,6 +102,7 @@ const propTypes = {
       }).isRequired
     ).isRequired,
   }),
+  individualGroupId: PropTypes.number,
   initialize: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
   occurrences: PropTypes.arrayOf(
@@ -125,6 +126,7 @@ const defaultProps = {
   error: '',
   identifications: [],
   individualGroupAttributes: undefined,
+  individualGroupId: undefined,
   occurrences: [],
   schemaErrors: [],
 }
@@ -156,6 +158,7 @@ class RawMammalForm extends Component {
 
   handleFormSubmit(data) {
     const patchedData = {
+      id: this.props.individualGroupId,
       ...data,
     }
 
