@@ -1,6 +1,6 @@
 import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
 import { createSystemSchemaValidator } from 'coreModules/error/utilities'
-import { createLookupMammalsResponse } from './mockData'
+import { createLookupMammalsResponse, getIndividualGroup } from './mockData'
 
 import { lookupMammalsResponse, registerMammalResponse } from './schemas'
 
@@ -15,34 +15,7 @@ export const GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER = buildEndpointSpec({
     return json.data[0] // should only be one result, which holds for mammals
   },
   mock: ({ request: { queryParams } }) => {
-    return [
-      {
-        featureObservations: [
-          {
-            featureObservationText: 'female',
-            featureObservationType: {
-              featureObservationTypeName: 'sex',
-              id: 1,
-            },
-          },
-        ],
-        identifications: [
-          {
-            identificationText: 'Water opossum',
-            identifiedByAgentText: 'Doe, J.',
-            identifiedTaxonNameStandardized: 'Chironectes minimus',
-          },
-        ],
-        occurrences: [{ id: 1, localityText: 'Hemsö' }],
-        physicalUnits: [
-          {
-            catalogedUnit: {
-              catalogNumber: queryParams['filter[catalogNumber]'],
-            },
-          },
-        ],
-      },
-    ]
+    return { data: [getIndividualGroup(queryParams)] }
   },
   operationId: 'getIndividualGroups',
   pathname: '/collections/api/v01/individualGroups',
