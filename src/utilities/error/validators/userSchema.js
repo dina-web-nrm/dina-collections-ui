@@ -5,7 +5,7 @@ import ajvErrorMapper from '../errorMappers/ajv'
 
 export const errorHandler = compose(ajvErrorMapper, userErrorFactory)
 
-export default function createFormSchemaValidator(schema) {
+export default function createUserSchemaValidator(schema) {
   return createSchemaValidator({
     errorHandler,
     schema,
