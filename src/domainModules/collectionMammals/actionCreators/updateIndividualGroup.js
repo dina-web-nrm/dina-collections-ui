@@ -11,6 +11,7 @@ export default function updateIndividualGroup(formData, throwError = true) {
   const meta = {
     catalogNumber: formData.physicalUnits[0].catalogedUnit.catalogNumber,
     formData,
+    individualGrouId: formData.id,
   }
   return (dispatch, getState, { apiClient }) => {
     dispatch({
@@ -45,6 +46,7 @@ export default function updateIndividualGroup(formData, throwError = true) {
     return apiClient
       .httpPatch(UPDATE_INDIVIDUAL_GROUP, {
         body,
+        pathParams: { id: attributes.id },
       })
       .then(
         response => {
