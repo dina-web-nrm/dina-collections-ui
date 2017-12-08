@@ -1,5 +1,5 @@
 import { compose } from 'redux'
-import createSchemaValidator from './baseSchema'
+import createSchemaValidator from 'utilities/jsonSchema/createValidator'
 import systemErrorFactory from '../errorFactories/system'
 import ajvErrorMapper from '../errorMappers/ajv'
 
