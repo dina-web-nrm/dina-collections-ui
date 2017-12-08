@@ -1,4 +1,4 @@
-import { ERROR_CODES } from '../../constants'
+import { ERROR_CODES } from '../constants'
 
 export default function createError({ context, error }) {
   const {

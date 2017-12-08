@@ -1,4 +1,4 @@
-import { isKnownError } from './utilities'
+import { isKnownError } from 'utilities/error'
 
 export default function errorMiddleware({ debug = true } = {}) {
   return () => next => action => {

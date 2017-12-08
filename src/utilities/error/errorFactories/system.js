@@ -1,4 +1,4 @@
-import { ERROR_CODES, ORIGINS, TYPES } from '../../constants'
+import { ERROR_CODES, ORIGINS, TYPES } from '../constants'
 
 import createError from './base'
 

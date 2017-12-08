@@ -1,5 +1,5 @@
 import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
-import { createSystemSchemaValidator } from 'coreModules/error/utilities'
+import { createSystemSchemaValidator } from 'utilities/error'
 import { createLookupMammalsResponse, getIndividualGroup } from './mockData'
 
 import { lookupMammalsResponse, registerMammalResponse } from './schemas'

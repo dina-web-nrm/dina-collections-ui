@@ -1,5 +1,5 @@
 import objectPath from 'object-path'
-import { ERROR_CODES, ORIGINS, TYPES } from '../../constants'
+import { ERROR_CODES, ORIGINS, TYPES } from '../constants'
 import createError from './base'
 
 export const createReduxFormParameterError = transformedAjvError => {
