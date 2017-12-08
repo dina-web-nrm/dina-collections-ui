@@ -59,7 +59,14 @@ class EditMammal extends Component {
   componentWillMount() {
     this.props.getIndividualGroupByCatalogNumber(
       this.props.match.params.catalogNumber,
-      { include: 'physicalUnits.catalogedUnit' }
+      {
+        include: [
+          'identifications',
+          'featureObservations.featureObservationType',
+          'occurrences',
+          'physicalUnits.catalogedUnit',
+        ].join(),
+      }
     )
   }
 
