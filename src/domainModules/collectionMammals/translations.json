@@ -12,9 +12,9 @@
       "en": "Stored under name",
       "sv": "Förvaras under namn"
     },
-    "publishRecord": {
-      "en": "Publish record",
-      "sv": "Publicera utdrag"
+    "isPublic": {
+      "en": "Public",
+      "sv": "Publikt"
     }
   },
   "determination": {
@@ -39,21 +39,47 @@
       "sv": "Verbatim taxonnamn"
     }
   },
+  "individualGroup": {
+    "causeOfDeathStandardized": {
+      "en": "Cause of death",
+      "sv": ""
+    },
+    "causeOfDeathText": {
+      "en": "Death remark",
+      "sv": ""
+    },
+    "originStandardized": {
+      "en": "Origin",
+      "sv": ""
+    }
+  },
   "occurrences": {
     "collectingInformation": {
       "en": "Collecting information",
       "sv": "Insamlingsinformation"
     },
+    "establishmentMeansStandardized": {
+      "en": "Establishment means",
+      "sv": ""
+    },
     "expeditionText": {
       "en": "Expedition description",
+      "sv": ""
+    },
+    "isDeathEvent": {
+      "en": "Is death event",
       "sv": ""
     },
     "localityText": {
       "en": "Locality text",
       "sv": ""
     },
+    "originLocalityText": {
+      "en": "Origin locality",
+      "sv": ""
+    },
     "startTime": {
-      "en": "Start time",
+      "en": "Time",
       "sv": ""
     },
     "yearStart": {
@@ -93,7 +119,23 @@
       "sv": ""
     }
   },
-  "featureObservation": {
+  "featureObservations": {
+    "age": {
+      "en": "Age",
+      "sv": "Ålder"
+    },
+    "ageDeterminationMethod": {
+      "en": "Age determination method",
+      "sv": "Åldersbestämningsmetod"
+    },
+    "ageStage": {
+      "en": "Age stage",
+      "sv": "Åldersstadium"
+    },
+    "conditionAtCollecting": {
+      "en": "Condition at collecting",
+      "sv": ""
+    },
     "features": {
       "en": "Features",
       "sv": "Egenskaper"
@@ -101,18 +143,6 @@
     "sex": {
       "en": "Sex",
       "sv": "Kön"
-    },
-    "age": {
-      "en": "Age",
-      "sv": "Ålder"
-    },
-    "ageStage": {
-      "en": "Age stage",
-      "sv": "Åldersstadium"
-    },
-    "ageDeterminationMethod": {
-      "en": "Age determination method",
-      "sv": "Åldersbestämningsmetod"
     }
   },
   "physicalUnits": {
@@ -168,6 +198,14 @@
   "features": {
     "en": "Features",
     "sv": "Egenskaper"
+  },
+  "id": {
+    "en": "Id",
+    "sv": "Id"
+  },
+  "identifiedTaxonNameStandardized": {
+    "en": "Taxon name",
+    "sv": "Taxonnamn"
   },
   "locality": {
     "en": "Locality",

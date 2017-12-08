@@ -36,7 +36,6 @@ const propTypes = {
     touched: PropTypes.bool.isRequired,
   }).isRequired,
   required: PropTypes.bool,
-  taxonName: PropTypes.string.isRequired,
   taxonSearchName: PropTypes.string,
   taxonSearchResults: PropTypes.arrayOf(
     PropTypes.shape({
@@ -65,20 +64,8 @@ class TaxonNameSearchInputWithResults extends Component {
     this.getValue = this.getValue.bind(this)
   }
 
-  componentDidMount() {
-    if (this.props.taxonName && !this.props.input.value) {
-      this.props.input.onChange(this.props.taxonName)
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.taxonName !== nextProps.taxonName) {
-      this.props.input.onChange(nextProps.taxonName)
-    }
-  }
-
   getValue() {
-    const { taxonName, taxonSearchName } = this.props
+    const { input: { value }, taxonSearchName } = this.props
 
     const searchIsNotNull = taxonSearchName !== null
 
@@ -86,7 +73,7 @@ class TaxonNameSearchInputWithResults extends Component {
       return taxonSearchName
     }
 
-    return taxonName || ''
+    return value || ''
   }
 
   handleResultSelect(event, { result }) {
@@ -111,7 +98,7 @@ class TaxonNameSearchInputWithResults extends Component {
     // see Semantic docs for details: https://react.semantic-ui.com/modules/search
     this.props.updateTaxonSearchFilterName(value)
 
-    if (this.props.taxonName) {
+    if (this.props.input.value) {
       // empty form value, if search is renewed after taxonName selected
       this.props.input.onChange('')
     }
@@ -125,7 +112,6 @@ class TaxonNameSearchInputWithResults extends Component {
       label,
       meta,
       required,
-      taxonName,
       taxonSearchName,
       taxonSearchResults,
       taxonSearchResultsLoading,

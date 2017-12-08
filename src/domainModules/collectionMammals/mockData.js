@@ -1,37 +1,71 @@
-export const createLookupMammalsResponse = ({ request }) => {
+let mockId = 0
+
+export const getIndividualGroup = queryParams => {
+  mockId += 1
+  return {
+    attributes: {
+      featureObservations: [
+        {
+          featureObservationText: 'female',
+          featureObservationType: {
+            featureObservationTypeName: 'sex',
+            id: 1,
+          },
+        },
+      ],
+      identifications: [
+        {
+          identificationText: 'Water opossum',
+          identifiedByAgentText: 'Doe, J.',
+          identifiedTaxonNameStandardized:
+            queryParams['filter[identifiedTaxonNameStandardized]'] ||
+            'Chironectes minimus',
+        },
+      ],
+      occurrences: [{ id: 1, localityText: 'Hemsö' }],
+      physicalUnits: [
+        {
+          catalogedUnit: {
+            catalogNumber:
+              queryParams['filter[catalogNumber]'] ||
+              String(Math.round(100000 + Math.random() * 99999)),
+          },
+        },
+      ],
+    },
+    id: mockId,
+    type: 'individualGroup',
+  }
+}
+
+export const createLookupMammalsResponse = ({ request: { queryParams } }) => {
   if (
-    request &&
-    request.queryParams &&
-    request.queryParams.catalogNumber &&
-    request.queryParams.taxonName
+    (queryParams && queryParams['filter[catalogNumber]']) ||
+    queryParams['filter[identifiedTaxonNameStandardized]']
   ) {
     return {
-      result: [
-        { catalogNumber: 'matching number', taxonName: 'matching taxon' },
-      ],
-    }
-  }
-
-  if (request && request.queryParams && request.queryParams.catalogNumber) {
-    return {
-      result: [
-        { catalogNumber: 'matching number', taxonName: 'Elit Praesent' },
-      ],
-    }
-  }
-
-  if (request && request.queryParams && request.queryParams.taxonName) {
-    return {
-      result: [{ catalogNumber: '201705005', taxonName: 'matching taxon' }],
+      data: [getIndividualGroup(queryParams)],
     }
   }
 
   return {
-    result: [
-      { catalogNumber: '201705001', taxonName: 'Lorem ipsum' },
-      { catalogNumber: '201705002', taxonName: 'Dolor Sit Amet' },
-      { catalogNumber: '201705003', taxonName: 'Consectetur' },
-      { catalogNumber: '201705004', taxonName: 'Adipiscing' },
+    data: [
+      getIndividualGroup({
+        catalogNumber: '201705001',
+        taxonName: 'Lorem ipsum',
+      }),
+      getIndividualGroup({
+        catalogNumber: '201705002',
+        taxonName: 'Dolor Sit Amet',
+      }),
+      getIndividualGroup({
+        catalogNumber: '201705003',
+        taxonName: 'Consectetur',
+      }),
+      getIndividualGroup({
+        catalogNumber: '201705004',
+        taxonName: 'Adipiscing',
+      }),
     ],
   }
 }

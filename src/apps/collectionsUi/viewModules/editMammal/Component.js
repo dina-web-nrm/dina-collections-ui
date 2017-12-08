@@ -29,18 +29,20 @@ const propTypes = {
   getIndividualGroupByCatalogNumber: PropTypes.func.isRequired,
   individualGroup: PropTypes.shape({
     // TODO: define and possibly centralize propTypes for individualGroup
-    identifications: PropTypes.arrayOf(
-      PropTypes.shape({
-        identifiedTaxonNameStandardized: PropTypes.string,
-      })
-    ).isRequired,
-    physicalUnits: PropTypes.arrayOf(
-      PropTypes.shape({
-        catalogedUnit: PropTypes.shape({
-          catalogNumber: PropTypes.string.isRequired,
-        }).isRequired,
-      }).isRequired
-    ).isRequired,
+    attributes: PropTypes.shape({
+      identifications: PropTypes.arrayOf(
+        PropTypes.shape({
+          identifiedTaxonNameStandardized: PropTypes.string,
+        })
+      ).isRequired,
+      physicalUnits: PropTypes.arrayOf(
+        PropTypes.shape({
+          catalogedUnit: PropTypes.shape({
+            catalogNumber: PropTypes.string.isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }),
   }),
   match: PropTypes.shape({
     params: PropTypes.shape({
@@ -56,7 +58,15 @@ const defaultProps = {
 class EditMammal extends Component {
   componentWillMount() {
     this.props.getIndividualGroupByCatalogNumber(
-      this.props.match.params.catalogNumber
+      this.props.match.params.catalogNumber,
+      {
+        include: [
+          'identifications',
+          'featureObservations.featureObservationType',
+          'occurrences',
+          'physicalUnits.catalogedUnit',
+        ].join(),
+      }
     )
   }
 
@@ -72,7 +82,10 @@ class EditMammal extends Component {
           <Grid.Column>
             <MammalForm
               handleFormSubmit={updateIndividualGroup}
-              individualGroup={individualGroup}
+              individualGroupAttributes={
+                individualGroup && individualGroup.attributes
+              }
+              individualGroupId={individualGroup && individualGroup.id}
             />
           </Grid.Column>
         </Grid>
