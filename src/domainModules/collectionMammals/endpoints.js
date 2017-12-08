@@ -18,7 +18,6 @@ export const GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER = buildEndpointSpec({
     return { data: [getIndividualGroup(queryParams)] }
   },
   operationId: 'getIndividualGroups',
-  pathname: '/collections/api/v01/individualGroups',
   validateResponse: createSystemSchemaValidator(lookupMammalsResponse),
 })
 
@@ -31,7 +30,6 @@ export const LOOKUP_MAMMALS = buildEndpointSpec({
   },
   mock: createLookupMammalsResponse,
   operationId: 'getIndividualGroups',
-  pathname: '/collections/api/v01/individualGroups',
   validateResponse: createSystemSchemaValidator(lookupMammalsResponse),
 })
 
@@ -50,5 +48,4 @@ export const UPDATE_INDIVIDUAL_GROUP = buildEndpointSpec({
   },
   mock: ({ request }) => request.body,
   operationId: 'updateIndividualGroup',
-  pathname: '/collections/api/v01/individualGroups',
 })
