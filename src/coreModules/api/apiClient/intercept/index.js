@@ -21,15 +21,16 @@ module.exports = function intercept({
     }
 
     if (enableEndpointMocks && endpointMock) {
-      const mockResult = endpointMock({
-        apiConfig,
-        endpointConfig,
-        methodConfig,
-        request,
-      })
-      if (mockResult) {
+      return Promise.resolve(
+        endpointMock({
+          apiConfig,
+          endpointConfig,
+          methodConfig,
+          request,
+        })
+      ).then(mockResult => {
         return { json: mockResult }
-      }
+      })
     }
 
     if (cache) {
