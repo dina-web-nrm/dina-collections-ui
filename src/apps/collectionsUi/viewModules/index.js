@@ -9,3 +9,5 @@ export const viewOrder = [
   'settings',
   'pageNotFound',
 ]
+
+export const type = 'view'

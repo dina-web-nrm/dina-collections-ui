@@ -13,3 +13,5 @@ export const moduleOrder = [
   'user',
   'keyboardShortcuts',
 ]
+
+export const type = 'module'
