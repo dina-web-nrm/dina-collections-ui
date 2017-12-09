@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { Footer, ViewWrap } from 'coreModules/commonUi/components'
 
-import Login from '../viewModules/login/Async'
-import PageNotFound from '../viewModules/pageNotFound/Async'
+import Login from '../login/Async'
+import PageNotFound from '../pageNotFound/Async'
 
 class Public extends Component {
   render() {
