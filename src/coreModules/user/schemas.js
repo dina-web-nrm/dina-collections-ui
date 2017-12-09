@@ -1,18 +1,3 @@
-export const user = {
-  additionalProperties: false,
-  properties: {
-    email: {
-      faker: 'internet.email',
-      type: 'string',
-    },
-    username: {
-      faker: 'name.findName',
-      type: 'string',
-    },
-  },
-  required: ['username', 'email'],
-}
-
 export const loginRequest = {
   additionalProperties: false,
   properties: {
@@ -29,14 +14,4 @@ export const loginRequest = {
   },
   required: ['username', 'password'],
   type: 'object',
-}
-
-export const loginResponse = {
-  additionalProperties: true,
-  properties: {
-    access_token: {
-      type: 'string',
-    },
-  },
-  required: ['access_token'],
 }
