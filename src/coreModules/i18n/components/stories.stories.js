@@ -39,11 +39,16 @@ storiesOf('coreModules/i18n/Translate', module)
 
     const textKey = text('textKey', 'lastName')
     const store = createTestStore({
-      config,
+      config: {
+        ...config,
+        i18n: {
+          ...config.i18n,
+          language,
+        },
+      },
       initialState: {
         i18n: {
           availableLanguages: ['en', 'sv'],
-          language,
           markdown: {},
           translations: {
             firstName: {
@@ -85,13 +90,17 @@ storiesOf('coreModules/i18n/Translate', module)
     const params = object('params', { name: 'Anton' })
 
     const textKey = text('textKey', 'greet')
+
     const store = createTestStore({
-      config,
+      config: {
+        ...config,
+        i18n: {
+          ...config.i18n,
+          language,
+        },
+      },
       initialState: {
         i18n: {
-          availableLanguages: ['en', 'sv'],
-          language,
-          markdown: {},
           translations: {
             greet: {
               en: 'hello {{name}}', // eslint-disable-line no-template-curly-in-string
@@ -147,11 +156,16 @@ storiesOf('coreModules/i18n/createModuleTranslate', module)
     const Component = createModuleTranslate(moduleName)
 
     const store = createTestStore({
-      config,
+      config: {
+        ...config,
+        i18n: {
+          ...config.i18n,
+          language,
+        },
+      },
       initialState: {
         i18n: {
           availableLanguages: ['en', 'sv'],
-          language,
           markdown: {},
           translations: {
             modules: {
@@ -205,11 +219,16 @@ storiesOf('coreModules/i18n/LanguageSelect', module)
     )
 
     const store = createTestStore({
-      config,
+      config: {
+        ...config,
+        i18n: {
+          ...config.i18n,
+          language,
+        },
+      },
       initialState: {
         i18n: {
           availableLanguages: ['en', 'sv'],
-          language,
           markdown: {},
           translations: {
             greet: {
