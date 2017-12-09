@@ -7,6 +7,14 @@ module.exports = {
       {
         oneOf: [
           {
+            exclude: /(node_modules|bower_components)/,
+
+            test: /\.js?$/,
+            use: {
+              loader: 'babel-loader',
+            },
+          },
+          {
             test: /\.md$/,
             use: 'raw-loader',
           },
