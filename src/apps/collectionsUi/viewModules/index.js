@@ -1,4 +1,4 @@
-export const viewOrder = [
+export const moduleOrder = [
   'public',
   'app',
   'editMammal',
