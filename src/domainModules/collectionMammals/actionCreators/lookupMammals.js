@@ -21,7 +21,7 @@ export default function lookupMammals(filterParams = {}) {
       type: COLLECTION_MAMMALS_LOOKUP_MAMMALS_REQUEST,
     })
     return apiClient
-      .httpGet(LOOKUP_MAMMALS, {
+      .call(LOOKUP_MAMMALS, {
         queryParams,
       })
       .then(

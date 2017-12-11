@@ -17,7 +17,7 @@ export default function getIndividualGroupByCatalogNumber(
       type: COLLECTION_MAMMALS_GET_BY_CATALOG_NUMBER_REQUEST,
     })
     return apiClient
-      .httpGet(GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER, {
+      .call(GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER, {
         queryParams: { 'filter[catalogNumber]': catalogNumber, include },
       })
       .then(

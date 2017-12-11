@@ -10,7 +10,7 @@ export default function getUser() {
     dispatch({
       type: USER_GET_USER_REQUEST,
     })
-    return apiClient.httpGet(GET_USER).then(
+    return apiClient.call(GET_USER).then(
       response => {
         dispatch({
           payload: response,

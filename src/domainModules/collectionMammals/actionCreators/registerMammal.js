@@ -60,7 +60,7 @@ export default function registerMammal(formData, throwError = true) {
     }
 
     return apiClient
-      .httpPost(REGISTER_MAMMAL, {
+      .call(REGISTER_MAMMAL, {
         body,
       })
       .then(
