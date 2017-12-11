@@ -7,15 +7,18 @@ export default function createError({ context, error }) {
     statusCode,
     type,
     userInteraction = false,
+    verbose = false,
   } = context
+
+  const message = verbose
+    ? `ERROR - ${errorCode}, ${origin}, ${type}, \n\n ${JSON.stringify(error)}`
+    : `ERROR - ${errorCode}, ${origin}, ${type}`
 
   return {
     _known: true,
     error,
     errorCode: errorCode || ERROR_CODES.UNKNOWN,
-    message: `ERROR - ${errorCode}, ${origin}, ${type}, \n\n ${JSON.stringify(
-      error
-    )}`,
+    message,
     origin,
     statusCode,
     type,
