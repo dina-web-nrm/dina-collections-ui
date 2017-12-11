@@ -5,12 +5,6 @@ import { createLookupMammalsResponse, getIndividualGroup } from './mockData'
 import { lookupMammalsResponse, registerMammalResponse } from './schemas'
 
 export const GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER = buildEndpointSpec({
-  mapHeaders: userInputHeaders => {
-    return {
-      ...userInputHeaders,
-      'Content-Type': 'application/json',
-    }
-  },
   mapResponse: json => {
     return json.data[0] // should only be one result, which holds for mammals
   },
@@ -22,12 +16,6 @@ export const GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER = buildEndpointSpec({
 })
 
 export const LOOKUP_MAMMALS = buildEndpointSpec({
-  mapHeaders: userInputHeaders => {
-    return {
-      ...userInputHeaders,
-      'Content-Type': 'application/json',
-    }
-  },
   mock: createLookupMammalsResponse,
   operationId: 'getIndividualGroups',
   validateResponse: createSystemSchemaValidator(lookupMammalsResponse),
@@ -40,12 +28,6 @@ export const REGISTER_MAMMAL = buildEndpointSpec({
 })
 
 export const UPDATE_INDIVIDUAL_GROUP = buildEndpointSpec({
-  mapHeaders: userInputHeaders => {
-    return {
-      ...userInputHeaders,
-      'Content-Type': 'application/json',
-    }
-  },
   mock: ({ request }) => request.body,
   operationId: 'updateIndividualGroup',
 })
