@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import SearchInputWithResults from 'coreModules/form/components/SearchInputWithResults'
-import TranslateResult from './TranslateResult'
+import TranslateSearchResult from '../TranslateSearchResult'
 import { days, months, years } from './dateOptions'
 import { DAY, MONTH, YEAR } from '../../constants'
 
@@ -100,7 +100,7 @@ class InputDatePart extends Component {
         label={label}
         meta={meta}
         required={required}
-        resultRenderer={TranslateResult}
+        resultRenderer={TranslateSearchResult}
         results={getDateSuggestions(datePart, value)}
         {...rest}
       />
