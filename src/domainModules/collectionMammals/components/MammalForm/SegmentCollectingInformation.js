@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 import { Header, Grid, Segment } from 'semantic-ui-react'
 
 import { createModuleTranslate } from 'coreModules/i18n/components'
@@ -16,6 +18,12 @@ const ModuleTranslate = createModuleTranslate('collectionMammals')
 
 const buildFeatureObservationsPath = fieldNamePathFactory('featureObservations')
 const buildOccurrencePath = fieldNamePathFactory('occurrences')
+
+const mapStateToProps = (state, { formValueSelector }) => {
+  return {
+    occurrences: formValueSelector(state, 'occurrences'),
+  }
+}
 
 const propTypes = {
   occurrences: PropTypes.arrayOf(
@@ -84,10 +92,7 @@ function SegmentCollectingInformation({ occurrences }) {
             module="collectionMammals"
             name={buildOccurrencePath('yearStart')}
             type="numberAsText"
-            value={
-              (occurrences && occurrences[0] && occurrences[0].yearStart) ||
-              undefined
-            }
+            value={occurrences && occurrences[0] && occurrences[0].yearStart}
           />
         </Grid.Column>
         <Grid.Column computer={2} mobile={4}>
@@ -99,10 +104,7 @@ function SegmentCollectingInformation({ occurrences }) {
             module="collectionMammals"
             name={buildOccurrencePath('monthStart')}
             type="numberAsText"
-            value={
-              (occurrences && occurrences[0] && occurrences[0].monthStart) ||
-              undefined
-            }
+            value={occurrences && occurrences[0] && occurrences[0].monthStart}
           />
         </Grid.Column>
         <Grid.Column computer={2} mobile={4}>
@@ -114,10 +116,7 @@ function SegmentCollectingInformation({ occurrences }) {
             module="collectionMammals"
             name={buildOccurrencePath('dayStart')}
             type="numberAsText"
-            value={
-              (occurrences && occurrences[0] && occurrences[0].dayStart) ||
-              undefined
-            }
+            value={occurrences && occurrences[0] && occurrences[0].dayStart}
           />
         </Grid.Column>
         <Grid.Column computer={4} mobile={16}>
@@ -245,4 +244,4 @@ function SegmentCollectingInformation({ occurrences }) {
 SegmentCollectingInformation.propTypes = propTypes
 SegmentCollectingInformation.defaultProps = defaultProps
 
-export default SegmentCollectingInformation
+export default compose(connect(mapStateToProps))(SegmentCollectingInformation)

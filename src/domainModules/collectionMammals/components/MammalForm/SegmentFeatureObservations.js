@@ -1,5 +1,8 @@
 import React from 'react'
 import { Header, Grid, Segment } from 'semantic-ui-react'
+import PropTypes from 'prop-types'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Field, Input } from 'coreModules/form/components'
@@ -11,7 +14,21 @@ const ModuleTranslate = createModuleTranslate('collectionMammals', {
 
 const buildPath = fieldNamePathFactory('featureObservations')
 
-export default () => {
+const mapStateToProps = (state, { formValueSelector }) => {
+  return {
+    featureObservations: formValueSelector(state, 'featureObservations'),
+  }
+}
+
+const propTypes = {
+  featureObservations: PropTypes.arrayOf(PropTypes.shape({}).isRequired),
+}
+const defaultProps = {
+  featureObservations: undefined,
+}
+
+// prettier-ignore
+function SegmentFeatureObservations({ featureObservations }) { // eslint-disable-line no-unused-vars
   return (
     <Segment>
       <Header size="medium">
@@ -66,3 +83,8 @@ export default () => {
     </Segment>
   )
 }
+
+SegmentFeatureObservations.propTypes = propTypes
+SegmentFeatureObservations.defaultProps = defaultProps
+
+export default compose(connect(mapStateToProps))(SegmentFeatureObservations)
