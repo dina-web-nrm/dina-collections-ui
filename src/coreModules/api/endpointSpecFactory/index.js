@@ -110,9 +110,9 @@ export const buildEndpointSpec = ({ operationId, ...rest }) => {
     console.warn(`Operation id: ${operationId} unknown`) // eslint-disable-line no-console
   }
 
-  const { methodSpecification, pathname } = map[operationId] || {}
-
+  const { methodName, methodSpecification, pathname } = map[operationId] || {}
   return {
+    methodName,
     mock: createMockData({
       methodSpecification,
     }),

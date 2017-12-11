@@ -19,6 +19,9 @@ const endpointConfigSchema = {
         type: 'string',
       },
     },
+    methodName: {
+      type: 'string',
+    },
     mock: {
       not: {
         type: 'string',
