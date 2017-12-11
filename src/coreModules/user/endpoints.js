@@ -6,6 +6,7 @@ export const LOG_IN = buildEndpointSpec({
       accessToken: json.access_token,
     }
   },
+  methodName: 'formPost',
   operationId: 'loginUser',
 })
 
