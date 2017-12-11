@@ -36,6 +36,15 @@ const getModelNameFromSchema = schema => {
   return segments[segments.length - 1]
 }
 
+const getSchemaFromRequestBody = requestBody => {
+  return (
+    requestBody &&
+    requestBody.content &&
+    requestBody.content['application/json'] &&
+    requestBody.content['application/json'].schema
+  )
+}
+
 const getSchemaFromResponse = response => {
   return (
     response &&
@@ -46,18 +55,10 @@ const getSchemaFromResponse = response => {
 }
 
 const getBodyValidator = ({ methodSpecification }) => {
-  const { parameters } = methodSpecification
+  const schema = getSchemaFromRequestBody(methodSpecification.requestBody)
 
-  if (!parameters) {
-    return null
-  }
-
-  const bodyParameter = parameters.find(parameterSpecification => {
-    return parameterSpecification.in === 'body'
-  })
-
-  if (bodyParameter) {
-    const modelName = getModelNameFromSchema(bodyParameter.schema)
+  if (schema) {
+    const modelName = getModelNameFromSchema(schema)
     return createSystemModelSchemaValidator({
       model: modelName,
       throwOnError: true,
