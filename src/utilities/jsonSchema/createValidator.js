@@ -2,19 +2,25 @@ import objectPath from 'object-path'
 import Ajv from 'ajv'
 import models from 'dina-schema/build/models.json'
 
-const options = {
+const defaultOptions = {
   allErrors: true,
   // errorDataPath: 'property',
   jsonPointers: true, // -> /members/0
   useDefaults: true, // e.g.to may have default empty array
-  verbose: true, // to have information about the error.parentSchema
+  verbose: false, // to have information about the error.parentSchema
 }
 
-const ajv = new Ajv(options)
+const createAjv = options => {
+  const ajv = new Ajv(options)
 
-Object.keys(models).forEach(key => {
-  ajv.addSchema(models[key], key)
-})
+  Object.keys(models).forEach(key => {
+    ajv.addSchema(models[key], key)
+  })
+
+  return ajv
+}
+
+const defaultAjv = createAjv(defaultOptions)
 
 // TODO: rename model to modelName
 export default function createModelSchemaValidator({
@@ -23,7 +29,10 @@ export default function createModelSchemaValidator({
   model,
   errorHandler,
   throwOnError,
+  options,
 }) {
+  const ajv = options ? createAjv(options) : defaultAjv
+
   if (model && !models[model]) {
     throw new Error(`Unknown model: ${model}`)
   }
