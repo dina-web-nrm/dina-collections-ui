@@ -67,7 +67,7 @@ const testEndpoint = (apiClient, endpoint) => {
 
         if (isKnownError(err) && err.error) {
           const formattedError = {
-            message: JSON.stringify(err.error, null, 2),
+            message: JSON.stringify(err, null, 2),
           }
           throw formattedError
         }
