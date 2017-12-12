@@ -13,6 +13,6 @@ export default function createMockGenerator({ model, schema: customSchema }) {
   }
   const schema = models[model] || customSchema
   return () => {
-    return createMockDataFromSchema(schema)
+    return createMockDataFromSchema(schema, models)
   }
 }
