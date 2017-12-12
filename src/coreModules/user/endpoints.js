@@ -1,8 +1,4 @@
-import { createSystemSchemaValidator } from 'utilities/error'
-import createMockDataFromSchema from 'utilities/jsonSchema/createMockDataFromSchema'
 import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
-
-import { user, loginResponse } from './schemas'
 
 export const LOG_IN = buildEndpointSpec({
   mapResponse: json => {
@@ -10,9 +6,8 @@ export const LOG_IN = buildEndpointSpec({
       accessToken: json.access_token,
     }
   },
-  mock: () => createMockDataFromSchema(loginResponse),
+  methodName: 'formPost',
   operationId: 'loginUser',
-  validateResponse: createSystemSchemaValidator(loginResponse),
 })
 
 export const GET_USER = buildEndpointSpec({
@@ -22,8 +17,6 @@ export const GET_USER = buildEndpointSpec({
       username: json.preferred_username,
     }
   },
-  mock: () => createMockDataFromSchema(user),
   operationId: 'getUser',
   pathname: '/auth/realms/dina/protocol/openid-connect/userinfo',
-  validateResponse: createSystemSchemaValidator(user),
 })

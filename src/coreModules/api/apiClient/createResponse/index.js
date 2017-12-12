@@ -10,14 +10,19 @@ module.exports = function createResponse({
   methodConfig,
   responseData,
 }) {
+  const { validateOutput } = apiConfig
+
   const configs = [apiConfig, endpointConfig, methodConfig]
 
-  return Promise.all([
-    chainPromises(
-      extractMethodsFromConfigs(configs, 'validateResponse'),
-      responseData
-    ),
-  ]).then(() => {
+  return (!validateOutput
+    ? Promise.resolve()
+    : Promise.all([
+        chainPromises(
+          extractMethodsFromConfigs(configs, 'validateResponse'),
+          responseData
+        ),
+      ])
+  ).then(() => {
     return Promise.all([
       chainPromises(
         extractMethodsFromConfigs(configs, 'mapResponse'),

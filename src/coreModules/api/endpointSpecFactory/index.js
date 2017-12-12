@@ -1,6 +1,6 @@
 import openApiSpec from 'dina-schema/build/openApi.json'
-
 import { createSystemModelSchemaValidator } from 'utilities/error'
+import createMockGenerator from 'utilities/jsonSchema/createMockGenerator'
 
 const buildOperationIdPathnameMap = () => {
   const map = {}
@@ -22,8 +22,12 @@ const buildOperationIdPathnameMap = () => {
 
 const map = buildOperationIdPathnameMap()
 
-const getModelNameFromParameter = ({ schema }) => {
+const getModelNameFromSchema = schema => {
   if (!schema) {
+    return null
+  }
+
+  if (!schema.$ref) {
     return null
   }
 
@@ -32,22 +36,70 @@ const getModelNameFromParameter = ({ schema }) => {
   return segments[segments.length - 1]
 }
 
+const getSchemaFromRequestBody = requestBody => {
+  return (
+    requestBody &&
+    requestBody.content &&
+    requestBody.content['application/json'] &&
+    requestBody.content['application/json'].schema
+  )
+}
+
+const getSchemaFromResponse = response => {
+  return (
+    response &&
+    response.content &&
+    response.content['application/json'] &&
+    response.content['application/json'].schema
+  )
+}
+
 const getBodyValidator = ({ methodSpecification }) => {
-  const { parameters } = methodSpecification
+  const schema = getSchemaFromRequestBody(methodSpecification.requestBody)
 
-  if (!parameters) {
-    return null
-  }
-
-  const bodyParameter = parameters.find(parameterSpecification => {
-    return parameterSpecification.in === 'body'
-  })
-
-  if (bodyParameter) {
-    const modelName = getModelNameFromParameter(bodyParameter)
+  if (schema) {
+    const modelName = getModelNameFromSchema(schema)
     return createSystemModelSchemaValidator({
       model: modelName,
       throwOnError: true,
+    })
+  }
+
+  return null
+}
+
+const getResponseValidator = ({ methodSpecification }) => {
+  const schema = getSchemaFromResponse(methodSpecification.responses[200])
+  if (schema) {
+    const modelName = getModelNameFromSchema(schema)
+    if (modelName) {
+      return createSystemModelSchemaValidator({
+        dataPath: 'json',
+        model: modelName,
+        throwOnError: true,
+      })
+    }
+    return createSystemModelSchemaValidator({
+      dataPath: 'json',
+      schema,
+      throwOnError: true,
+    })
+  }
+
+  return null
+}
+
+const createMockData = ({ methodSpecification }) => {
+  const schema = getSchemaFromResponse(methodSpecification.responses[200])
+  if (schema) {
+    const modelName = getModelNameFromSchema(schema)
+    if (modelName) {
+      return createMockGenerator({
+        model: modelName,
+      })
+    }
+    return createMockGenerator({
+      schema,
     })
   }
 
@@ -60,14 +112,18 @@ export const buildEndpointSpec = ({ operationId, ...rest }) => {
   }
 
   const { methodName, methodSpecification, pathname } = map[operationId] || {}
-
   return {
+    methodName,
+    mock: createMockData({
+      methodSpecification,
+    }),
     operationId,
     pathname,
     validateBody: getBodyValidator({
-      methodName,
       methodSpecification,
-      pathname,
+    }),
+    validateResponse: getResponseValidator({
+      methodSpecification,
     }),
     ...rest,
   }

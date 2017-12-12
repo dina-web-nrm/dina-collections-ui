@@ -10,13 +10,13 @@ import { ConnectedRouter } from 'react-router-redux'
 import { Provider as ReduxProvider } from 'react-redux'
 import registerServiceWorker from 'registerServiceWorker'
 
-import { viewOrder } from './viewModules'
-import App from './App/Async'
+import { moduleOrder } from './viewModules'
+import App from './viewModules/app/Async'
 import config from './config'
 import modules from './initialModules'
-import Public from './Public/Async'
+import Public from './viewModules/public/Async'
 
-const store = createStore({ config, modules, viewOrder })
+const store = createStore({ config, modules, viewOrder: moduleOrder })
 
 ReactDOM.render(
   <ReduxProvider store={store}>

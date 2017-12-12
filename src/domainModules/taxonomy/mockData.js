@@ -32,7 +32,7 @@ export const taxonomyResponse = {
       type: 'taxon',
       id: '10400056',
       attributes: {
-        rubin_number: null,
+        rubin_number: undefined,
         higherTaxa: {
           order: 'Didelphimorphia',
           suborder: '',
@@ -85,7 +85,7 @@ export const taxonomyResponse = {
       type: 'taxon',
       id: '10400078',
       attributes: {
-        rubin_number: null,
+        rubin_number: undefined,
         higherTaxa: {
           order: 'Didelphimorphia',
           suborder: '',
@@ -111,7 +111,7 @@ export const taxonomyResponse = {
       type: 'taxon',
       id: '10800060',
       attributes: {
-        rubin_number: null,
+        rubin_number: undefined,
         higherTaxa: {
           order: 'Dasyuromorphia',
           suborder: '',
@@ -138,7 +138,7 @@ export const taxonomyResponse = {
       type: 'taxon',
       id: '10800117',
       attributes: {
-        rubin_number: null,
+        rubin_number: undefined,
         higherTaxa: {
           order: 'Dasyuromorphia',
           suborder: '',

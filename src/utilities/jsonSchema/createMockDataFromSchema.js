@@ -1,7 +1,11 @@
 export const importFaker = () => import('json-schema-faker')
 
-export default function createMockDataFromSchema(schema) {
+export default function createMockDataFromSchema(schema, models) {
   return importFaker().then(jsf => {
-    return jsf(schema)
+    const modelsToUse = Object.keys(models).map(moduleKey => {
+      return models[moduleKey]
+    })
+    const mock = jsf(schema, modelsToUse)
+    return mock
   })
 }

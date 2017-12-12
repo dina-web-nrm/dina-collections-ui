@@ -12,9 +12,7 @@ const createSublimeSnippet = (config, templateDefinition) => {
   return `
 <snippet>
   <content>
-    <![CDATA[
-${content}
-    ]]>
+    <![CDATA[${content}]]>
   </content>
   <tabTrigger>${prefixedTrigger}</tabTrigger>
 </snippet>

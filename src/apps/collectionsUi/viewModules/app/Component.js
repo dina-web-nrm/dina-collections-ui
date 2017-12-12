@@ -9,12 +9,12 @@ import {
 import { requireLoggedIn } from 'coreModules/user/higherOrderComponents'
 import { ShortcutsDisplay } from 'coreModules/keyboardShortcuts/components'
 
-import EditMammal from '../viewModules/editMammal/Async'
-import Home from '../viewModules/home/Async'
-import LookupMammals from '../viewModules/lookupMammals/Async'
-import PageNotFound from '../viewModules/pageNotFound/Async'
-import RegisterMammal from '../viewModules/registerMammal/Async'
-import Settings from '../viewModules/settings/Async'
+import EditMammal from '../editMammal/Async'
+import Home from '../home/Async'
+import LookupMammals from '../lookupMammals/Async'
+import PageNotFound from '../pageNotFound/Async'
+import RegisterMammal from '../registerMammal/Async'
+import Settings from '../settings/Async'
 
 const NAVIGATION_SIDEBAR_ITEMS = [
   {

@@ -1,6 +1,6 @@
 let mockId = 0
 
-export const getIndividualGroup = queryParams => {
+export const getIndividualGroup = (queryParams = {}) => {
   mockId += 1
   return {
     attributes: {
@@ -38,7 +38,9 @@ export const getIndividualGroup = queryParams => {
   }
 }
 
-export const createLookupMammalsResponse = ({ request: { queryParams } }) => {
+export const createLookupMammalsResponse = ({
+  request: { queryParams = {} },
+}) => {
   if (
     (queryParams && queryParams['filter[catalogNumber]']) ||
     queryParams['filter[identifiedTaxonNameStandardized]']
@@ -47,7 +49,6 @@ export const createLookupMammalsResponse = ({ request: { queryParams } }) => {
       data: [getIndividualGroup(queryParams)],
     }
   }
-
   return {
     data: [
       getIndividualGroup({
