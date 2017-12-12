@@ -31,9 +31,10 @@ export default function registerMammal(formData, throwError = true) {
     attributes = immutable.set(
       attributes,
       'featureObservations',
-      formData.featureObservations.filter(featureObservation => {
-        return featureObservation.featureObservationText
-      })
+      formData.featureObservations &&
+        formData.featureObservations.filter(featureObservation => {
+          return featureObservation.featureObservationText
+        })
     )
 
     attributes = {
