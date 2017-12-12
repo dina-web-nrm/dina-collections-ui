@@ -8,9 +8,10 @@ const propTypes = {
 
 const defaultProps = {}
 
-const Property = ({ property }) => {
+const Property = ({ model, property }) => {
+  const id = `${model.key}.${property.key}`
   return (
-    <Segment>
+    <Segment id={id}>
       <h2>{property.key || 'Property title'}</h2>
       <p>{property.description || 'Property description'}</p>
       <p>{JSON.stringify(property || {}, null, 2)}</p>

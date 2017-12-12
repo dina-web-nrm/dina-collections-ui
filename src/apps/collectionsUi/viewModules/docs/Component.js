@@ -6,7 +6,6 @@ class Docs extends Component {
   render() {
     return (
       <div>
-        <h1>docs</h1>
         <DataModel />
       </div>
     )

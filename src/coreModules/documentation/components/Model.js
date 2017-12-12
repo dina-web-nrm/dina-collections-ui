@@ -22,7 +22,7 @@ const Model = ({ model }) => {
       <PropertyOverview properties={properties} />
       <Segment inverted>
         {properties.map(property => {
-          return <Property property={property} />
+          return <Property model={model} property={property} />
         })}
       </Segment>
     </Segment>

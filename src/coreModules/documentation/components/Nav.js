@@ -5,85 +5,81 @@ export default class MenuExampleHeaderVertical extends Component {
   handleItemClick = name => this.setState({ activeItem: name })
 
   render() {
+    const { specification } = this.props
     const { activeItem } = this.state || {}
+    const schemas = specification.components.schemas
+    console.log('schemas', schemas)
+
+    const models = Object.keys(schemas)
+      .map(key => {
+        return {
+          ...schemas[key],
+          key,
+        }
+      })
+      .filter(model => model['x-modelType'] === 'model')
+
+    const parameters = models.reduce((array, model) => {
+      const parameterArray = Object.keys(model.properties || []).reduce(
+        (modelParameters, paramenterKey) => {
+          return [...modelParameters, `${model.key}.${paramenterKey}`]
+        },
+        []
+      )
+
+      return [...array, ...parameterArray]
+    }, [])
 
     return (
-      <Menu fluid vertical>
+      <Menu
+        fluid
+        style={{ height: '100%', overflow: 'scroll', position: 'fixed' }}
+        vertical
+      >
+        <h1>docs</h1>
         <Menu.Item>
-          <Menu.Header>Products</Menu.Header>
-
+          <Menu.Header>Models</Menu.Header>
           <Menu.Menu>
-            <Menu.Item
-              name="enterprise"
-              active={activeItem === 'enterprise'}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name="consumer"
-              active={activeItem === 'consumer'}
-              onClick={this.handleItemClick}
-            />
+            {models.map(model => {
+              return (
+                <Menu.Item
+                  active={activeItem === model.key}
+                  href={`#${model.key}`}
+                  name={model.key}
+                  onClick={this.handleItemClick}
+                />
+              )
+            })}
           </Menu.Menu>
         </Menu.Item>
-
         <Menu.Item>
-          <Menu.Header>CMS Solutions</Menu.Header>
-
+          <Menu.Header>Parameters</Menu.Header>
           <Menu.Menu>
-            <Menu.Item
-              name="rails"
-              active={activeItem === 'rails'}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name="python"
-              active={activeItem === 'python'}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name="php"
-              active={activeItem === 'php'}
-              onClick={this.handleItemClick}
-            />
+            {parameters.map(parameterKey => {
+              return (
+                <Menu.Item
+                  active={activeItem === parameterKey}
+                  href={`#${parameterKey}`}
+                  name={parameterKey}
+                  onClick={this.handleItemClick}
+                />
+              )
+            })}
           </Menu.Menu>
         </Menu.Item>
-
         <Menu.Item>
-          <Menu.Header>Hosting</Menu.Header>
-
+          <Menu.Header>Parameters</Menu.Header>
           <Menu.Menu>
-            <Menu.Item
-              name="shared"
-              active={activeItem === 'shared'}
-              onClick={this.handleItemClick}
-            />
-            <Menu.Item
-              name="dedicated"
-              active={activeItem === 'dedicated'}
-              onClick={this.handleItemClick}
-            />
-          </Menu.Menu>
-        </Menu.Item>
-
-        <Menu.Item>
-          <Menu.Header>Support</Menu.Header>
-
-          <Menu.Menu>
-            <Menu.Item
-              name="email"
-              active={activeItem === 'email'}
-              onClick={this.handleItemClick}
-            >
-              E-mail Support
-            </Menu.Item>
-
-            <Menu.Item
-              name="faq"
-              active={activeItem === 'faq'}
-              onClick={this.handleItemClick}
-            >
-              FAQs
-            </Menu.Item>
+            {parameters.map(parameterKey => {
+              return (
+                <Menu.Item
+                  active={activeItem === parameterKey}
+                  href={`#${parameterKey}`}
+                  name={parameterKey}
+                  onClick={this.handleItemClick}
+                />
+              )
+            })}
           </Menu.Menu>
         </Menu.Item>
       </Menu>

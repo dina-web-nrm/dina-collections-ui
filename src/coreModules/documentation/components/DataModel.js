@@ -26,7 +26,7 @@ class DataModel extends Component {
         <Grid divided inverted stackable>
           <Grid.Row>
             <Grid.Column width={3}>
-              <Nav />
+              <Nav specification={openApiSpec} />
             </Grid.Column>
             <Grid.Column width={13}>
               <div>
