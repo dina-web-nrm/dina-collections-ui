@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 import { Header, Grid, Segment } from 'semantic-ui-react'
 
 import { createModuleTranslate } from 'coreModules/i18n/components'
@@ -12,6 +14,12 @@ const ModuleTranslate = createModuleTranslate('collectionMammals')
 
 const buildPath = fieldNamePathFactory('identifications')
 
+const mapStateToProps = (state, { formValueSelector }) => {
+  return {
+    identifications: formValueSelector(state, 'identifications'),
+  }
+}
+
 const propTypes = {
   identifications: PropTypes.arrayOf(
     PropTypes.shape({
@@ -22,6 +30,9 @@ const propTypes = {
     })
   ).isRequired,
   taxonNameFieldKey: PropTypes.string.isRequired,
+}
+const defaultProps = {
+  identifications: undefined,
 }
 
 const SegmentDetermination = ({ identifications, taxonNameFieldKey }) => {
@@ -58,10 +69,9 @@ const SegmentDetermination = ({ identifications, taxonNameFieldKey }) => {
             name={taxonNameFieldKey}
             type="text"
             value={
-              (identifications &&
-                identifications[0] &&
-                identifications[0].taxonName) ||
-              undefined
+              identifications &&
+              identifications[0] &&
+              identifications[0].taxonName
             }
           />
         </Grid.Column>
@@ -89,10 +99,9 @@ const SegmentDetermination = ({ identifications, taxonNameFieldKey }) => {
               name={buildPath('identifiedYear')}
               type="numberAsText"
               value={
-                (identifications &&
-                  identifications[0] &&
-                  identifications[0].identifiedYear) ||
-                undefined
+                identifications &&
+                identifications[0] &&
+                identifications[0].identifiedYear
               }
             />
           </Grid.Column>
@@ -106,10 +115,9 @@ const SegmentDetermination = ({ identifications, taxonNameFieldKey }) => {
               name={buildPath('identifiedMonth')}
               type="numberAsText"
               value={
-                (identifications &&
-                  identifications[0] &&
-                  identifications[0].identifiedMonth) ||
-                undefined
+                identifications &&
+                identifications[0] &&
+                identifications[0].identifiedMonth
               }
             />
           </Grid.Column>
@@ -123,10 +131,9 @@ const SegmentDetermination = ({ identifications, taxonNameFieldKey }) => {
               name={buildPath('identifiedDay')}
               type="numberAsText"
               value={
-                (identifications &&
-                  identifications[0] &&
-                  identifications[0].identifiedDay) ||
-                undefined
+                identifications &&
+                identifications[0] &&
+                identifications[0].identifiedDay
               }
             />
           </Grid.Column>
@@ -149,5 +156,6 @@ const SegmentDetermination = ({ identifications, taxonNameFieldKey }) => {
 }
 
 SegmentDetermination.propTypes = propTypes
+SegmentDetermination.defaultProps = defaultProps
 
-export default SegmentDetermination
+export default compose(connect(mapStateToProps))(SegmentDetermination)

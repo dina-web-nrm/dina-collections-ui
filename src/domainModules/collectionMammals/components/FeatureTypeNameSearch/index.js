@@ -1,33 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import SearchInputWithResults from 'coreModules/form/components/SearchInputWithResults'
-import TranslateSearchResult from '../TranslateSearchResult'
-import { days, months, years } from './dateOptions'
-import { DAY, MONTH, YEAR } from '../../constants'
+import {
+  SearchInputWithResults,
+  TranslateSearchResult,
+} from 'coreModules/form/components'
+import { withTranslate } from 'coreModules/i18n/higherOrderComponents'
+import { FEATURE_OBSERVATION_TYPE_NAMES } from '../../constants'
 
-const createStringMatch = controlledValue => ({ value }) => {
-  return String(value).indexOf(String(controlledValue)) === 0
-}
-
-const getDateSuggestions = (datePart, controlledValue) => {
-  const beginsWithSameDigits = createStringMatch(controlledValue)
-
-  switch (datePart) {
-    case DAY:
-      return days.filter(beginsWithSameDigits)
-    case MONTH:
-      return months.filter(beginsWithSameDigits)
-    case YEAR:
-      return years.filter(beginsWithSameDigits).slice(0, 10)
-    default:
-      return []
+const results = FEATURE_OBSERVATION_TYPE_NAMES.map(typeName => {
+  return {
+    key: typeName,
+    textKey: `modules.collectionMammals.featureObservations.${typeName}`,
+    value: typeName,
   }
-}
+})
 
 const propTypes = {
   controlledValue: PropTypes.number,
-  datePart: PropTypes.oneOf([DAY, MONTH, YEAR]).isRequired,
   errorScope: PropTypes.string,
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   input: PropTypes.shape({
@@ -42,6 +32,7 @@ const propTypes = {
     touched: PropTypes.bool.isRequired,
   }).isRequired,
   required: PropTypes.bool,
+  translate: PropTypes.func.isRequired,
 }
 
 const defaultProps = {
@@ -52,7 +43,7 @@ const defaultProps = {
   required: false,
 }
 
-class InputDatePart extends Component {
+class FeatureTypeNameSearch extends Component {
   constructor(props) {
     super(props)
     this.handleResultSelect = this.handleResultSelect.bind(this)
@@ -74,13 +65,13 @@ class InputDatePart extends Component {
   render() {
     const {
       controlledValue,
-      datePart,
       errorScope,
       helpText,
       input,
       label,
       meta,
       required,
+      translate,
       ...rest
     } = this.props
 
@@ -92,23 +83,24 @@ class InputDatePart extends Component {
         handleResultSelect={this.handleResultSelect}
         handleSearchChange={this.handleSearchChange}
         helpText={helpText}
-        icon={null} // skip search icon
         input={{
           name: input.name,
-          value,
+          value: translate({
+            textKey: `modules.collectionMammals.featureObservations.${value}`,
+          }),
         }}
         label={label}
         meta={meta}
         required={required}
         resultRenderer={TranslateSearchResult}
-        results={getDateSuggestions(datePart, value)}
+        results={results}
         {...rest}
       />
     )
   }
 }
 
-InputDatePart.propTypes = propTypes
-InputDatePart.defaultProps = defaultProps
+FeatureTypeNameSearch.propTypes = propTypes
+FeatureTypeNameSearch.defaultProps = defaultProps
 
-export default InputDatePart
+export default withTranslate(FeatureTypeNameSearch)

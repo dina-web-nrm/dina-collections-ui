@@ -61,8 +61,6 @@ const mapStateToProps = state => {
 
   return {
     // TODO: make this dynamic
-    identifications: formValueSelector(state, 'identifications'),
-    occurrences: formValueSelector(state, 'occurrences'),
     schemaErrors: syncErrors && syncErrors.schemaErrors,
   }
 }
@@ -76,14 +74,6 @@ const propTypes = {
   error: PropTypes.string,
   handleFormSubmit: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  identifications: PropTypes.arrayOf(
-    PropTypes.shape({
-      identifiedDay: PropTypes.number,
-      identifiedMonth: PropTypes.number,
-      identifiedTaxonNameStandardized: PropTypes.string,
-      identifiedYear: PropTypes.number,
-    })
-  ),
   individualGroupAttributes: PropTypes.shape({
     // TODO: define and possibly centralize propTypes for individualGroup
     identifications: PropTypes.arrayOf(
@@ -105,13 +95,6 @@ const propTypes = {
   individualGroupId: PropTypes.number,
   initialize: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
-  occurrences: PropTypes.arrayOf(
-    PropTypes.shape({
-      dayStart: PropTypes.number,
-      monthStart: PropTypes.number,
-      yearStart: PropTypes.number,
-    })
-  ),
   pristine: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
   schemaErrors: PropTypes.arrayOf(
@@ -124,10 +107,8 @@ const propTypes = {
 
 const defaultProps = {
   error: '',
-  identifications: [],
   individualGroupAttributes: undefined,
   individualGroupId: undefined,
-  occurrences: [],
   schemaErrors: [],
 }
 
@@ -189,9 +170,7 @@ class RawMammalForm extends Component {
     const {
       error,
       handleSubmit,
-      identifications,
       invalid,
-      occurrences,
       pristine,
       reset,
       schemaErrors,
@@ -209,11 +188,11 @@ class RawMammalForm extends Component {
       >
         <SegmentCatalogedUnit />
         <SegmentDetermination
-          identifications={identifications}
+          formValueSelector={formValueSelector}
           taxonNameFieldKey={TAXON_NAME_FIELD_KEY}
         />
-        <SegmentCollectingInformation occurrences={occurrences} />
-        <SegmentFeatureObservations />
+        <SegmentCollectingInformation formValueSelector={formValueSelector} />
+        <SegmentFeatureObservations formValueSelector={formValueSelector} />
         <SegmentPhysicalUnits />
 
         <Segment>

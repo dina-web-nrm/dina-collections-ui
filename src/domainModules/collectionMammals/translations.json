@@ -128,6 +128,10 @@
       "en": "Age determination method",
       "sv": "Åldersbestämningsmetod"
     },
+    "agent": {
+      "en": "Agent",
+      "sv": ""
+    },
     "ageStage": {
       "en": "Age stage",
       "sv": "Åldersstadium"
@@ -136,13 +140,29 @@
       "en": "Condition at collecting",
       "sv": ""
     },
+    "date": {
+      "en": "Date",
+      "sv": ""
+    },
+    "feature": {
+      "en": "Feature",
+      "sv": ""
+    },
     "features": {
       "en": "Features",
       "sv": "Egenskaper"
     },
+    "method": {
+      "en": "Method",
+      "sv": ""
+    },
     "sex": {
       "en": "Sex",
       "sv": "Kön"
+    },
+    "value": {
+      "en": "Value",
+      "sv": ""
     }
   },
   "physicalUnits": {
