@@ -32,18 +32,9 @@ const getFormSyncErrorsSelector = getFormSyncErrors(FORM_NAME)
 
 const INITIAL_VALUES = {
   featureObservations: [
-    { featureObservationType: { featureObservationTypeName: 'sex', id: 1 } },
-    { featureObservationType: { featureObservationTypeName: 'age', id: 2 } },
-    {
-      featureObservationType: {
-        featureObservationTypeName: 'ageStage',
-        id: 3,
-      },
-    },
     {
       featureObservationType: {
         featureObservationTypeName: 'conditionAtCollecting',
-        id: 4,
       },
     },
   ],
