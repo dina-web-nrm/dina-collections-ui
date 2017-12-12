@@ -16,7 +16,7 @@ import createLog from 'utilities/log'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import SegmentCatalogedUnit from './SegmentCatalogedUnit'
 import SegmentDetermination from './SegmentDetermination'
-import SegmentFeatureObservations from './SegmentFeatureObservations'
+import SegmentFeatureObservations from './SegmentFeatureObservations/index'
 import SegmentCollectingInformation from './SegmentCollectingInformation'
 import SegmentPhysicalUnits from './SegmentPhysicalUnits'
 
