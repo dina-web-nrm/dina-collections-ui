@@ -11,10 +11,10 @@ import { Provider as ReduxProvider } from 'react-redux'
 import registerServiceWorker from 'registerServiceWorker'
 
 import { moduleOrder } from './viewModules'
-import App from './viewModules/App/Async'
+import App from './viewModules/app/Async'
 import config from './config'
 import modules from './initialModules'
-import Public from './viewModules/Public/Async'
+import Public from './viewModules/public/Async'
 
 const store = createStore({ config, modules, viewOrder: moduleOrder })
 
