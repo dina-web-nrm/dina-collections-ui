@@ -16,13 +16,15 @@ const Model = ({ model }) => {
     return { key, ...model.properties[key] }
   })
   return (
-    <Segment>
+    <Segment id={model.key}>
       <h2>{model.key}</h2>
       <p>{model.description || 'Model description'}</p>
       <PropertyOverview properties={properties} />
-      {properties.map(property => {
-        return <Property property={property} />
-      })}
+      <Segment inverted>
+        {properties.map(property => {
+          return <Property property={property} />
+        })}
+      </Segment>
     </Segment>
   )
 }

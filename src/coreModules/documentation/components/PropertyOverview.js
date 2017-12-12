@@ -9,16 +9,69 @@ const propTypes = {
 
 const defaultProps = {}
 
+const getArrayLink = property => {
+  const segments =
+    property.items && property.items.$ref && property.items.$ref.split('/')
+
+  if (!segments) {
+    return ''
+  }
+
+  const len = segments.length
+
+  if (!len) {
+    return ''
+  }
+
+  return segments[len - 1]
+}
+
+const getModelLink = property => {
+  const segments = property && property.$ref && property.$ref.split('/')
+
+  if (!segments) {
+    return ''
+  }
+
+  const len = segments.length
+
+  if (!len) {
+    return ''
+  }
+
+  return segments[len - 1]
+}
+
+const Type = ({ property }) => {
+  const { type } = property
+
+  if (type === 'array') {
+    return (
+      <a href={`#${getArrayLink(property)}`}>{`<ARRAY> ${
+        property.items.$ref
+      }`}</a>
+    )
+  }
+
+  if (property.$ref) {
+    return (
+      <a href={`#${getModelLink(property)}`}>{`<MODEL> ${property.$ref}`}</a>
+    )
+  }
+
+  return type || ''
+}
+
 const PropertyOverview = ({ properties }) => {
-  console.log('properties', properties)
+  console.log('properties', properties[0])
 
   return (
     <Table celled>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell>Header 1</Table.HeaderCell>
-          <Table.HeaderCell>Header 2</Table.HeaderCell>
-          <Table.HeaderCell>Header 3</Table.HeaderCell>
+          <Table.HeaderCell>Key</Table.HeaderCell>
+          <Table.HeaderCell>Type</Table.HeaderCell>
+          <Table.HeaderCell>Example</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
 
@@ -26,9 +79,11 @@ const PropertyOverview = ({ properties }) => {
         {properties.map(property => {
           return (
             <Table.Row>
-              <Table.Cell>${property.key}</Table.Cell>
-              <Table.Cell>Cell</Table.Cell>
-              <Table.Cell>Cell</Table.Cell>
+              <Table.Cell>{property.key}</Table.Cell>
+              <Table.Cell>
+                <Type property={property} />
+              </Table.Cell>
+              <Table.Cell>{property.example}</Table.Cell>
             </Table.Row>
           )
         })}

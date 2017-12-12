@@ -6,10 +6,8 @@ class Docs extends Component {
   render() {
     return (
       <div>
-        <ViewWrap>
-          <h1>docs</h1>
-          <DataModel />
-        </ViewWrap>
+        <h1>docs</h1>
+        <DataModel />
       </div>
     )
   }
