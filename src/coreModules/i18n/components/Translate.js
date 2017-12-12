@@ -9,19 +9,21 @@ const contextTypes = {
 }
 const propTypes = {
   capitalize: PropTypes.bool,
+  fallback: PropTypes.string,
   params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   textKey: PropTypes.string,
   textKeys: PropTypes.arrayOf(PropTypes.string),
 }
 const defaultProps = {
   capitalize: false,
+  fallback: undefined,
   params: null,
   textKey: '',
   textKeys: [],
 }
 
 const Translate = (
-  { capitalize, params, textKey, textKeys },
+  { capitalize, fallback, params, textKey, textKeys },
   { language, translations }
 ) => {
   const translation = getTranslationByPath(translations, {
@@ -35,6 +37,10 @@ const Translate = (
     capitalize && translation ? capitalizeFirstLetter(translation) : translation
   if (!output) {
     console.warn(`Translation not found for path: ${textKey}`, translations) // eslint-disable-line no-console
+  }
+
+  if (fallback && output === textKey) {
+    return <span>{fallback}</span>
   }
 
   return <span>{output || textKey}</span>

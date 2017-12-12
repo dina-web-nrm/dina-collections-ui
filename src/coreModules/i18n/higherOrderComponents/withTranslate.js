@@ -14,7 +14,7 @@ export default function withTranslate(ComposedComponent) {
       this.translate = this.translate.bind(this)
     }
 
-    translate({ capitalize, params, textKey, textKeys }) {
+    translate({ capitalize, fallback, params, textKey, textKeys }) {
       const { language, translations } = this.context
       const translation = getTranslationByPath(translations, {
         language,
@@ -29,6 +29,10 @@ export default function withTranslate(ComposedComponent) {
           : translation
       if (!output) {
         console.warn(`Translation not found for path: ${textKey}`, translations) // eslint-disable-line no-console
+      }
+
+      if (fallback && output === textKey) {
+        return fallback
       }
 
       return output || textKey
