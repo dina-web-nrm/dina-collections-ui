@@ -153,6 +153,10 @@ const testModulesInFolder = folderName => {
   })
 }
 
-testModuleFolder('coreModules')
+testModulesInFolder('coreModules')
 testModulesInFolder('domainModules')
 testModulesInFolder('viewModules')
+
+testModuleFolder('coreModules')
+testModuleFolder('domainModules')
+testModuleFolder('viewModules')
