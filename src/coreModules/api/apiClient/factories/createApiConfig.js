@@ -34,17 +34,28 @@ const apiConfigSchema = {
     throwOnValidationErrors: {
       type: 'boolean',
     },
+    validateInput: {
+      type: 'boolean',
+    },
+    validateOutput: {
+      type: 'boolean',
+    },
   },
-  required: [],
+  required: ['validateInput', 'validateOutput'],
 }
 
 module.exports = function createApiConfig(apiConfigInput = {}) {
-  const { systemValidate } = apiConfigInput
+  const apiConfig = {
+    validateInput: true,
+    validateOutput: true,
+    ...apiConfigInput,
+  }
 
-  const error =
-    systemValidate && systemValidate(apiConfigInput, apiConfigSchema)
+  const { systemValidate } = apiConfig
+
+  const error = systemValidate && systemValidate(apiConfig, apiConfigSchema)
   if (error) {
     throw error
   }
-  return apiConfigInput
+  return apiConfig
 }

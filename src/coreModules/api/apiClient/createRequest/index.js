@@ -10,6 +10,8 @@ module.exports = function createRequest({
   methodConfig,
   userInput,
 }) {
+  const { validateInput } = apiConfig
+
   const configs = [apiConfig, endpointConfig, methodConfig]
 
   return Promise.all([
@@ -35,6 +37,9 @@ module.exports = function createRequest({
       headers,
       pathParams,
       queryParams,
+    }
+    if (!validateInput) {
+      return request
     }
 
     return Promise.all([
