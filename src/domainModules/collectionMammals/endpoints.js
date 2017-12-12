@@ -18,11 +18,9 @@ export const LOOKUP_MAMMALS = buildEndpointSpec({
 })
 
 export const REGISTER_MAMMAL = buildEndpointSpec({
-  mock: ({ request }) => request.body,
   operationId: 'createIndividualGroup',
 })
 
 export const UPDATE_INDIVIDUAL_GROUP = buildEndpointSpec({
-  mock: ({ request }) => request.body,
   operationId: 'updateIndividualGroup',
 })
