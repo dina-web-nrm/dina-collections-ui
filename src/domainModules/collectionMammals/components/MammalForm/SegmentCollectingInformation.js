@@ -187,7 +187,8 @@ function SegmentCollectingInformation({ occurrences }) {
               />
             }
             module="collectionMammals"
-            name={buildFeatureObservationsPath('featureObservationText', 3)}
+            // TODO: make this work so the index is dynamic and not colliding with other featureobservations
+            name={buildFeatureObservationsPath('featureObservationText', 0)}
             type="text"
           />
         </Grid.Column>
