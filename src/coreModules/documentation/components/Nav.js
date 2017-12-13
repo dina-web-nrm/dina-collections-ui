@@ -1,14 +1,24 @@
 import React, { Component } from 'react'
 import { Menu } from 'semantic-ui-react'
+import { NavLink } from 'react-router-dom'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
-export default class MenuExampleHeaderVertical extends Component {
-  handleItemClick = name => this.setState({ activeItem: name })
+import i18nSelectors from 'coreModules/i18n/globalSelectors'
+import specification from 'dina-schema/build/openApi.json'
 
+import createModelLink from '../utilities/createModelLink'
+import createParameterLink from '../utilities/createParameterLink'
+
+const mapStateToProps = state => {
+  return {
+    markdownKeys: i18nSelectors.getMarkdownKeysByPath(state, 'docs.overview'),
+  }
+}
+
+class Nav extends Component {
   render() {
-    const { specification } = this.props
-    const { activeItem } = this.state || {}
     const schemas = specification.components.schemas
-    console.log('schemas', schemas)
 
     const models = Object.keys(schemas)
       .map(key => {
@@ -21,8 +31,8 @@ export default class MenuExampleHeaderVertical extends Component {
 
     const parameters = models.reduce((array, model) => {
       const parameterArray = Object.keys(model.properties || []).reduce(
-        (modelParameters, paramenterKey) => {
-          return [...modelParameters, `${model.key}.${paramenterKey}`]
+        (modelParameters, parameterKey) => {
+          return [...modelParameters, { modelKey: model.key, parameterKey }]
         },
         []
       )
@@ -32,52 +42,68 @@ export default class MenuExampleHeaderVertical extends Component {
 
     return (
       <Menu
-        fluid
-        style={{ height: '100%', overflow: 'scroll', position: 'fixed' }}
+        style={{
+          height: '100%',
+          overflow: 'scroll',
+          position: 'fixed',
+          width: '300px',
+        }}
         vertical
       >
-        <h1>docs</h1>
         <Menu.Item>
-          <Menu.Header>Models</Menu.Header>
+          <Menu.Header>Overview</Menu.Header>
+          <Menu.Menu>
+            {this.props.markdownKeys.map(markdownKey => {
+              return (
+                <NavLink
+                  activeClassName="active"
+                  className="item"
+                  exact
+                  to={`/docs/${markdownKey}`}
+                >
+                  {markdownKey}
+                </NavLink>
+              )
+            })}
+          </Menu.Menu>
+        </Menu.Item>
+        <Menu.Item>
+          <Menu.Header>Entities</Menu.Header>
           <Menu.Menu>
             {models.map(model => {
               return (
-                <Menu.Item
-                  active={activeItem === model.key}
-                  href={`#${model.key}`}
-                  name={model.key}
-                  onClick={this.handleItemClick}
-                />
+                <NavLink
+                  activeClassName="active"
+                  className="item"
+                  key={createModelLink({ modelName: model.key })}
+                  to={createModelLink({ modelName: model.key })}
+                >
+                  {model.key}
+                </NavLink>
               )
             })}
           </Menu.Menu>
         </Menu.Item>
         <Menu.Item>
-          <Menu.Header>Parameters</Menu.Header>
+          <Menu.Header>Attributes</Menu.Header>
           <Menu.Menu>
-            {parameters.map(parameterKey => {
+            {parameters.map(({ modelKey, parameterKey }) => {
               return (
-                <Menu.Item
-                  active={activeItem === parameterKey}
-                  href={`#${parameterKey}`}
-                  name={parameterKey}
-                  onClick={this.handleItemClick}
-                />
-              )
-            })}
-          </Menu.Menu>
-        </Menu.Item>
-        <Menu.Item>
-          <Menu.Header>Parameters</Menu.Header>
-          <Menu.Menu>
-            {parameters.map(parameterKey => {
-              return (
-                <Menu.Item
-                  active={activeItem === parameterKey}
-                  href={`#${parameterKey}`}
-                  name={parameterKey}
-                  onClick={this.handleItemClick}
-                />
+                <NavLink
+                  activeClassName="active"
+                  className="item"
+                  exact
+                  key={createParameterLink({
+                    modelName: modelKey,
+                    parameterName: parameterKey,
+                  })}
+                  to={createParameterLink({
+                    modelName: modelKey,
+                    parameterName: parameterKey,
+                  })}
+                >
+                  {`${modelKey} -> ${parameterKey}`}
+                </NavLink>
               )
             })}
           </Menu.Menu>
@@ -86,3 +112,5 @@ export default class MenuExampleHeaderVertical extends Component {
     )
   }
 }
+
+export default compose(connect(mapStateToProps))(Nav)

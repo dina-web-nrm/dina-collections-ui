@@ -16,15 +16,10 @@ const Model = ({ model }) => {
     return { key, ...model.properties[key] }
   })
   return (
-    <Segment id={model.key}>
+    <Segment id={model.key} basic>
       <h2>{model.key}</h2>
       <p>{model.description || 'Model description'}</p>
-      <PropertyOverview properties={properties} />
-      <Segment inverted>
-        {properties.map(property => {
-          return <Property model={model} property={property} />
-        })}
-      </Segment>
+      <PropertyOverview model={model} properties={properties} />
     </Segment>
   )
 }
@@ -33,3 +28,9 @@ Model.propTypes = propTypes
 Model.defaultProps = defaultProps
 
 export default Model
+
+// <Segment inverted>
+//   {properties.map(property => {
+//     return <Property model={model} property={property} />
+//   })}
+// </Segment>

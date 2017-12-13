@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { Segment, Menu, Grid, Sidebar } from 'semantic-ui-react'
-
-import openApiSpec from 'dina-schema/build/openApi.json'
-import { createModuleTranslate } from 'coreModules/i18n/components'
 import Model from './Model'
-import Nav from './Nav'
+import Property from './Property'
 
-const ModuleTranslate = createModuleTranslate('documentation')
+import specification from 'dina-schema/build/openApi.json'
 
 const propTypes = {
   something: PropTypes.string.isRequired,
@@ -18,25 +14,40 @@ const defaultProps = {}
 
 class DataModel extends Component {
   render() {
-    const models = Object.keys(openApiSpec.components.schemas).map(key => {
-      return { key, ...openApiSpec.components.schemas[key] }
-    })
+    const { match } = this.props
+
+    const models = Object.keys(specification.components.schemas)
+      .map(key => {
+        return { key, ...specification.components.schemas[key] }
+      })
+      .filter(model => {
+        return model.key === match.params.modelId
+      })
+
+    if (match.params.parameterId) {
+      const model = models.find(m => {
+        return m.key === match.params.modelId
+      })
+
+      // const model = specification.components.schemas[match.params.modelId]
+      const property = model.properties[match.params.parameterId]
+      if (model && property) {
+        return (
+          <div>
+            <Property
+              model={model}
+              property={{ ...property, key: match.params.parameterId }}
+            />
+          </div>
+        )
+      }
+    }
+
     return (
       <div>
-        <Grid divided inverted stackable>
-          <Grid.Row>
-            <Grid.Column width={3}>
-              <Nav specification={openApiSpec} />
-            </Grid.Column>
-            <Grid.Column width={13}>
-              <div>
-                {models.map(model => {
-                  return <Model model={model} />
-                })}
-              </div>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        {models.map(model => {
+          return <Model model={model} />
+        })}
       </div>
     )
   }
@@ -46,20 +57,3 @@ DataModel.propTypes = propTypes
 DataModel.defaultProps = defaultProps
 
 export default DataModel
-
-// <div>
-//   <Grid divided inverted stackable>
-//     <Grid.Row>
-//       <Grid.Column width={3}>
-//         <Nav />
-//       </Grid.Column>
-//       <Grid.Column width={13}>
-//         <div>
-//           {models.map(model => {
-//             return <Model model={model} />
-//           })}
-//         </div>
-//       </Grid.Column>
-//     </Grid.Row>
-//   </Grid>
-// </div>

@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import { Table } from 'semantic-ui-react'
 
-import { Icon, Label, Menu, Table } from 'semantic-ui-react'
+import createParameterLink from '../utilities/createParameterLink'
+import createModelLink from '../utilities/createModelLink'
 
 const propTypes = {
   properties: PropTypes.array.isRequired,
@@ -47,24 +50,34 @@ const Type = ({ property }) => {
 
   if (type === 'array') {
     return (
-      <a href={`#${getArrayLink(property)}`}>{`<ARRAY> ${
-        property.items.$ref
-      }`}</a>
+      <Link
+        className="item"
+        to={createModelLink({
+          modelName: getArrayLink(property),
+        })}
+      >
+        {`<ARRAY> ${getArrayLink(property)}`}
+      </Link>
     )
   }
 
   if (property.$ref) {
     return (
-      <a href={`#${getModelLink(property)}`}>{`<MODEL> ${property.$ref}`}</a>
+      <Link
+        className="item"
+        to={createModelLink({
+          modelName: getModelLink(property),
+        })}
+      >
+        {`<MODEL> ${getModelLink(property)}`}
+      </Link>
     )
   }
 
   return type || ''
 }
 
-const PropertyOverview = ({ properties }) => {
-  console.log('properties', properties[0])
-
+const PropertyOverview = ({ properties, model }) => {
   return (
     <Table celled>
       <Table.Header>
@@ -79,7 +92,16 @@ const PropertyOverview = ({ properties }) => {
         {properties.map(property => {
           return (
             <Table.Row>
-              <Table.Cell>{property.key}</Table.Cell>
+              <Table.Cell>
+                <Link
+                  to={createParameterLink({
+                    modelName: model.key,
+                    parameterName: property.key,
+                  })}
+                >
+                  {property.key}
+                </Link>
+              </Table.Cell>
               <Table.Cell>
                 <Type property={property} />
               </Table.Cell>
