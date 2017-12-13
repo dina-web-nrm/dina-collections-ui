@@ -2,9 +2,6 @@
   "overview": {
     "general": {
       "en": "<h1>THIS IS AN OVERIVEW IN MARKDOWN</h1>\n<h2>This is a sub header</h2>\n"
-    },
-    "versions": {
-      "en": "<p>Some model markdown k</p>\n"
     }
   }
 }

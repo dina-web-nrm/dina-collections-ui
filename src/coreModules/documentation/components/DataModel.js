@@ -4,56 +4,64 @@ import PropTypes from 'prop-types'
 import Model from './Model'
 import Property from './Property'
 
-import specification from 'dina-schema/build/openApi.json'
+const specifications = require('dina-schema/build/versions')
 
 const propTypes = {
-  something: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      modelId: PropTypes.string.isRequired,
+      parameterId: PropTypes.string,
+      schemaVersion: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 }
 
-const defaultProps = {}
+const extractModelFromSpecification = ({ modelId, specification }) => {
+  return Object.keys(specification.components.schemas)
+    .map(key => {
+      return { key, ...specification.components.schemas[key] }
+    })
+    .find(model => {
+      return model.key === modelId
+    })
+}
 
 class DataModel extends Component {
   render() {
-    const { match } = this.props
+    const {
+      match: { params: { modelId, parameterId, schemaVersion } },
+    } = this.props
 
-    const models = Object.keys(specification.components.schemas)
-      .map(key => {
-        return { key, ...specification.components.schemas[key] }
-      })
-      .filter(model => {
-        return model.key === match.params.modelId
-      })
+    if (!schemaVersion) {
+      return <div>Unknown version: {schemaVersion}</div>
+    }
 
-    if (match.params.parameterId) {
-      const model = models.find(m => {
-        return m.key === match.params.modelId
-      })
+    const specification = specifications[schemaVersion].openApi
 
-      // const model = specification.components.schemas[match.params.modelId]
-      const property = model.properties[match.params.parameterId]
+    const model = extractModelFromSpecification({
+      modelId,
+      specification,
+    })
+
+    if (parameterId) {
+      const property = model.properties[parameterId]
       if (model && property) {
         return (
           <div>
             <Property
               model={model}
-              property={{ ...property, key: match.params.parameterId }}
+              property={{ ...property, key: parameterId }}
+              version={schemaVersion}
             />
           </div>
         )
       }
     }
 
-    return (
-      <div>
-        {models.map(model => {
-          return <Model model={model} />
-        })}
-      </div>
-    )
+    return <Model model={model} version={schemaVersion} />
   }
 }
 
 DataModel.propTypes = propTypes
-DataModel.defaultProps = defaultProps
 
 export default DataModel

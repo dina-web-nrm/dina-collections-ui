@@ -3,8 +3,8 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Table } from 'semantic-ui-react'
 
-import createParameterLink from '../utilities/createParameterLink'
-import createModelLink from '../utilities/createModelLink'
+import createParameterLink from '../../utilities/createParameterLink'
+import createModelLink from '../../utilities/createModelLink'
 
 const propTypes = {
   properties: PropTypes.array.isRequired,

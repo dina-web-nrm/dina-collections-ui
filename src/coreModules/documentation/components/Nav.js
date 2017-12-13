@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Menu } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 import { compose } from 'redux'
@@ -8,7 +9,8 @@ import i18nSelectors from 'coreModules/i18n/globalSelectors'
 import specification from 'dina-schema/build/openApi.json'
 
 import createModelLink from '../utilities/createModelLink'
-import createParameterLink from '../utilities/createParameterLink'
+
+import getAvailableSchemaVersions from '../utilities/getAvailableSchemaVersions'
 
 const mapStateToProps = state => {
   return {
@@ -16,9 +18,21 @@ const mapStateToProps = state => {
   }
 }
 
+const propTypes = {
+  markdownKeys: PropTypes.array.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      schemaVersion: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+}
+
 class Nav extends Component {
   render() {
-    const schemas = specification.components.schemas
+    const { match: { params: { schemaVersion: version } } } = this.props
+    const { schemas } = specification.components
+
+    const availableVersions = getAvailableSchemaVersions()
 
     const models = Object.keys(schemas)
       .map(key => {
@@ -29,19 +43,10 @@ class Nav extends Component {
       })
       .filter(model => model['x-modelType'] === 'model')
 
-    const parameters = models.reduce((array, model) => {
-      const parameterArray = Object.keys(model.properties || []).reduce(
-        (modelParameters, parameterKey) => {
-          return [...modelParameters, { modelKey: model.key, parameterKey }]
-        },
-        []
-      )
-
-      return [...array, ...parameterArray]
-    }, [])
-
     return (
       <Menu
+        inverted
+        size="large"
         style={{
           height: '100%',
           overflow: 'scroll',
@@ -51,15 +56,19 @@ class Nav extends Component {
         vertical
       >
         <Menu.Item>
-          <Menu.Header>Overview</Menu.Header>
-          <Menu.Menu>
+          <Menu.Header>
+            <NavLink activeClassName="active" className="item" exact to="/docs">
+              Home
+            </NavLink>
+          </Menu.Header>
+          <Menu.Menu style={{ paddingLeft: '20px' }}>
             {this.props.markdownKeys.map(markdownKey => {
               return (
                 <NavLink
                   activeClassName="active"
                   className="item"
                   exact
-                  to={`/docs/${markdownKey}`}
+                  to={`/docs/${version}/${markdownKey}`}
                 >
                   {markdownKey}
                 </NavLink>
@@ -67,42 +76,54 @@ class Nav extends Component {
             })}
           </Menu.Menu>
         </Menu.Item>
+
         <Menu.Item>
-          <Menu.Header>Entities</Menu.Header>
-          <Menu.Menu>
-            {models.map(model => {
+          <Menu.Header>
+            <NavLink
+              activeClassName="active"
+              className="item"
+              exact
+              to={`/docs/${version}`}
+            >
+              Versions
+            </NavLink>
+          </Menu.Header>
+          <Menu.Menu style={{ paddingLeft: '20px' }}>
+            {availableVersions.map(availableVersion => {
               return (
                 <NavLink
                   activeClassName="active"
                   className="item"
-                  key={createModelLink({ modelName: model.key })}
-                  to={createModelLink({ modelName: model.key })}
+                  to={`/docs/${availableVersion}`}
                 >
-                  {model.key}
+                  {availableVersion}
                 </NavLink>
               )
             })}
           </Menu.Menu>
         </Menu.Item>
         <Menu.Item>
-          <Menu.Header>Attributes</Menu.Header>
-          <Menu.Menu>
-            {parameters.map(({ modelKey, parameterKey }) => {
+          <Menu.Header>
+            <NavLink
+              activeClassName="active"
+              className="item"
+              exact
+              to={`/docs/${version}/models`}
+            >
+              Entities
+            </NavLink>
+          </Menu.Header>
+
+          <Menu.Menu style={{ paddingLeft: '20px' }}>
+            {models.map(model => {
               return (
                 <NavLink
                   activeClassName="active"
                   className="item"
-                  exact
-                  key={createParameterLink({
-                    modelName: modelKey,
-                    parameterName: parameterKey,
-                  })}
-                  to={createParameterLink({
-                    modelName: modelKey,
-                    parameterName: parameterKey,
-                  })}
+                  key={createModelLink({ modelName: model.key, version })}
+                  to={createModelLink({ modelName: model.key, version })}
                 >
-                  {`${modelKey} -> ${parameterKey}`}
+                  {model.key}
                 </NavLink>
               )
             })}
@@ -112,5 +133,7 @@ class Nav extends Component {
     )
   }
 }
+
+Nav.propTypes = propTypes
 
 export default compose(connect(mapStateToProps))(Nav)

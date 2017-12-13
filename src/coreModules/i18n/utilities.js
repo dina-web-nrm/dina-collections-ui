@@ -72,3 +72,13 @@ export const getTranslationByPath = (
 export const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
+
+export const asyncImportRenderer = () => {
+  return import('utilities/markdown/renderMarkdownToHtml.js')
+}
+
+export const markdownToHtmlAsync = markdown => {
+  return asyncImportRenderer().then(renderer => {
+    return renderer(markdown)
+  })
+}
