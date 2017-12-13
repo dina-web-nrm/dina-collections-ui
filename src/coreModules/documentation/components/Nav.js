@@ -68,6 +68,7 @@ class Nav extends Component {
                   activeClassName="active"
                   className="item"
                   exact
+                  key={markdownKey}
                   to={`/docs/${version}/${markdownKey}`}
                 >
                   {markdownKey}
@@ -94,6 +95,7 @@ class Nav extends Component {
                 <NavLink
                   activeClassName="active"
                   className="item"
+                  key={availableVersion}
                   to={`/docs/${availableVersion}`}
                 >
                   {availableVersion}

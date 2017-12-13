@@ -1,8 +1,17 @@
-import MarkdownToHtmlAsync from 'coreModules/i18n/components/MarkdownToHtmlAsync'
 import React from 'react'
+import PropTypes from 'prop-types'
+import MarkdownToHtmlAsync from 'coreModules/i18n/components/MarkdownToHtmlAsync'
 import { Segment } from 'semantic-ui-react'
 
 const specifications = require('dina-schema/build/versions')
+
+const propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      schemaVersion: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+}
 
 const VersionOverview = ({ match }) => {
   const activeVersion = match.params.schemaVersion
@@ -19,5 +28,5 @@ const VersionOverview = ({ match }) => {
     </div>
   )
 }
-
+VersionOverview.propTypes = propTypes
 export default VersionOverview

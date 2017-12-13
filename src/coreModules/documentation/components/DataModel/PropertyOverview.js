@@ -93,7 +93,7 @@ const PropertyOverview = ({ properties, model, version }) => {
       <Table.Body>
         {properties.map(property => {
           return (
-            <Table.Row>
+            <Table.Row key={property.key}>
               <Table.Cell>
                 <Link
                   to={createParameterLink({
