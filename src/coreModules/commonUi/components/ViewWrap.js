@@ -3,14 +3,12 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Dimmer, Icon, Menu } from 'semantic-ui-react'
 import sizeSelectors from 'coreModules/size/globalSelectors'
-import userSelectors from 'coreModules/user/globalSelectors'
 import toggleSidebarAC from '../actionCreators/toggleSidebar'
 import commonUiSelectors from '../globalSelectors'
 
 const mapStateToProps = state => {
   return {
     isLarge: sizeSelectors.getIsLarge(state),
-    isLoggedIn: userSelectors.getUserLoggedIn(state),
     sidebarIsOpen: commonUiSelectors.getSidebarIsOpen(state),
   }
 }
@@ -22,13 +20,14 @@ const mapDispatchToProps = {
 const propTypes = {
   children: PropTypes.node.isRequired,
   isLarge: PropTypes.bool.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  loggedInView: PropTypes.bool,
   sidebarIsOpen: PropTypes.bool.isRequired,
   sidebarWidth: PropTypes.number,
   toggleSidebar: PropTypes.func.isRequired,
 }
 
 const defaultProps = {
+  loggedInView: false,
   sidebarWidth: 100,
 }
 
@@ -72,13 +71,13 @@ export const getViewWrapStyle = ({
 const ViewWrap = ({
   children,
   isLarge,
-  isLoggedIn,
+  loggedInView,
   sidebarIsOpen,
   sidebarWidth,
   toggleSidebar,
 }) => {
-  const sidebarAlwaysVisible = isLarge && isLoggedIn
-  const sidebarToggable = !isLarge && isLoggedIn
+  const sidebarAlwaysVisible = isLarge && loggedInView
+  const sidebarToggable = !isLarge && loggedInView
 
   const viewWrapStyle = getViewWrapStyle({
     sidebarAlwaysVisible,

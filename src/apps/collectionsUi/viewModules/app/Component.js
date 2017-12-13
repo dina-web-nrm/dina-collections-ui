@@ -52,7 +52,7 @@ class App extends Component {
 
     return (
       <div>
-        <ViewWrap>
+        <ViewWrap loggedInView>
           <Switch>
             <Route component={Home} exact path={match.url} />
             <Route
