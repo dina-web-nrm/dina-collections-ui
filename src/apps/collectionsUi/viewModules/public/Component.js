@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Redirect, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Footer, ViewWrap } from 'coreModules/commonUi/components'
 
 import Login from '../login/Async'
 import PageNotFound from '../pageNotFound/Async'
+import Start from '../start/Async'
 
 class Public extends Component {
   render() {
@@ -11,8 +12,8 @@ class Public extends Component {
       <div>
         <ViewWrap>
           <Switch>
-            <Redirect exact from="/" to="/login" />
             <Route component={Login} exact path="/login" />
+            <Route component={Start} exact path="/" />
             <Route component={PageNotFound} />
           </Switch>
           <Footer />

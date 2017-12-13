@@ -1,5 +1,6 @@
 export const moduleOrder = [
   'public',
+  'start',
   'app',
   'editMammal',
   'home',
