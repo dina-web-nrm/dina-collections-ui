@@ -8,10 +8,14 @@ import {
 import { withTranslate } from 'coreModules/i18n/higherOrderComponents'
 import { FEATURE_OBSERVATION_TYPE_NAMES } from '../../constants'
 
-const results = FEATURE_OBSERVATION_TYPE_NAMES.map(typeName => {
+const buildTextKey = value => {
+  return `modules.collectionMammals.featureObservations.${value}`
+}
+
+const AVAILABLE_TYPE_NAMES = FEATURE_OBSERVATION_TYPE_NAMES.map(typeName => {
   return {
     key: typeName,
-    textKey: `modules.collectionMammals.featureObservations.${typeName}`,
+    textKey: buildTextKey(typeName),
     value: typeName,
   }
 })
@@ -50,6 +54,21 @@ class FeatureTypeNameSearch extends Component {
     this.handleSearchChange = this.handleSearchChange.bind(this)
   }
 
+  getMatchingResults(searchQuery) {
+    if (!searchQuery) {
+      return AVAILABLE_TYPE_NAMES
+    }
+
+    return AVAILABLE_TYPE_NAMES.filter(({ textKey }) => {
+      return this.props
+        .translate({
+          textKey,
+        })
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase())
+    })
+  }
+
   handleResultSelect(event, { result }) {
     // see Semantic docs for details: https://react.semantic-ui.com/modules/search
     if (result && result.content && result.content.value) {
@@ -85,15 +104,18 @@ class FeatureTypeNameSearch extends Component {
         helpText={helpText}
         input={{
           name: input.name,
-          value: translate({
-            textKey: `modules.collectionMammals.featureObservations.${value}`,
-          }),
+          value: value
+            ? translate({
+                fallback: value,
+                textKey: buildTextKey(value),
+              })
+            : '',
         }}
         label={label}
         meta={meta}
         required={required}
         resultRenderer={TranslateSearchResult}
-        results={results}
+        results={this.getMatchingResults(value)}
         {...rest}
       />
     )

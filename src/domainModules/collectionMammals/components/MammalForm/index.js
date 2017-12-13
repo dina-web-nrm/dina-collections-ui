@@ -16,7 +16,7 @@ import createLog from 'utilities/log'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import SegmentCatalogedUnit from './SegmentCatalogedUnit'
 import SegmentDetermination from './SegmentDetermination'
-import SegmentFeatureObservations from './SegmentFeatureObservations'
+import SegmentFeatureObservations from './SegmentFeatureObservations/index'
 import SegmentCollectingInformation from './SegmentCollectingInformation'
 import SegmentPhysicalUnits from './SegmentPhysicalUnits'
 
@@ -32,18 +32,9 @@ const getFormSyncErrorsSelector = getFormSyncErrors(FORM_NAME)
 
 const INITIAL_VALUES = {
   featureObservations: [
-    { featureObservationType: { featureObservationTypeName: 'sex', id: 1 } },
-    { featureObservationType: { featureObservationTypeName: 'age', id: 2 } },
-    {
-      featureObservationType: {
-        featureObservationTypeName: 'ageStage',
-        id: 3,
-      },
-    },
     {
       featureObservationType: {
         featureObservationTypeName: 'conditionAtCollecting',
-        id: 4,
       },
     },
   ],
@@ -134,7 +125,50 @@ class RawMammalForm extends Component {
   }
 
   setInitialFormValues(individualGroupAttributes) {
-    this.props.initialize(individualGroupAttributes)
+    /*
+    * Ensure that there is a featureObservation for conditionAtCollecting first
+    * in the featureObservations array. First look for it in the provided
+    * attributes, if none then add it from initial values. If it exists on other
+    * index than 0, move it first in the array.
+    */
+    const attributes = { ...individualGroupAttributes }
+
+    if (attributes.featureObservations) {
+      const firstConditionAtCollectingIndex = attributes.featureObservations.findIndex(
+        ({ featureObservationType }) => {
+          return (
+            featureObservationType &&
+            featureObservationType.featureObservationTypeName ===
+              'conditionAtCollecting'
+          )
+        }
+      )
+
+      if (firstConditionAtCollectingIndex === -1) {
+        attributes.featureObservations = [
+          INITIAL_VALUES.featureObservations[0],
+          ...attributes.featureObservations,
+        ]
+      } else if (firstConditionAtCollectingIndex > 0) {
+        const conditionAtCollectingFeatureObservation =
+          attributes.featureObservations[firstConditionAtCollectingIndex]
+
+        // remove conditionAtCollectingFeatureObservation from array
+        attributes.featureObservations.splice(
+          firstConditionAtCollectingIndex,
+          1
+        )
+        // add conditionAtCollectingFeatureObservation first in array
+        attributes.featureObservations = [
+          conditionAtCollectingFeatureObservation,
+          ...attributes.featureObservations,
+        ]
+      }
+    } else {
+      attributes.featureObservations = INITIAL_VALUES.featureObservations
+    }
+
+    this.props.initialize(attributes)
   }
 
   handleFormSubmit(data) {

@@ -6,6 +6,7 @@ import {
   COLLECTION_MAMMALS_UPDATE_INDIVIDUAL_GROUP_SUCCESS,
 } from '../actionTypes'
 import { UPDATE_INDIVIDUAL_GROUP } from '../endpoints'
+import getIndividualGroupByCatalogNumber from './getIndividualGroupByCatalogNumber'
 
 export default function updateIndividualGroup(formData, throwError = true) {
   const meta = {
@@ -24,9 +25,10 @@ export default function updateIndividualGroup(formData, throwError = true) {
     attributes = immutable.set(
       attributes,
       'featureObservations',
-      formData.featureObservations.filter(featureObservation => {
-        return featureObservation.featureObservationText
-      })
+      formData.featureObservations &&
+        formData.featureObservations.filter(featureObservation => {
+          return featureObservation.featureObservationText
+        })
     )
 
     attributes = {
@@ -55,6 +57,16 @@ export default function updateIndividualGroup(formData, throwError = true) {
             payload: response,
             type: COLLECTION_MAMMALS_UPDATE_INDIVIDUAL_GROUP_SUCCESS,
           })
+          dispatch(
+            getIndividualGroupByCatalogNumber(meta.catalogNumber, {
+              include: [
+                'identifications',
+                'featureObservations.featureObservationType',
+                'occurrences',
+                'physicalUnits.catalogedUnit',
+              ].join(),
+            })
+          )
           return response
         },
         error => {

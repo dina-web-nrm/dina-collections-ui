@@ -28,7 +28,7 @@ const propTypes = {
       identifiedTaxonNameStandardized: PropTypes.string,
       identifiedYear: PropTypes.number,
     })
-  ).isRequired,
+  ),
   taxonNameFieldKey: PropTypes.string.isRequired,
 }
 const defaultProps = {

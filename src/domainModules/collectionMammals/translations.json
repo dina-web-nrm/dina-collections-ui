@@ -1,4 +1,8 @@
 {
+  "add": {
+    "en": "Add",
+    "sv": "Lägg till"
+  },
   "catalogedUnit": {
     "sixOrEightDigits": {
       "en": "6 or 8 digits",

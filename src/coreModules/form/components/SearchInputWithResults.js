@@ -18,6 +18,7 @@ const propTypes = {
     error: PropTypes.object,
     touched: PropTypes.bool.isRequired,
   }).isRequired,
+  module: PropTypes.string,
   required: PropTypes.bool,
   resultRenderer: PropTypes.func,
   results: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
@@ -27,6 +28,7 @@ const defaultProps = {
   helpText: undefined,
   isLoading: false,
   label: undefined,
+  module: undefined,
   required: false,
   resultRenderer: undefined,
 }
@@ -40,6 +42,7 @@ function SearchInputWithResults({
   input,
   label,
   meta: { error, touched },
+  module,
   required,
   resultRenderer,
   results,
