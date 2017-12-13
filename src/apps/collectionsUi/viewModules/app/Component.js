@@ -1,11 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom'
-import {
-  NavigationSidebar,
-  Footer,
-  ViewWrap,
-} from 'coreModules/commonUi/components'
+import { NavigationSidebar, ViewWrap } from 'coreModules/commonUi/components'
 import { requireLoggedIn } from 'coreModules/user/higherOrderComponents'
 import { ShortcutsDisplay } from 'coreModules/keyboardShortcuts/components'
 
@@ -56,7 +52,7 @@ class App extends Component {
 
     return (
       <div>
-        <ViewWrap>
+        <ViewWrap loggedInView>
           <Switch>
             <Route component={Home} exact path={match.url} />
             <Route
@@ -76,7 +72,6 @@ class App extends Component {
             <Route component={Settings} exact path={`${match.url}/settings`} />
             <Route component={PageNotFound} />
           </Switch>
-          <Footer />
         </ViewWrap>
         <NavigationSidebar navItems={NAVIGATION_SIDEBAR_ITEMS} />
         <ShortcutsDisplay />

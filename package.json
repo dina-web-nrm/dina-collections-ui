@@ -101,10 +101,6 @@
     "update-storybook-imports": "node ./src/scripts/storybook/createStorybookImports",
     "watch-css": "npm run build-css && node-less-chokidar src/ -o src/ --watch --recursive"
   },
-  "pre-push": [
-    "update-git-dependencies",
-    "ensure-no-diff"
-  ],
   "devDependencies": {
     "@storybook/addon-actions": "3.2.12",
     "@storybook/addon-comments": "3.2.12",

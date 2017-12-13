@@ -48,7 +48,9 @@ const testModuleFolder = folderName => {
 
     it(`all modules in moduleOrder and no extra files`, () => {
       const indexFile = require(moduleFolderBasePath)
-      const files = fs.readdirSync(moduleFolderBasePath)
+      const files = fs
+        .readdirSync(moduleFolderBasePath)
+        .filter(filename => filename[0] !== '.')
       expect(indexFile.moduleOrder.length + 1).toBe(files.length)
     })
   })
