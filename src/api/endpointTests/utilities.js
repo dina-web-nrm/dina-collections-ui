@@ -1,5 +1,7 @@
-import createApiClient from 'coreModules/api/apiClient'
-import * as userEndpoints from 'coreModules/user/endpoints'
+const createApiClient = require('../../coreModules/api/apiClient')
+const {
+  buildEndpointSpec: defaultBuildEndpointSpec,
+} = require('../../coreModules/api/endpointSpecFactory')
 
 require('isomorphic-fetch')
 
@@ -10,14 +12,14 @@ const {
   REACT_APP_TEST_USERNAME: defaultUsername,
 } = process.env
 
-export const createAuthClient = ({ baseUrl = defaultAuthUrl } = {}) => {
+const createAuthClient = ({ baseUrl = defaultAuthUrl } = {}) => {
   return createApiClient({
     baseUrl,
     mapResponse: ({ json }) => json,
   })
 }
 
-export const login = (
+const login = (
   { password = defaultPassword, username = defaultUsername } = {}
 ) => {
   const authClient = createAuthClient()
@@ -35,7 +37,7 @@ export const login = (
     })
 }
 
-export const createCollectionsClient = (
+const createCollectionsClient = (
   { authToken, baseUrl = defaultApiUrl } = {}
 ) => {
   return createApiClient({
@@ -48,4 +50,9 @@ export const createCollectionsClient = (
     },
     mapResponse: ({ json }) => json,
   })
+}
+module.exports = {
+  createAuthClient,
+  createCollectionsClient,
+  login,
 }
