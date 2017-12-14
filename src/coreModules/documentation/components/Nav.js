@@ -71,9 +71,35 @@ class Nav extends Component {
       }
     })
 
-    const navItems = [...markdownNavItems, ...versionNavItems, ...modelNavItems]
+    const markdownNavItemsGroup = {
+      items: markdownNavItems,
+      name: 'test',
+      path: '/test',
+    }
 
-    return <NavigationSidebar dispayLogout={false} navItems={navItems} />
+    const versionItemsGroup = {
+      items: versionNavItems,
+      name: 'version',
+      path: '/test',
+    }
+
+    const modelItemsGroup = {
+      items: modelNavItems,
+      name: 'model',
+      path: '/test',
+    }
+
+    const navItems = [markdownNavItemsGroup, versionItemsGroup, modelItemsGroup]
+
+    return (
+      <NavigationSidebar
+        dispayHome
+        dispayLogout={false}
+        navItems={navItems}
+        nested
+        width={180}
+      />
+    )
 
     // return (
     //   <Menu

@@ -6,8 +6,6 @@ import { connect } from 'react-redux'
 
 import { FixedMenu, Footer, ViewWrap } from 'coreModules/commonUi/components'
 import uiSelectors from 'coreModules/commonUi/globalSelectors'
-
-import Docs from '../docs/Async'
 import Login from '../login/Async'
 import PageNotFound from '../pageNotFound/Async'
 import Start from '../start/Async'
@@ -32,7 +30,6 @@ class Public extends Component {
           <Switch>
             <Route component={Login} exact path="/login" />
             <Route component={Start} exact path="/" />
-            <Route component={Docs} path="/docs" />
             <Route component={PageNotFound} />
           </Switch>
           <Footer />

@@ -14,6 +14,7 @@ const mapDispatchToProps = {
 }
 
 const propTypes = {
+  dispayHome: PropTypes.bool,
   dispayLogout: PropTypes.bool,
   logout: PropTypes.func.isRequired,
   navItems: PropTypes.arrayOf(
@@ -25,43 +26,110 @@ const propTypes = {
       push: PropTypes.bool,
     })
   ),
+  nested: PropTypes.bool,
+  width: PropTypes.number,
 }
 
 const defaultProps = {
+  dispayHome: false,
   dispayLogout: true,
   navItems: [],
+  nested: false,
+  width: 100,
 }
 
-const NavigationSidebar = ({ dispayLogout, logout, navItems }) => {
+const SidebarNavItem = ({ navItem }) => {
+  const { exact, icon, name, path, push, translate = true } = navItem
+  return (
+    <NavLink
+      activeClassName="active"
+      className={push ? 'item push bottom' : 'item'}
+      exact={exact}
+      key={path}
+      to={path}
+    >
+      {icon && <Icon name={icon} size="large" />}
+      {translate ? (
+        <ModuleTranslate capitalize textKey={`routes.${name}`} />
+      ) : (
+        name
+      )}
+    </NavLink>
+  )
+}
+
+const SidebarNavItemGroup = ({ navGroupItem }) => {
+  const {
+    exact,
+    icon,
+    items,
+    name,
+    path,
+    push,
+    translate = true,
+  } = navGroupItem
+  return (
+    <NavLink
+      activeClassName="active"
+      className={push ? 'item push bottom' : 'item'}
+      exact={exact}
+      key={path}
+      to={path}
+    >
+      {icon && <Icon name={icon} size="large" />}
+      {translate ? (
+        <ModuleTranslate capitalize textKey={`routes.${name}`} />
+      ) : (
+        name
+      )}
+      <Menu.Menu>
+        {items.map(navItem => {
+          return <SidebarNavItem navItem={navItem} />
+        })}
+      </Menu.Menu>
+    </NavLink>
+  )
+}
+
+const NavigationSidebar = ({
+  dispayHome,
+  dispayLogout,
+  nested,
+  logout,
+  navItems,
+  width,
+}) => {
   return (
     <Sidebar
       animation="overlay"
       as={Menu}
+      borderless={nested}
       className="flex"
-      icon="labeled"
+      icon={nested ? undefined : 'labeled'}
       inverted
+      style={{ overflow: 'hidden', width }}
       vertical
       visible
-      width="thin"
     >
-      {navItems.map(({ exact, icon, name, path, push, translate = true }) => {
-        return (
-          <NavLink
-            activeClassName="active"
-            className={push ? 'item push bottom' : 'item'}
-            exact={exact}
-            key={path}
-            to={path}
-          >
-            {icon && <Icon name={icon} size="large" />}
-            {translate ? (
-              <ModuleTranslate capitalize textKey={`routes.${name}`} />
-            ) : (
-              name
-            )}
-          </NavLink>
-        )
+      {navItems.map(navItem => {
+        if (navItem.items) {
+          return <SidebarNavItemGroup navGroupItem={navItem} />
+        }
+
+        return <SidebarNavItem navItem={navItem} />
       })}
+      {dispayHome && (
+        <NavLink
+          activeClassName="active"
+          className="item push bottom"
+          exact
+          key="/"
+          to="/"
+        >
+          <Icon name="reply" />
+          <ModuleTranslate capitalize textKey="routes.home" />
+        </NavLink>
+      )}
       {dispayLogout && (
         <Menu.Item
           onClick={event => {
