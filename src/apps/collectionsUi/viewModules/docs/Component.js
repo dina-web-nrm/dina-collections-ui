@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Redirect, Route, Switch } from 'react-router-dom'
 import { Grid } from 'semantic-ui-react'
 
+import PageTemplate from 'coreModules/commonUi/components/PageTemplate'
 import GeneralDocs from 'coreModules/documentation/components/GeneralDocs'
 import DataModel from 'coreModules/documentation/components/DataModel'
 import Nav from 'coreModules/documentation/components/Nav'
@@ -20,7 +21,7 @@ class Docs extends Component {
     const { match } = this.props
     const currentVersion = getCurrentSchemaVersion()
     return (
-      <div>
+      <PageTemplate hasFixedMenu>
         <Grid divided inverted stackable>
           <Grid.Row>
             <Grid.Column width={3}>
@@ -60,7 +61,7 @@ class Docs extends Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-      </div>
+      </PageTemplate>
     )
   }
 }

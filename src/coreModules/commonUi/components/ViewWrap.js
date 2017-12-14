@@ -76,9 +76,10 @@ const ViewWrap = ({
   sidebarWidth,
   toggleSidebar,
 }) => {
+  console.log('sidebarIsOpen', sidebarIsOpen)
   const sidebarAlwaysVisible = isLarge && loggedInView
   const sidebarToggable = !isLarge && loggedInView
-
+  console.log('sidebarAlwaysVisible', sidebarAlwaysVisible)
   const viewWrapStyle = getViewWrapStyle({
     sidebarAlwaysVisible,
     sidebarIsOpen,
@@ -86,6 +87,7 @@ const ViewWrap = ({
     sidebarWidth,
   })
   const dimmerActive = sidebarToggable && sidebarIsOpen
+  console.log('viewWrapStyle', viewWrapStyle)
   return (
     <div style={viewWrapStyle}>
       <Dimmer.Dimmable dimmed={dimmerActive}>
