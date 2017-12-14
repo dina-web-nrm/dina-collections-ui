@@ -11,6 +11,7 @@ import specification from 'dina-schema/build/openApi.json'
 import createModelLink from '../utilities/createModelLink'
 
 import getAvailableSchemaVersions from '../utilities/getAvailableSchemaVersions'
+import { NavigationSidebar } from 'coreModules/commonUi/components'
 
 const mapStateToProps = state => {
   return {
@@ -43,96 +44,127 @@ class Nav extends Component {
       })
       .filter(model => model['x-modelType'] === 'model')
 
-    return (
-      <Menu
-        inverted
-        size="large"
-        style={{
-          height: '100%',
-          overflow: 'scroll',
-          position: 'fixed',
-          width: '300px',
-        }}
-        vertical
-      >
-        <Menu.Item>
-          <Menu.Header>
-            <NavLink activeClassName="active" className="item" exact to="/docs">
-              Home
-            </NavLink>
-          </Menu.Header>
-          <Menu.Menu style={{ paddingLeft: '20px' }}>
-            {this.props.markdownKeys.map(markdownKey => {
-              return (
-                <NavLink
-                  activeClassName="active"
-                  className="item"
-                  exact
-                  key={markdownKey}
-                  to={`/docs/${version}/${markdownKey}`}
-                >
-                  {markdownKey}
-                </NavLink>
-              )
-            })}
-          </Menu.Menu>
-        </Menu.Item>
+    const markdownNavItems = this.props.markdownKeys.map(markdownKey => {
+      return {
+        exact: true,
+        name: markdownKey,
+        path: `/docs/${version}/${markdownKey}`,
+        translate: false,
+      }
+    })
 
-        <Menu.Item>
-          <Menu.Header>
-            <NavLink
-              activeClassName="active"
-              className="item"
-              exact
-              to={`/docs/${version}`}
-            >
-              Versions
-            </NavLink>
-          </Menu.Header>
-          <Menu.Menu style={{ paddingLeft: '20px' }}>
-            {availableVersions.map(availableVersion => {
-              return (
-                <NavLink
-                  activeClassName="active"
-                  className="item"
-                  key={availableVersion}
-                  to={`/docs/${availableVersion}`}
-                >
-                  {availableVersion}
-                </NavLink>
-              )
-            })}
-          </Menu.Menu>
-        </Menu.Item>
-        <Menu.Item>
-          <Menu.Header>
-            <NavLink
-              activeClassName="active"
-              className="item"
-              exact
-              to={`/docs/${version}/models`}
-            >
-              Entities
-            </NavLink>
-          </Menu.Header>
+    const versionNavItems = availableVersions.map(availableVersion => {
+      return {
+        exact: false,
+        name: availableVersion,
+        path: `/docs/${availableVersion}`,
+        translate: false,
+      }
+    })
 
-          <Menu.Menu style={{ paddingLeft: '20px' }}>
-            {models.map(model => {
-              return (
-                <NavLink
-                  activeClassName="active"
-                  className="item"
-                  key={createModelLink({ modelName: model.key, version })}
-                  to={createModelLink({ modelName: model.key, version })}
-                >
-                  {model.key}
-                </NavLink>
-              )
-            })}
-          </Menu.Menu>
-        </Menu.Item>
-      </Menu>
-    )
+    const modelNavItems = models.map(model => {
+      return {
+        exact: false,
+        name: model.key,
+        path: createModelLink({ modelName: model.key, version }),
+        translate: false,
+      }
+    })
+
+    const navItems = [...markdownNavItems, ...versionNavItems, ...modelNavItems]
+
+    return <NavigationSidebar dispayLogout={false} navItems={navItems} />
+
+    // return (
+    //   <Menu
+    //     inverted
+    //     size="large"
+    //     style={{
+    //       height: '100%',
+    //       overflow: 'scroll',
+    //       position: 'fixed',
+    //       width: '300px',
+    //     }}
+    //     vertical
+    //   >
+    //     <Menu.Item>
+    //       <Menu.Header>
+    //         <NavLink activeClassName="active" className="item" exact to="/docs">
+    //           Home
+    //         </NavLink>
+    //       </Menu.Header>
+    //       <Menu.Menu style={{ paddingLeft: '20px' }}>
+    //         {this.props.markdownKeys.map(markdownKey => {
+    //           return (
+    //             <NavLink
+    //               activeClassName="active"
+    //               className="item"
+    //               exact
+    //               key={markdownKey}
+    //               to={`/docs/${version}/${markdownKey}`}
+    //             >
+    //               {markdownKey}
+    //             </NavLink>
+    //           )
+    //         })}
+    //       </Menu.Menu>
+    //     </Menu.Item>
+
+    //     <Menu.Item>
+    //       <Menu.Header>
+    //         <NavLink
+    //           activeClassName="active"
+    //           className="item"
+    //           exact
+    //           to={`/docs/${version}`}
+    //         >
+    //           Versions
+    //         </NavLink>
+    //       </Menu.Header>
+    //       <Menu.Menu style={{ paddingLeft: '20px' }}>
+    //         {availableVersions.map(availableVersion => {
+    //           return (
+    //             <NavLink
+    //               activeClassName="active"
+    //               className="item"
+    //               key={availableVersion}
+    //               to={`/docs/${availableVersion}`}
+    //             >
+    //               {availableVersion}
+    //             </NavLink>
+    //           )
+    //         })}
+    //       </Menu.Menu>
+    //     </Menu.Item>
+    //     <Menu.Item>
+    //       <Menu.Header>
+    //         <NavLink
+    //           activeClassName="active"
+    //           className="item"
+    //           exact
+    //           to={`/docs/${version}/models`}
+    //         >
+    //           Entities
+    //         </NavLink>
+    //       </Menu.Header>
+
+    //       <Menu.Menu style={{ paddingLeft: '20px' }}>
+    //         {models.map(model => {
+    //           return (
+    //             <NavLink
+    //               activeClassName="active"
+    //               className="item"
+    //               key={createModelLink({ modelName: model.key, version })}
+    //               to={createModelLink({ modelName: model.key, version })}
+    //             >
+    //               {model.key}
+    //             </NavLink>
+    //           )
+    //         })}
+    //       </Menu.Menu>
+    //     </Menu.Item>
+    //   </Menu>
+    // )
   }
 }
 

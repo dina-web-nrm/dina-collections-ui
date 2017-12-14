@@ -97,10 +97,7 @@ const ViewWrap = ({
           </Menu>
         )}
         <Dimmer active={dimmerActive} onClickOutside={toggleSidebar} />
-        <div
-          className="ui fluid"
-          style={{ backgroundColor: '#E4E9EC', overflow: 'hidden' }}
-        >
+        <div className="ui fluid" style={{ overflow: 'hidden' }}>
           {children}
         </div>
       </Dimmer.Dimmable>

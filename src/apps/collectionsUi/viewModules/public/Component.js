@@ -32,7 +32,7 @@ class Public extends Component {
           <Switch>
             <Route component={Login} exact path="/login" />
             <Route component={Start} exact path="/" />
-            <Route component={Docs} exact path="/docs" />
+            <Route component={Docs} path="/docs" />
             <Route component={PageNotFound} />
           </Switch>
           <Footer />

@@ -14,6 +14,7 @@ const mapDispatchToProps = {
 }
 
 const propTypes = {
+  dispayLogout: PropTypes.bool,
   logout: PropTypes.func.isRequired,
   navItems: PropTypes.arrayOf(
     PropTypes.shape({
@@ -27,10 +28,11 @@ const propTypes = {
 }
 
 const defaultProps = {
+  dispayLogout: true,
   navItems: [],
 }
 
-const NavigationSidebar = ({ logout, navItems }) => {
+const NavigationSidebar = ({ dispayLogout, logout, navItems }) => {
   return (
     <Sidebar
       animation="overlay"
@@ -42,7 +44,7 @@ const NavigationSidebar = ({ logout, navItems }) => {
       visible
       width="thin"
     >
-      {navItems.map(({ exact, icon, name, path, push }) => {
+      {navItems.map(({ exact, icon, name, path, push, translate = true }) => {
         return (
           <NavLink
             activeClassName="active"
@@ -52,19 +54,25 @@ const NavigationSidebar = ({ logout, navItems }) => {
             to={path}
           >
             {icon && <Icon name={icon} size="large" />}
-            <ModuleTranslate capitalize textKey={`routes.${name}`} />
+            {translate ? (
+              <ModuleTranslate capitalize textKey={`routes.${name}`} />
+            ) : (
+              name
+            )}
           </NavLink>
         )
       })}
-      <Menu.Item
-        onClick={event => {
-          event.preventDefault()
-          logout()
-        }}
-      >
-        <Icon name="sign out" />
-        <ModuleTranslate capitalize textKey="Navbar.logout" />
-      </Menu.Item>
+      {dispayLogout && (
+        <Menu.Item
+          onClick={event => {
+            event.preventDefault()
+            logout()
+          }}
+        >
+          <Icon name="sign out" />
+          <ModuleTranslate capitalize textKey="Navbar.logout" />
+        </Menu.Item>
+      )}
     </Sidebar>
   )
 }
