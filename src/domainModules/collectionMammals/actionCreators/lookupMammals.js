@@ -13,7 +13,7 @@ export default function lookupMammals(filterParams = {}) {
         [`filter[${filterName}]`]: filterParams[filterName],
       }
     },
-    { include: 'physicalUnits.catalogedUnit' } // TODO: centralize include strings
+    { include: 'identifications,physicalUnits.catalogedUnit' } // TODO: centralize include strings
   )
 
   return (dispatch, getState, { apiClient }) => {
