@@ -18,7 +18,7 @@ export default function logIn({ username, password, throwError = true } = {}) {
       type: USER_LOG_IN_REQUEST,
     })
     return apiClient
-      .formPost(LOG_IN, {
+      .call(LOG_IN, {
         body,
       })
       .then(

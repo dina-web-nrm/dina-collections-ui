@@ -22,7 +22,7 @@ export default function fetchTaxonSearchResults(queryParamsOverride) {
       type: TAXONOMY_FETCH_SEARCH_RESULTS_REQUEST,
     })
     return apiClient
-      .httpGet(TAXONOMY_SEARCH, {
+      .call(TAXONOMY_SEARCH, {
         queryParams,
       })
       .then(

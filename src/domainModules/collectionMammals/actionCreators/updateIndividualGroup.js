@@ -46,7 +46,7 @@ export default function updateIndividualGroup(formData, throwError = true) {
     }
 
     return apiClient
-      .httpPatch(UPDATE_INDIVIDUAL_GROUP, {
+      .call(UPDATE_INDIVIDUAL_GROUP, {
         body,
         pathParams: { id: attributes.id },
       })
