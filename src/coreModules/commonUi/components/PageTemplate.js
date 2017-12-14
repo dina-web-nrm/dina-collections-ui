@@ -4,12 +4,20 @@ import { Container } from 'semantic-ui-react'
 
 const propTypes = {
   children: PropTypes.node.isRequired,
+  hasFixedMenu: PropTypes.bool,
+}
+const defaultProps = {
+  hasFixedMenu: false,
 }
 
-const PageTemplate = ({ children }) => {
+const PageTemplate = ({ hasFixedMenu, children }) => {
   return (
     <Container
-      style={{ minHeight: '100vh', paddingBottom: 30, paddingTop: 61.5 }}
+      style={{
+        minHeight: '100vh',
+        paddingBottom: 30,
+        paddingTop: hasFixedMenu ? 61.5 : 30,
+      }}
     >
       {children}
     </Container>
@@ -17,5 +25,6 @@ const PageTemplate = ({ children }) => {
 }
 
 PageTemplate.propTypes = propTypes
+PageTemplate.defaultProps = defaultProps
 
 export default PageTemplate
