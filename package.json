@@ -41,6 +41,7 @@
     "debug": "^3.1.0",
     "dina-schema": "https://github.com/DINA-Web/dina-schema.git#master",
     "dns": "file:./src/mock/dns",
+    "dotenv": "^4.0.0",
     "glob": "^7.1.2",
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
