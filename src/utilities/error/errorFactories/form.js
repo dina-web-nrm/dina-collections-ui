@@ -1,8 +1,8 @@
-import objectPath from 'object-path'
-import { ERROR_CODES, ORIGINS, TYPES } from '../constants'
-import createError from './base'
+const objectPath = require('object-path')
+const { ERROR_CODES, ORIGINS, TYPES } = require('../constants')
+const createError = require('./base')
 
-export const createReduxFormParameterError = transformedAjvError => {
+const createReduxFormParameterError = transformedAjvError => {
   const { fullPath, errorCode, params } = transformedAjvError
   return {
     errorCode,
@@ -15,14 +15,14 @@ export const createReduxFormParameterError = transformedAjvError => {
 }
 
 // Errors not related to a specific field
-export const isGeneralSchemaError = transformedAjvError => {
+const isGeneralSchemaError = transformedAjvError => {
   if (transformedAjvError.errorCode === 'ADDITIONAL_PROPERTIES') {
     return true
   }
   return !transformedAjvError.fullPath
 }
 
-export const transformToReduxFormError = transformedAjvErrors => {
+const transformToReduxFormError = transformedAjvErrors => {
   return transformedAjvErrors.reduce(
     (reduxFormError, transformedAjvError) => {
       const reduxFormParameterError = createReduxFormParameterError(
@@ -48,7 +48,7 @@ export const transformToReduxFormError = transformedAjvErrors => {
   )
 }
 
-export default function createFormError(error) {
+module.exports = function createFormError(error) {
   const context = {
     errorCode: ERROR_CODES.FORM_VALIDATION_ERROR,
     origin: ORIGINS.CLIENT,

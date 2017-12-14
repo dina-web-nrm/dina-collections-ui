@@ -1,7 +1,7 @@
-import decorateAdditionalProperties from './decorateAdditionalProperties'
-import transform from './transform'
+const decorateAdditionalProperties = require('./decorateAdditionalProperties')
+const transform = require('./transform')
 
-export default function apiErrorMapper(ajvErrors) {
+module.exports = function apiErrorMapper(ajvErrors) {
   if (!ajvErrors) {
     return ajvErrors
   }

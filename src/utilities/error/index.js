@@ -1,10 +1,10 @@
-import createFormSchemaValidator from './validators/formSchema'
-import createFormModelSchemaValidator from './validators/formModelSchema'
-import createSystemModelSchemaValidator from './validators/systemModelSchema'
-import createSystemSchemaValidator from './validators/systemSchema'
-import isKnownError from './isKnownError'
+const createFormSchemaValidator = require('./validators/formSchema')
+const createFormModelSchemaValidator = require('./validators/formModelSchema')
+const createSystemModelSchemaValidator = require('./validators/systemModelSchema')
+const createSystemSchemaValidator = require('./validators/systemSchema')
+const isKnownError = require('./isKnownError')
 
-export {
+module.exports = {
   createFormModelSchemaValidator,
   createFormSchemaValidator,
   createSystemModelSchemaValidator,

@@ -1,4 +1,4 @@
-export default function mapErrors(ajvErrors) {
+module.exports = function mapErrors(ajvErrors) {
   return ajvErrors.map(originalError => {
     const error = originalError.params.errors
       ? originalError.params.errors[0]

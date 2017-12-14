@@ -1,4 +1,4 @@
-export default function decorateAdditionalProperties(originalError) {
+module.exports = function decorateAdditionalProperties(originalError) {
   const error = originalError.params.errors
     ? originalError.params.errors[0]
     : originalError

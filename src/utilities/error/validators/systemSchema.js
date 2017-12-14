@@ -1,11 +1,11 @@
-import { compose } from 'redux'
-import createSchemaValidator from 'utilities/jsonSchema/createValidator'
-import systemErrorFactory from '../errorFactories/system'
-import ajvErrorMapper from '../errorMappers/ajv'
+const { compose } = require('redux')
+const createSchemaValidator = require('../../jsonSchema/createValidator')
+const systemErrorFactory = require('../errorFactories/system')
+const ajvErrorMapper = require('../errorMappers/ajv')
 
-export const errorHandler = compose(systemErrorFactory, ajvErrorMapper)
+const errorHandler = compose(systemErrorFactory, ajvErrorMapper)
 
-export default function createSystemSchemaValidator(schema) {
+module.exports = function createSystemSchemaValidator(schema) {
   return createSchemaValidator({
     errorHandler,
     schema,

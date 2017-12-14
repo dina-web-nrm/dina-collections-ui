@@ -1,13 +1,13 @@
-import { ERROR_CODES, ORIGINS, TYPES } from '../constants'
+const { ERROR_CODES, ORIGINS, TYPES } = require('../constants')
 
-import createError from './base'
+const createError = require('./base')
 
-export default function createApiError(error) {
+module.exports = function createApiError(error) {
   const errorCode =
     (error.errorCode && ERROR_CODES[error.errorCode]) ||
     ERROR_CODES.DEFAULT_API_ERROR
   const context = {
-    errorCode, // import from consts
+    errorCode, // const from consts
     origin: ORIGINS.SERVER,
     statusCode: error.statusCode || null,
     type: TYPES.API,

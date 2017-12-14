@@ -1,7 +1,7 @@
-import models from 'dina-schema/build/models.json'
-import createMockDataFromSchema from './createMockDataFromSchema'
+const models = require('dina-schema/build/models.json')
+const createMockDataFromSchema = require('./createMockDataFromSchema')
 
-export default function createMockGenerator({ model, schema: customSchema }) {
+module.exports = function createMockGenerator({ model, schema: customSchema }) {
   if (model && !models[model]) {
     throw new Error(`Unknown model: ${model}`)
   }
