@@ -63,8 +63,132 @@ const createCollectionsClient = (
     validateOutput: false,
   })
 }
+
+const createHandleResolveForError = (
+  operationId,
+  testDescription,
+  statusCode
+) => {
+  return () => {
+    throw new Error(
+      `${operationId}/${testDescription} resolved, but expected statusCode ${
+        statusCode
+      }`
+    )
+  }
+}
+
+const createHandleRejectForError = (
+  operationId,
+  testDescription,
+  statusCode
+) => apiClient => {
+  return error => {
+    if (error instanceof Error) {
+      throw error
+    }
+
+    if (error.status === statusCode) {
+      console.log(`Success: ${operationId}/${testDescription}`) // eslint-disable-line no-console
+      return apiClient
+    }
+
+    throw new Error(
+      `${operationId}/${testDescription} expected status ${
+        statusCode
+      }, but got ${error ? JSON.stringify(error, null, 2) : error}`
+    )
+  }
+}
+
+const createHandleResolveForSuccess = (
+  operationId,
+  testDescription
+) => collectionsClient => {
+  return () => {
+    console.log(`Success: ${operationId}/${testDescription}`) // eslint-disable-line no-console
+    return collectionsClient
+  }
+}
+
+const createHandleRejectForSuccess = (operationId, testDescription) => {
+  return error => {
+    throw new Error(
+      `${operationId}/${testDescription}: ${
+        error ? JSON.stringify(error, null, 2) : error
+      }`
+    )
+  }
+}
+
+const createErrorRequestTestFactory = operationId => {
+  return function createErrorRequestTest(
+    testDescription,
+    { pathParams, queryParams, statusCode, body = {} }
+  ) {
+    const handleResolve = createHandleResolveForError(
+      operationId,
+      testDescription,
+      statusCode
+    )
+    const handleReject = createHandleRejectForError(
+      operationId,
+      testDescription,
+      statusCode
+    )
+
+    return function requestErrorTest(
+      collectionsClient,
+      buildEndpointSpec = defaultBuildEndpointSpec
+    ) {
+      return collectionsClient
+        .call(
+          buildEndpointSpec({
+            operationId,
+          }),
+          { body, pathParams, queryParams }
+        )
+        .then(handleResolve)
+        .catch(handleReject(collectionsClient))
+    }
+  }
+}
+
+const createSuccessRequestTestFactory = operationId => {
+  return function createSuccessRequestTest(
+    testDescription,
+    { body, pathParams, queryParams }
+  ) {
+    const handleResolve = createHandleResolveForSuccess(
+      operationId,
+      testDescription
+    )
+    const handleReject = createHandleRejectForSuccess(
+      operationId,
+      testDescription
+    )
+
+    return function requestSuccessTest(
+      collectionsClient,
+      buildEndpointSpec = defaultBuildEndpointSpec
+    ) {
+      return collectionsClient
+        .call(
+          buildEndpointSpec({
+            operationId,
+          }),
+          { body, pathParams, queryParams }
+        )
+        .then(handleResolve(collectionsClient))
+        .catch(handleReject)
+    }
+  }
+}
+
 module.exports = {
   createAuthClient,
   createCollectionsClient,
+  createErrorRequestTestFactory,
+  createSuccessRequestTestFactory,
   login,
 }
