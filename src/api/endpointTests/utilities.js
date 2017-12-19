@@ -22,14 +22,24 @@ const login = (
 ) => {
   const authClient = createAuthClient()
   return authClient
-    .formPost(userEndpoints.LOG_IN, {
-      body: {
-        client_id: 'dina-rest',
-        grant_type: 'password',
-        password,
-        username,
-      },
-    })
+    .formPost(
+      defaultBuildEndpointSpec({
+        mapResponse: json => {
+          return {
+            accessToken: json.access_token,
+          }
+        },
+        operationId: 'loginUser',
+      }),
+      {
+        body: {
+          client_id: 'dina-rest',
+          grant_type: 'password',
+          password,
+          username,
+        },
+      }
+    )
     .then(result => {
       return result.accessToken
     })
