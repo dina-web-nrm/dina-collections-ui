@@ -1,7 +1,5 @@
 const createApiClient = require('../../coreModules/api/apiClient')
-const {
-  buildEndpointSpec: defaultBuildEndpointSpec,
-} = require('../../coreModules/api/endpointSpecFactory')
+const defaultBuildEndpointSpec = require('../../coreModules/api/endpointSpecFactory/server')
 
 require('isomorphic-fetch')
 
