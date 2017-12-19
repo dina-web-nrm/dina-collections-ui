@@ -1,10 +1,10 @@
-import createValidator from './createValidator'
+const createValidator = require('./createValidator')
 
 const defaultOptions = {
   throwOnError: false,
 }
 
-export default function validateAgainstModel(
+module.exports = function validateAgainstModel(
   model,
   object,
   options = defaultOptions

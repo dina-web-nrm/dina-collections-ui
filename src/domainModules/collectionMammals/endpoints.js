@@ -1,4 +1,4 @@
-import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
+import buildEndpointSpec from 'coreModules/api/endpointSpecFactory/client'
 import { createLookupMammalsResponse, getIndividualGroup } from './mockData'
 
 export const GET_INDIVIDUAL_GROUP_BY_CATALOG_NUMBER = buildEndpointSpec({

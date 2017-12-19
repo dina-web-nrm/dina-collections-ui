@@ -1,6 +1,6 @@
-import { JSON_SCHEMA_ERROR_CODES } from '../../constants'
+const { JSON_SCHEMA_ERROR_CODES } = require('../../constants')
 
-export default function transform(error) {
+module.exports = function transform(error) {
   const { keyword } = error
   const errorCode = JSON_SCHEMA_ERROR_CODES[keyword]
   if (!keyword || !errorCode) {

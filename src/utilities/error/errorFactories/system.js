@@ -1,13 +1,13 @@
-import { ERROR_CODES, ORIGINS, TYPES } from '../constants'
+const { ERROR_CODES, ORIGINS, TYPES } = require('../constants')
 
-import createError from './base'
+const createError = require('./base')
 
-export default function createSystemError(error) {
+module.exports = function createSystemError(error) {
   const errorCode =
     (error.errorCode && ERROR_CODES[error.errorCode]) ||
     ERROR_CODES.DEFAULT_SYSTEM
   const context = {
-    errorCode, // import from consts
+    errorCode, // const from consts
     origin: ORIGINS.CLIENT,
     statusCode: null,
     type: TYPES.SYSTEM,

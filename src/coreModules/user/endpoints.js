@@ -1,4 +1,4 @@
-import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
+import buildEndpointSpec from 'coreModules/api/endpointSpecFactory/client'
 
 export const LOG_IN = buildEndpointSpec({
   mapResponse: json => {

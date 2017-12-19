@@ -1,4 +1,4 @@
-import { buildEndpointSpec } from 'coreModules/api/endpointSpecFactory'
+import buildEndpointSpec from 'coreModules/api/endpointSpecFactory/client'
 import { createDeleter, createSetter } from 'utilities/stateHelper'
 import { taxonomyResponse } from './mockData'
 

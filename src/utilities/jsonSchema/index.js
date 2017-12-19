@@ -1,4 +1,4 @@
-import createMockDataFromSchema from './createMockDataFromSchema'
-import createValidator from './createValidator'
+const createMockDataFromSchema = require('./createMockDataFromSchema')
+const createValidator = require('./createValidator')
 
 export { createMockDataFromSchema, createValidator }

@@ -1,6 +1,6 @@
-import objectPath from 'object-path'
-import Ajv from 'ajv'
-import models from 'dina-schema/build/models.json'
+const objectPath = require('object-path')
+const Ajv = require('ajv')
+const models = require('dina-schema/build/models.json')
 
 const defaultOptions = {
   allErrors: true,
@@ -23,7 +23,7 @@ const createAjv = options => {
 const defaultAjv = createAjv(defaultOptions)
 
 // TODO: rename model to modelName
-export default function createModelSchemaValidator({
+module.exports = function createModelSchemaValidator({
   dataPath,
   schema: customSchema,
   model,

@@ -1,6 +1,6 @@
-import { ERROR_CODES } from '../constants'
+const { ERROR_CODES } = require('../constants')
 
-export default function createError({ context, error }) {
+module.exports = function createError({ context, error }) {
   const {
     errorCode,
     origin,

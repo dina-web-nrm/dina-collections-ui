@@ -1,6 +1,6 @@
-import openApiSpec from 'dina-schema/build/openApi.json'
-import { createSystemModelSchemaValidator } from 'utilities/error'
-import createMockGenerator from 'utilities/jsonSchema/createMockGenerator'
+const openApiSpec = require('dina-schema/build/openApi.json')
+const { createSystemModelSchemaValidator } = require('../../../utilities/error')
+const createMockGenerator = require('../../../utilities/jsonSchema/createMockGenerator')
 
 const buildOperationIdPathnameMap = () => {
   const map = {}
@@ -89,16 +89,18 @@ const getResponseValidator = ({ methodSpecification }) => {
   return null
 }
 
-const createMockData = ({ methodSpecification }) => {
+const createMockData = ({ importFaker, methodSpecification }) => {
   const schema = getSchemaFromResponse(methodSpecification.responses[200])
   if (schema) {
     const modelName = getModelNameFromSchema(schema)
     if (modelName) {
       return createMockGenerator({
+        importFaker,
         model: modelName,
       })
     }
     return createMockGenerator({
+      importFaker,
       schema,
     })
   }
@@ -106,25 +108,28 @@ const createMockData = ({ methodSpecification }) => {
   return null
 }
 
-export const buildEndpointSpec = ({ operationId, ...rest }) => {
-  if (!map[operationId]) {
-    console.warn(`Operation id: ${operationId} unknown`) // eslint-disable-line no-console
-  }
+module.exports = function createBuildEndpointSpec({ importFaker }) {
+  return function buildEndpointSpec({ operationId, ...rest }) {
+    if (!map[operationId]) {
+      console.warn(`Operation id: ${operationId} unknown`) // eslint-disable-line no-console
+    }
 
-  const { methodName, methodSpecification, pathname } = map[operationId] || {}
-  return {
-    methodName,
-    mock: createMockData({
-      methodSpecification,
-    }),
-    operationId,
-    pathname,
-    validateBody: getBodyValidator({
-      methodSpecification,
-    }),
-    validateResponse: getResponseValidator({
-      methodSpecification,
-    }),
-    ...rest,
+    const { methodName, methodSpecification, pathname } = map[operationId] || {}
+    return {
+      methodName,
+      mock: createMockData({
+        importFaker,
+        methodSpecification,
+      }),
+      operationId,
+      pathname,
+      validateBody: getBodyValidator({
+        methodSpecification,
+      }),
+      validateResponse: getResponseValidator({
+        methodSpecification,
+      }),
+      ...rest,
+    }
   }
 }

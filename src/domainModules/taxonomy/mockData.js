@@ -3,7 +3,7 @@ export const taxonomyResponse = {
   data: [
     {
       type: 'taxon',
-      id: '10400032',
+      id: 10400032,
       attributes: {
         rubin_number: '203303',
         higherTaxa: {
@@ -30,7 +30,7 @@ export const taxonomyResponse = {
     },
     {
       type: 'taxon',
-      id: '10400056',
+      id: 10400056,
       attributes: {
         rubin_number: undefined,
         higherTaxa: {
@@ -56,7 +56,7 @@ export const taxonomyResponse = {
     },
     {
       type: 'taxon',
-      id: '10400077',
+      id: 10400077,
       attributes: {
         rubin_number: '200336',
         higherTaxa: {
@@ -83,7 +83,7 @@ export const taxonomyResponse = {
     },
     {
       type: 'taxon',
-      id: '10400078',
+      id: 10400078,
       attributes: {
         rubin_number: undefined,
         higherTaxa: {
@@ -109,7 +109,7 @@ export const taxonomyResponse = {
     },
     {
       type: 'taxon',
-      id: '10800060',
+      id: 10800060,
       attributes: {
         rubin_number: undefined,
         higherTaxa: {
@@ -136,7 +136,7 @@ export const taxonomyResponse = {
     },
     {
       type: 'taxon',
-      id: '10800117',
+      id: 10800117,
       attributes: {
         rubin_number: undefined,
         higherTaxa: {
@@ -163,7 +163,7 @@ export const taxonomyResponse = {
     },
     {
       type: 'taxon',
-      id: '10900026',
+      id: 10900026,
       attributes: {
         rubin_number: '450912',
         higherTaxa: {
@@ -190,7 +190,7 @@ export const taxonomyResponse = {
     },
     {
       type: 'taxon',
-      id: '11000035',
+      id: 11000035,
       attributes: {
         rubin_number: '551203',
         higherTaxa: {
@@ -217,7 +217,7 @@ export const taxonomyResponse = {
     },
     {
       type: 'taxon',
-      id: '11000098',
+      id: 11000098,
       attributes: {
         rubin_number: '652103',
         higherTaxa: {
@@ -244,7 +244,7 @@ export const taxonomyResponse = {
     },
     {
       type: 'taxon',
-      id: '11000175',
+      id: 11000175,
       attributes: {
         rubin_number: '680303',
         higherTaxa: {

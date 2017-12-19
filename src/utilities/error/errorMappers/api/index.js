@@ -1,3 +1,3 @@
-export default function apiErrorMapper(apiError) {
+module.exports = function apiErrorMapper(apiError) {
   return apiError
 }
