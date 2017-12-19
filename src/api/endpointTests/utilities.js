@@ -56,7 +56,11 @@ const createCollectionsClient = (
         Authorization: `bearer ${authToken}`,
       }
     },
-    mapResponse: ({ json }) => json,
+    mapResponse: ({ json }) => {
+      return json
+    },
+    validateInput: false,
+    validateOutput: false,
   })
 }
 module.exports = {
