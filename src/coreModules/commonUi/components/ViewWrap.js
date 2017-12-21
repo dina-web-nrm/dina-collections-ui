@@ -20,14 +20,14 @@ const mapDispatchToProps = {
 const propTypes = {
   children: PropTypes.node.isRequired,
   isLarge: PropTypes.bool.isRequired,
-  loggedInView: PropTypes.bool,
+  sidebarEnabled: PropTypes.bool,
   sidebarIsOpen: PropTypes.bool.isRequired,
   sidebarWidth: PropTypes.number,
   toggleSidebar: PropTypes.func.isRequired,
 }
 
 const defaultProps = {
-  loggedInView: false,
+  sidebarEnabled: false,
   sidebarWidth: 100,
 }
 
@@ -71,14 +71,13 @@ export const getViewWrapStyle = ({
 const ViewWrap = ({
   children,
   isLarge,
-  loggedInView,
+  sidebarEnabled,
   sidebarIsOpen,
   sidebarWidth,
   toggleSidebar,
 }) => {
-  const sidebarAlwaysVisible = isLarge && loggedInView
-  const sidebarToggable = !isLarge && loggedInView
-
+  const sidebarAlwaysVisible = isLarge && sidebarEnabled
+  const sidebarToggable = !isLarge && sidebarEnabled
   const viewWrapStyle = getViewWrapStyle({
     sidebarAlwaysVisible,
     sidebarIsOpen,
@@ -97,10 +96,7 @@ const ViewWrap = ({
           </Menu>
         )}
         <Dimmer active={dimmerActive} onClickOutside={toggleSidebar} />
-        <div
-          className="ui fluid"
-          style={{ backgroundColor: '#E4E9EC', overflow: 'hidden' }}
-        >
+        <div className="ui fluid" style={{ backgroundColor: '#fbfcfa', overflow: 'hidden' }}>
           {children}
         </div>
       </Dimmer.Dimmable>

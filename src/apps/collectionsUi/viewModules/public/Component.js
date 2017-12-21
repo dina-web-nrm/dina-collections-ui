@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 
 import { FixedMenu, Footer, ViewWrap } from 'coreModules/commonUi/components'
 import uiSelectors from 'coreModules/commonUi/globalSelectors'
-
 import Login from '../login/Async'
 import PageNotFound from '../pageNotFound/Async'
 import Start from '../start/Async'

@@ -5,7 +5,7 @@ import { Button, Container, Image, Menu } from 'semantic-ui-react'
 import logo from './logo.png'
 
 const FixedMenu = () => (
-  <Menu fixed="top" size="large">
+  <Menu fixed="top" size="large" style={{ zIndex: 150 }}>
     <Container>
       <NavLink className="item" exact to="/">
         <Image centered size="tiny" src={logo} />

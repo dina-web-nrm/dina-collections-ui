@@ -46,7 +46,7 @@ class Start extends Component {
       <div>
         <Segment
           style={{
-            background: '#FFFFFF',
+            background: '#fbfcfa',
             minHeight: 700,
             padding: '1em 0em',
           }}
