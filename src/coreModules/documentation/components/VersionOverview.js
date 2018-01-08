@@ -23,7 +23,7 @@ const VersionOverview = ({ match }) => {
     <div>
       <h2>Version: {activeVersion}</h2>
       <Segment>
-        <MarkdownToHtmlAsync markdown={specification.info.versionInfo} />
+        <MarkdownToHtmlAsync markdown={specification.info['x-versionInfo']} />
       </Segment>
     </div>
   )
