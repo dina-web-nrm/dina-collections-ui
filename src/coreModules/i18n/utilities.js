@@ -46,3 +46,31 @@ export const getTranslationByPath = (
 export const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
+
+export const buildModuleTextKey = ({ module, scope, textKey }) => {
+  if (!scope) {
+    return `modules.${module}.${textKey}`
+  }
+  return `modules.${module}.${scope}.${textKey}`
+}
+
+export const buildTextKeys = ({ modules, scope, textKey }) => {
+  return modules.reduce((textKeys, module) => {
+    if (scope) {
+      textKeys.push(
+        buildModuleTextKey({
+          module,
+          scope,
+          textKey,
+        })
+      )
+    }
+    textKeys.push(
+      buildModuleTextKey({
+        module,
+        textKey,
+      })
+    )
+    return textKeys
+  }, [])
+}
