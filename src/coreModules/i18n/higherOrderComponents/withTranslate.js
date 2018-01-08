@@ -15,8 +15,15 @@ export default function withTranslate(ComposedComponent) {
   class WithTranslate extends Component {
     constructor(props) {
       super(props)
+      this.createModuleTranslate = this.createModuleTranslate.bind(this)
       this.moduleTranslate = this.moduleTranslate.bind(this)
       this.translate = this.translate.bind(this)
+    }
+
+    createModuleTranslate(moduleName, { scope = '' } = {}) {
+      return ({ ...rest }) => {
+        return this.moduleTranslate({ module: moduleName, scope, ...rest })
+      }
     }
 
     moduleTranslate({
@@ -60,6 +67,7 @@ export default function withTranslate(ComposedComponent) {
     render() {
       return (
         <ComposedComponent
+          createModuleTranslate={this.createModuleTranslate}
           moduleTranslate={this.moduleTranslate}
           translate={this.translate}
           {...this.props}
