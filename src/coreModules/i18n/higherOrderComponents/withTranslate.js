@@ -67,9 +67,11 @@ export default function withTranslate(ComposedComponent) {
     render() {
       return (
         <ComposedComponent
-          createModuleTranslate={this.createModuleTranslate}
-          moduleTranslate={this.moduleTranslate}
-          translate={this.translate}
+          i18n={{
+            createModuleTranslate: this.createModuleTranslate,
+            moduleTranslate: this.moduleTranslate,
+            translate: this.translate,
+          }}
           {...this.props}
         />
       )
