@@ -1,29 +1,28 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { compose } from 'redux'
 
 import {
   SearchInputWithResults,
   TranslateSearchResult,
 } from 'coreModules/form/components'
-import { withTranslate } from 'coreModules/i18n/higherOrderComponents'
+import { withI18n } from 'coreModules/i18n/higherOrderComponents'
 import { FEATURE_OBSERVATION_TYPE_NAMES } from '../../constants'
-
-const buildTextKey = value => {
-  return `modules.collectionMammals.featureObservations.${value}`
-}
 
 const AVAILABLE_TYPE_NAMES = FEATURE_OBSERVATION_TYPE_NAMES.map(typeName => {
   return {
     key: typeName,
-    textKey: buildTextKey(typeName),
+    textKey: typeName,
     value: typeName,
   }
 })
 
 const propTypes = {
-  controlledValue: PropTypes.number,
   errorScope: PropTypes.string,
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+  i18n: PropTypes.shape({
+    moduleTranslate: PropTypes.func.isRequired,
+  }).isRequired,
   input: PropTypes.shape({
     name: PropTypes.string.isRequired,
     onBlur: PropTypes.func.isRequired,
@@ -36,11 +35,9 @@ const propTypes = {
     touched: PropTypes.bool.isRequired,
   }).isRequired,
   required: PropTypes.bool,
-  translate: PropTypes.func.isRequired,
 }
 
 const defaultProps = {
-  controlledValue: undefined,
   errorScope: undefined,
   helpText: undefined,
   label: undefined,
@@ -60,8 +57,8 @@ class FeatureTypeNameSearch extends Component {
     }
 
     return AVAILABLE_TYPE_NAMES.filter(({ textKey }) => {
-      return this.props
-        .translate({
+      return this.props.i18n
+        .moduleTranslate({
           textKey,
         })
         .toLowerCase()
@@ -83,14 +80,13 @@ class FeatureTypeNameSearch extends Component {
 
   render() {
     const {
-      controlledValue,
       errorScope,
       helpText,
+      i18n,
       input,
       label,
       meta,
       required,
-      translate,
       ...rest
     } = this.props
 
@@ -105,9 +101,9 @@ class FeatureTypeNameSearch extends Component {
         input={{
           name: input.name,
           value: value
-            ? translate({
+            ? i18n.moduleTranslate({
                 fallback: value,
-                textKey: buildTextKey(value),
+                textKey: value,
               })
             : '',
         }}
@@ -125,4 +121,9 @@ class FeatureTypeNameSearch extends Component {
 FeatureTypeNameSearch.propTypes = propTypes
 FeatureTypeNameSearch.defaultProps = defaultProps
 
-export default withTranslate(FeatureTypeNameSearch)
+export default compose(
+  withI18n({
+    module: 'collectionMammals',
+    scope: 'featureObservations',
+  })
+)(FeatureTypeNameSearch)
