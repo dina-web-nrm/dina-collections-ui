@@ -6,19 +6,18 @@ const propTypes = {
 }
 const DefaultLoader = ({ loading }) => {
   const style = {
-    backgroundColor: '#E4E9EC',
     height: '100%',
     left: 0,
-    opacity: loading ? 1 : 0,
+    opacity: loading ? 0.7 : 0,
     pointerEvents: 'none',
     position: 'absolute',
     right: 0,
     top: 0,
-    transition: 'opacity 0.3s',
+    transition: 'opacity 0.5s',
     width: '100%',
     zIndex: 1000,
   }
-  return <div style={style} />
+  return <div className="dina background" style={style} />
 }
 
 DefaultLoader.propTypes = propTypes

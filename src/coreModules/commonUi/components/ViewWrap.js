@@ -98,8 +98,8 @@ const ViewWrap = ({
         )}
         <Dimmer active={dimmerActive} onClickOutside={toggleSidebar} />
         <div
-          className="ui fluid"
-          style={{ backgroundColor: '#E4E9EC', overflow: 'hidden' }}
+          className="ui fluid dina background"
+          style={{ overflow: 'hidden' }}
         >
           {children}
         </div>
