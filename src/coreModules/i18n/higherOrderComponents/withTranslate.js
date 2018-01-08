@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { capitalizeFirstLetter, getTranslationByPath } from '../utilities'
+import {
+  buildTextKeys,
+  capitalizeFirstLetter,
+  getTranslationByPath,
+} from '../utilities'
 
 export default function withTranslate(ComposedComponent) {
   const contextTypes = {
@@ -11,7 +15,22 @@ export default function withTranslate(ComposedComponent) {
   class WithTranslate extends Component {
     constructor(props) {
       super(props)
+      this.moduleTranslate = this.moduleTranslate.bind(this)
       this.translate = this.translate.bind(this)
+    }
+
+    moduleTranslate({
+      module: moduleInput,
+      modules: modulesInput,
+      textKey,
+      scope,
+      ...rest
+    }) {
+      const modules =
+        modulesInput && modulesInput.length ? modulesInput : [moduleInput]
+      const textKeys = buildTextKeys({ modules, scope, textKey })
+
+      return this.translate({ textKeys, ...rest })
     }
 
     translate({ capitalize, fallback, params, textKey, textKeys }) {
@@ -39,7 +58,13 @@ export default function withTranslate(ComposedComponent) {
     }
 
     render() {
-      return <ComposedComponent translate={this.translate} {...this.props} />
+      return (
+        <ComposedComponent
+          moduleTranslate={this.moduleTranslate}
+          translate={this.translate}
+          {...this.props}
+        />
+      )
     }
   }
 
