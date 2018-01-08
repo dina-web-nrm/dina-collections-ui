@@ -8,6 +8,7 @@ export const moduleOrder = [
   'registerMammal',
   'login',
   'settings',
+  'docs',
   'pageNotFound',
 ]
 
