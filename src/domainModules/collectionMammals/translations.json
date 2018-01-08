@@ -156,6 +156,10 @@
       "en": "Features",
       "sv": "Egenskaper"
     },
+    "featureType": {
+      "en": "Feature type",
+      "sv": ""
+    },
     "method": {
       "en": "Method",
       "sv": ""
