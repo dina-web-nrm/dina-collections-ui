@@ -7,7 +7,7 @@ import { Header, Segment, Table } from 'semantic-ui-react'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Field, FormTable, Input } from 'coreModules/form/components'
 import { fieldNamePathFactory } from 'coreModules/form/utilities'
-import FeatureTypeNameSearch from '../../FeatureTypeNameSearch'
+import FeatureTypeNameDropdown from '../../FeatureTypeNameDropdown'
 import Footer from './Footer'
 
 const ModuleTranslate = createModuleTranslate('collectionMammals', {
@@ -50,7 +50,7 @@ class SegmentFeatureObservations extends Component {
         <Field
           autoComplete="off"
           className="transparent"
-          component={FeatureTypeNameSearch}
+          component={FeatureTypeNameDropdown}
           module="collectionMammals"
           name={buildPath(
             'featureObservationType.featureObservationTypeName',

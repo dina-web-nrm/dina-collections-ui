@@ -1,3 +1,3 @@
-import withTranslate from './withTranslate'
+import withI18n from './withI18n'
 
-export { withTranslate }
+export { withI18n }

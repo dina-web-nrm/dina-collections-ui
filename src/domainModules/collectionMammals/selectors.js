@@ -2,6 +2,15 @@ export const getLocalState = state => {
   return state.collectionMammals
 }
 
+export const getFeatureTypeNameSearchQueries = state => {
+  return state.featureTypeNameSearchQueries
+}
+
+export const getFeatureTypeNameSearchQuery = (state, inputName) => {
+  const individualGroups = getFeatureTypeNameSearchQueries(state)
+  return individualGroups[inputName]
+}
+
 export const getLookupResult = state => {
   return state.lookup.result
 }

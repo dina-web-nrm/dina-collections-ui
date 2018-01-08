@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Translate from './Translate'
+import { buildTextKeys } from '../utilities'
 
 const propTypes = {
   module: PropTypes.string,
@@ -13,34 +14,6 @@ const defaultProps = {
   module: '',
   modules: [],
   scope: '',
-}
-
-export const buildModuleTextKey = ({ module, scope, textKey }) => {
-  if (!scope) {
-    return `modules.${module}.${textKey}`
-  }
-  return `modules.${module}.${scope}.${textKey}`
-}
-
-export const buildTextKeys = ({ modules, scope, textKey }) => {
-  return modules.reduce((textKeys, module) => {
-    if (scope) {
-      textKeys.push(
-        buildModuleTextKey({
-          module,
-          scope,
-          textKey,
-        })
-      )
-    }
-    textKeys.push(
-      buildModuleTextKey({
-        module,
-        textKey,
-      })
-    )
-    return textKeys
-  }, [])
 }
 
 const ModuleTranslate = ({

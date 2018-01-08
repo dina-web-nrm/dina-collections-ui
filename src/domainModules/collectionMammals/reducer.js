@@ -6,6 +6,7 @@ import {
   COLLECTION_MAMMALS_LOOKUP_MAMMALS_FAIL,
   COLLECTION_MAMMALS_LOOKUP_MAMMALS_SUCCESS,
   COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_SUCCESS,
+  COLLECTION_MAMMALS_UPDATE_FEATURE_TYPE_NAME_SEARCH_QUERY,
   COLLECTION_MAMMALS_UPDATE_INDIVIDUAL_GROUP_SUCCESS,
   COLLECTION_MAMMALS_UPDATE_SEARCH_PARAMETER,
 } from './actionTypes'
@@ -16,6 +17,7 @@ const getLookupSearch = createGetter(['lookup', 'search'])
 const setLookupSearch = createSetter(['lookup', 'search'])
 
 const initialState = {
+  featureTypeNameSearchQueries: {},
   individualGroups: {},
   lookup: {
     error: null,
@@ -50,6 +52,16 @@ export default function reducer(state = initialState, action) {
     case COLLECTION_MAMMALS_LOOKUP_MAMMALS_SUCCESS: {
       const emptyErrorState = setLookupError(state, [])
       return setLookupResult(emptyErrorState, action.payload.data)
+    }
+
+    case COLLECTION_MAMMALS_UPDATE_FEATURE_TYPE_NAME_SEARCH_QUERY: {
+      return {
+        ...state,
+        featureTypeNameSearchQueries: {
+          ...state.featureTypeNameSearchQueries,
+          [action.meta.inputName]: action.payload,
+        },
+      }
     }
 
     case COLLECTION_MAMMALS_UPDATE_SEARCH_PARAMETER: {
