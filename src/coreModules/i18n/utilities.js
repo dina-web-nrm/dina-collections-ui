@@ -100,3 +100,13 @@ export const buildTextKeys = ({ modules, scope, textKey }) => {
     return textKeys
   }, [])
 }
+
+export const asyncImportRenderer = () => {
+  return import('utilities/markdown/renderMarkdownToHtml.js')
+}
+
+export const markdownToHtmlAsync = markdown => {
+  return asyncImportRenderer().then(renderer => {
+    return renderer(markdown)
+  })
+}
