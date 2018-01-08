@@ -9,22 +9,27 @@ const contextTypes = {
 }
 
 const propTypes = {
+  fallbackLanguage: PropTypes.string,
   textKey: PropTypes.string,
   textKeys: PropTypes.arrayOf(PropTypes.string),
 }
 const defaultProps = {
+  fallbackLanguage: undefined,
   textKey: '',
   textKeys: [],
 }
 
-const Markdown = ({ textKey, textKeys }, { language, markdown }) => {
+const Markdown = (
+  { textKey, textKeys, fallbackLanguage },
+  { language, markdown }
+) => {
   const output = getTranslationByPath(markdown, {
+    fallbackLanguage,
     language,
     textKey,
     textKeys,
   })
-
-  if (!output) {
+  if (!output || output === textKey) {
     console.warn(`Translation not found for path: ${textKey}`, markdown) // eslint-disable-line no-console
   }
 
