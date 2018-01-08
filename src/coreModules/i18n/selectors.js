@@ -1,3 +1,5 @@
+import objectPath from 'object-path'
+
 export const getLocalState = state => {
   return state.i18n
 }
@@ -17,6 +19,12 @@ export const getMarkdown = state => {
 export const getMarkdownModules = state => {
   const markdown = getMarkdown(state)
   return markdown && markdown.modules
+}
+
+export const getMarkdownKeysByPath = (state, path) => {
+  const modules = getMarkdownModules(state)
+
+  return Object.keys(objectPath.get(modules, path) || {})
 }
 
 export const getTranslations = state => {
