@@ -43,6 +43,9 @@
     "name": {
       "type": "string"
     },
+    "notifications": {
+      "type": "object"
+    },
     "reducer": {
       "not": {
         "type": "string"
