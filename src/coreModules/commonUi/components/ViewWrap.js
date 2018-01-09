@@ -34,7 +34,7 @@ const defaultProps = {
 export const getViewWrapStyle = ({
   sidebarAlwaysVisible,
   sidebarIsOpen,
-  sidebarToggable,
+  sidebarTogglable,
   sidebarWidth,
 }) => {
   const viewWrapBaseStyle = {
@@ -48,7 +48,7 @@ export const getViewWrapStyle = ({
     zIndex: 200,
   }
 
-  const sizeBaseStyle = sidebarToggable
+  const sizeBaseStyle = sidebarTogglable
     ? {
         transform: sidebarIsOpen ? `translate(${sidebarWidth}px, 0px)` : '',
         WebkitTransform: sidebarIsOpen
@@ -77,18 +77,18 @@ const ViewWrap = ({
   toggleSidebar,
 }) => {
   const sidebarAlwaysVisible = isLarge && sidebarEnabled
-  const sidebarToggable = !isLarge && sidebarEnabled
+  const sidebarTogglable = !isLarge && sidebarEnabled
   const viewWrapStyle = getViewWrapStyle({
     sidebarAlwaysVisible,
     sidebarIsOpen,
-    sidebarToggable,
+    sidebarTogglable,
     sidebarWidth,
   })
-  const dimmerActive = sidebarToggable && sidebarIsOpen
+  const dimmerActive = sidebarTogglable && sidebarIsOpen
   return (
     <div style={viewWrapStyle}>
       <Dimmer.Dimmable dimmed={dimmerActive}>
-        {sidebarToggable && (
+        {sidebarTogglable && (
           <Menu inverted style={{ margin: 0 }}>
             <Menu.Item onClick={toggleSidebar}>
               <Icon name="sidebar" size="large" />
