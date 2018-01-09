@@ -10,6 +10,19 @@ import { NavigationSidebar } from 'coreModules/commonUi/components'
 import createModelLink from '../utilities/createModelLink'
 import getAvailableSchemaVersions from '../utilities/getAvailableSchemaVersions'
 
+const { schemas } = specification.components
+
+const availableVersions = getAvailableSchemaVersions()
+
+const models = Object.keys(schemas)
+  .map(key => {
+    return {
+      ...schemas[key],
+      key,
+    }
+  })
+  .filter(model => model['x-modelType'] === 'model')
+
 const mapStateToProps = state => {
   return {
     markdownKeys: i18nSelectors.getMarkdownKeysByPath(state, 'docs.overview'),
@@ -28,18 +41,6 @@ const propTypes = {
 class Nav extends Component {
   render() {
     const { match: { params: { schemaVersion: version } } } = this.props
-    const { schemas } = specification.components
-
-    const availableVersions = getAvailableSchemaVersions()
-
-    const models = Object.keys(schemas)
-      .map(key => {
-        return {
-          ...schemas[key],
-          key,
-        }
-      })
-      .filter(model => model['x-modelType'] === 'model')
 
     const markdownNavItems = this.props.markdownKeys.map(markdownKey => {
       return {
@@ -87,8 +88,8 @@ class Nav extends Component {
 
     return (
       <NavigationSidebar
-        dispayHome
-        dispayLogout={false}
+        displayHome
+        displayLogout={false}
         navItems={navItems}
         nested
         width={180}

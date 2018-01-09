@@ -59,7 +59,7 @@ const SidebarNavItemGroup = ({ navGroupItem }) => {
     <Menu.Item
       className={push ? 'push bottom' : 'item'}
       exact={exact}
-      key={path}
+      key={name}
     >
       {icon && <Icon name={icon} size="large" />}
       {translate ? (

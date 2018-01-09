@@ -24,8 +24,8 @@ ReactDOM.render(
     <ConnectedRouter history={config.routing}>
       <I18nProvider>
         <Switch>
-          <Route component={Docs} path="/docs" />
           <Route component={App} path="/app" />
+          <Route component={Docs} path="/docs" />
           <Route component={Public} />
         </Switch>
       </I18nProvider>

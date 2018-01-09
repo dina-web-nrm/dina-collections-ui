@@ -44,7 +44,7 @@ const Property = ({ model, property, version }) => {
               return (
                 <Table.Row>
                   <Table.Cell>{key}</Table.Cell>
-                  <Table.Cell>{`${JSON.stringify(property[key])}`}</Table.Cell>
+                  <Table.Cell>{JSON.stringify(property[key])}</Table.Cell>
                 </Table.Row>
               )
             })}
