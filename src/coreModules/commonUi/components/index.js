@@ -1,4 +1,3 @@
-import FixedMenu from './FixedMenu/index'
 import Footer from './Footer'
 import Navbar from './Navbar'
 import NavigationSidebar from './NavigationSidebar'
@@ -7,7 +6,6 @@ import TranslatedLabel from './TranslatedLabel'
 import ViewWrap from './ViewWrap'
 
 export {
-  FixedMenu,
   Footer,
   Navbar,
   NavigationSidebar,

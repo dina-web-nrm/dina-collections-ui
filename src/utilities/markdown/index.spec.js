@@ -1,4 +1,5 @@
-import { renderMarkdownToHtml, renderMarkdownToInline } from './markdownRender'
+const renderMarkdownToHtml = require('./renderMarkdownToHtml')
+const renderMarkdownToInline = require('./renderMarkdownToInline')
 
 describe('scripts/markdown/markdownRender', () => {
   describe('renderMarkdownToHtml', () => {

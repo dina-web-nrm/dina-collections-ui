@@ -1,7 +1,7 @@
 const path = require('path')
 const DEFAULT_FS = require('fs')
 
-const { renderMarkdownToHtml } = require('./markdownRender')
+const { renderMarkdownToHtml } = require('../../utilities/markdown')
 
 // '[name].[language].md'
 const markdownLanguageRegex = /^([A-Za-z0-9-_]+)\.([a-z]+)\.md$/

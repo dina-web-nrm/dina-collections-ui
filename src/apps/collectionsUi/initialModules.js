@@ -10,6 +10,11 @@ import * as devToolsExtension from 'coreModules/devToolsExtension'
 import * as localStorage from 'coreModules/localStorage'
 import * as logger from 'coreModules/logger'
 import * as routing from 'coreModules/routing'
+/*
+* Including start here is a temporary fix to get arund problem with
+* translations provided on view level
+*/
+import * as start from './viewModules/start'
 
 const modules = [
   api,
@@ -24,6 +29,7 @@ const modules = [
   localStorage,
   logger,
   routing,
+  start,
 ]
 
 export default modules

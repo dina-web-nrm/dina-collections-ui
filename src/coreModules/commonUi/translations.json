@@ -33,6 +33,18 @@
     "dynamic": {
       "en": "dynamic",
       "sv": "dynamisk"
+    },
+    "overview": {
+      "en": "overview",
+      "sv": "översikt"
+    },
+    "versions": {
+      "en": "versions",
+      "sv": "versioner"
+    },
+    "models": {
+      "en": "models",
+      "sv": "modeller"
     }
   }
 }

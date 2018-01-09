@@ -12,6 +12,7 @@ import registerServiceWorker from 'registerServiceWorker'
 
 import { moduleOrder } from './viewModules'
 import App from './viewModules/app/Async'
+import Docs from './viewModules/docs/Async'
 import config from './config'
 import modules from './initialModules'
 import Public from './viewModules/public/Async'
@@ -23,6 +24,7 @@ ReactDOM.render(
     <ConnectedRouter history={config.routing}>
       <I18nProvider>
         <Switch>
+          <Route component={Docs} path="/docs" />
           <Route component={App} path="/app" />
           <Route component={Public} />
         </Switch>

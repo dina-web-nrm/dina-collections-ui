@@ -12,6 +12,7 @@ export const moduleOrder = [
   'size',
   'user',
   'keyboardShortcuts',
+  'documentation',
 ]
 
 export const type = 'module'
