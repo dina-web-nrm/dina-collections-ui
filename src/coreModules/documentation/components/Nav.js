@@ -88,8 +88,8 @@ class Nav extends Component {
 
     return (
       <NavigationSidebar
-        dispayHome
-        dispayLogout={false}
+        displayHome
+        displayLogout={false}
         navItems={navItems}
         nested
         width={180}

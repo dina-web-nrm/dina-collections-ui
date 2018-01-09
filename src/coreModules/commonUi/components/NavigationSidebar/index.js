@@ -17,8 +17,8 @@ const mapDispatchToProps = {
 }
 
 const propTypes = {
-  dispayHome: PropTypes.bool,
-  dispayLogout: PropTypes.bool,
+  displayHome: PropTypes.bool,
+  displayLogout: PropTypes.bool,
   logout: PropTypes.func.isRequired,
   navItems: PropTypes.arrayOf(
     PropTypes.shape({
@@ -34,16 +34,16 @@ const propTypes = {
 }
 
 const defaultProps = {
-  dispayHome: false,
-  dispayLogout: true,
+  displayHome: false,
+  displayLogout: true,
   navItems: [],
   nested: false,
   width: 100,
 }
 
 const NavigationSidebar = ({
-  dispayHome,
-  dispayLogout,
+  displayHome,
+  displayLogout,
   nested,
   logout,
   navItems,
@@ -70,7 +70,7 @@ const NavigationSidebar = ({
 
         return <SidebarNavItem navItem={navItem} />
       })}
-      {dispayHome && (
+      {displayHome && (
         <NavLink
           activeClassName="active"
           className="item push bottom"
@@ -82,7 +82,7 @@ const NavigationSidebar = ({
           <ModuleTranslate capitalize textKey="routes.home" />
         </NavLink>
       )}
-      {dispayLogout && (
+      {displayLogout && (
         <Menu.Item
           onClick={event => {
             event.preventDefault()
