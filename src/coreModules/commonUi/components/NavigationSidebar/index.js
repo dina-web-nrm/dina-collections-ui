@@ -68,7 +68,7 @@ export const NavigationSidebar = ({
           )
         }
 
-        return <SidebarNavItem navItem={navItem} />
+        return <SidebarNavItem key={navItem.name} navItem={navItem} />
       })}
       {displayHome && (
         <NavLink
