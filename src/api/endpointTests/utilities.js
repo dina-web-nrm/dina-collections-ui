@@ -60,7 +60,7 @@ const createCollectionsClient = (
       return json
     },
     validateInput: false,
-    validateOutput: false,
+    validateOutput: true,
   })
 }
 
