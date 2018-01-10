@@ -186,9 +186,21 @@ module.exports = function createIndividualGroup({ collectionsClient }) {
       testGetSuccess('getByCatalogNumber', {
         queryParams: { 'filter[catalogNumber]': validCatalogNumber },
       }),
+      testGetSuccess('getByCatalogNumber with includes', {
+        queryParams: {
+          'filter[catalogNumber]': validCatalogNumber,
+          include: 'identifications,physicalUnits.catalogedUnit',
+        },
+      }),
       testGetSuccess('getByIdentifiedTaxonNameStandardized', {
         queryParams: {
           'filter[identifiedTaxonNameStandardized]': validTaxonName,
+        },
+      }),
+      testGetSuccess('getByIdentifiedTaxonNameStandardized with includes', {
+        queryParams: {
+          'filter[identifiedTaxonNameStandardized]': validTaxonName,
+          include: 'identifications,physicalUnits.catalogedUnit',
         },
       }),
     ],
