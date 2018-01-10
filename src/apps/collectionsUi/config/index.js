@@ -12,7 +12,7 @@ const config = {
   i18n: {
     availableLanguages: ['en', 'sv'],
     defaultLanguage: 'en',
-    language: 'sv',
+    language: 'en',
     translations: {
       common: {
         yes: {

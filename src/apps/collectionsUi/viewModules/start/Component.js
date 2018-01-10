@@ -53,7 +53,10 @@ class Start extends Component {
             <a href="#footer">
               <Button color="blue" size="huge">
                 Read more
-                <Icon name="right down arrow" />
+                <Icon
+                  name="down arrow"
+                  style={{ margin: '0em -0.25em 0em 0.5em' }}
+                />
               </Button>
             </a>
             <NavLink to="/login">
