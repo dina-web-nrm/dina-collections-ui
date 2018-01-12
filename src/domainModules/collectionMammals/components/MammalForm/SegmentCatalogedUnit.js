@@ -10,7 +10,7 @@ const ModuleTranslate = createModuleTranslate('collectionMammals', {
 
 export default () => {
   return (
-    <Segment>
+    <Segment color="green">
       <Grid textAlign="left" verticalAlign="top">
         <Grid.Column computer={7} mobile={16}>
           <Field
