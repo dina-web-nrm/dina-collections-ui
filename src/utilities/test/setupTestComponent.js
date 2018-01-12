@@ -12,11 +12,12 @@ const defaultConfig = defaultTestConfig()
 export default function setupTestComponent({
   component,
   config: customConfig,
+  initialState,
   fullExport = false,
   mount: mountComponent = false,
 }) {
   const config = customConfig || defaultConfig
-  const store = createTestStore({ config })
+  const store = createTestStore({ config, initialState })
 
   let rootComponent = (
     <Provider store={store}>
