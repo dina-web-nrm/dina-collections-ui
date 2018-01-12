@@ -1,5 +1,6 @@
+import allCoreModules from 'coreModules/allModules'
+import allDomainModules from 'domainModules/allModules'
 import createStore from 'store'
-import allModules from './allModules'
 import createDefaultTestConfig from './defaultTestConfig'
 
 export default function createTestStore(
@@ -7,7 +8,7 @@ export default function createTestStore(
     bootstrap = false,
     config = createDefaultTestConfig(),
     initialState,
-    modules = allModules,
+    modules = [...allCoreModules, ...allDomainModules],
     viewOrder = [],
   } = {}
 ) {
