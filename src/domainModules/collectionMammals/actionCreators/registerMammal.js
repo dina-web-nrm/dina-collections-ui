@@ -1,3 +1,5 @@
+import immutable from 'object-path-immutable'
+
 import {
   COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_FAIL,
   COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_REQUEST,
@@ -14,6 +16,14 @@ export default function registerMammal(
     individualGroup,
   }
 
+  const cleanedIndividualGroup = immutable.set(
+    individualGroup,
+    'physicalUnits',
+    individualGroup.physicalUnits.map(physicalUnit => {
+      return immutable.del(physicalUnit, 'catalogedUnit')
+    })
+  )
+
   return (dispatch, getState, { apiClient }) => {
     dispatch({
       meta,
@@ -29,7 +39,7 @@ export default function registerMammal(
           },
         ],
         attributes: {
-          ...individualGroup,
+          ...cleanedIndividualGroup,
         },
       },
     }

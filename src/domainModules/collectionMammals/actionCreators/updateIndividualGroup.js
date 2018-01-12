@@ -1,5 +1,3 @@
-import immutable from 'object-path-immutable'
-
 import {
   COLLECTION_MAMMALS_UPDATE_INDIVIDUAL_GROUP_FAIL,
   COLLECTION_MAMMALS_UPDATE_INDIVIDUAL_GROUP_REQUEST,
@@ -8,47 +6,36 @@ import {
 import { UPDATE_INDIVIDUAL_GROUP } from '../endpoints'
 import getIndividualGroupByCatalogNumber from './getIndividualGroupByCatalogNumber'
 
-export default function updateIndividualGroup(formData, throwError = true) {
+export default function updateIndividualGroup(
+  { catalogedUnit, individualGroup },
+  throwError = true
+) {
   const meta = {
-    catalogNumber: formData.physicalUnits[0].catalogedUnit.catalogNumber,
-    formData,
-    individualGrouId: formData.id,
+    catalogNumber: catalogedUnit.catalogNumber,
+    individualGroup: {
+      ...individualGroup,
+    },
   }
+
   return (dispatch, getState, { apiClient }) => {
     dispatch({
       meta,
       type: COLLECTION_MAMMALS_UPDATE_INDIVIDUAL_GROUP_REQUEST,
     })
-
-    let attributes = formData
-
-    attributes = immutable.set(
-      attributes,
-      'featureObservations',
-      formData.featureObservations &&
-        formData.featureObservations.filter(featureObservation => {
-          return featureObservation.featureObservationText
-        })
-    )
-
-    attributes = {
-      featureObservations: [],
-      identifications: [],
-      occurrences: [],
-      physicalUnits: [],
-      ...attributes,
-    }
-
     const body = {
       data: {
-        attributes,
+        attributes: {
+          ...individualGroup,
+        },
       },
     }
+
+    delete body.data.attributes.id
 
     return apiClient
       .call(UPDATE_INDIVIDUAL_GROUP, {
         body,
-        pathParams: { id: attributes.id },
+        pathParams: { id: individualGroup.id },
       })
       .then(
         response => {

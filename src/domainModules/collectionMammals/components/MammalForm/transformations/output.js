@@ -18,13 +18,6 @@ export default function transformOutput(formData) {
   }
 
   const { catalogedUnit } = individualGroup.physicalUnits[0]
-  individualGroup = immutable.set(
-    individualGroup,
-    'physicalUnits',
-    individualGroup.physicalUnits.map(physicalUnit => {
-      return immutable.del(physicalUnit, 'catalogedUnit')
-    })
-  )
 
   individualGroup = immutable.set(
     individualGroup,
