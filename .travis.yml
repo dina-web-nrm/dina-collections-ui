@@ -11,6 +11,7 @@ cache: yarn
 
 script:
   - yarn build:mock
+  - yarn build:storybook
   - yarn test
 
 after_success:
