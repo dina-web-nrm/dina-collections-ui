@@ -140,9 +140,10 @@ class LookupMammals extends Component {
                 const {
                   catalogNumber,
                 } = attributes.physicalUnits[0].catalogedUnit
-                const {
-                  identifiedTaxonNameStandardized,
-                } = attributes.identifications[0]
+                const { identifiedTaxonNameStandardized } =
+                  attributes.identifications &&
+                  attributes.identifications.length &&
+                  attributes.identifications[0]
 
                 const tableValues = {
                   catalogNumber,
