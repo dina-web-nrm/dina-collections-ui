@@ -1,1 +1,1 @@
-export const MODULE_NAME = 'api'
+export const MODULE_NAME = 'bootstrap'
