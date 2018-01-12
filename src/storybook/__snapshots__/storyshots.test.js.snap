@@ -1,122 +1,636 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots coreModules/commonUi/Navbar Default state 1`] = `
+exports[`Storyshots coreModules/bootstrap/DefaultLoader Loading 1`] = `
+<div>
+  <div>
+    <div
+      className="ui segment"
+    >
+      Some not loaded content 
+    </div>
+    <div
+      className="dina background"
+      style={
+        Object {
+          "height": "100%",
+          "left": 0,
+          "opacity": 0.7,
+          "pointerEvents": "none",
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "transition": "opacity 0.5s",
+          "width": "100%",
+          "zIndex": 1000,
+        }
+      }
+    />
+     
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/bootstrap/DefaultLoader Not loading 1`] = `
+<div>
+  <div>
+    <div
+      className="ui segment"
+    >
+      Some loaded content 
+    </div>
+    <div
+      className="dina background"
+      style={
+        Object {
+          "height": "100%",
+          "left": 0,
+          "opacity": 0,
+          "pointerEvents": "none",
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "transition": "opacity 0.5s",
+          "width": "100%",
+          "zIndex": 1000,
+        }
+      }
+    />
+     
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/bootstrap/DefaultWrapper Default 1`] = `
+<div>
+  <div>
+    <div
+      style={
+        Object {
+          "minHeight": "100vh",
+        }
+      }
+    >
+      <div
+        className="ui segment"
+      >
+        Wrapped content (DefaultWrapper ensure full height )
+      </div>
+    </div>
+    <p>
+      After DefaultWrapper
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/commonUi/Footer Default 1`] = `
 <div>
   <div
-    className="ui large menu"
+    className="ui inverted vertical segment"
+    id="footer"
+    style={
+      Object {
+        "padding": "5em 0em",
+      }
+    }
   >
     <div
       className="ui container"
     >
       <div
-        className="right menu"
+        className="ui inverted stackable divided grid"
       >
         <div
-          className="item"
-          onClick={[Function]}
-        >
-          <p>
-            John Doe
-          </p>
-        </div>
-        <div
-          className="item"
-          onClick={[Function]}
-        >
-          <p>
-            medium
-          </p>
-        </div>
-        <div
-          className="item"
-          onClick={[Function]}
-        >
-          <button
-            className="ui button"
-            disabled={undefined}
-            onClick={[Function]}
-            role="button"
-            tabIndex={undefined}
-          >
-            <span>
-              Logout
-            </span>
-          </button>
-        </div>
-        <div
-          className="item"
-          onClick={[Function]}
+          className="row"
         >
           <div
-            aria-busy={undefined}
-            aria-disabled={undefined}
-            aria-expanded={false}
-            aria-multiselectable={undefined}
-            className="ui button floating labeled dropdown icon"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onMouseDown={[Function]}
-            role="listbox"
-            tabIndex={0}
+            className="three wide column"
           >
-            <div
-              aria-live="polite"
-              className="text"
-              role="alert"
+            <h4
+              className="ui inverted header"
             >
-              en
-            </div>
-            <i
-              aria-hidden="true"
-              className="world icon"
-              onClick={[Function]}
-            />
+              Site
+            </h4>
             <div
-              className="menu transition"
+              className="ui large inverted link list"
+              role="list"
             >
               <div
-                aria-checked={true}
-                aria-disabled={undefined}
-                aria-selected={true}
-                className="active selected item"
+                className="item"
+                data-value={undefined}
                 onClick={[Function]}
-                role="option"
-                style={
-                  Object {
-                    "pointerEvents": "all",
-                  }
-                }
+                role="listitem"
               >
-                <span
-                  className="text"
+                <div
+                  className="content"
                 >
-                  en
-                </span>
+                  <i
+                    aria-hidden="true"
+                    className="home icon"
+                  />
+                  <a
+                    aria-current="true"
+                    className="active"
+                    href="/"
+                    onClick={[Function]}
+                    style={Object {}}
+                  >
+                    Start
+                  </a>
+                </div>
               </div>
               <div
-                aria-checked={false}
-                aria-disabled={undefined}
-                aria-selected={false}
                 className="item"
+                data-value={undefined}
                 onClick={[Function]}
-                role="option"
-                style={
-                  Object {
-                    "pointerEvents": "all",
-                  }
-                }
+                role="listitem"
               >
-                <span
-                  className="text"
+                <div
+                  className="content"
                 >
-                  sv
-                </span>
+                  <i
+                    aria-hidden="true"
+                    className="user icon"
+                  />
+                  <a
+                    aria-current={false}
+                    className={undefined}
+                    href="/login"
+                    onClick={[Function]}
+                    style={undefined}
+                  >
+                    Login
+                  </a>
+                </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
+                <div
+                  className="content"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="database icon"
+                  />
+                  <a
+                    aria-current={false}
+                    className={undefined}
+                    href="/docs"
+                    onClick={[Function]}
+                    style={undefined}
+                  >
+                    Data model
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="three wide column"
+          >
+            <h4
+              className="ui inverted header"
+            >
+              Documentation
+            </h4>
+            <div
+              className="ui large inverted link list"
+              role="list"
+            >
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
+                <div
+                  className="content"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="wikipedia icon"
+                  />
+                  <a
+                    href="https://www.dina-project.net/wiki/Welcome_to_the_DINA_project!"
+                  >
+                    DINA wiki
+                  </a>
+                </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
+                <div
+                  className="content"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="database icon"
+                  />
+                  <a
+                    aria-current={false}
+                    className={undefined}
+                    href="/docs"
+                    onClick={[Function]}
+                    style={undefined}
+                  >
+                    Data model
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="three wide column"
+          >
+            <h4
+              className="ui inverted header"
+            >
+              Developer
+            </h4>
+            <div
+              className="ui large inverted link list"
+              role="list"
+            >
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
+                <div
+                  className="content"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="github icon"
+                  />
+                  <a
+                    href="https://github.com/DINA-Web"
+                  >
+                    DINA-Web Github
+                  </a>
+                </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
+                <div
+                  className="content"
+                >
+                  <a
+                    href="https://github.com/DINA-Web/dina-collections-ui"
+                  >
+                    <i
+                      aria-hidden="true"
+                      className="github icon"
+                    />
+                    Collections ui Github
+                  </a>
+                </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
+                <div
+                  className="content"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="external icon"
+                  />
+                  <a
+                    href="https://alpha-style.dina-web.net/"
+                  >
+                    Style guide
+                  </a>
+                </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
+                <div
+                  className="content"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="external icon"
+                  />
+                  <a
+                    href="https://alpha-api-docs.dina-web.net/?url=https://alpha-api-docs.dina-web.net/openApi.json&docExpansion=false&defaultModelRendering=model&defaultModelExpandDepth=0"
+                  >
+                    Api documentation
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/commonUi/NavigationSidebar Default 1`] = `
+<div>
+  <div
+    className="ui inverted vertical labeled icon ui overlay left visible sidebar flex menu"
+    style={
+      Object {
+        "overflow": "hidden",
+        "width": 100,
+      }
+    }
+  >
+    <a
+      aria-current={false}
+      className="item"
+      href="/app"
+      onClick={[Function]}
+      style={undefined}
+    >
+      <i
+        aria-hidden="true"
+        className="home large icon"
+      />
+      <span>
+        Start
+      </span>
+    </a>
+    <a
+      aria-current={false}
+      className="item"
+      href="/app/mammals/register"
+      onClick={[Function]}
+      style={undefined}
+    >
+      <i
+        aria-hidden="true"
+        className="plus large icon"
+      />
+      <span>
+        Register mammal
+      </span>
+    </a>
+    <a
+      aria-current={false}
+      className="item"
+      href="/app/mammals/lookup"
+      onClick={[Function]}
+      style={undefined}
+    >
+      <i
+        aria-hidden="true"
+        className="search large icon"
+      />
+      <span>
+        Lookup mammals
+      </span>
+    </a>
+    <a
+      aria-current={false}
+      className="item push bottom"
+      href="/app/settings"
+      onClick={[Function]}
+      style={undefined}
+    >
+      <i
+        aria-hidden="true"
+        className="setting large icon"
+      />
+      <span>
+        Settings
+      </span>
+    </a>
+    <a
+      className="item"
+      onClick={[Function]}
+    >
+      <i
+        aria-hidden="true"
+        className="sign out icon"
+      />
+      <span>
+        Logout
+      </span>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/commonUi/PageTemplate Fixed menu 1`] = `
+<div>
+  <div
+    className="ui container"
+    style={
+      Object {
+        "minHeight": "100vh",
+        "paddingBottom": 30,
+        "paddingTop": 61.5,
+      }
+    }
+  >
+    <div>
+      Page content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/commonUi/PageTemplate No fixed menu 1`] = `
+<div>
+  <div
+    className="ui container"
+    style={
+      Object {
+        "minHeight": "100vh",
+        "paddingBottom": 30,
+        "paddingTop": 30,
+      }
+    }
+  >
+    <div>
+      Page content
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/commonUi/TranslatedLabel Default 1`] = `
+<div>
+  <div
+    className="ui green label"
+    onClick={[Function]}
+  >
+    <span>
+      key-without-translations
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/commonUi/ViewWrap Default 1`] = `
+<div>
+  <div
+    style={
+      Object {
+        "bottom": "100%",
+        "left": 0,
+        "minHeight": "100%",
+        "minWidth": "100%",
+        "paddingLeft": 0,
+        "position": "relative",
+        "top": 0,
+        "transition": "transform 0.2s",
+        "zIndex": 1,
+      }
+    }
+  >
+    <div
+      className="dimmable"
+    >
+      <div
+        className="ui dimmer"
+        onClick={[Function]}
+      />
+      <div
+        className="ui fluid dina background"
+        style={
+          Object {
+            "overflow": "hidden",
+          }
+        }
+      >
+        <div>
+          View wrap content
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/error/FormFieldError Default 1`] = `
+<div>
+  <span
+    className="ui red tiny label"
+    style={
+      Object {
+        "bottom": 0,
+        "left": 0,
+        "position": "absolute",
+        "textAlign": "left",
+        "transform": "translateY(100%)",
+        "width": "100%",
+        "zIndex": 20,
+      }
+    }
+  >
+    <span>
+      Modules.error.some-scope.SAMPLE_ERROR_CODE, modules.error.SAMPLE_ERROR_CODE
+    </span>
+  </span>
+</div>
+`;
+
+exports[`Storyshots coreModules/error/FormSchemaError Default 1`] = `
+<div>
+  <div
+    className="ui negative message"
+  >
+    <div
+      className="ui red tiny labels"
+    >
+      <div
+        className="ui label"
+        onClick={[Function]}
+      >
+        <span>
+          Modules.error.some-scope.SAMPLE_ERROR_CODE, modules.error.SAMPLE_ERROR_CODE
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/form/Checkbox Default 1`] = `
+<div>
+  <div
+    className="field"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  >
+    <div
+      className="ui fitted checkbox"
+      onChange={[Function]}
+      onClick={[Function]}
+      onMouseDown={[Function]}
+      scope="some-scope"
+    >
+      <input
+        checked={false}
+        className="hidden"
+        name={undefined}
+        readOnly={true}
+        tabIndex={0}
+        type="checkbox"
+        value={undefined}
+      />
+      <label />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/form/Input Default 1`] = `
+<div>
+  <div
+    className="ui large stacked segment"
+  >
+    <div
+      className="field"
+      style={
+        Object {
+          "position": "relative",
+        }
+      }
+    >
+      <label
+        htmlFor={undefined}
+      >
+        This is a label
+      </label>
+      <div
+        className="ui input"
+        scope="some-scope"
+      >
+        <input
+          disabled={undefined}
+          onChange={[Function]}
+          tabIndex={undefined}
+          type="text"
+        />
       </div>
     </div>
   </div>
@@ -220,6 +734,8 @@ exports[`Storyshots coreModules/i18n/createModuleTranslate Default 1`] = `
   </span>
 </div>
 `;
+
+exports[`Storyshots coreModules/keyboardShortcits/ShortcutsDisplay No fixed menu 1`] = `<div />`;
 
 exports[`Storyshots coreModules/user/LoginForm Default 1`] = `
 <div>

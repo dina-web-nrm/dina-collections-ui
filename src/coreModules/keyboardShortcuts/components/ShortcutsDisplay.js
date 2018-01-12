@@ -26,6 +26,7 @@ const mapDispatchToProps = {
 }
 
 const propTypes = {
+  open: PropTypes.bool,
   setShortcutsModalHidden: PropTypes.func.isRequired,
   shortcutDescriptionList: PropTypes.arrayOf(
     PropTypes.shape({
@@ -37,9 +38,12 @@ const propTypes = {
   showShortcutInfo: PropTypes.bool.isRequired,
 }
 
-const defaultProps = {}
+const defaultProps = {
+  open: true,
+}
 
 const ShortcutsDisplay = ({
+  open,
   setShortcutsModalHidden: setShortcutsModalHiddenAc,
   shortcutDescriptionList,
   showShortcutInfo,
@@ -53,7 +57,7 @@ const ShortcutsDisplay = ({
       closeOnDocumentClick
       onClick={setShortcutsModalHiddenAc}
       onClose={setShortcutsModalHiddenAc}
-      open
+      open={open}
     >
       <Modal.Header>
         <ModuleTranslate textKey="ShortcutsDisplay.header" />
