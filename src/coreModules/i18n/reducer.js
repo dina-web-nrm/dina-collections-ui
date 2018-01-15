@@ -14,9 +14,9 @@ import { I18N_SET_LANGUAGE } from './actionTypes'
 import { MARKDOWN, MODULE_NAME, TRANSLATIONS } from './constants'
 
 export const initialState = {
-  availableLanguages: [],
+  availableLanguages: ['en', 'sv'],
   defaultLanguage: 'en',
-  language: null,
+  language: 'en',
   markdown: {},
   translations: {},
 }

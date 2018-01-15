@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 import { Dropdown } from 'semantic-ui-react'
 import i18nLocalSelectors from 'coreModules/i18n/globalSelectors'
-import logoutActionCreator from 'coreModules/user/actionCreators/logout'
 import { setLanguage as setLanguageActionCreator } from 'coreModules/i18n/actionCreators'
 
 const mapStateToProps = state => ({
@@ -13,7 +12,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  logout: logoutActionCreator,
   setLanguage: setLanguageActionCreator,
 }
 

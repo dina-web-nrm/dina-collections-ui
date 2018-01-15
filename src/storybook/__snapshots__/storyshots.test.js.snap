@@ -637,6 +637,16 @@ exports[`Storyshots coreModules/form/Input Default 1`] = `
 </div>
 `;
 
+exports[`Storyshots coreModules/i18n/I18nProvider Default 1`] = `
+<div>
+  <div>
+    <div>
+      Child node
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Storyshots coreModules/i18n/LanguageSelect Default 1`] = `
 <div>
   <div
@@ -711,10 +721,154 @@ exports[`Storyshots coreModules/i18n/LanguageSelect Default 1`] = `
 </div>
 `;
 
+exports[`Storyshots coreModules/i18n/LanguageSelect Green color 1`] = `
+<div>
+  <div
+    aria-busy={undefined}
+    aria-disabled={undefined}
+    aria-expanded={false}
+    aria-multiselectable={undefined}
+    className="ui button floating labeled dropdown icon green"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onMouseDown={[Function]}
+    role="listbox"
+    tabIndex={0}
+  >
+    <div
+      aria-live="polite"
+      className="text"
+      role="alert"
+    >
+      en
+    </div>
+    <i
+      aria-hidden="true"
+      className="world icon"
+      onClick={[Function]}
+    />
+    <div
+      className="menu transition"
+    >
+      <div
+        aria-checked={true}
+        aria-disabled={undefined}
+        aria-selected={true}
+        className="active selected item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }
+      >
+        <span
+          className="text"
+        >
+          en
+        </span>
+      </div>
+      <div
+        aria-checked={false}
+        aria-disabled={undefined}
+        aria-selected={false}
+        className="item"
+        onClick={[Function]}
+        role="option"
+        style={
+          Object {
+            "pointerEvents": "all",
+          }
+        }
+      >
+        <span
+          className="text"
+        >
+          sv
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/Markdown Default 1`] = `
+<div>
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<p>Detta är kompilerad markdown</p>",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/Markdown Fallback language 1`] = `
+<div>
+  <div
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<p>This is compiled markdown in fallback language en</p>",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/MarkdownToHtmlAsync Default 1`] = `
+<div>
+  <div />
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/ModuleTranslate Default 1`] = `
+<div>
+  <span>
+    förnamn
+  </span>
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/ModuleTranslate Multile modules 1`] = `
+<div>
+  <span>
+    förnamn
+  </span>
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/ModuleTranslate Not existing 1`] = `
+<div>
+  <span>
+    modules.notExisting.firstName
+  </span>
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/Translate Capitalize 1`] = `
+<div>
+  <span>
+    Efternamn
+  </span>
+</div>
+`;
+
 exports[`Storyshots coreModules/i18n/Translate Default 1`] = `
 <div>
   <span>
-    lastname
+    förnamn
+  </span>
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/Translate Fallback 1`] = `
+<div>
+  <span>
+    This is fallback
   </span>
 </div>
 `;
@@ -722,7 +876,23 @@ exports[`Storyshots coreModules/i18n/Translate Default 1`] = `
 exports[`Storyshots coreModules/i18n/Translate Interpolation 1`] = `
 <div>
   <span>
-    hello Anton
+    Hej Anton
+  </span>
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/Translate Multiple keys 1`] = `
+<div>
+  <span>
+    Efternamn
+  </span>
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/Translate No translation available 1`] = `
+<div>
+  <span>
+    non-existing
   </span>
 </div>
 `;
@@ -730,7 +900,15 @@ exports[`Storyshots coreModules/i18n/Translate Interpolation 1`] = `
 exports[`Storyshots coreModules/i18n/createModuleTranslate Default 1`] = `
 <div>
   <span>
-    modules.commonUi.firstName
+    förnamn
+  </span>
+</div>
+`;
+
+exports[`Storyshots coreModules/i18n/createModuleTranslate Not existing 1`] = `
+<div>
+  <span>
+    modules.notExisting.firstName
   </span>
 </div>
 `;
