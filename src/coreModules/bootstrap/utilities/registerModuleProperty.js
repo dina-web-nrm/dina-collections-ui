@@ -3,6 +3,8 @@ import immutable from 'object-path-immutable'
 
 export default function registerModuleProperty({
   action,
+  customRegisterKey,
+  ignoreModuleNames = false,
   property,
   scopeUnderModules = false,
   state,
@@ -11,7 +13,9 @@ export default function registerModuleProperty({
     return state
   }
 
-  const statePath = scopeUnderModules ? `${property}.modules` : property
+  const statePath = scopeUnderModules
+    ? `${customRegisterKey || property}.modules`
+    : customRegisterKey || property
   const currentPropertyObject = objectPath.get(state, statePath)
   const modules = action.payload.modules || {}
 
@@ -20,6 +24,13 @@ export default function registerModuleProperty({
       const module = modules[moduleName]
       if (!module[property]) {
         return obj
+      }
+
+      if (ignoreModuleNames) {
+        return {
+          ...obj,
+          ...module[property],
+        }
       }
 
       return {

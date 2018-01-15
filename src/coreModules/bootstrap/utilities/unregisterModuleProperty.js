@@ -3,6 +3,8 @@ import immutable from 'object-path-immutable'
 
 export default function unregisterModuleProperty({
   action,
+  customRegisterKey,
+  ignoreModuleNames = false,
   property,
   scopeUnderModules = false,
   state,
@@ -11,7 +13,9 @@ export default function unregisterModuleProperty({
     return state
   }
 
-  const statePath = scopeUnderModules ? `${property}.modules` : property
+  const statePath = scopeUnderModules
+    ? `${customRegisterKey || property}.modules`
+    : customRegisterKey || property
   const currentPropertyObject = objectPath.get(state, statePath)
 
   if (!(currentPropertyObject && Object.keys(currentPropertyObject).length)) {
@@ -22,9 +26,21 @@ export default function unregisterModuleProperty({
 
   const mergedPropertyObject = Object.keys(modules).reduce(
     (obj, moduleName) => {
+      if (ignoreModuleNames && modules[moduleName][property]) {
+        const newObj = {
+          ...obj,
+        }
+
+        const keysToRemove = Object.keys(modules[moduleName][property])
+        keysToRemove.forEach(key => delete newObj[key])
+
+        return newObj
+      }
+
       if (!obj[moduleName]) {
         return obj
       }
+
       const newObj = {
         ...obj,
       }
