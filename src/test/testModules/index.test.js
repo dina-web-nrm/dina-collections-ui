@@ -4,6 +4,7 @@ import fs from 'fs'
 import validateAgainstSchema from 'utilities/jsonSchema/validateAgainstSchema'
 import isKnownError from 'utilities/error/isKnownError'
 import createApiClient from 'coreModules/api/apiClient'
+import { testNotificationSpecification } from 'coreModules/notifications/utilities'
 
 import viewModuleSchema from './viewModuleSchema.json'
 import moduleSchema from './moduleSchema.json'
@@ -136,6 +137,18 @@ const testEndpoints = endpoints => {
   })
 }
 
+const testNotifications = notifications => {
+  describe('notifications', () => {
+    Object.keys(notifications).forEach(notificationType => {
+      it('is valid notification specification', () => {
+        expect(() =>
+          testNotificationSpecification(notifications[notificationType])
+        ).not.toThrow()
+      })
+    })
+  })
+}
+
 const testModuleInFolder = ({
   folderIndexFile,
   folderName,
@@ -166,12 +179,16 @@ const testModuleInFolder = ({
         expect(validateAgainstSchema(moduleSchema, module)).toBeNull()
       })
 
+      if (module.components) {
+        testComponents(moduleBasePath)
+      }
+
       if (module.endpoints) {
         testEndpoints(module.endpoints)
       }
 
-      if (module.components) {
-        testComponents(moduleBasePath)
+      if (module.notifications) {
+        testNotifications(moduleBasePath)
       }
     }
   })

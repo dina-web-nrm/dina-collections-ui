@@ -8,6 +8,7 @@ export const moduleOrder = [
   'i18n',
   'localStorage',
   'logger',
+  'notifications',
   'routing',
   'size',
   'user',
