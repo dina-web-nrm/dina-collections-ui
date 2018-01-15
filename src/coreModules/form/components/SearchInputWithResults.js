@@ -46,7 +46,6 @@ function SearchInputWithResults({
   required,
   resultRenderer,
   results,
-  ...rest
 }) {
   // map results to fit Semantic Search propTypes
   const mappedResults = results.map(result => {
@@ -72,7 +71,6 @@ function SearchInputWithResults({
         resultRenderer={resultRenderer}
         results={mappedResults}
         {...input}
-        {...rest}
       />
       {displayError && (
         <FormFieldError

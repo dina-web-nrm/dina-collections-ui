@@ -26,7 +26,6 @@ const getDateSuggestions = (datePart, controlledValue) => {
 }
 
 const propTypes = {
-  controlledValue: PropTypes.number,
   datePart: PropTypes.oneOf([DAY, MONTH, YEAR]).isRequired,
   errorScope: PropTypes.string,
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -45,7 +44,6 @@ const propTypes = {
 }
 
 const defaultProps = {
-  controlledValue: undefined,
   errorScope: undefined,
   helpText: undefined,
   label: undefined,
@@ -73,7 +71,6 @@ class InputDatePart extends Component {
 
   render() {
     const {
-      controlledValue,
       datePart,
       errorScope,
       helpText,
@@ -81,7 +78,6 @@ class InputDatePart extends Component {
       label,
       meta,
       required,
-      ...rest
     } = this.props
 
     const { value } = input
@@ -102,7 +98,6 @@ class InputDatePart extends Component {
         required={required}
         resultRenderer={TranslateSearchResult}
         results={getDateSuggestions(datePart, value)}
-        {...rest}
       />
     )
   }

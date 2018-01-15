@@ -47,7 +47,6 @@ function DropdownSearch({
   module,
   options,
   required,
-  ...rest
 }) {
   const displayError = touched && !!error
 
@@ -64,9 +63,8 @@ function DropdownSearch({
         search
         selection
         selectOnNavigation={false}
-        {...input}
-        {...rest}
         text={input.value || initialText}
+        {...input}
       />
       {displayError && (
         <FormFieldError

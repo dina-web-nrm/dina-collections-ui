@@ -23,7 +23,7 @@ const defaultProps = {
   required: false,
 }
 
-const Field = ({
+const CheckboxField = ({
   errorScope,
   label,
   input,
@@ -32,7 +32,6 @@ const Field = ({
   required,
   helpText,
   type,
-  ...rest
 }) => {
   const displayError = touched && !!error
 
@@ -53,7 +52,6 @@ const Field = ({
         }}
         type={type}
         {...inputRest}
-        {...rest}
       />
       {displayError && (
         <FormFieldError
@@ -66,7 +64,7 @@ const Field = ({
   )
 }
 
-Field.propTypes = propTypes
-Field.defaultProps = defaultProps
+CheckboxField.propTypes = propTypes
+CheckboxField.defaultProps = defaultProps
 
-export default Field
+export default CheckboxField
