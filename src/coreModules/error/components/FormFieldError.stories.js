@@ -5,15 +5,19 @@ import 'semantic-ui/dist/semantic.css' // eslint-disable-line
 import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import FormFieldError from './FormFieldError'
 
-storiesOf('coreModules/error/FormFieldError', module).add('Default', () => {
-  return setupStorybookComponent({
-    component: (
-      <FormFieldError
-        error={{
-          errorCode: 'SAMPLE_ERROR_CODE',
-        }}
-        scope="some-scope"
-      />
-    ),
-  })
-})
+storiesOf('coreModules/error/FormFieldError', module).add(
+  'Default',
+  context => {
+    return setupStorybookComponent({
+      component: (
+        <FormFieldError
+          error={{
+            errorCode: 'SAMPLE_ERROR_CODE',
+          }}
+          scope="some-scope"
+        />
+      ),
+      context,
+    })
+  }
+)

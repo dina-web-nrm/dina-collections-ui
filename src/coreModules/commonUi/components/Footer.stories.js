@@ -5,8 +5,10 @@ import 'semantic-ui/dist/semantic.css' // eslint-disable-line
 import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import Footer from './Footer'
 
-storiesOf('coreModules/commonUi/Footer', module).add('Default', () => {
+storiesOf('coreModules/commonUi/Footer', module).add('Default', context => {
   return setupStorybookComponent({
     component: <Footer />,
+    context,
+    wrap: false,
   })
 })

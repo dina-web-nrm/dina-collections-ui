@@ -6,7 +6,7 @@ import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import { Segment } from 'semantic-ui-react'
 import Input from './Input'
 
-storiesOf('coreModules/form/Input', module).add('Default', () => {
+storiesOf('coreModules/form/Input', module).add('Default', context => {
   return setupStorybookComponent({
     component: (
       <Segment size="large" stacked>
@@ -20,5 +20,6 @@ storiesOf('coreModules/form/Input', module).add('Default', () => {
         />
       </Segment>
     ),
+    context,
   })
 })

@@ -28,44 +28,54 @@ const initialState = {
 }
 
 storiesOf('coreModules/i18n/Translate', module)
-  .add('Default', () => {
+  .add('Default', context => {
     return setupStorybookComponent({
       component: <Translate textKey="firstName" />,
+      context,
       initialState,
+      title: 'Translate',
     })
   })
-  .add('No translation available', () => {
+  .add('No translation available', context => {
     return setupStorybookComponent({
       component: <Translate textKey="non-existing" />,
+      context,
       initialState,
+      title: 'Translate',
     })
   })
-  .add('Fallback', () => {
+  .add('Fallback', context => {
     return setupStorybookComponent({
       component: (
         <Translate fallback="This is fallback" textKey="non-existing" />
       ),
+      context,
       initialState,
+      title: 'Translate',
     })
   })
-  .add('Capitalize', () => {
+  .add('Capitalize', context => {
     return setupStorybookComponent({
       component: <Translate capitalize textKey="lastName" />,
+      context,
       initialState,
+      title: 'Translate',
     })
   })
-  .add('Multiple keys', () => {
+  .add('Multiple keys', context => {
     return setupStorybookComponent({
       component: <Translate capitalize textKeys={['dont-exist', 'lastName']} />,
+      context,
       initialState,
     })
   })
 
-  .add('Interpolation', () => {
+  .add('Interpolation', context => {
     return setupStorybookComponent({
       component: (
         <Translate capitalize params={{ name: 'Anton' }} textKey="greet" />
       ),
+      context,
       initialState,
     })
   })

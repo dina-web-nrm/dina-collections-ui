@@ -6,13 +6,15 @@ import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import LanguageSelect from './LanguageSelect'
 
 storiesOf('coreModules/i18n/LanguageSelect', module)
-  .add('Default', () => {
+  .add('Default', context => {
     return setupStorybookComponent({
       component: <LanguageSelect />,
+      context,
     })
   })
-  .add('Green color', () => {
+  .add('Green color', context => {
     return setupStorybookComponent({
       component: <LanguageSelect color="green" />,
+      context,
     })
   })

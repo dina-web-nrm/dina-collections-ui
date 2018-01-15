@@ -28,17 +28,19 @@ const initialState = {
 }
 
 storiesOf('coreModules/i18n/createModuleTranslate', module)
-  .add('Default', () => {
+  .add('Default', context => {
     const ModuleTranslate = createModuleTranslate('testModule')
     return setupStorybookComponent({
       component: <ModuleTranslate textKey="firstName" />,
+      context,
       initialState,
     })
   })
-  .add('Not existing', () => {
+  .add('Not existing', context => {
     const ModuleTranslate = createModuleTranslate('notExisting')
     return setupStorybookComponent({
       component: <ModuleTranslate textKey="firstName" />,
+      context,
       initialState,
     })
   })

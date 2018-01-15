@@ -35,9 +35,11 @@ const NAVIGATION_SIDEBAR_ITEMS = [
 
 storiesOf('coreModules/commonUi/NavigationSidebar', module).add(
   'Default',
-  () => {
+  context => {
     return setupStorybookComponent({
       component: <NavigationSidebar navItems={NAVIGATION_SIDEBAR_ITEMS} />,
+      context,
+      wrap: false,
     })
   }
 )

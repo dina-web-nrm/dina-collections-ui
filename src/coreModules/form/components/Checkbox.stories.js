@@ -5,7 +5,7 @@ import 'semantic-ui/dist/semantic.css' // eslint-disable-line
 import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import Checkbox from './Checkbox'
 
-storiesOf('coreModules/form/Checkbox', module).add('Default', () => {
+storiesOf('coreModules/form/Checkbox', module).add('Default', context => {
   return setupStorybookComponent({
     component: (
       <Checkbox
@@ -16,5 +16,6 @@ storiesOf('coreModules/form/Checkbox', module).add('Default', () => {
         type="checkbox"
       />
     ),
+    context,
   })
 })

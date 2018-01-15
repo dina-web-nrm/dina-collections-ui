@@ -8,7 +8,7 @@ import setShortcutsModalVisible from '../actionCreators/setShortcutsModalVisible
 
 storiesOf('coreModules/keyboardShortcits/ShortcutsDisplay', module).add(
   'No fixed menu',
-  () => {
+  context => {
     const { store, rootComponent: mountedComponent } = setupStorybookComponent({
       component: (
         <ShortcutsDisplay
@@ -16,6 +16,7 @@ storiesOf('coreModules/keyboardShortcits/ShortcutsDisplay', module).add(
           showShortcutInfo
         />
       ),
+      context,
       fullExport: true,
     })
 

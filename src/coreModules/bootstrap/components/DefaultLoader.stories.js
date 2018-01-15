@@ -8,7 +8,7 @@ import { Segment } from 'semantic-ui-react'
 import DefaultLoader from './DefaultLoader'
 
 storiesOf('coreModules/bootstrap/DefaultLoader', module)
-  .add('Not loading', () => {
+  .add('Not loading', context => {
     return setupStorybookComponent({
       component: (
         <div>
@@ -16,9 +16,10 @@ storiesOf('coreModules/bootstrap/DefaultLoader', module)
           <DefaultLoader loading={false} />{' '}
         </div>
       ),
+      context,
     })
   })
-  .add('Loading', () => {
+  .add('Loading', context => {
     return setupStorybookComponent({
       component: (
         <div>
@@ -26,5 +27,6 @@ storiesOf('coreModules/bootstrap/DefaultLoader', module)
           <DefaultLoader loading />{' '}
         </div>
       ),
+      context,
     })
   })

@@ -23,15 +23,17 @@ const initialState = {
 }
 
 storiesOf('coreModules/i18n/Markdown', module)
-  .add('Default', () => {
+  .add('Default', context => {
     return setupStorybookComponent({
       component: <Markdown textKey="example" />,
+      context,
       initialState,
     })
   })
-  .add('Fallback language', () => {
+  .add('Fallback language', context => {
     return setupStorybookComponent({
       component: <Markdown fallbackLanguage="en" textKey="otherExample" />,
+      context,
       initialState,
     })
   })
