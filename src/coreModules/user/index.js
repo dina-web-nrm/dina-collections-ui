@@ -4,6 +4,7 @@ import * as components from './components'
 import * as constants from './constants'
 import * as endpoints from './endpoints'
 import * as higherOrderComponents from './higherOrderComponents'
+import * as notifications from './notifications'
 import * as selectors from './selectors'
 import * as shortcuts from './shortcuts'
 import globalSelectors from './globalSelectors'
@@ -23,6 +24,7 @@ export {
   higherOrderComponents,
   middleware,
   name,
+  notifications,
   reducer,
   selectors,
   shortcuts,

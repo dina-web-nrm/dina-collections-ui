@@ -4,5 +4,9 @@
       "en": "Log in",
       "sv": "Logga in"
     }
+  },
+  "welcomeBack": {
+    "en": "Welcome back!",
+    "sv": "Välkommen tillbaka!"
   }
 }
