@@ -2,11 +2,11 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupTestComponent from 'utilities/test/setupTestComponent'
+import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import Checkbox from './Checkbox'
 
 storiesOf('coreModules/form/Checkbox', module).add('Default', () => {
-  return setupTestComponent({
+  return setupStorybookComponent({
     component: (
       <Checkbox
         input={{}}
@@ -16,6 +16,5 @@ storiesOf('coreModules/form/Checkbox', module).add('Default', () => {
         type="checkbox"
       />
     ),
-    mount: false,
   })
 })

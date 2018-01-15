@@ -2,7 +2,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupTestComponent from 'utilities/test/setupTestComponent'
+import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import Translate from './Translate'
 
 const initialState = {
@@ -29,49 +29,43 @@ const initialState = {
 
 storiesOf('coreModules/i18n/Translate', module)
   .add('Default', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <Translate textKey="firstName" />,
       initialState,
-      mount: false,
     })
   })
   .add('No translation available', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <Translate textKey="non-existing" />,
       initialState,
-      mount: false,
     })
   })
   .add('Fallback', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: (
         <Translate fallback="This is fallback" textKey="non-existing" />
       ),
       initialState,
-      mount: false,
     })
   })
   .add('Capitalize', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <Translate capitalize textKey="lastName" />,
       initialState,
-      mount: false,
     })
   })
   .add('Multiple keys', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <Translate capitalize textKeys={['dont-exist', 'lastName']} />,
       initialState,
-      mount: false,
     })
   })
 
   .add('Interpolation', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: (
         <Translate capitalize params={{ name: 'Anton' }} textKey="greet" />
       ),
       initialState,
-      mount: false,
     })
   })

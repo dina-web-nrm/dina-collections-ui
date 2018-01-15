@@ -2,12 +2,12 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupTestComponent from 'utilities/test/setupTestComponent'
+import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import { Segment } from 'semantic-ui-react'
 import Input from './Input'
 
 storiesOf('coreModules/form/Input', module).add('Default', () => {
-  return setupTestComponent({
+  return setupStorybookComponent({
     component: (
       <Segment size="large" stacked>
         <Input
@@ -20,6 +20,5 @@ storiesOf('coreModules/form/Input', module).add('Default', () => {
         />
       </Segment>
     ),
-    mount: false,
   })
 })

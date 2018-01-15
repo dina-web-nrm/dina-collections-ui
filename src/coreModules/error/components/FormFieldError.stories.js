@@ -2,11 +2,11 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupTestComponent from 'utilities/test/setupTestComponent'
+import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import FormFieldError from './FormFieldError'
 
 storiesOf('coreModules/error/FormFieldError', module).add('Default', () => {
-  return setupTestComponent({
+  return setupStorybookComponent({
     component: (
       <FormFieldError
         error={{
@@ -15,6 +15,5 @@ storiesOf('coreModules/error/FormFieldError', module).add('Default', () => {
         scope="some-scope"
       />
     ),
-    mount: false,
   })
 })

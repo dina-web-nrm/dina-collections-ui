@@ -2,19 +2,17 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupTestComponent from 'utilities/test/setupTestComponent'
+import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import LanguageSelect from './LanguageSelect'
 
 storiesOf('coreModules/i18n/LanguageSelect', module)
   .add('Default', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <LanguageSelect />,
-      mount: false,
     })
   })
   .add('Green color', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <LanguageSelect color="green" />,
-      mount: false,
     })
   })

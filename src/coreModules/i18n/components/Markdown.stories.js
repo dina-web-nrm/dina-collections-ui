@@ -2,7 +2,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupTestComponent from 'utilities/test/setupTestComponent'
+import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import Markdown from './Markdown'
 
 const initialState = {
@@ -24,16 +24,14 @@ const initialState = {
 
 storiesOf('coreModules/i18n/Markdown', module)
   .add('Default', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <Markdown textKey="example" />,
       initialState,
-      mount: false,
     })
   })
   .add('Fallback language', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <Markdown fallbackLanguage="en" textKey="otherExample" />,
       initialState,
-      mount: false,
     })
   })

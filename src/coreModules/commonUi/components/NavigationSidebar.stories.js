@@ -2,7 +2,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupTestComponent from 'utilities/test/setupTestComponent'
+import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import NavigationSidebar from './NavigationSidebar'
 
 const NAVIGATION_SIDEBAR_ITEMS = [
@@ -36,9 +36,8 @@ const NAVIGATION_SIDEBAR_ITEMS = [
 storiesOf('coreModules/commonUi/NavigationSidebar', module).add(
   'Default',
   () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <NavigationSidebar navItems={NAVIGATION_SIDEBAR_ITEMS} />,
-      mount: false,
     })
   }
 )

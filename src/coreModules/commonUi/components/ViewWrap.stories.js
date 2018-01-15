@@ -2,16 +2,15 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupTestComponent from 'utilities/test/setupTestComponent'
+import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import ViewWrap from './ViewWrap'
 
 storiesOf('coreModules/commonUi/ViewWrap', module).add('Default', () => {
-  return setupTestComponent({
+  return setupStorybookComponent({
     component: (
       <ViewWrap>
         <div>View wrap content</div>
       </ViewWrap>
     ),
-    mount: false,
   })
 })

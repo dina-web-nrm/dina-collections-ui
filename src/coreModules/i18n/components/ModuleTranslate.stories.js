@@ -2,7 +2,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupTestComponent from 'utilities/test/setupTestComponent'
+import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import ModuleTranslate from './ModuleTranslate'
 
 const initialState = {
@@ -29,21 +29,19 @@ const initialState = {
 
 storiesOf('coreModules/i18n/ModuleTranslate', module)
   .add('Default', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <ModuleTranslate module="testModule" textKey="firstName" />,
       initialState,
-      mount: false,
     })
   })
   .add('Not existing', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: <ModuleTranslate module="notExisting" textKey="firstName" />,
       initialState,
-      mount: false,
     })
   })
   .add('Multile modules', () => {
-    return setupTestComponent({
+    return setupStorybookComponent({
       component: (
         <ModuleTranslate
           modules={['notExisting', 'testModule']}
@@ -51,6 +49,5 @@ storiesOf('coreModules/i18n/ModuleTranslate', module)
         />
       ),
       initialState,
-      mount: false,
     })
   })

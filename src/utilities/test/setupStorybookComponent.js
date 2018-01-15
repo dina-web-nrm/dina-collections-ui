@@ -2,14 +2,13 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
-import { mount } from 'enzyme'
 import createTestStore from 'utilities/test/createTestStore'
 import defaultTestConfig from 'utilities/test/defaultTestConfig'
 import I18nProvider from 'coreModules/i18n/components/I18nProvider'
 
 const defaultConfig = defaultTestConfig()
 
-export default function setupTestComponent({
+export default function setupStorybookComponent({
   component,
   config: customConfig,
   initialState,
@@ -18,7 +17,7 @@ export default function setupTestComponent({
   const config = customConfig || defaultConfig
   const store = createTestStore({ config, initialState })
 
-  const rootComponent = mount(
+  const rootComponent = (
     <Provider store={store}>
       <ConnectedRouter history={config.routing}>
         <I18nProvider>{component}</I18nProvider>
