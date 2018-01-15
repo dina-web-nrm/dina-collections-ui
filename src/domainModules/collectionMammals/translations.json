@@ -267,6 +267,10 @@
     "en": "Search",
     "sv": "Sök"
   },
+  "seeDataModelDocs": {
+    "en": "See data model docs",
+    "sv": "Se datamodellsdokumentationen"
+  },
   "sex": {
     "en": "Sex",
     "sv": "Kön"
