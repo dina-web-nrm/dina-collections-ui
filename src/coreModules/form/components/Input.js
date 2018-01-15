@@ -4,6 +4,7 @@ import { Form, Icon, Input } from 'semantic-ui-react'
 import { FormFieldError } from '../../error/components'
 
 const propTypes = {
+  autoComplete: PropTypes.string,
   createNotification: PropTypes.func,
   errorScope: PropTypes.string,
   helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
@@ -17,10 +18,13 @@ const propTypes = {
     touched: PropTypes.bool.isRequired,
   }).isRequired,
   module: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
+  scope: PropTypes.string,
   type: PropTypes.string.isRequired,
 }
 const defaultProps = {
+  autoComplete: undefined,
   createNotification: undefined,
   errorScope: undefined,
   helpNotification: undefined,
@@ -28,10 +32,13 @@ const defaultProps = {
   icon: undefined,
   iconPosition: 'left',
   label: undefined,
+  placeholder: undefined,
   required: false,
+  scope: undefined,
 }
 
 const InputField = ({
+  autoComplete,
   createNotification,
   errorScope,
   label,
@@ -40,9 +47,11 @@ const InputField = ({
   input,
   meta: { touched, error },
   module,
+  placeholder,
   required,
   helpText,
   helpNotification,
+  scope,
   type,
 }) => {
   const displayError = touched && !!error
@@ -75,8 +84,11 @@ const InputField = ({
         </label>
       )}
       <Input
+        autoComplete={autoComplete}
         icon={icon}
         iconPosition={icon && iconPosition}
+        placeholder={placeholder}
+        scope={scope}
         type={type}
         {...input}
       />

@@ -14,6 +14,7 @@ const propTypes = {
   }).isRequired,
   module: PropTypes.string.isRequired,
   required: PropTypes.bool,
+  scope: PropTypes.string,
   type: PropTypes.string.isRequired,
 }
 const defaultProps = {
@@ -21,6 +22,7 @@ const defaultProps = {
   helpText: undefined,
   label: undefined,
   required: false,
+  scope: undefined,
 }
 
 const CheckboxField = ({
@@ -31,6 +33,7 @@ const CheckboxField = ({
   module,
   required,
   helpText,
+  scope,
   type,
 }) => {
   const displayError = touched && !!error
@@ -50,6 +53,7 @@ const CheckboxField = ({
         onChange={(event, data) => {
           reduxFormOnChange(data.checked)
         }}
+        scope={scope}
         type={type}
         {...inputRest}
       />
