@@ -1,10 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input } from 'semantic-ui-react'
+import { Form, Icon, Input } from 'semantic-ui-react'
 import { FormFieldError } from '../../error/components'
 
 const propTypes = {
+  createNotification: PropTypes.func,
   errorScope: PropTypes.string,
+  helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   icon: PropTypes.string,
   iconPosition: PropTypes.string,
@@ -19,7 +21,9 @@ const propTypes = {
   type: PropTypes.string.isRequired,
 }
 const defaultProps = {
+  createNotification: undefined,
   errorScope: undefined,
+  helpNotification: undefined,
   helpText: undefined,
   icon: undefined,
   iconPosition: 'left',
@@ -27,7 +31,8 @@ const defaultProps = {
   required: false,
 }
 
-const Field = ({
+const InputField = ({
+  createNotification,
   errorScope,
   label,
   icon,
@@ -37,17 +42,18 @@ const Field = ({
   module,
   required,
   helpText,
+  helpNotification,
   type,
-  ...rest
 }) => {
   const displayError = touched && !!error
+
   return (
     <Form.Field
       error={displayError}
       required={required}
       style={{ position: 'relative' }}
     >
-      {label && (
+      {(label || helpNotification) && (
         <label htmlFor={input.name}>
           {label}
           {
@@ -57,6 +63,15 @@ const Field = ({
           {helpText && ' ('}
           {helpText && helpText}
           {helpText && ')'}
+          {helpText && helpNotification && ' '}
+          {helpNotification && (
+            <Icon
+              color="blue"
+              link
+              name="help circle outline"
+              onClick={() => createNotification(helpNotification)}
+            />
+          )}
         </label>
       )}
       <Input
@@ -64,7 +79,6 @@ const Field = ({
         iconPosition={icon && iconPosition}
         type={type}
         {...input}
-        {...rest}
       />
       {displayError && (
         <FormFieldError
@@ -77,7 +91,7 @@ const Field = ({
   )
 }
 
-Field.propTypes = propTypes
-Field.defaultProps = defaultProps
+InputField.propTypes = propTypes
+InputField.defaultProps = defaultProps
 
-export default Field
+export default InputField
