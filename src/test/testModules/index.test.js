@@ -202,7 +202,6 @@ const testModuleFolder = folderName => {
     it(`import index ok`, () => {
       const indexFile = require(moduleFolderBasePath)
       expect(indexFile).toBeTruthy()
-      expect(indexFile.moduleOrder).toBeTruthy()
     })
 
     it(`index contains moduleOrder`, () => {
