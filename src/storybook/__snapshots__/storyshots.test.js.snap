@@ -13,11 +13,6 @@ exports[`Storyshots coreModules/bootstrap/DefaultLoader Loading 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/bootstrap/DefaultLoader - Loading
-      </h2>
       <div>
         <div
           className="ui segment"
@@ -41,7 +36,6 @@ exports[`Storyshots coreModules/bootstrap/DefaultLoader Loading 1`] = `
             }
           }
         />
-         
       </div>
     </div>
   </div>
@@ -61,11 +55,6 @@ exports[`Storyshots coreModules/bootstrap/DefaultLoader Not loading 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/bootstrap/DefaultLoader - Not loading
-      </h2>
       <div>
         <div
           className="ui segment"
@@ -89,7 +78,6 @@ exports[`Storyshots coreModules/bootstrap/DefaultLoader Not loading 1`] = `
             }
           }
         />
-         
       </div>
     </div>
   </div>
@@ -109,11 +97,6 @@ exports[`Storyshots coreModules/bootstrap/DefaultWrapper Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/bootstrap/DefaultWrapper - Default
-      </h2>
       <div>
         <div
           style={
@@ -139,12 +122,14 @@ exports[`Storyshots coreModules/bootstrap/DefaultWrapper Default 1`] = `
 
 exports[`Storyshots coreModules/commonUi/Footer Default 1`] = `
 <div>
-  <div>
-    <h2
-      className="ui center aligned header"
-    >
-      coreModules/commonUi/Footer - Default
-    </h2>
+  <div
+    className="ui container"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  >
     <div
       className="ui inverted vertical segment"
       id="footer"
@@ -411,12 +396,14 @@ exports[`Storyshots coreModules/commonUi/Footer Default 1`] = `
 
 exports[`Storyshots coreModules/commonUi/NavigationSidebar Default 1`] = `
 <div>
-  <div>
-    <h2
-      className="ui center aligned header"
-    >
-      coreModules/commonUi/NavigationSidebar - Default
-    </h2>
+  <div
+    className="ui container"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  >
     <div
       className="ui inverted vertical labeled icon ui overlay left visible sidebar flex menu"
       style={
@@ -516,11 +503,6 @@ exports[`Storyshots coreModules/commonUi/PageTemplate Fixed menu 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/commonUi/PageTemplate - Fixed menu
-      </h2>
       <div
         className="ui container"
         style={
@@ -553,11 +535,6 @@ exports[`Storyshots coreModules/commonUi/PageTemplate No fixed menu 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/commonUi/PageTemplate - No fixed menu
-      </h2>
       <div
         className="ui container"
         style={
@@ -590,11 +567,6 @@ exports[`Storyshots coreModules/commonUi/TranslatedLabel Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/commonUi/TranslatedLabel - Default
-      </h2>
       <div
         className="ui green label"
         onClick={[Function]}
@@ -621,11 +593,6 @@ exports[`Storyshots coreModules/commonUi/ViewWrap Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/commonUi/ViewWrap - Default
-      </h2>
       <div
         style={
           Object {
@@ -680,29 +647,33 @@ exports[`Storyshots coreModules/error/FormFieldError Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/error/FormFieldError - Default
-      </h2>
-      <span
-        className="ui red tiny label"
+      <div
         style={
           Object {
-            "bottom": 0,
-            "left": 0,
-            "position": "absolute",
-            "textAlign": "left",
-            "transform": "translateY(100%)",
-            "width": "100%",
-            "zIndex": 20,
+            "backgroundColor": "#e5e2e2",
+            "minHeight": 50,
           }
         }
       >
-        <span>
-          Modules.error.some-scope.SAMPLE_ERROR_CODE, modules.error.SAMPLE_ERROR_CODE
+        <span
+          className="ui red tiny label"
+          style={
+            Object {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "textAlign": "left",
+              "transform": "translateY(100%)",
+              "width": "100%",
+              "zIndex": 20,
+            }
+          }
+        >
+          <span>
+            Modules.error.some-scope.SAMPLE_ERROR_CODE, modules.error.SAMPLE_ERROR_CODE
+          </span>
         </span>
-      </span>
+      </div>
     </div>
   </div>
 </div>
@@ -721,11 +692,6 @@ exports[`Storyshots coreModules/error/FormSchemaError Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/error/FormSchemaError - Default
-      </h2>
       <div
         className="ui negative message"
       >
@@ -760,11 +726,6 @@ exports[`Storyshots coreModules/form/Checkbox Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/form/Checkbox - Default
-      </h2>
       <div
         className="field"
         style={
@@ -810,38 +771,29 @@ exports[`Storyshots coreModules/form/Input Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/form/Input - Default
-      </h2>
       <div
-        className="ui large stacked segment"
-      >
-        <div
-          className="field"
-          style={
-            Object {
-              "position": "relative",
-            }
+        className="field"
+        style={
+          Object {
+            "position": "relative",
           }
+        }
+      >
+        <label
+          htmlFor={undefined}
         >
-          <label
-            htmlFor={undefined}
-          >
-            This is a label
-          </label>
-          <div
-            className="ui input"
-            scope="some-scope"
-          >
-            <input
-              disabled={undefined}
-              onChange={[Function]}
-              tabIndex={undefined}
-              type="text"
-            />
-          </div>
+          This is a label
+        </label>
+        <div
+          className="ui input"
+          scope="some-scope"
+        >
+          <input
+            disabled={undefined}
+            onChange={[Function]}
+            tabIndex={undefined}
+            type="text"
+          />
         </div>
       </div>
     </div>
@@ -862,11 +814,6 @@ exports[`Storyshots coreModules/i18n/I18nProvider Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/I18nProvider - Default
-      </h2>
       <div>
         <div>
           Child node
@@ -890,11 +837,6 @@ exports[`Storyshots coreModules/i18n/LanguageSelect Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/LanguageSelect - Default
-      </h2>
       <div
         aria-busy={undefined}
         aria-disabled={undefined}
@@ -982,11 +924,6 @@ exports[`Storyshots coreModules/i18n/LanguageSelect Green color 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/LanguageSelect - Green color
-      </h2>
       <div
         aria-busy={undefined}
         aria-disabled={undefined}
@@ -1074,11 +1011,6 @@ exports[`Storyshots coreModules/i18n/Markdown Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/Markdown - Default
-      </h2>
       <div
         dangerouslySetInnerHTML={
           Object {
@@ -1104,11 +1036,6 @@ exports[`Storyshots coreModules/i18n/Markdown Fallback language 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/Markdown - Fallback language
-      </h2>
       <div
         dangerouslySetInnerHTML={
           Object {
@@ -1134,11 +1061,6 @@ exports[`Storyshots coreModules/i18n/MarkdownToHtmlAsync Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/MarkdownToHtmlAsync - Default
-      </h2>
       <div />
     </div>
   </div>
@@ -1158,11 +1080,6 @@ exports[`Storyshots coreModules/i18n/ModuleTranslate Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/ModuleTranslate - Default
-      </h2>
       <span>
         förnamn
       </span>
@@ -1171,7 +1088,7 @@ exports[`Storyshots coreModules/i18n/ModuleTranslate Default 1`] = `
 </div>
 `;
 
-exports[`Storyshots coreModules/i18n/ModuleTranslate Multile modules 1`] = `
+exports[`Storyshots coreModules/i18n/ModuleTranslate Multiple modules 1`] = `
 <div>
   <div
     className="ui container"
@@ -1184,11 +1101,6 @@ exports[`Storyshots coreModules/i18n/ModuleTranslate Multile modules 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/ModuleTranslate - Multile modules
-      </h2>
       <span>
         förnamn
       </span>
@@ -1210,11 +1122,6 @@ exports[`Storyshots coreModules/i18n/ModuleTranslate Not existing 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/ModuleTranslate - Not existing
-      </h2>
       <span>
         modules.notExisting.firstName
       </span>
@@ -1236,11 +1143,6 @@ exports[`Storyshots coreModules/i18n/Translate Capitalize 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/Translate - Capitalize
-      </h2>
       <span>
         Efternamn
       </span>
@@ -1262,11 +1164,6 @@ exports[`Storyshots coreModules/i18n/Translate Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/Translate - Default
-      </h2>
       <span>
         förnamn
       </span>
@@ -1288,11 +1185,6 @@ exports[`Storyshots coreModules/i18n/Translate Fallback 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/Translate - Fallback
-      </h2>
       <span>
         This is fallback
       </span>
@@ -1314,11 +1206,6 @@ exports[`Storyshots coreModules/i18n/Translate Interpolation 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/Translate - Interpolation
-      </h2>
       <span>
         Hej Anton
       </span>
@@ -1340,11 +1227,6 @@ exports[`Storyshots coreModules/i18n/Translate Multiple keys 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/Translate - Multiple keys
-      </h2>
       <span>
         Efternamn
       </span>
@@ -1366,11 +1248,6 @@ exports[`Storyshots coreModules/i18n/Translate No translation available 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/Translate - No translation available
-      </h2>
       <span>
         non-existing
       </span>
@@ -1392,11 +1269,6 @@ exports[`Storyshots coreModules/i18n/createModuleTranslate Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/createModuleTranslate - Default
-      </h2>
       <span>
         förnamn
       </span>
@@ -1418,11 +1290,6 @@ exports[`Storyshots coreModules/i18n/createModuleTranslate Not existing 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/i18n/createModuleTranslate - Not existing
-      </h2>
       <span>
         modules.notExisting.firstName
       </span>
@@ -1431,7 +1298,7 @@ exports[`Storyshots coreModules/i18n/createModuleTranslate Not existing 1`] = `
 </div>
 `;
 
-exports[`Storyshots coreModules/keyboardShortcuts/ShortcutsDisplay No fixed menu 1`] = `
+exports[`Storyshots coreModules/keyboardShortcuts/ShortcutsDisplay Default 1`] = `
 <div>
   <div
     className="ui container"
@@ -1443,13 +1310,7 @@ exports[`Storyshots coreModules/keyboardShortcuts/ShortcutsDisplay No fixed menu
   >
     <div
       className="ui green segment"
-    >
-      <h2
-        className="ui header"
-      >
-        coreModules/keyboardShortcuts/ShortcutsDisplay - No fixed menu
-      </h2>
-    </div>
+    />
   </div>
 </div>
 `;
@@ -1467,11 +1328,6 @@ exports[`Storyshots coreModules/user/LoginForm Default 1`] = `
     <div
       className="ui green segment"
     >
-      <h2
-        className="ui header"
-      >
-        coreModules/user/LoginForm - Default
-      </h2>
       <form
         action={undefined}
         className="ui form"
