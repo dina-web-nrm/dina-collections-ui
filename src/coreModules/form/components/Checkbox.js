@@ -2,9 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Form, Checkbox } from 'semantic-ui-react'
 import { FormFieldError } from '../../error/components'
+import FieldLabel from './FieldLabel'
 
 const propTypes = {
+  createNotification: PropTypes.func,
   errorScope: PropTypes.string,
+  helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   input: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -18,7 +21,9 @@ const propTypes = {
   type: PropTypes.string.isRequired,
 }
 const defaultProps = {
+  createNotification: undefined,
   errorScope: undefined,
+  helpNotification: undefined,
   helpText: undefined,
   label: undefined,
   required: false,
@@ -26,7 +31,9 @@ const defaultProps = {
 }
 
 const CheckboxField = ({
+  createNotification,
   errorScope,
+  helpNotification,
   label,
   input,
   meta: { touched, error },
@@ -46,7 +53,15 @@ const CheckboxField = ({
       required={required}
       style={{ position: 'relative' }}
     >
-      {label && <label htmlFor={input.name}>{label}</label>}
+      {(label || helpNotification) && (
+        <FieldLabel
+          createNotification={createNotification}
+          helpNotification={helpNotification}
+          helpText={helpText}
+          htmlFor={input.name}
+          label={label}
+        />
+      )}
       {helpText && <p>{helpText}</p>}
       <Checkbox
         checked={!!value}

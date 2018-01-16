@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Icon, Input } from 'semantic-ui-react'
+import { Form, Input } from 'semantic-ui-react'
 import { FormFieldError } from '../../error/components'
+import FieldLabel from './FieldLabel'
 
 const propTypes = {
   autoComplete: PropTypes.string,
@@ -63,25 +64,13 @@ const InputField = ({
       style={{ position: 'relative' }}
     >
       {(label || helpNotification) && (
-        <label htmlFor={input.name}>
-          {label}
-          {
-            // this ugly stuff is required since currently translations can only
-            // be components
-          }
-          {helpText && ' ('}
-          {helpText && helpText}
-          {helpText && ')'}
-          {helpText && helpNotification && ' '}
-          {helpNotification && (
-            <Icon
-              color="blue"
-              link
-              name="help circle outline"
-              onClick={() => createNotification(helpNotification)}
-            />
-          )}
-        </label>
+        <FieldLabel
+          createNotification={createNotification}
+          helpNotification={helpNotification}
+          helpText={helpText}
+          htmlFor={input.name}
+          label={label}
+        />
       )}
       <Input
         autoComplete={autoComplete}
