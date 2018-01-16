@@ -12,11 +12,13 @@ const propTypes = {
   }).isRequired,
   removeNotification: PropTypes.func.isRequired,
   sequentialId: PropTypes.number.isRequired,
+  style: PropTypes.oneOf(['error', 'info', 'success', 'warning']),
   ttl: PropTypes.number,
 }
 const defaultProps = {
   descriptionKey: undefined,
   headerKey: undefined,
+  style: 'info',
   ttl: undefined,
 }
 
@@ -26,6 +28,7 @@ const Flash = ({
   removeNotification,
   sequentialId,
   i18n: { translate },
+  style,
   ttl,
 }) => {
   if (ttl) {
@@ -36,9 +39,13 @@ const Flash = ({
     <Message
       className="flash"
       content={descriptionKey && translate({ textKey: descriptionKey })}
+      error={style === 'error'}
       header={headerKey && translate({ textKey: headerKey })}
+      info={style === 'info'}
       onClick={() => removeNotification({ sequentialId })}
       onDismiss={() => removeNotification({ sequentialId })}
+      success={style === 'success'}
+      warning={style === 'warning'}
     />
   )
 }
