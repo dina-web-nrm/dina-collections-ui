@@ -2,8 +2,11 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
-import NavigationSidebar from './NavigationSidebar'
+import createStoryDecorator from 'utilities/test/createStoryDecorator'
+import { action } from '@storybook/addon-actions'
+import withInfo from 'utilities/test/customStorybookWithInfo'
+
+import { NavigationSidebar } from './NavigationSidebar'
 
 const NAVIGATION_SIDEBAR_ITEMS = [
   {
@@ -33,13 +36,18 @@ const NAVIGATION_SIDEBAR_ITEMS = [
   },
 ]
 
-storiesOf('coreModules/commonUi/NavigationSidebar', module).add(
-  'Default',
-  context => {
-    return setupStorybookComponent({
-      component: <NavigationSidebar navItems={NAVIGATION_SIDEBAR_ITEMS} />,
-      context,
-      wrap: false,
+storiesOf('coreModules/commonUi/NavigationSidebar', module)
+  .addDecorator(createStoryDecorator({ wrap: false }))
+  .add(
+    'Default',
+    withInfo({
+      maxPropsIntoLine: 3,
+    })(() => {
+      return (
+        <NavigationSidebar
+          logout={action('logout')}
+          navItems={NAVIGATION_SIDEBAR_ITEMS}
+        />
+      )
     })
-  }
-)
+  )

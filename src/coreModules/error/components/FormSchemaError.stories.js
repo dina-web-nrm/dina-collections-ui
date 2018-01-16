@@ -2,14 +2,16 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
+import createStoryDecorator from 'utilities/test/createStoryDecorator'
+import withInfo from 'utilities/test/customStorybookWithInfo'
 import FormSchemaError from './FormSchemaError'
 
-storiesOf('coreModules/error/FormSchemaError', module).add(
-  'Default',
-  context => {
-    return setupStorybookComponent({
-      component: (
+storiesOf('coreModules/error/FormSchemaError', module)
+  .addDecorator(createStoryDecorator())
+  .add(
+    'Default',
+    withInfo()(() => {
+      return (
         <FormSchemaError
           errors={[
             {
@@ -18,8 +20,6 @@ storiesOf('coreModules/error/FormSchemaError', module).add(
           ]}
           scope="some-scope"
         />
-      ),
-      context,
+      )
     })
-  }
-)
+  )

@@ -2,7 +2,8 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
+import createStoryDecorator from 'utilities/test/createStoryDecorator'
+import withInfo from 'utilities/test/customStorybookWithInfo'
 import Markdown from './Markdown'
 
 const initialState = {
@@ -23,17 +24,16 @@ const initialState = {
 }
 
 storiesOf('coreModules/i18n/Markdown', module)
-  .add('Default', context => {
-    return setupStorybookComponent({
-      component: <Markdown textKey="example" />,
-      context,
-      initialState,
+  .addDecorator(createStoryDecorator({ initialState }))
+  .add(
+    'Default',
+    withInfo()(() => {
+      return <Markdown textKey="example" />
     })
-  })
-  .add('Fallback language', context => {
-    return setupStorybookComponent({
-      component: <Markdown fallbackLanguage="en" textKey="otherExample" />,
-      context,
-      initialState,
+  )
+  .add(
+    'Fallback language',
+    withInfo()(() => {
+      return <Markdown fallbackLanguage="en" textKey="otherExample" />
     })
-  })
+  )

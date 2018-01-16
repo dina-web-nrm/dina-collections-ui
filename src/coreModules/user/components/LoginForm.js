@@ -30,7 +30,7 @@ const defaultProps = {
   error: '',
 }
 
-class RawLoginForm extends Component {
+export class RawLoginForm extends Component {
   constructor(props) {
     super(props)
     this.handleLogin = this.handleLogin.bind(this)

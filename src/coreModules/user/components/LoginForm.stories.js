@@ -1,14 +1,18 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react'
 import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
-import { LoginForm } from './LoginForm'
+import createStoryDecorator from 'utilities/test/createStoryDecorator'
+import { action } from '@storybook/addon-actions'
+import withInfo from 'utilities/test/customStorybookWithInfo'
 
-storiesOf('coreModules/user/LoginForm', module).add('Default', context => {
-  return setupStorybookComponent({
-    component: <LoginForm login={action('login')} />,
-    context,
-  })
-})
+import { LoginForm, RawLoginForm } from './LoginForm'
+
+storiesOf('coreModules/user/LoginForm', module)
+  .addDecorator(createStoryDecorator())
+  .add(
+    'Default',
+    withInfo({ propTables: [RawLoginForm] })(() => {
+      return <LoginForm login={action('login')} />
+    })
+  )
