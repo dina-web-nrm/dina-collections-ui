@@ -11,9 +11,9 @@ describe('i18n/reducer', () => {
     it('returns initial state if no state provided', () => {
       const testValue = reducer(undefined, { type: '@@@test' })
       const result = {
-        availableLanguages: [],
+        availableLanguages: ['en', 'sv'],
         defaultLanguage: 'en',
-        language: null,
+        language: 'en',
         markdown: {},
         translations: {},
       }

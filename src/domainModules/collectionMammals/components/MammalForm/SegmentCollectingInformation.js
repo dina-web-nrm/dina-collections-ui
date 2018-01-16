@@ -40,7 +40,7 @@ const defaultProps = {
 
 function SegmentCollectingInformation({ occurrences }) {
   return (
-    <Segment>
+    <Segment color="green">
       <Header size="medium">
         <ModuleTranslate textKey="collectingInformation" />
       </Header>

@@ -7,11 +7,7 @@ export default function createConfig() {
     api: {
       enableEndpointMocks: true,
     },
-    i18n: {
-      availableLanguages: ['en', 'sv'],
-      defaultLanguage: 'en',
-      language: 'en',
-    },
+    i18n: {},
     logger: {
       collapsed: true,
       diff: true,

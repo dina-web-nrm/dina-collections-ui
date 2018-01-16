@@ -19,6 +19,8 @@ import SegmentDetermination from './SegmentDetermination'
 import SegmentFeatureObservations from './SegmentFeatureObservations/index'
 import SegmentCollectingInformation from './SegmentCollectingInformation'
 import SegmentPhysicalUnits from './SegmentPhysicalUnits'
+import transformInput from './transformations/input'
+import transformOutput from './transformations/output'
 
 const log = createLog('modules:collectionMammals:MammalForm')
 const ModuleTranslate = createModuleTranslate('collectionMammals')
@@ -29,23 +31,6 @@ const TAXON_NAME_FIELD_KEY =
 
 const formValueSelector = formValueSelectorFactory(FORM_NAME)
 const getFormSyncErrorsSelector = getFormSyncErrors(FORM_NAME)
-
-const INITIAL_VALUES = {
-  featureObservations: [
-    {
-      featureObservationType: {
-        featureObservationTypeName: 'conditionAtCollecting',
-      },
-    },
-  ],
-  physicalUnits: [
-    {
-      catalogedUnit: {
-        catalogNumber: '',
-      },
-    },
-  ],
-}
 
 const mapStateToProps = state => {
   const syncErrors = getFormSyncErrorsSelector(state)
@@ -107,8 +92,7 @@ class RawMammalForm extends Component {
   constructor(props) {
     super(props)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
-    this.setInitialFormValues = this.setInitialFormValues.bind(this)
-    this.setInitialFormValues(props.individualGroupAttributes || INITIAL_VALUES)
+    props.initialize(transformInput(props.individualGroupAttributes))
   }
 
   componentWillReceiveProps(nextProps) {
@@ -116,7 +100,7 @@ class RawMammalForm extends Component {
       this.props.individualGroupAttributes !==
       nextProps.individualGroupAttributes
     ) {
-      this.setInitialFormValues(nextProps.individualGroupAttributes)
+      this.props.initialize(transformInput(nextProps.individualGroupAttributes))
     }
   }
 
@@ -124,80 +108,22 @@ class RawMammalForm extends Component {
     this.props.clearTaxonSearch()
   }
 
-  setInitialFormValues(individualGroupAttributes) {
-    /*
-    * Ensure that there is a featureObservation for conditionAtCollecting first
-    * in the featureObservations array. First look for it in the provided
-    * attributes, if none then add it from initial values. If it exists on other
-    * index than 0, move it first in the array.
-    */
-    const attributes = { ...individualGroupAttributes }
-
-    if (attributes.featureObservations) {
-      const firstConditionAtCollectingIndex = attributes.featureObservations.findIndex(
-        ({ featureObservationType }) => {
-          return (
-            featureObservationType &&
-            featureObservationType.featureObservationTypeName ===
-              'conditionAtCollecting'
-          )
-        }
-      )
-
-      if (firstConditionAtCollectingIndex === -1) {
-        attributes.featureObservations = [
-          INITIAL_VALUES.featureObservations[0],
-          ...attributes.featureObservations,
-        ]
-      } else if (firstConditionAtCollectingIndex > 0) {
-        const conditionAtCollectingFeatureObservation =
-          attributes.featureObservations[firstConditionAtCollectingIndex]
-
-        // remove conditionAtCollectingFeatureObservation from array
-        attributes.featureObservations.splice(
-          firstConditionAtCollectingIndex,
-          1
-        )
-        // add conditionAtCollectingFeatureObservation first in array
-        attributes.featureObservations = [
-          conditionAtCollectingFeatureObservation,
-          ...attributes.featureObservations,
-        ]
-      }
-    } else {
-      attributes.featureObservations = INITIAL_VALUES.featureObservations
-    }
-
-    this.props.initialize(attributes)
-  }
-
   handleFormSubmit(data) {
     const patchedData = {
       id: this.props.individualGroupId,
       ...data,
     }
-
-    if (data.occurrences && data.occurrences.length) {
-      patchedData.occurrences = data.occurrences.map(occurrence => {
-        const { dayStart, monthStart, yearStart } = occurrence
-        return {
-          ...occurrence,
-          dayEnd: dayStart,
-          monthEnd: monthStart,
-          yearEnd: yearStart,
-        }
-      })
-    }
-
-    return this.props.handleFormSubmit(patchedData).catch(error => {
-      // prettier-ignore
-      const errorMessage = `Status: ${error.status}, message: ${
+    return this.props
+      .handleFormSubmit(transformOutput(patchedData))
+      .catch(error => {
+        // prettier-ignore
+        const errorMessage = `Status: ${error.status}, message: ${
         error.error.message
       }`
-      throw new SubmissionError({
-        _error: errorMessage,
+        throw new SubmissionError({
+          _error: errorMessage,
+        })
       })
-    })
   }
 
   render() {

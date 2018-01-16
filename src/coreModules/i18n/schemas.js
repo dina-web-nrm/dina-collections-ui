@@ -26,5 +26,4 @@ export const config = {
       type: 'object',
     },
   },
-  required: ['availableLanguages', 'language'],
 }

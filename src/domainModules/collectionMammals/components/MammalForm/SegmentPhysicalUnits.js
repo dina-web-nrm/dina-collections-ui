@@ -14,7 +14,7 @@ const buildPath = fieldNamePathFactory('physicalUnits')
 
 export default () => {
   return (
-    <Segment>
+    <Segment color="green">
       <Header size="medium">
         <ModuleTranslate textKey="physicalObjects" />
       </Header>

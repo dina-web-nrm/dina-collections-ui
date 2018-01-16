@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const createApiClient = require('../../coreModules/api/apiClient')
 const defaultBuildEndpointSpec = require('../../coreModules/api/endpointSpecFactory/server')
 
@@ -106,18 +108,21 @@ const createHandleResolveForSuccess = (
   testDescription
 ) => collectionsClient => {
   return () => {
-    console.log(`Success: ${operationId}/${testDescription}`) // eslint-disable-line no-console
+    console.log(`Success: ${operationId}/${testDescription}`)
     return collectionsClient
   }
 }
 
 const createHandleRejectForSuccess = (operationId, testDescription) => {
-  return error => {
-    throw new Error(
-      `${operationId}/${testDescription}: ${
-        error ? JSON.stringify(error, null, 2) : error
-      }`
-    )
+  return collectionsClient => {
+    return error => {
+      console.log(
+        `Error: ${operationId}/${testDescription}: ${
+          error ? JSON.stringify(error, null, 2) : error
+        }`
+      )
+      return collectionsClient
+    }
   }
 }
 
@@ -180,7 +185,7 @@ const createSuccessRequestTestFactory = operationId => {
           { body, pathParams, queryParams }
         )
         .then(handleResolve(collectionsClient))
-        .catch(handleReject)
+        .catch(handleReject(collectionsClient))
     }
   }
 }

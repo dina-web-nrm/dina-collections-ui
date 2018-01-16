@@ -159,6 +159,22 @@ const updateValidIndividualGroup = {
   },
 }
 
+const updateValidIndividualGroupOnePhysicalUnitWithId = {
+  data: {
+    attributes: {
+      featureObservations: [],
+      identifications: [],
+      occurrences: [],
+      physicalUnits: [
+        {
+          id: 138,
+        },
+      ],
+    },
+    type: 'individualGroup',
+  },
+}
+
 module.exports = function createIndividualGroup({ collectionsClient }) {
   return chainPromises(
     [
@@ -175,6 +191,13 @@ module.exports = function createIndividualGroup({ collectionsClient }) {
         body: updateValidIndividualGroup,
         pathParams: { id: '1' }, // there will be at least one individualGroup after the above POST requests
       }),
+      testPatchSuccess(
+        'updateValidIndividualGroup with one empty physicalUnit',
+        {
+          body: updateValidIndividualGroupOnePhysicalUnitWithId,
+          pathParams: { id: '1' }, // there will be at least one individualGroup after the above POST requests
+        }
+      ),
       testPatchError('missingBody', {
         pathParams: { id: '1' },
         statusCode: 400,

@@ -23,35 +23,66 @@ export const createApiMockClient = () => {
   })
 }
 
-const testModuleFolder = folderName => {
-  const moduleFolderBasePath = moduleFolderNamePath[folderName]
-  describe(`test module folder ${folderName}`, () => {
-    it(`registered in moduleFolderNamePath`, () => {
-      expect(moduleFolderBasePath).toBeTruthy()
+const testComponents = moduleBasePath => {
+  const module = require(moduleBasePath)
+  const componentsPath = path.join(moduleBasePath, 'components')
+  const hasComponentsFolder = fs.existsSync(componentsPath)
+  if (!(module.components || hasComponentsFolder)) {
+    return
+  }
+
+  describe(`test components`, () => {
+    it('contains components export', () => {
+      expect(module.components && hasComponentsFolder).toBeTruthy()
+    })
+    it('contains components folder', () => {
+      expect(hasComponentsFolder).toBeTruthy()
     })
 
-    it(`import index ok`, () => {
-      const indexFile = require(moduleFolderBasePath)
-      expect(indexFile).toBeTruthy()
-      expect(indexFile.moduleOrder).toBeTruthy()
-    })
+    it('exports all components', () => {
+      const components = fs
+        .readdirSync(componentsPath)
+        .filter(
+          filename =>
+            filename.indexOf('stories') === -1 &&
+            filename.indexOf('.test.') === -1 &&
+            filename !== 'index.js'
+        )
 
-    it(`index contains moduleOrder`, () => {
-      const indexFile = require(moduleFolderBasePath)
-      expect(indexFile.moduleOrder).toBeTruthy()
+      expect(components.length).toBe(Object.keys(module.components).length)
     })
+  })
 
-    it(`index contains correct type`, () => {
-      const indexFile = require(moduleFolderBasePath)
-      expect(['view', 'module']).toContain(indexFile.type)
-    })
+  describe(`test individual component: `, () => {
+    const components = fs
+      .readdirSync(componentsPath)
+      .filter(
+        filename =>
+          filename.indexOf('stories') === -1 &&
+          filename.indexOf('.test.') === -1 &&
+          filename !== 'index.js'
+      )
+    const stories = fs
+      .readdirSync(componentsPath)
+      .filter(filename => filename.indexOf('stories') !== -1)
 
-    it(`all modules in moduleOrder and no extra files`, () => {
-      const indexFile = require(moduleFolderBasePath)
-      const files = fs
-        .readdirSync(moduleFolderBasePath)
-        .filter(filename => filename[0] !== '.')
-      expect(indexFile.moduleOrder.length + 1).toBe(files.length)
+    components.forEach(component => {
+      describe(component, () => {
+        it('has stories', () => {
+          const expectedStoriesName = `${component.split('.js')[0]}.stories.js`
+          const hasStories = stories.indexOf(expectedStoriesName) !== -1
+          // expect(hasStories).toBeTruthy()
+          if (!hasStories) {
+            /* eslint-disable no-console */
+            console.warn(
+              `Component: ${module.name} -> ${
+                component
+              } missing stories. Expected ${expectedStoriesName}`
+            )
+            /* eslint-enable no-console */
+          }
+        })
+      })
     })
   })
 }
@@ -138,6 +169,10 @@ const testModuleInFolder = ({
       if (module.endpoints) {
         testEndpoints(module.endpoints)
       }
+
+      if (module.components) {
+        testComponents(moduleBasePath)
+      }
     }
   })
 }
@@ -155,9 +190,55 @@ const testModulesInFolder = folderName => {
   })
 }
 
-testModulesInFolder('coreModules')
-testModulesInFolder('domainModules')
-testModulesInFolder('viewModules')
+const testModuleFolder = folderName => {
+  const moduleFolderBasePath = moduleFolderNamePath[folderName]
+  const allModulesFilePath = path.join(moduleFolderBasePath, 'allModules')
+
+  describe(`test module folder ${folderName}`, () => {
+    it(`registered in moduleFolderNamePath`, () => {
+      expect(moduleFolderBasePath).toBeTruthy()
+    })
+
+    it(`import index ok`, () => {
+      const indexFile = require(moduleFolderBasePath)
+      expect(indexFile).toBeTruthy()
+    })
+
+    it(`index contains moduleOrder`, () => {
+      const indexFile = require(moduleFolderBasePath)
+      expect(indexFile.moduleOrder).toBeTruthy()
+    })
+
+    it(`index contains correct type`, () => {
+      const indexFile = require(moduleFolderBasePath)
+      expect(['view', 'module']).toContain(indexFile.type)
+    })
+
+    it(`all modules in moduleOrder and no extra files`, () => {
+      const indexFile = require(moduleFolderBasePath)
+      const files = fs
+        .readdirSync(moduleFolderBasePath)
+        .filter(filename => filename[0] !== '.')
+      expect(indexFile.moduleOrder.length + 2).toBe(files.length)
+    })
+    it(`import allModules ok`, () => {
+      const allModulesFile = require(allModulesFilePath)
+      expect(allModulesFile).toBeTruthy()
+    })
+    it(`all modules included in correct order in allModules`, () => {
+      const allModulesFile = require(allModulesFilePath)
+      const indexFile = require(moduleFolderBasePath)
+      const { moduleOrder } = indexFile
+      expect(
+        allModulesFile.default.map(module => {
+          return module.name
+        })
+      ).toEqual(moduleOrder)
+    })
+  })
+
+  testModulesInFolder(folderName)
+}
 
 testModuleFolder('coreModules')
 testModuleFolder('domainModules')

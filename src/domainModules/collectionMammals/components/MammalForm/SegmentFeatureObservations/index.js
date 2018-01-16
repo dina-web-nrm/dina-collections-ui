@@ -106,7 +106,7 @@ class SegmentFeatureObservations extends Component {
     const { featureObservations } = this.props
 
     return (
-      <Segment>
+      <Segment color="green">
         <Header size="medium">
           <ModuleTranslate textKey="features" />
         </Header>

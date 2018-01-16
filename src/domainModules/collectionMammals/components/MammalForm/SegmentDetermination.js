@@ -37,7 +37,7 @@ const defaultProps = {
 
 const SegmentDetermination = ({ identifications, taxonNameFieldKey }) => {
   return (
-    <Segment>
+    <Segment color="green">
       <Header size="medium">
         <ModuleTranslate scope="determination" textKey="determination" />
       </Header>
