@@ -6,7 +6,7 @@ import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
 import ShortcutsDisplay from './ShortcutsDisplay'
 import setShortcutsModalVisible from '../actionCreators/setShortcutsModalVisible'
 
-storiesOf('coreModules/keyboardShortcits/ShortcutsDisplay', module).add(
+storiesOf('coreModules/keyboardShortcuts/ShortcutsDisplay', module).add(
   'No fixed menu',
   context => {
     const { store, rootComponent: mountedComponent } = setupStorybookComponent({

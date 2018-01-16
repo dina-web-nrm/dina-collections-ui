@@ -21,7 +21,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     expect(store.getState().form.mammalForm).toBeTruthy()
   })
 
-  it('Submit fail when cataloged number not provided', () => {
+  it('Submit fail when catalog number not provided', () => {
     const { store, rootComponent: mountedComponent } = setupTestComponent({
       component: <MammalForm handleFormSubmit={() => {}} />,
       fullExport: true,
@@ -38,7 +38,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     expect(store.getState().form.mammalForm.submitFailed).toBe(true)
   })
 
-  it('Submit success when cataloged number provided', () => {
+  it('Submit success when catalog number provided', () => {
     const handleFormSubmit = data => {
       return Promise.resolve(data)
     }

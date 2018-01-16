@@ -32,14 +32,14 @@ const testComponents = moduleBasePath => {
   }
 
   describe(`test components`, () => {
-    it('module contains components export', () => {
+    it('contains components export', () => {
       expect(module.components && hasComponentsFolder).toBeTruthy()
     })
-    it('module contains components folder', () => {
+    it('contains components folder', () => {
       expect(hasComponentsFolder).toBeTruthy()
     })
 
-    it('all components exported', () => {
+    it('exports all components', () => {
       const components = fs
         .readdirSync(componentsPath)
         .filter(

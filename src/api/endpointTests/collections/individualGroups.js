@@ -159,7 +159,7 @@ const updateValidIndividualGroup = {
   },
 }
 
-const updateValidIndividualGroupOneOhysicalUnitWithId = {
+const updateValidIndividualGroupOnePhysicalUnitWithId = {
   data: {
     attributes: {
       featureObservations: [],
@@ -194,7 +194,7 @@ module.exports = function createIndividualGroup({ collectionsClient }) {
       testPatchSuccess(
         'updateValidIndividualGroup with one empty physicalUnit',
         {
-          body: updateValidIndividualGroupOneOhysicalUnitWithId,
+          body: updateValidIndividualGroupOnePhysicalUnitWithId,
           pathParams: { id: '1' }, // there will be at least one individualGroup after the above POST requests
         }
       ),
