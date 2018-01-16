@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Message } from 'semantic-ui-react'
 
 import { withI18n } from 'coreModules/i18n/higherOrderComponents'
+import { clearTimeout } from 'timers'
 
 const propTypes = {
   descriptionKey: PropTypes.string,
@@ -22,32 +23,48 @@ const defaultProps = {
   ttl: undefined,
 }
 
-const Flash = ({
-  descriptionKey,
-  headerKey,
-  removeNotification,
-  sequentialId,
-  i18n: { translate },
-  style,
-  ttl,
-}) => {
-  if (ttl) {
-    setTimeout(() => removeNotification({ sequentialId }), ttl)
+class Flash extends Component {
+  componentDidMount() {
+    const { removeNotification, sequentialId, ttl } = this.props
+
+    if (ttl) {
+      this.ttlTimeout = setTimeout(
+        () => removeNotification({ sequentialId }),
+        ttl
+      )
+    }
   }
 
-  return (
-    <Message
-      className="flash"
-      content={descriptionKey && translate({ textKey: descriptionKey })}
-      error={style === 'error'}
-      header={headerKey && translate({ textKey: headerKey })}
-      info={style === 'info'}
-      onClick={() => removeNotification({ sequentialId })}
-      onDismiss={() => removeNotification({ sequentialId })}
-      success={style === 'success'}
-      warning={style === 'warning'}
-    />
-  )
+  componentWillUnmount() {
+    if (this.ttlTimeout) {
+      clearTimeout(this.ttlTimeout)
+    }
+  }
+
+  render() {
+    const {
+      descriptionKey,
+      headerKey,
+      removeNotification,
+      sequentialId,
+      i18n: { translate },
+      style,
+    } = this.props
+
+    return (
+      <Message
+        className="flash"
+        content={descriptionKey && translate({ textKey: descriptionKey })}
+        error={style === 'error'}
+        header={headerKey && translate({ textKey: headerKey })}
+        info={style === 'info'}
+        onClick={() => removeNotification({ sequentialId })}
+        onDismiss={() => removeNotification({ sequentialId })}
+        success={style === 'success'}
+        warning={style === 'warning'}
+      />
+    )
+  }
 }
 
 Flash.propTypes = propTypes
