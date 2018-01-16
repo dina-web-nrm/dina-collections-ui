@@ -2,26 +2,28 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
+import createStoryDecorator from 'utilities/test/createStoryDecorator'
+import withInfo from 'utilities/test/customStorybookWithInfo'
 import { Segment } from 'semantic-ui-react'
+
 import DefaultWrapper from './DefaultWrapper'
 
-storiesOf('coreModules/bootstrap/DefaultWrapper', module).add(
-  'Default',
-  context => {
-    const component = (
-      <div>
-        <DefaultWrapper>
-          <Segment>
-            Wrapped content (DefaultWrapper ensure full height )
-          </Segment>
-        </DefaultWrapper>
-        <p>After DefaultWrapper</p>
-      </div>
+storiesOf('coreModules/bootstrap/DefaultWrapper', module)
+  .addDecorator(createStoryDecorator())
+  .add(
+    'Default',
+    withInfo({ propTables: [DefaultWrapper], propTablesExclude: [Segment] })(
+      () => {
+        return (
+          <div>
+            <DefaultWrapper>
+              <Segment>
+                Wrapped content (DefaultWrapper ensure full height )
+              </Segment>
+            </DefaultWrapper>
+            <p>After DefaultWrapper</p>
+          </div>
+        )
+      }
     )
-    return setupStorybookComponent({
-      component,
-      context,
-    })
-  }
-)
+  )

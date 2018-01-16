@@ -41,7 +41,7 @@ const defaultProps = {
   width: 100,
 }
 
-const NavigationSidebar = ({
+export const NavigationSidebar = ({
   displayHome,
   displayLogout,
   nested,

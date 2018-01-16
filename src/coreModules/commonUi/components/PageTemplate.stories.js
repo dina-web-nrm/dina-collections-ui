@@ -2,27 +2,29 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
+import createStoryDecorator from 'utilities/test/createStoryDecorator'
+import withInfo from 'utilities/test/customStorybookWithInfo'
 import PageTemplate from './PageTemplate'
 
 storiesOf('coreModules/commonUi/PageTemplate', module)
-  .add('No fixed menu', context => {
-    return setupStorybookComponent({
-      component: (
+  .addDecorator(createStoryDecorator())
+  .add(
+    'No fixed menu',
+    withInfo()(() => {
+      return (
         <PageTemplate hasFixedMenu={false}>
           <div>Page content</div>
         </PageTemplate>
-      ),
-      context,
+      )
     })
-  })
-  .add('Fixed menu', context => {
-    return setupStorybookComponent({
-      component: (
+  )
+  .add(
+    'Fixed menu',
+    withInfo()(() => {
+      return (
         <PageTemplate hasFixedMenu>
           <div>Page content</div>
         </PageTemplate>
-      ),
-      context,
+      )
     })
-  })
+  )

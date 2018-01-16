@@ -2,14 +2,16 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
-import { Segment } from 'semantic-ui-react'
+import createStoryDecorator from 'utilities/test/createStoryDecorator'
+import withInfo from 'utilities/test/customStorybookWithInfo'
 import Input from './Input'
 
-storiesOf('coreModules/form/Input', module).add('Default', context => {
-  return setupStorybookComponent({
-    component: (
-      <Segment size="large" stacked>
+storiesOf('coreModules/form/Input', module)
+  .addDecorator(createStoryDecorator())
+  .add(
+    'Default',
+    withInfo()(() => {
+      return (
         <Input
           input={{}}
           label="This is a label"
@@ -18,8 +20,6 @@ storiesOf('coreModules/form/Input', module).add('Default', context => {
           scope="some-scope"
           type="text"
         />
-      </Segment>
-    ),
-    context,
-  })
-})
+      )
+    })
+  )

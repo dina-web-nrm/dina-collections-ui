@@ -2,7 +2,8 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import 'semantic-ui/dist/semantic.css' // eslint-disable-line
-import setupStorybookComponent from 'utilities/test/setupStorybookComponent'
+import createStoryDecorator from 'utilities/test/createStoryDecorator'
+import withInfo from 'utilities/test/customStorybookWithInfo'
 import Translate from './Translate'
 
 const initialState = {
@@ -28,54 +29,40 @@ const initialState = {
 }
 
 storiesOf('coreModules/i18n/Translate', module)
-  .add('Default', context => {
-    return setupStorybookComponent({
-      component: <Translate textKey="firstName" />,
-      context,
-      initialState,
-      title: 'Translate',
+  .addDecorator(createStoryDecorator({ initialState }))
+  .add(
+    'Default',
+    withInfo()(() => {
+      return <Translate textKey="firstName" />
     })
-  })
-  .add('No translation available', context => {
-    return setupStorybookComponent({
-      component: <Translate textKey="non-existing" />,
-      context,
-      initialState,
-      title: 'Translate',
+  )
+  .add(
+    'No translation available',
+    withInfo()(() => {
+      return <Translate textKey="non-existing" />
     })
-  })
-  .add('Fallback', context => {
-    return setupStorybookComponent({
-      component: (
-        <Translate fallback="This is fallback" textKey="non-existing" />
-      ),
-      context,
-      initialState,
-      title: 'Translate',
+  )
+  .add(
+    'Fallback',
+    withInfo()(() => {
+      return <Translate fallback="This is fallback" textKey="non-existing" />
     })
-  })
-  .add('Capitalize', context => {
-    return setupStorybookComponent({
-      component: <Translate capitalize textKey="lastName" />,
-      context,
-      initialState,
-      title: 'Translate',
+  )
+  .add(
+    'Capitalize',
+    withInfo()(() => {
+      return <Translate capitalize textKey="lastName" />
     })
-  })
-  .add('Multiple keys', context => {
-    return setupStorybookComponent({
-      component: <Translate capitalize textKeys={['dont-exist', 'lastName']} />,
-      context,
-      initialState,
+  )
+  .add(
+    'Multiple keys',
+    withInfo()(() => {
+      return <Translate capitalize textKeys={['dont-exist', 'lastName']} />
     })
-  })
-
-  .add('Interpolation', context => {
-    return setupStorybookComponent({
-      component: (
-        <Translate capitalize params={{ name: 'Anton' }} textKey="greet" />
-      ),
-      context,
-      initialState,
+  )
+  .add(
+    'Interpolation',
+    withInfo()(() => {
+      return <Translate capitalize params={{ name: 'Anton' }} textKey="greet" />
     })
-  })
+  )
