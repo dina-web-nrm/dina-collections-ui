@@ -15,6 +15,15 @@ const moduleFolderNamePath = {
   viewModules: path.join(__dirname, '../../apps/collectionsUi/viewModules'),
 }
 
+const isComponentFile = filename => {
+  return (
+    filename.indexOf('stories') === -1 &&
+    filename.indexOf('.test.') === -1 &&
+    filename !== 'index.js' &&
+    filename !== '.DS_Store'
+  )
+}
+
 export const createApiMockClient = () => {
   return createApiClient({
     enableEndpointMocks: true,
@@ -41,31 +50,16 @@ const testComponents = moduleBasePath => {
     })
 
     it('exports all components', () => {
-      const components = fs
-        .readdirSync(componentsPath)
-        .filter(
-          filename =>
-            filename.indexOf('stories') === -1 &&
-            filename.indexOf('.test.') === -1 &&
-            filename !== 'index.js'
-        )
-
+      const components = fs.readdirSync(componentsPath).filter(isComponentFile)
       expect(components.length).toBe(Object.keys(module.components).length)
     })
   })
 
   describe(`test individual component: `, () => {
-    const components = fs
-      .readdirSync(componentsPath)
-      .filter(
-        filename =>
-          filename.indexOf('stories') === -1 &&
-          filename.indexOf('.test.') === -1 &&
-          filename !== 'index.js'
-      )
+    const components = fs.readdirSync(componentsPath).filter(isComponentFile)
     const stories = fs
       .readdirSync(componentsPath)
-      .filter(filename => filename.indexOf('stories') !== -1)
+      .filter(filename => filename.indexOf('stories') > -1)
 
     components.forEach(component => {
       describe(component, () => {
