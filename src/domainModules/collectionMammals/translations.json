@@ -22,6 +22,18 @@
     }
   },
   "determination": {
+    "copy": {
+      "en": "Copy",
+      "sv": "Kopiera"
+    },
+    "copyToVerbatim": {
+      "en": "Copy to verbatim",
+      "sv": "Kopiera till verbatim"
+    },
+    "date": {
+      "en": "Date",
+      "sv": "Datum"
+    },
     "determination": {
       "en": "Determination",
       "sv": "Bestämning"
