@@ -1,3 +1,4 @@
+import ButtonCopyPasteField from './ButtonCopyPasteField'
 import Checkbox from './Checkbox'
 import DropdownSearch from './DropdownSearch'
 import InputDatePart from './InputDatePart'
@@ -9,6 +10,7 @@ import SearchInputWithResults from './SearchInputWithResults'
 import TranslateSearchResult from './TranslateSearchResult'
 
 export {
+  ButtonCopyPasteField,
   Checkbox,
   DropdownSearch,
   InputDatePart,
