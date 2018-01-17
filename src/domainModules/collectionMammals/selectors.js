@@ -7,8 +7,9 @@ export const getFeatureTypeNameSearchQueries = state => {
 }
 
 export const getFeatureTypeNameSearchQuery = (state, inputName) => {
-  const individualGroups = getFeatureTypeNameSearchQueries(state)
-  return individualGroups[inputName]
+  const queries = getFeatureTypeNameSearchQueries(state)
+  return queries[inputName]
+}
 
 export const getLocalityInformationSearchQueries = state => {
   return state.localityInformationSearchQueries
