@@ -37,7 +37,7 @@ class Flash extends Component {
 
   componentWillUnmount() {
     if (this.ttlTimeout) {
-      clearTimeout(this.ttlTimeout)
+      clearInterval(this.ttlTimeout) // clearTimeout throws timeout.close is not a function, must use clearInterval
     }
   }
 
