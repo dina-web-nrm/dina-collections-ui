@@ -20,4 +20,8 @@ const HELP_TEXT_CATALOG_NUMBER = {
   },
 }
 
-export { HELP_TEXT_CATALOG_NUMBER }
+const HELP_TEXT = {
+  ...fieldHelpTextDefaults,
+}
+
+export { HELP_TEXT, HELP_TEXT_CATALOG_NUMBER }
