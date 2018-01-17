@@ -39,7 +39,11 @@ const Translate = (
     console.warn(`Translation not found for path: ${textKey}`, translations) // eslint-disable-line no-console
   }
 
-  if (fallback && output === textKey) {
+  if (
+    fallback &&
+    (output === textKey ||
+      (output && textKeys && textKeys[0] && output.indexOf(textKeys[0]) > -1)) // enough to check the first textKey
+  ) {
     return <span>{fallback}</span>
   }
 
