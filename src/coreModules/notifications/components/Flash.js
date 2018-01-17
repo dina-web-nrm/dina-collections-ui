@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Message } from 'semantic-ui-react'
 
 import { withI18n } from 'coreModules/i18n/higherOrderComponents'
-import { clearTimeout } from 'timers'
 
 const propTypes = {
   descriptionKey: PropTypes.string,
