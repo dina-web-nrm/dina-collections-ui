@@ -74,9 +74,149 @@
       "en": "Is death event",
       "sv": ""
     },
-    "localityText": {
-      "en": "Locality text",
-      "sv": ""
+    "localityInformation": {
+      "choose": {
+        "en": "Choose...",
+        "sv": "Välj..."
+      },
+      "continentStandardized": {
+        "en": "Continent",
+        "sv": "Kontinent"
+      },
+      "coordinatesVerbatim": {
+        "en": "Coordinates (verbatim)",
+        "sv": "Koordinater (verbatim)"
+      },
+      "coordinateUncertaintyInMeters": {
+        "en": "Coord. uncertainty (m)",
+        "sv": "Koordinatosäkerhet (m)"
+      },
+      "countryStandardized": {
+        "en": "Country",
+        "sv": "Land"
+      },
+      "districtStandardized": {
+        "en": "District",
+        "sv": "Distrikt"
+      },
+      "geodeticDatumStandardized": {
+        "en": "Geodetic datum",
+        "sv": "Geodetiskt datum"
+      },
+      "georeferenceSourcesText": {
+        "en": "Georeference sources",
+        "sv": "Georeferenskälla"
+      },
+      "latitudeStandardized": {
+        "en": "Latitude (N)",
+        "sv": "Latitud (N)"
+      },
+      "localityRemarks": {
+        "en": "Locality remarks",
+        "sv": "Lokalitetsnoteringar"
+      },
+      "localityStandardized": {
+        "en": "Interpreted locality",
+        "sv": "Tolkad lokalitet"
+      },
+      "localityVerbatim": {
+        "en": "Stated (verbatim) locality",
+        "sv": "Angiven (verbatim) lokalitet"
+      },
+      "longitudeStandardized": {
+        "en": "Longitude (E)",
+        "sv": "Longitud (E)"
+      },
+      "maximumDepthInMeters": {
+        "en": "Max depth (m)",
+        "sv": "Maxdjup (m)"
+      },
+      "maximumElevationInMeters": {
+        "en": "Max elevation (m)",
+        "sv": "Maxhöjd (m)"
+      },
+      "minimumDepthInMeters": {
+        "en": "Min depth (m)",
+        "sv": "Mindjup(m)"
+      },
+      "minimumElevationInMeters": {
+        "en": "Min elevation (m)",
+        "sv": "Minhöjd (m)"
+      },
+      "provinceStandardized": {
+        "en": "Province",
+        "sv": "Provins"
+      },
+      "helpTexts": {
+        "continentStandardized": {
+          "en": "Name of a continent",
+          "sv": "Namn på en kontinent"
+        },
+        "coordinatesVerbatim": {
+          "en": "Verbatim coordinates (or corresponding information, e.g. map number) from the original source",
+          "sv": ""
+        },
+        "coordinateUncertaintyInMeters": {
+          "en": "Coordinate uncertainty in meters",
+          "sv": ""
+        },
+        "countryStandardized": {
+          "en": "Name of a country",
+          "sv": ""
+        },
+        "districtStandardized": {
+          "en": "Name os a municipality, county or such (e.g. kommun)",
+          "sv": ""
+        },
+        "geodeticDatumStandardized": {
+          "en": "Datum (coordinate system), e.g. “wgs84” or “sweref99”. Leave empty if unknown.",
+          "sv": ""
+        },
+        "georeferenceSourcesText": {
+          "en": "Describe how you got the georeferenced coordinates (data source(s), tools, maps ...)",
+          "sv": ""
+        },
+        "latitudeStandardized": {
+          "en": "Latitude or northing. Use negative number or letter S for coordinates on southern hemisphere.",
+          "sv": ""
+        },
+        "localityRemarks": {
+          "en": "Notes on the locality",
+          "sv": ""
+        },
+        "localityStandardized": {
+          "en": "Locality name(s) which don’t fit to other fields. E.g. detailed place or water body (e.g. “Frescati” or “Baltic sea”)",
+          "sv": ""
+        },
+        "localityVerbatim": {
+          "en": "Verbatim locality names and description, as in the original source, typos and all.",
+          "sv": ""
+        },
+        "longitudeStandardized": {
+          "en": "Longitude or easting. Use negative number or letter W for coordinates on western hemisphere.",
+          "sv": ""
+        },
+        "maximumDepthInMeters": {
+          "en": "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
+          "sv": ""
+        },
+        "maximumElevationInMeters": {
+          "en": "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
+          "sv": ""
+        },
+        "minimumDepthInMeters": {
+          "en": "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
+          "sv": ""
+        },
+        "minimumElevationInMeters": {
+          "en": "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
+          "sv": ""
+        },
+        "provinceStandardized": {
+          "en": "Name of a province (e.g. län)",
+          "sv": ""
+        }
+      }
     },
     "originLocalityText": {
       "en": "Origin locality",

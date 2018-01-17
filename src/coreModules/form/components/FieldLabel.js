@@ -32,7 +32,7 @@ const FieldLabel = ({
       {helpText && ' ('}
       {helpText && helpText}
       {helpText && ')'}
-      {helpText && helpNotification && ' '}
+      {helpNotification && ' '}
       {helpNotification && (
         <Icon
           color="blue"

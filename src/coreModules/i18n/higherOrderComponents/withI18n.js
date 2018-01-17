@@ -67,7 +67,14 @@ export default function createWithI18n(
           /* eslint-enable no-console */
         }
 
-        if (fallback && output === textKey) {
+        if (
+          fallback &&
+          (output === textKey ||
+            (output &&
+            textKeys &&
+            textKeys[0] && // enough to check the first textKey
+              output.indexOf(textKeys[0]) > -1))
+        ) {
           return fallback
         }
 

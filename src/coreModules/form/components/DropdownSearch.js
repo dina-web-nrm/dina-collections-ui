@@ -6,6 +6,7 @@ import { FormFieldError } from '../../error/components'
 import FieldLabel from './FieldLabel'
 
 const propTypes = {
+  autoComplete: PropTypes.string,
   createNotification: PropTypes.func,
   errorScope: PropTypes.string,
   helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
@@ -21,6 +22,8 @@ const propTypes = {
     touched: PropTypes.bool.isRequired,
   }).isRequired,
   module: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       key: PropTypes.string.isRequired,
@@ -32,6 +35,7 @@ const propTypes = {
   required: PropTypes.bool,
 }
 const defaultProps = {
+  autoComplete: undefined,
   createNotification: undefined,
   errorScope: undefined,
   helpNotification: undefined,
@@ -43,6 +47,7 @@ const defaultProps = {
 }
 
 function DropdownSearch({
+  autoComplete,
   createNotification,
   errorScope,
   helpNotification,
@@ -52,6 +57,8 @@ function DropdownSearch({
   label,
   meta: { error, touched },
   module,
+  onChange,
+  onSearchChange,
   options,
   required,
 }) {
@@ -74,6 +81,9 @@ function DropdownSearch({
       )}
       {helpText && <p>{helpText}</p>}
       <Dropdown
+        autoComplete={autoComplete}
+        onChange={onChange}
+        onSearchChange={onSearchChange}
         options={options}
         search
         selection

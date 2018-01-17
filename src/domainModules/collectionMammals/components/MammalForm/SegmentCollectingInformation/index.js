@@ -13,6 +13,7 @@ import {
 } from 'coreModules/form/components'
 import { fieldNamePathFactory } from 'coreModules/form/utilities'
 import { DAY, MONTH, YEAR } from 'coreModules/form/constants'
+import LocalityInformationFields from './LocalityInformationFields'
 
 const ModuleTranslate = createModuleTranslate('collectionMammals')
 
@@ -45,18 +46,7 @@ function SegmentCollectingInformation({ occurrences }) {
         <ModuleTranslate textKey="collectingInformation" />
       </Header>
       <Grid textAlign="left" verticalAlign="top">
-        <Grid.Column computer={16} mobile={16}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={
-              <ModuleTranslate scope="occurrences" textKey="localityText" />
-            }
-            module="collectionMammals"
-            name={buildOccurrencePath('localityText')}
-            type="text"
-          />
-        </Grid.Column>
+        <LocalityInformationFields index={0} />
 
         <Grid.Column computer={10} mobile={16}>
           <Field
