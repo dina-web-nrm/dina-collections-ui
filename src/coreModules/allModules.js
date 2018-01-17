@@ -9,6 +9,7 @@ import * as i18n from './i18n'
 import * as keyboardShortcuts from './keyboardShortcuts'
 import * as localStorage from './localStorage'
 import * as logger from './logger'
+import * as notifications from './notifications'
 import * as routing from './routing'
 import * as size from './size'
 import * as user from './user'
@@ -23,6 +24,7 @@ const modules = [
   i18n,
   localStorage,
   logger,
+  notifications,
   routing,
   size,
   user,

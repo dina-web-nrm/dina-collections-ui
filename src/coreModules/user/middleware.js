@@ -2,6 +2,7 @@ import { actionCreators as localStorageAC } from 'redux-module-local-storage'
 import { KEYBOARD_SHORTCUTS_TRIGGER } from 'coreModules/keyboardShortcuts/actionTypes'
 import { includesModule } from 'coreModules/bootstrap/utilities'
 import { BOOTSTRAP_REGISTER_MODULES } from 'coreModules/bootstrap/actionTypes'
+import { createNotification } from 'coreModules/notifications/actionCreators'
 import { setLanguage } from 'coreModules/i18n/actionCreators'
 
 import { logout as logoutShortcut } from './shortcuts'
@@ -26,6 +27,7 @@ export default function userMiddleware() {
       case USER_LOG_IN_SUCCESS: {
         dispatch(localStorageAC.setItem(AUTH_TOKEN_KEY, action.payload))
         dispatch(getUser())
+        dispatch(createNotification({ type: 'LOG_IN_SUCCESS' }))
         break
       }
 

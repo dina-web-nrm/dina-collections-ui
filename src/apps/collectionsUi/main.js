@@ -2,6 +2,7 @@ import 'semantic-ui/dist/semantic.css' // eslint-disable-line
 import 'whatwg-fetch'
 import createStore from 'store/index'
 import { I18nProvider } from 'coreModules/i18n/components'
+import { NotificationDisplay } from 'coreModules/notifications/components'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -23,11 +24,14 @@ ReactDOM.render(
   <ReduxProvider store={store}>
     <ConnectedRouter history={config.routing}>
       <I18nProvider>
-        <Switch>
-          <Route component={App} path="/app" />
-          <Route component={Docs} path="/docs" />
-          <Route component={Public} />
-        </Switch>
+        <div>
+          <Switch>
+            <Route component={App} path="/app" />
+            <Route component={Docs} path="/docs" />
+            <Route component={Public} />
+          </Switch>
+          <NotificationDisplay displayType="fixed" />
+        </div>
       </I18nProvider>
     </ConnectedRouter>
   </ReduxProvider>,

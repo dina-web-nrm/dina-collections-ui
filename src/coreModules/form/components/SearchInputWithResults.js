@@ -2,11 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Form, Search } from 'semantic-ui-react'
 import { FormFieldError } from '../../error/components'
+import FieldLabel from './FieldLabel'
 
 const propTypes = {
+  createNotification: PropTypes.func,
   errorScope: PropTypes.string,
   handleResultSelect: PropTypes.func.isRequired,
   handleSearchChange: PropTypes.func.isRequired,
+  helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   input: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -24,7 +27,9 @@ const propTypes = {
   results: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
 }
 const defaultProps = {
+  createNotification: undefined,
   errorScope: undefined,
+  helpNotification: undefined,
   helpText: undefined,
   isLoading: false,
   label: undefined,
@@ -34,9 +39,11 @@ const defaultProps = {
 }
 
 function SearchInputWithResults({
+  createNotification,
   errorScope,
   handleResultSelect,
   handleSearchChange,
+  helpNotification,
   helpText,
   isLoading,
   input,
@@ -46,7 +53,6 @@ function SearchInputWithResults({
   required,
   resultRenderer,
   results,
-  ...rest
 }) {
   // map results to fit Semantic Search propTypes
   const mappedResults = results.map(result => {
@@ -63,7 +69,15 @@ function SearchInputWithResults({
       required={required}
       style={{ position: 'relative' }}
     >
-      {label && <label htmlFor={input.name}>{label}</label>}
+      {(label || helpNotification) && (
+        <FieldLabel
+          createNotification={createNotification}
+          helpNotification={helpNotification}
+          helpText={helpText}
+          htmlFor={input.name}
+          label={label}
+        />
+      )}
       {helpText && <p>{helpText}</p>}
       <Search
         loading={isLoading}
@@ -72,7 +86,6 @@ function SearchInputWithResults({
         resultRenderer={resultRenderer}
         results={mappedResults}
         {...input}
-        {...rest}
       />
       {displayError && (
         <FormFieldError

@@ -4,6 +4,7 @@ import fs from 'fs'
 import validateAgainstSchema from 'utilities/jsonSchema/validateAgainstSchema'
 import isKnownError from 'utilities/error/isKnownError'
 import createApiClient from 'coreModules/api/apiClient'
+import { testNotificationSpecification } from 'coreModules/notifications/utilities'
 
 import viewModuleSchema from './viewModuleSchema.json'
 import moduleSchema from './moduleSchema.json'
@@ -12,6 +13,15 @@ const moduleFolderNamePath = {
   coreModules: path.join(__dirname, '../../coreModules'),
   domainModules: path.join(__dirname, '../../domainModules'),
   viewModules: path.join(__dirname, '../../apps/collectionsUi/viewModules'),
+}
+
+const isComponentFile = filename => {
+  return (
+    filename.indexOf('stories') === -1 &&
+    filename.indexOf('.test.') === -1 &&
+    filename !== 'index.js' &&
+    filename !== '.DS_Store'
+  )
 }
 
 export const createApiMockClient = () => {
@@ -40,31 +50,16 @@ const testComponents = moduleBasePath => {
     })
 
     it('exports all components', () => {
-      const components = fs
-        .readdirSync(componentsPath)
-        .filter(
-          filename =>
-            filename.indexOf('stories') === -1 &&
-            filename.indexOf('.test.') === -1 &&
-            filename !== 'index.js'
-        )
-
+      const components = fs.readdirSync(componentsPath).filter(isComponentFile)
       expect(components.length).toBe(Object.keys(module.components).length)
     })
   })
 
   describe(`test individual component: `, () => {
-    const components = fs
-      .readdirSync(componentsPath)
-      .filter(
-        filename =>
-          filename.indexOf('stories') === -1 &&
-          filename.indexOf('.test.') === -1 &&
-          filename !== 'index.js'
-      )
+    const components = fs.readdirSync(componentsPath).filter(isComponentFile)
     const stories = fs
       .readdirSync(componentsPath)
-      .filter(filename => filename.indexOf('stories') !== -1)
+      .filter(filename => filename.indexOf('stories') > -1)
 
     components.forEach(component => {
       describe(component, () => {
@@ -136,6 +131,18 @@ const testEndpoints = endpoints => {
   })
 }
 
+const testNotifications = notifications => {
+  describe('notifications', () => {
+    Object.keys(notifications).forEach(notificationType => {
+      it('is valid notification specification', () => {
+        expect(() =>
+          testNotificationSpecification(notifications[notificationType])
+        ).not.toThrow()
+      })
+    })
+  })
+}
+
 const testModuleInFolder = ({
   folderIndexFile,
   folderName,
@@ -166,12 +173,16 @@ const testModuleInFolder = ({
         expect(validateAgainstSchema(moduleSchema, module)).toBeNull()
       })
 
+      if (module.components) {
+        testComponents(moduleBasePath)
+      }
+
       if (module.endpoints) {
         testEndpoints(module.endpoints)
       }
 
-      if (module.components) {
-        testComponents(moduleBasePath)
+      if (module.notifications) {
+        testNotifications(moduleBasePath)
       }
     }
   })

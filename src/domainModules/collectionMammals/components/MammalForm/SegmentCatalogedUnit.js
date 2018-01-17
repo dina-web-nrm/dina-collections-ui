@@ -16,6 +16,9 @@ export default () => {
           <Field
             autoComplete="off"
             component={Input}
+            helpNotification={{
+              type: 'HELP_TEXT_CATALOG_NUMBER',
+            }}
             helpText={<ModuleTranslate textKey="sixOrEightDigits" />}
             label={<ModuleTranslate textKey="catalogNumber" />}
             module="collectionMammals"

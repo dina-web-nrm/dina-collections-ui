@@ -789,8 +789,10 @@ exports[`Storyshots coreModules/form/Input Default 1`] = `
           scope="some-scope"
         >
           <input
+            autoComplete={undefined}
             disabled={undefined}
             onChange={[Function]}
+            placeholder={undefined}
             tabIndex={undefined}
             type="text"
           />
@@ -1346,6 +1348,7 @@ exports[`Storyshots coreModules/user/LoginForm Default 1`] = `
           >
             <div
               className="ui left icon input"
+              scope={undefined}
             >
               <i
                 aria-hidden="true"
@@ -1377,6 +1380,7 @@ exports[`Storyshots coreModules/user/LoginForm Default 1`] = `
           >
             <div
               className="ui left icon input"
+              scope={undefined}
             >
               <i
                 aria-hidden="true"

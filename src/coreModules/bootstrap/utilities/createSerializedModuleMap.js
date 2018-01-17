@@ -7,6 +7,7 @@ export default function createSerializedModuleMap(modules) {
         constants: module.constants,
         markdown: module.markdown,
         name: module.name,
+        notifications: module.notifications,
         shortcuts: module.shortcuts,
         translations: module.translations,
       },

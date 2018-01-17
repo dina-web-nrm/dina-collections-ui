@@ -3,9 +3,12 @@ import PropTypes from 'prop-types'
 import { Dropdown, Form } from 'semantic-ui-react'
 
 import { FormFieldError } from '../../error/components'
+import FieldLabel from './FieldLabel'
 
 const propTypes = {
+  createNotification: PropTypes.func,
   errorScope: PropTypes.string,
+  helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   initialText: PropTypes.string,
   input: PropTypes.shape({
@@ -29,7 +32,9 @@ const propTypes = {
   required: PropTypes.bool,
 }
 const defaultProps = {
+  createNotification: undefined,
   errorScope: undefined,
+  helpNotification: undefined,
   helpText: undefined,
   initialText: undefined,
   label: undefined,
@@ -38,7 +43,9 @@ const defaultProps = {
 }
 
 function DropdownSearch({
+  createNotification,
   errorScope,
+  helpNotification,
   helpText,
   initialText,
   input,
@@ -47,7 +54,6 @@ function DropdownSearch({
   module,
   options,
   required,
-  ...rest
 }) {
   const displayError = touched && !!error
 
@@ -57,16 +63,23 @@ function DropdownSearch({
       required={required}
       style={{ position: 'relative' }}
     >
-      {label && <label htmlFor={input.name}>{label}</label>}
+      {(label || helpNotification) && (
+        <FieldLabel
+          createNotification={createNotification}
+          helpNotification={helpNotification}
+          helpText={helpText}
+          htmlFor={input.name}
+          label={label}
+        />
+      )}
       {helpText && <p>{helpText}</p>}
       <Dropdown
         options={options}
         search
         selection
         selectOnNavigation={false}
-        {...input}
-        {...rest}
         text={input.value || initialText}
+        {...input}
       />
       {displayError && (
         <FormFieldError

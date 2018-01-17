@@ -2,9 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Form, Input } from 'semantic-ui-react'
 import { FormFieldError } from '../../error/components'
+import FieldLabel from './FieldLabel'
 
 const propTypes = {
+  autoComplete: PropTypes.string,
+  createNotification: PropTypes.func,
   errorScope: PropTypes.string,
+  helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   icon: PropTypes.string,
   iconPosition: PropTypes.string,
@@ -15,19 +19,28 @@ const propTypes = {
     touched: PropTypes.bool.isRequired,
   }).isRequired,
   module: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   required: PropTypes.bool,
+  scope: PropTypes.string,
   type: PropTypes.string.isRequired,
 }
 const defaultProps = {
+  autoComplete: undefined,
+  createNotification: undefined,
   errorScope: undefined,
+  helpNotification: undefined,
   helpText: undefined,
   icon: undefined,
   iconPosition: 'left',
   label: undefined,
+  placeholder: undefined,
   required: false,
+  scope: undefined,
 }
 
-const Field = ({
+const InputField = ({
+  autoComplete,
+  createNotification,
   errorScope,
   label,
   icon,
@@ -35,36 +48,38 @@ const Field = ({
   input,
   meta: { touched, error },
   module,
+  placeholder,
   required,
   helpText,
+  helpNotification,
+  scope,
   type,
-  ...rest
 }) => {
   const displayError = touched && !!error
+
   return (
     <Form.Field
       error={displayError}
       required={required}
       style={{ position: 'relative' }}
     >
-      {label && (
-        <label htmlFor={input.name}>
-          {label}
-          {
-            // this ugly stuff is required since currently translations can only
-            // be components
-          }
-          {helpText && ' ('}
-          {helpText && helpText}
-          {helpText && ')'}
-        </label>
+      {(label || helpNotification) && (
+        <FieldLabel
+          createNotification={createNotification}
+          helpNotification={helpNotification}
+          helpText={helpText}
+          htmlFor={input.name}
+          label={label}
+        />
       )}
       <Input
+        autoComplete={autoComplete}
         icon={icon}
         iconPosition={icon && iconPosition}
+        placeholder={placeholder}
+        scope={scope}
         type={type}
         {...input}
-        {...rest}
       />
       {displayError && (
         <FormFieldError
@@ -77,7 +92,7 @@ const Field = ({
   )
 }
 
-Field.propTypes = propTypes
-Field.defaultProps = defaultProps
+InputField.propTypes = propTypes
+InputField.defaultProps = defaultProps
 
-export default Field
+export default InputField
