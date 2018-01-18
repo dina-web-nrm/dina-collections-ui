@@ -6,7 +6,7 @@ import FieldLabel from './FieldLabel'
 
 const propTypes = {
   errorScope: PropTypes.string,
-  helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
+  helpNotificationProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   input: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -21,7 +21,7 @@ const propTypes = {
 }
 const defaultProps = {
   errorScope: undefined,
-  helpNotification: undefined,
+  helpNotificationProps: undefined,
   helpText: undefined,
   label: undefined,
   required: false,
@@ -30,7 +30,7 @@ const defaultProps = {
 
 const CheckboxField = ({
   errorScope,
-  helpNotification,
+  helpNotificationProps,
   label,
   input,
   meta: { touched, error },
@@ -50,9 +50,9 @@ const CheckboxField = ({
       required={required}
       style={{ position: 'relative' }}
     >
-      {(label || helpNotification) && (
+      {(label || helpNotificationProps) && (
         <FieldLabel
-          helpNotification={helpNotification}
+          helpNotificationProps={helpNotificationProps}
           helpText={helpText}
           htmlFor={input.name}
           label={label}

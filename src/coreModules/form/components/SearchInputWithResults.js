@@ -8,7 +8,7 @@ const propTypes = {
   errorScope: PropTypes.string,
   handleResultSelect: PropTypes.func.isRequired,
   handleSearchChange: PropTypes.func.isRequired,
-  helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
+  helpNotificationProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   input: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -27,7 +27,7 @@ const propTypes = {
 }
 const defaultProps = {
   errorScope: undefined,
-  helpNotification: undefined,
+  helpNotificationProps: undefined,
   helpText: undefined,
   isLoading: false,
   label: undefined,
@@ -40,7 +40,7 @@ function SearchInputWithResults({
   errorScope,
   handleResultSelect,
   handleSearchChange,
-  helpNotification,
+  helpNotificationProps,
   helpText,
   isLoading,
   input,
@@ -66,9 +66,9 @@ function SearchInputWithResults({
       required={required}
       style={{ position: 'relative' }}
     >
-      {(label || helpNotification) && (
+      {(label || helpNotificationProps) && (
         <FieldLabel
-          helpNotification={helpNotification}
+          helpNotificationProps={helpNotificationProps}
           helpText={helpText}
           htmlFor={input.name}
           label={label}
