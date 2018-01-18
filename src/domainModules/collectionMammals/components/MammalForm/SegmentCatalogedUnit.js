@@ -43,7 +43,7 @@ export default () => {
             component={Checkbox}
             label={<ModuleTranslate textKey="isPublic" />}
             module="collectionMammals"
-            name="physicalUnits[0].catalogedUnit.isPublic"
+            name="physicalUnits[0].catalogedUnit.publishRecord"
             type="checkbox"
           />
         </Grid.Column>
