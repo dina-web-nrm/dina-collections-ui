@@ -12,17 +12,24 @@ const getUniqueValue = (asNumber = false) => {
 const optionFactory = (value = getUniqueValue()) => {
   return { key: value, text: value, value }
 }
-const emptyFunction = () => {}
 
-describe('domainModules/collectionMammals/components/MammalForm', () => {
+describe('coreModules/form/components/DropdownSearch', () => {
+  let onChange
+  let onSearchChange
+
+  beforeEach(() => {
+    onChange = jest.fn()
+    onSearchChange = jest.fn()
+  })
+
   it('renders without crashing', () => {
     setupTestComponent({
       component: (
         <DropdownSearch
           input={{ name: 'name' }}
           meta={{ touched: false }}
-          onChange={emptyFunction}
-          onSearchChange={emptyFunction}
+          onChange={onChange}
+          onSearchChange={onSearchChange}
           options={[optionFactory()]}
         />
       ),
@@ -30,115 +37,103 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     })
   })
 
-  it('Submit fail when catalog number not provided', () => {
-    const { store, rootComponent: mountedComponent } = setupTestComponent({
+  it('contains provided options', () => {
+    const { rootComponent: mountedComponent } = setupTestComponent({
       component: (
         <DropdownSearch
           input={{ name: 'name' }}
           meta={{ touched: false }}
-          onChange={emptyFunction}
-          onSearchChange={emptyFunction}
+          onChange={onChange}
+          onSearchChange={onSearchChange}
           options={[optionFactory('ABC'), optionFactory('BCD')]}
+          selectOnBlur
         />
       ),
       fullExport: true,
       mount: true,
     })
 
-    console.log(mountedComponent.debug())
-    const Dropdown = mountedComponent.find('Dropdown')
-    Dropdown.simulate('click')
-    expect(mountedComponent.contains(['ABC', 'BCD'])).toBe(true)
+    const DropdownItems = mountedComponent.find('DropdownItem')
+    expect(DropdownItems.length).toBe(2)
+
+    const spans = DropdownItems.find('span')
+    const firstValue = spans.first()
+    const lastValue = spans.last()
+    expect(firstValue.text()).toBe('ABC')
+    expect(lastValue.text()).toBe('BCD')
   })
 
-  // it('Submit success when catalog number provided', () => {
-  //   const handleFormSubmit = data => {
-  //     return Promise.resolve(data)
-  //   }
-  //   const { store, rootComponent: mountedComponent } = setupTestComponent({
-  //     component: <MammalForm handleFormSubmit={handleFormSubmit} />,
-  //     fullExport: true,
-  //     mount: true,
-  //   })
+  it('selects on blur without change', () => {
+    const { rootComponent: mountedComponent } = setupTestComponent({
+      component: (
+        <DropdownSearch
+          input={{ name: 'name' }}
+          meta={{ touched: false }}
+          onChange={onChange}
+          onSearchChange={onSearchChange}
+          options={[optionFactory('ABC'), optionFactory('BCD')]}
+          selectOnBlur
+        />
+      ),
+      fullExport: true,
+      mount: true,
+    })
 
-  //   const form = mountedComponent.find('form')
-  //   const catalogedNumberInput = form
-  //     .find({
-  //       name: 'physicalUnits[0].catalogedUnit.catalogNumber',
-  //     })
-  //     .hostNodes()
+    const Dropdown = mountedComponent.find('Dropdown')
+    Dropdown.simulate('focus')
+    Dropdown.simulate('blur')
+    const selectedValue = Dropdown.children().childAt(1)
+    expect(selectedValue.text()).toBe('ABC')
+  })
 
-  //   catalogedNumberInput.simulate('change', { target: { value: 'xxxxxx' } })
-
-  //   form.simulate('submit')
-
-  //   expect(store.getState().form.mammalForm.submitFailed).toBe(undefined)
-  // })
-
-  // it('Submit success when loaded with existing individual group', () => {
-  //   const handleFormSubmit = data => {
-  //     return Promise.resolve(data)
-  //   }
-
-  //   const individualGroup = {
-  //     attributes: {
-  //       featureObservations: [
-  //         {
-  //           featureObservationText: 'female',
-  //           featureObservationType: {
-  //             featureObservationTypeName: 'sex',
-  //             id: 1,
-  //           },
-  //         },
-  //       ],
-  //       identifications: [
-  //         {
-  //           identificationText: 'Water opossum',
-  //           identifiedByAgentText: 'Doe, J.',
-  //           identifiedTaxonNameStandardized: 'Chironectes minimus',
-  //         },
-  //       ],
-  //       occurrences: [
-  //         {
-  //           id: 1,
-  //           localityText: 'Hemsö',
-  //         },
-  //       ],
-  //       physicalUnits: [
-  //         {
-  //           catalogedUnit: {
-  //             catalogNumber: '444444',
-  //           },
-  //         },
-  //       ],
-  //     },
-  //     id: 2,
-  //     type: 'individualGroup',
-  //   }
-
-  //   const { rootComponent: mountedComponent, store } = setupTestComponent({
+  // it('does not select on blur without change', () => {
+  //   const { rootComponent: mountedComponent } = setupTestComponent({
   //     component: (
-  //       <MammalForm
-  //         handleFormSubmit={handleFormSubmit}
-  //         individualGroupAttributes={individualGroup.attributes}
-  //         individualGroupId={2}
-  //         transformOutputForUpdate
+  //       <DropdownSearch
+  //         input={{ name: 'name' }}
+  //         meta={{ touched: false }}
+  //         onChange={onChange}
+  //         onSearchChange={onSearchChange}
+  //         options={[optionFactory('ABC'), optionFactory('BCD')]}
+  //         selectOnBlur={false}
   //       />
   //     ),
   //     fullExport: true,
   //     mount: true,
   //   })
 
-  //   const form = mountedComponent.find('form')
-  //   const catalogedNumberInput = form
-  //     .find({
-  //       name: 'physicalUnits[0].catalogedUnit.catalogNumber',
-  //     })
-  //     .hostNodes()
-
-  //   expect(catalogedNumberInput.props().value).toBe('444444')
-  //   form.simulate('submit')
-
-  //   expect(store.getState().form.mammalForm.submitFailed).toBe(undefined)
+  //   const Dropdown = mountedComponent.find('Dropdown')
+  //   Dropdown.simulate('focus')
+  //   Dropdown.simulate('blur')
+  //   const selectedValue = Dropdown.children().childAt(1)
+  //   expect(selectedValue.text()).toBe('')
   // })
+
+  it('changes value', () => {
+    const { rootComponent: mountedComponent } = setupTestComponent({
+      component: (
+        <DropdownSearch
+          input={{ name: 'name', value: '' }}
+          meta={{ touched: false }}
+          onChange={(e, b) => {
+            onChange()
+            console.log(e.target.value)
+            console.log(b)
+            return e.target.value
+          }}
+          onSearchChange={onSearchChange}
+          options={[optionFactory('ABC'), optionFactory('BCD')]}
+          selectOnBlur
+        />
+      ),
+      fullExport: true,
+      mount: true,
+    })
+
+    const Dropdown = mountedComponent.find('Dropdown')
+    console.log(Dropdown.debug())
+    Dropdown.simulate('change', { target: { value: 'BCD' } })
+    console.log(Dropdown.debug())
+    expect(onChange.mock.calls.length).toBe(1)
+  })
 })
