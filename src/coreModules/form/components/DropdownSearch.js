@@ -33,6 +33,7 @@ const propTypes = {
     }).isRequired
   ).isRequired,
   required: PropTypes.bool,
+  selectOnBlur: PropTypes.bool,
 }
 const defaultProps = {
   autoComplete: undefined,
@@ -44,6 +45,7 @@ const defaultProps = {
   label: undefined,
   module: undefined,
   required: false,
+  selectOnBlur: undefined,
 }
 
 function DropdownSearch({
@@ -61,6 +63,7 @@ function DropdownSearch({
   onSearchChange,
   options,
   required,
+  selectOnBlur,
 }) {
   const displayError = touched && !!error
 
@@ -87,6 +90,7 @@ function DropdownSearch({
         options={options}
         search
         selection
+        selectOnBlur={selectOnBlur}
         selectOnNavigation={false}
         text={input.value || initialText}
         {...input}

@@ -158,6 +158,7 @@ class LocalityDropdownSearch extends Component {
         onSearchChange={this.handleSearchChange}
         required={required}
         searchQuery={searchQuery}
+        selectOnBlur={false}
         {...rest}
         options={
           // putting options last to override options in rest
