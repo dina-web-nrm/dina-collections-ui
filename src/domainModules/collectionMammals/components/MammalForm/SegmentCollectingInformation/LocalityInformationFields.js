@@ -15,7 +15,10 @@ import updateLocalityInformationSearchQueryAC from '../../../actionCreators/upda
 
 const buildModuleTextKey = textKey =>
   `modules.collectionMammals.occurrences.localityInformation.${textKey}`
-const buildOccurrencePath = fieldNamePathFactory('occurrences')
+const buildOccurrencePath = fieldNamePathFactory(
+  'occurrences',
+  'localityInformation'
+)
 
 const mapDispatchToProps = {
   updateLocalityInformationSearchQuery: updateLocalityInformationSearchQueryAC,
