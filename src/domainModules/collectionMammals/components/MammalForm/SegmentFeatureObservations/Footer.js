@@ -22,6 +22,7 @@ const Footer = ({ arrayPush }) => {
       <Table.Row>
         <Table.HeaderCell colSpan="5">
           <Button
+            id="add-feature-observation"
             onClick={event => {
               event.preventDefault()
               arrayPush('mammalForm', 'featureObservations', {})
