@@ -7,9 +7,8 @@ import FieldLabel from './FieldLabel'
 
 const propTypes = {
   autoComplete: PropTypes.string,
-  createNotification: PropTypes.func,
   errorScope: PropTypes.string,
-  helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
+  helpNotificationProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   initialText: PropTypes.string,
   input: PropTypes.shape({
@@ -37,9 +36,8 @@ const propTypes = {
 }
 const defaultProps = {
   autoComplete: undefined,
-  createNotification: undefined,
   errorScope: undefined,
-  helpNotification: undefined,
+  helpNotificationProps: undefined,
   helpText: undefined,
   initialText: undefined,
   label: undefined,
@@ -50,9 +48,8 @@ const defaultProps = {
 
 function DropdownSearch({
   autoComplete,
-  createNotification,
   errorScope,
-  helpNotification,
+  helpNotificationProps,
   helpText,
   initialText,
   input,
@@ -73,10 +70,9 @@ function DropdownSearch({
       required={required}
       style={{ position: 'relative' }}
     >
-      {(label || helpNotification) && (
+      {(label || helpNotificationProps) && (
         <FieldLabel
-          createNotification={createNotification}
-          helpNotification={helpNotification}
+          helpNotificationProps={helpNotificationProps}
           helpText={helpText}
           htmlFor={input.name}
           label={label}

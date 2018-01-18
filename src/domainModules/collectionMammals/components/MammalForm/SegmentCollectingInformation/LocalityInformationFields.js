@@ -46,12 +46,9 @@ function LocalityInformationFields({
         <Field
           autoComplete="off"
           component={Input}
-          helpNotification={{
-            componentProps: {
-              descriptionHeaderKey: buildModuleTextKey('localityVerbatim'),
-              descriptionKey: buildModuleTextKey('helpTexts.localityVerbatim'),
-            },
-            type: 'HELP_TEXT',
+          helpNotificationProps={{
+            descriptionHeaderKey: buildModuleTextKey('localityVerbatim'),
+            descriptionKey: buildModuleTextKey('helpTexts.localityVerbatim'),
           }}
           label={moduleTranslate({ textKey: 'localityVerbatim' })}
           module="collectionMammals"
@@ -65,16 +62,11 @@ function LocalityInformationFields({
             autoComplete="off"
             component={LocalityDropdownSearch}
             getSearchQuery={globalSelectors.getLocalityInformationSearchQuery}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'continentStandardized'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.continentStandardized'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey('continentStandardized'),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.continentStandardized'
+              ),
             }}
             initialText={moduleTranslate({ textKey: 'choose' })}
             label={moduleTranslate({ textKey: 'continentStandardized' })}
@@ -89,14 +81,11 @@ function LocalityInformationFields({
             autoComplete="off"
             component={LocalityDropdownSearch}
             getSearchQuery={globalSelectors.getLocalityInformationSearchQuery}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey('countryStandardized'),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.countryStandardized'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey('countryStandardized'),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.countryStandardized'
+              ),
             }}
             initialText={moduleTranslate({ textKey: 'choose' })}
             label={moduleTranslate({ textKey: 'countryStandardized' })}
@@ -111,16 +100,11 @@ function LocalityInformationFields({
             autoComplete="off"
             component={LocalityDropdownSearch}
             getSearchQuery={globalSelectors.getLocalityInformationSearchQuery}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'provinceStandardized'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.provinceStandardized'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey('provinceStandardized'),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.provinceStandardized'
+              ),
             }}
             initialText={moduleTranslate({ textKey: 'choose' })}
             label={moduleTranslate({ textKey: 'provinceStandardized' })}
@@ -135,16 +119,11 @@ function LocalityInformationFields({
             autoComplete="off"
             component={LocalityDropdownSearch}
             getSearchQuery={globalSelectors.getLocalityInformationSearchQuery}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'districtStandardized'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.districtStandardized'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey('districtStandardized'),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.districtStandardized'
+              ),
             }}
             initialText={moduleTranslate({ textKey: 'choose' })}
             label={moduleTranslate({ textKey: 'districtStandardized' })}
@@ -159,14 +138,11 @@ function LocalityInformationFields({
         <Field
           autoComplete="off"
           component={Input}
-          helpNotification={{
-            componentProps: {
-              descriptionHeaderKey: buildModuleTextKey('localityStandardized'),
-              descriptionKey: buildModuleTextKey(
-                'helpTexts.localityStandardized'
-              ),
-            },
-            type: 'HELP_TEXT',
+          helpNotificationProps={{
+            descriptionHeaderKey: buildModuleTextKey('localityStandardized'),
+            descriptionKey: buildModuleTextKey(
+              'helpTexts.localityStandardized'
+            ),
           }}
           label={moduleTranslate({ textKey: 'localityStandardized' })}
           module="collectionMammals"
@@ -178,14 +154,9 @@ function LocalityInformationFields({
         <Field
           autoComplete="off"
           component={Input}
-          helpNotification={{
-            componentProps: {
-              descriptionHeaderKey: buildModuleTextKey('coordinatesVerbatim'),
-              descriptionKey: buildModuleTextKey(
-                'helpTexts.coordinatesVerbatim'
-              ),
-            },
-            type: 'HELP_TEXT',
+          helpNotificationProps={{
+            descriptionHeaderKey: buildModuleTextKey('coordinatesVerbatim'),
+            descriptionKey: buildModuleTextKey('helpTexts.coordinatesVerbatim'),
           }}
           label={moduleTranslate({ textKey: 'coordinatesVerbatim' })}
           module="collectionMammals"
@@ -198,16 +169,11 @@ function LocalityInformationFields({
           <Field
             autoComplete="off"
             component={Input}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'latitudeStandardized'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.latitudeStandardized'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey('latitudeStandardized'),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.latitudeStandardized'
+              ),
             }}
             label={moduleTranslate({ textKey: 'latitudeStandardized' })}
             module="collectionMammals"
@@ -219,16 +185,11 @@ function LocalityInformationFields({
           <Field
             autoComplete="off"
             component={Input}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'longitudeStandardized'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.longitudeStandardized'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey('longitudeStandardized'),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.longitudeStandardized'
+              ),
             }}
             label={moduleTranslate({ textKey: 'longitudeStandardized' })}
             module="collectionMammals"
@@ -240,16 +201,13 @@ function LocalityInformationFields({
           <Field
             autoComplete="off"
             component={Input}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'coordinateUncertaintyInMeters'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.coordinateUncertaintyInMeters'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey(
+                'coordinateUncertaintyInMeters'
+              ),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.coordinateUncertaintyInMeters'
+              ),
             }}
             label={moduleTranslate({
               textKey: 'coordinateUncertaintyInMeters',
@@ -263,16 +221,13 @@ function LocalityInformationFields({
           <Field
             autoComplete="off"
             component={Input}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'geodeticDatumStandardized'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.geodeticDatumStandardized'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey(
+                'geodeticDatumStandardized'
+              ),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.geodeticDatumStandardized'
+              ),
             }}
             label={moduleTranslate({ textKey: 'geodeticDatumStandardized' })}
             module="collectionMammals"
@@ -285,16 +240,11 @@ function LocalityInformationFields({
         <Field
           autoComplete="off"
           component={Input}
-          helpNotification={{
-            componentProps: {
-              descriptionHeaderKey: buildModuleTextKey(
-                'georeferenceSourcesText'
-              ),
-              descriptionKey: buildModuleTextKey(
-                'helpTexts.georeferenceSourcesText'
-              ),
-            },
-            type: 'HELP_TEXT',
+          helpNotificationProps={{
+            descriptionHeaderKey: buildModuleTextKey('georeferenceSourcesText'),
+            descriptionKey: buildModuleTextKey(
+              'helpTexts.georeferenceSourcesText'
+            ),
           }}
           label={moduleTranslate({ textKey: 'georeferenceSourcesText' })}
           module="collectionMammals"
@@ -307,16 +257,13 @@ function LocalityInformationFields({
           <Field
             autoComplete="off"
             component={Input}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'minimumElevationInMeters'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.minimumElevationInMeters'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey(
+                'minimumElevationInMeters'
+              ),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.minimumElevationInMeters'
+              ),
             }}
             label={moduleTranslate({ textKey: 'minimumElevationInMeters' })}
             module="collectionMammals"
@@ -328,16 +275,13 @@ function LocalityInformationFields({
           <Field
             autoComplete="off"
             component={Input}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'maximumElevationInMeters'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.maximumElevationInMeters'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey(
+                'maximumElevationInMeters'
+              ),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.maximumElevationInMeters'
+              ),
             }}
             label={moduleTranslate({ textKey: 'maximumElevationInMeters' })}
             module="collectionMammals"
@@ -351,16 +295,11 @@ function LocalityInformationFields({
           <Field
             autoComplete="off"
             component={Input}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'minimumDepthInMeters'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.minimumDepthInMeters'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey('minimumDepthInMeters'),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.minimumDepthInMeters'
+              ),
             }}
             label={moduleTranslate({ textKey: 'minimumDepthInMeters' })}
             module="collectionMammals"
@@ -372,16 +311,11 @@ function LocalityInformationFields({
           <Field
             autoComplete="off"
             component={Input}
-            helpNotification={{
-              componentProps: {
-                descriptionHeaderKey: buildModuleTextKey(
-                  'maximumDepthInMeters'
-                ),
-                descriptionKey: buildModuleTextKey(
-                  'helpTexts.maximumDepthInMeters'
-                ),
-              },
-              type: 'HELP_TEXT',
+            helpNotificationProps={{
+              descriptionHeaderKey: buildModuleTextKey('maximumDepthInMeters'),
+              descriptionKey: buildModuleTextKey(
+                'helpTexts.maximumDepthInMeters'
+              ),
             }}
             label={moduleTranslate({ textKey: 'maximumDepthInMeters' })}
             module="collectionMammals"
@@ -394,12 +328,9 @@ function LocalityInformationFields({
         <Field
           autoComplete="off"
           component={Input}
-          helpNotification={{
-            componentProps: {
-              descriptionHeaderKey: buildModuleTextKey('localityRemarks'),
-              descriptionKey: buildModuleTextKey('helpTexts.localityRemarks'),
-            },
-            type: 'HELP_TEXT',
+          helpNotificationProps={{
+            descriptionHeaderKey: buildModuleTextKey('localityRemarks'),
+            descriptionKey: buildModuleTextKey('helpTexts.localityRemarks'),
           }}
           label={moduleTranslate({ textKey: 'localityRemarks' })}
           module="collectionMammals"

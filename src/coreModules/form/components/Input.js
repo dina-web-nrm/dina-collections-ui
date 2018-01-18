@@ -6,9 +6,8 @@ import FieldLabel from './FieldLabel'
 
 const propTypes = {
   autoComplete: PropTypes.string,
-  createNotification: PropTypes.func,
   errorScope: PropTypes.string,
-  helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
+  helpNotificationProps: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   icon: PropTypes.string,
   iconPosition: PropTypes.string,
@@ -26,9 +25,8 @@ const propTypes = {
 }
 const defaultProps = {
   autoComplete: undefined,
-  createNotification: undefined,
   errorScope: undefined,
-  helpNotification: undefined,
+  helpNotificationProps: undefined,
   helpText: undefined,
   icon: undefined,
   iconPosition: 'left',
@@ -40,7 +38,6 @@ const defaultProps = {
 
 const InputField = ({
   autoComplete,
-  createNotification,
   errorScope,
   label,
   icon,
@@ -51,7 +48,7 @@ const InputField = ({
   placeholder,
   required,
   helpText,
-  helpNotification,
+  helpNotificationProps,
   scope,
   type,
 }) => {
@@ -63,10 +60,9 @@ const InputField = ({
       required={required}
       style={{ position: 'relative' }}
     >
-      {(label || helpNotification) && (
+      {(label || helpNotificationProps) && (
         <FieldLabel
-          createNotification={createNotification}
-          helpNotification={helpNotification}
+          helpNotificationProps={helpNotificationProps}
           helpText={helpText}
           htmlFor={input.name}
           label={label}
