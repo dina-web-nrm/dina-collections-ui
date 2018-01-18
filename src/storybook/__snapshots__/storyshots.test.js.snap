@@ -780,7 +780,7 @@ exports[`Storyshots coreModules/form/Input Default 1`] = `
         }
       >
         <label
-          htmlFor={undefined}
+          htmlFor="inputName"
         >
           This is a label
         </label>
@@ -791,6 +791,7 @@ exports[`Storyshots coreModules/form/Input Default 1`] = `
           <input
             autoComplete={undefined}
             disabled={undefined}
+            name="inputName"
             onChange={[Function]}
             placeholder={undefined}
             tabIndex={undefined}

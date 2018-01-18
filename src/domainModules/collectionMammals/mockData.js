@@ -22,7 +22,9 @@ export const getIndividualGroup = (queryParams = {}) => {
             'Chironectes minimus',
         },
       ],
-      occurrences: [{ id: 1, localityText: 'Hemsö' }],
+      occurrences: [
+        { id: 1, localityInformation: { localityVerbatim: 'Hemsö' } },
+      ],
       physicalUnits: [
         {
           catalogedUnit: {

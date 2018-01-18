@@ -13,7 +13,7 @@ storiesOf('coreModules/form/Input', module)
     withInfo()(() => {
       return (
         <Input
-          input={{}}
+          input={{ name: 'inputName' }}
           label="This is a label"
           meta={{ touched: false }}
           module="no-module"

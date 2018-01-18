@@ -4,6 +4,7 @@ import { Button, Form, Message, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import {
+  change,
   formValueSelector as formValueSelectorFactory,
   getFormSyncErrors,
   reduxForm,
@@ -17,7 +18,7 @@ import { createModuleTranslate } from 'coreModules/i18n/components'
 import SegmentCatalogedUnit from './SegmentCatalogedUnit'
 import SegmentDetermination from './SegmentDetermination'
 import SegmentFeatureObservations from './SegmentFeatureObservations/index'
-import SegmentCollectingInformation from './SegmentCollectingInformation'
+import SegmentCollectingInformation from './SegmentCollectingInformation/index'
 import SegmentPhysicalUnits from './SegmentPhysicalUnits'
 import transformInput from './transformations/input'
 import transformOutput from './transformations/output'
@@ -42,10 +43,12 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
+  changeFormValue: change,
   clearTaxonSearch,
 }
 
 const propTypes = {
+  changeFormValue: PropTypes.func.isRequired,
   clearTaxonSearch: PropTypes.func.isRequired,
   error: PropTypes.string,
   handleFormSubmit: PropTypes.func.isRequired,
@@ -126,6 +129,10 @@ class RawMammalForm extends Component {
       })
   }
 
+  changeFieldValue = (fieldName, value) => {
+    this.props.changeFormValue(FORM_NAME, fieldName, value)
+  }
+
   render() {
     const {
       error,
@@ -148,6 +155,7 @@ class RawMammalForm extends Component {
       >
         <SegmentCatalogedUnit />
         <SegmentDetermination
+          changeFieldValue={this.changeFieldValue}
           formValueSelector={formValueSelector}
           taxonNameFieldKey={TAXON_NAME_FIELD_KEY}
         />

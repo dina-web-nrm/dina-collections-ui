@@ -4,6 +4,7 @@ import lookupMammals from './lookupMammals'
 import registerMammal from './registerMammal'
 import updateFeatureTypeNameSearchQuery from './updateFeatureTypeNameSearchQuery'
 import updateIndividualGroup from './updateIndividualGroup'
+import updateLocalityInformationSearchQuery from './updateLocalityInformationSearchQuery'
 import updateSearchParameter from './updateSearchParameter'
 
 export {
@@ -13,5 +14,6 @@ export {
   registerMammal,
   updateFeatureTypeNameSearchQuery,
   updateIndividualGroup,
+  updateLocalityInformationSearchQuery,
   updateSearchParameter,
 }

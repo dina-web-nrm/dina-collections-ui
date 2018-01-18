@@ -8,6 +8,7 @@ import {
   COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_SUCCESS,
   COLLECTION_MAMMALS_UPDATE_FEATURE_TYPE_NAME_SEARCH_QUERY,
   COLLECTION_MAMMALS_UPDATE_INDIVIDUAL_GROUP_SUCCESS,
+  COLLECTION_MAMMALS_UPDATE_LOCALITY_INFORMATION_SEARCH_QUERY,
   COLLECTION_MAMMALS_UPDATE_SEARCH_PARAMETER,
 } from './actionTypes'
 
@@ -19,6 +20,7 @@ const setLookupSearch = createSetter(['lookup', 'search'])
 const initialState = {
   featureTypeNameSearchQueries: {},
   individualGroups: {},
+  localityInformationSearchQueries: {},
   lookup: {
     error: null,
     result: [],
@@ -59,6 +61,16 @@ export default function reducer(state = initialState, action) {
         ...state,
         featureTypeNameSearchQueries: {
           ...state.featureTypeNameSearchQueries,
+          [action.meta.inputName]: action.payload,
+        },
+      }
+    }
+
+    case COLLECTION_MAMMALS_UPDATE_LOCALITY_INFORMATION_SEARCH_QUERY: {
+      return {
+        ...state,
+        localityInformationSearchQueries: {
+          ...state.localityInformationSearchQueries,
           [action.meta.inputName]: action.payload,
         },
       }
