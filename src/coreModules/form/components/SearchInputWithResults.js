@@ -5,7 +5,6 @@ import { FormFieldError } from '../../error/components'
 import FieldLabel from './FieldLabel'
 
 const propTypes = {
-  createNotification: PropTypes.func,
   errorScope: PropTypes.string,
   handleResultSelect: PropTypes.func.isRequired,
   handleSearchChange: PropTypes.func.isRequired,
@@ -27,7 +26,6 @@ const propTypes = {
   results: PropTypes.array.isRequired, // eslint-disable-line react/forbid-prop-types
 }
 const defaultProps = {
-  createNotification: undefined,
   errorScope: undefined,
   helpNotification: undefined,
   helpText: undefined,
@@ -39,7 +37,6 @@ const defaultProps = {
 }
 
 function SearchInputWithResults({
-  createNotification,
   errorScope,
   handleResultSelect,
   handleSearchChange,
@@ -71,7 +68,6 @@ function SearchInputWithResults({
     >
       {(label || helpNotification) && (
         <FieldLabel
-          createNotification={createNotification}
           helpNotification={helpNotification}
           helpText={helpText}
           htmlFor={input.name}

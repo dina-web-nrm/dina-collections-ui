@@ -1,16 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import { Icon } from 'semantic-ui-react'
 
+import createNotificationAC from 'coreModules/notifications/actionCreators/createNotification'
+
+const mapDispatchToProps = { createNotification: createNotificationAC }
+
 const propTypes = {
-  createNotification: PropTypes.func,
+  createNotification: PropTypes.func.isRequired,
   helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   htmlFor: PropTypes.string.isRequired,
   label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 }
 const defaultProps = {
-  createNotification: undefined,
   helpNotification: undefined,
   helpText: undefined,
   label: undefined,
@@ -48,4 +52,4 @@ const FieldLabel = ({
 FieldLabel.propTypes = propTypes
 FieldLabel.defaultProps = defaultProps
 
-export default FieldLabel
+export default connect(undefined, mapDispatchToProps)(FieldLabel)

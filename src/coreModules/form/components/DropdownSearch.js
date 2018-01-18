@@ -7,7 +7,6 @@ import FieldLabel from './FieldLabel'
 
 const propTypes = {
   autoComplete: PropTypes.string,
-  createNotification: PropTypes.func,
   errorScope: PropTypes.string,
   helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -37,7 +36,6 @@ const propTypes = {
 }
 const defaultProps = {
   autoComplete: undefined,
-  createNotification: undefined,
   errorScope: undefined,
   helpNotification: undefined,
   helpText: undefined,
@@ -50,7 +48,6 @@ const defaultProps = {
 
 function DropdownSearch({
   autoComplete,
-  createNotification,
   errorScope,
   helpNotification,
   helpText,
@@ -75,7 +72,6 @@ function DropdownSearch({
     >
       {(label || helpNotification) && (
         <FieldLabel
-          createNotification={createNotification}
           helpNotification={helpNotification}
           helpText={helpText}
           htmlFor={input.name}

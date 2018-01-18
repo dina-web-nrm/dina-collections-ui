@@ -5,7 +5,6 @@ import { FormFieldError } from '../../error/components'
 import FieldLabel from './FieldLabel'
 
 const propTypes = {
-  createNotification: PropTypes.func,
   errorScope: PropTypes.string,
   helpNotification: PropTypes.shape({ type: PropTypes.string.isRequired }),
   helpText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -21,7 +20,6 @@ const propTypes = {
   type: PropTypes.string.isRequired,
 }
 const defaultProps = {
-  createNotification: undefined,
   errorScope: undefined,
   helpNotification: undefined,
   helpText: undefined,
@@ -31,7 +29,6 @@ const defaultProps = {
 }
 
 const CheckboxField = ({
-  createNotification,
   errorScope,
   helpNotification,
   label,
@@ -55,7 +52,6 @@ const CheckboxField = ({
     >
       {(label || helpNotification) && (
         <FieldLabel
-          createNotification={createNotification}
           helpNotification={helpNotification}
           helpText={helpText}
           htmlFor={input.name}
