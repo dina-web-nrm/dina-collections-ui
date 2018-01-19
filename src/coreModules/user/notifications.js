@@ -9,6 +9,7 @@ const LOG_IN_SUCCESS = {
   displayType: FIXED,
   priority: 10,
   ttl: 3000,
+  type: 'LOG_IN_SUCCESS',
 }
 
 export { LOG_IN_SUCCESS }
