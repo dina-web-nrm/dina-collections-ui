@@ -16,15 +16,24 @@ export default function createStoryDecorator(
     const config = customConfig || defaultConfig
     const store = createTestStore({ config, initialState })
 
+    if (wrap) {
+      return (
+        <Provider store={store}>
+          <ConnectedRouter history={config.routing}>
+            <I18nProvider>
+              <Container style={{ position: 'relative' }}>
+                <Segment color="green">{getStory()}</Segment>
+              </Container>
+            </I18nProvider>
+          </ConnectedRouter>
+        </Provider>
+      )
+    }
+
     return (
       <Provider store={store}>
         <ConnectedRouter history={config.routing}>
-          <I18nProvider>
-            <Container style={{ position: 'relative' }}>
-              {wrap && <Segment color="green">{getStory()}</Segment>}
-              {!wrap && getStory()}
-            </Container>
-          </I18nProvider>
+          <I18nProvider>{getStory()}</I18nProvider>
         </ConnectedRouter>
       </Provider>
     )
