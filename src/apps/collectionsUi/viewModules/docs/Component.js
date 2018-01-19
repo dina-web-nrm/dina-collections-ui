@@ -22,7 +22,7 @@ class Docs extends Component {
     const currentVersion = getCurrentSchemaVersion()
     return (
       <div>
-        <ViewWrap sidebarEnabled sidebarWidth={180}>
+        <ViewWrap leftSidebarEnabled leftSidebarWidth={180}>
           <PageTemplate hasFixedMenu>
             <Switch>
               <Redirect

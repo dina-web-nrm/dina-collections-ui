@@ -1,5 +1,5 @@
 import { LOCATION_CHANGE } from 'react-router-redux'
-import { closeSidebar } from './actionCreators'
+import { closeLeftSidebar } from './actionCreators'
 import globalSelectors from './globalSelectors'
 
 export default function commonUiMiddleware() {
@@ -7,8 +7,8 @@ export default function commonUiMiddleware() {
     const result = next(action)
     switch (action.type) {
       case LOCATION_CHANGE: {
-        if (globalSelectors.getSidebarIsOpen(getState())) {
-          dispatch(closeSidebar())
+        if (globalSelectors.getLeftSidebarIsOpen(getState())) {
+          dispatch(closeLeftSidebar())
         }
 
         break
