@@ -66,6 +66,7 @@ const withIndividualGroup = {
           featureObservationText: '21',
           featureObservationType: {
             featureObservationTypeName: 'age',
+            id: 1,
           },
         },
       ],
@@ -121,6 +122,7 @@ const updateValidIndividualGroup = {
           featureObservationText: '22',
           featureObservationType: {
             featureObservationTypeName: 'age',
+            id: 1,
           },
         },
       ],
