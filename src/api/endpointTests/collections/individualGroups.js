@@ -66,6 +66,7 @@ const withIndividualGroup = {
           featureObservationText: '21',
           featureObservationType: {
             featureObservationTypeName: 'age',
+            id: 1,
           },
         },
       ],
@@ -121,6 +122,7 @@ const updateValidIndividualGroup = {
           featureObservationText: '22',
           featureObservationType: {
             featureObservationTypeName: 'age',
+            id: 1,
           },
         },
       ],
@@ -159,19 +161,94 @@ const updateValidIndividualGroup = {
   },
 }
 
-const updateValidIndividualGroupOnePhysicalUnitWithId = {
+const fullFormExample = {
   data: {
-    attributes: {
-      featureObservations: [],
-      identifications: [],
-      occurrences: [],
-      physicalUnits: [
-        {
-          id: 138,
+    additionalData: [
+      {
+        attributes: {
+          catalogNumber: '584028',
         },
-      ],
+        type: 'catalogedUnit',
+      },
+    ],
+    attributes: {
+      individualGroup: {
+        causeOfDeathStandardized: 'Standardized death cause',
+        causeOfDeathText: 'Cause of death ',
+        featureObservations: [
+          {
+            featureObservationText: 'A condition at collecting',
+            featureObservationType: {
+              featureObservationTypeName: 'conditionAtCollecting',
+              id: 2,
+            },
+          },
+          {
+            featureObservationAgent: 'JD',
+            featureObservationDate: 'A date',
+            featureObservationText: 'male',
+            featureObservationType: {
+              featureObservationTypeName: 'sex',
+              id: 1,
+            },
+            methodText: 'method text',
+          },
+        ],
+        identifications: [
+          {
+            identificationRemarks: 'some remarks',
+            identifiedAsVerbatim: 'Sorex minutus',
+            identifiedByAgentText: 'Doe, J.',
+            identifiedDateText: 'Date text',
+            isCurrentIdentification: true,
+          },
+        ],
+        occurrences: [
+          {
+            collectorsText: 'Bergström, U',
+            dayEnd: 15,
+            dayStart: 15,
+            establishmentMeansStandardized: 'establishmentMeansStandardized',
+            expeditionText: 'Vega Expedition',
+            isDeathEvent: true,
+            localityInformation: {
+              coordinatesVerbatim: 'coord-string',
+              coordinateUncertaintyInMeters: '10',
+              geodeticDatumStandardized: 'geodeticDatumStandardized text',
+              georeferenceSourcesText: 'georeferenceSourcesText text',
+              latitudeStandardized: 'latitude-string',
+              localityRemarks: 'localityRemarks text',
+              localityStandardized: 'Vasastan',
+              localityVerbatim: 'Some localityVerbatim text',
+              longitudeStandardized: 'longitude-string',
+              maximumDepthInMeters: '100',
+              maximumElevationInMeters: '100',
+              minimumDepthInMeters: '20',
+              minimumElevationInMeters: '20',
+            },
+            localityText: 'localityText',
+            monthEnd: 1,
+            monthStart: 1,
+            occurrenceDateText: '15 jan 1986',
+            yearEnd: 1986,
+            yearStart: 1986,
+          },
+        ],
+        originStandardized: 'Standardized origin',
+        physicalUnits: [
+          {
+            alternateIdentifiersText: 'alternateIdentifiersText',
+            catalogedUnit: {
+              catalogNumber: '584028',
+              publishRecord: true,
+              storedUnderTaxonName: 'Sorex minutus',
+            },
+            normalStorageLocationText: 'normalStorageLocationText',
+            physicalUnitText: 'physicalUnitText',
+          },
+        ],
+      },
     },
-    type: 'individualGroup',
   },
 }
 
@@ -191,13 +268,6 @@ module.exports = function createIndividualGroup({ collectionsClient }) {
         body: updateValidIndividualGroup,
         pathParams: { id: '1' }, // there will be at least one individualGroup after the above POST requests
       }),
-      testPatchSuccess(
-        'updateValidIndividualGroup with one empty physicalUnit',
-        {
-          body: updateValidIndividualGroupOnePhysicalUnitWithId,
-          pathParams: { id: '1' }, // there will be at least one individualGroup after the above POST requests
-        }
-      ),
       testPatchError('missingBody', {
         pathParams: { id: '1' },
         statusCode: 400,
@@ -223,6 +293,13 @@ module.exports = function createIndividualGroup({ collectionsClient }) {
       testGetSuccess('getByIdentifiedTaxonNameStandardized with includes', {
         queryParams: {
           'filter[identifiedTaxonNameStandardized]': validTaxonName,
+          include: 'identifications,physicalUnits.catalogedUnit',
+        },
+      }),
+      testPostSuccess('fullFormExample', { body: fullFormExample }),
+      testGetSuccess('getByCatalogNumber fullFormExample with includes', {
+        queryParams: {
+          'filter[catalogNumber]': '584028',
           include: 'identifications,physicalUnits.catalogedUnit',
         },
       }),
