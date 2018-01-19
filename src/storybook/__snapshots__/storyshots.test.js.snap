@@ -123,266 +123,277 @@ exports[`Storyshots coreModules/bootstrap/DefaultWrapper Default 1`] = `
 exports[`Storyshots coreModules/commonUi/Footer Default 1`] = `
 <div>
   <div
-    className="ui container"
+    className="ui inverted vertical segment"
+    id="footer"
     style={
       Object {
-        "position": "relative",
+        "padding": "5em 0em",
       }
     }
   >
     <div
-      className="ui inverted vertical segment"
-      id="footer"
-      style={
-        Object {
-          "padding": "5em 0em",
-        }
-      }
+      className="ui container"
     >
       <div
-        className="ui container"
+        className="ui inverted stackable divided grid"
       >
         <div
-          className="ui inverted stackable divided grid"
+          className="row"
         >
           <div
-            className="row"
+            className="three wide column"
           >
-            <div
-              className="three wide column"
+            <h4
+              className="ui inverted header"
             >
-              <h4
-                className="ui inverted header"
-              >
-                Site
-              </h4>
+              Site
+            </h4>
+            <div
+              className="ui large inverted link list"
+              role="list"
+            >
               <div
-                className="ui large inverted link list"
-                role="list"
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
               >
                 <div
-                  className="item"
-                  data-value={undefined}
-                  onClick={[Function]}
-                  role="listitem"
+                  className="content"
                 >
-                  <div
-                    className="content"
+                  <i
+                    aria-hidden="true"
+                    className="home icon"
+                  />
+                  <a
+                    aria-current="true"
+                    className="active"
+                    href="/"
+                    onClick={[Function]}
+                    style={Object {}}
                   >
-                    <i
-                      aria-hidden="true"
-                      className="home icon"
-                    />
-                    <a
-                      aria-current="true"
-                      className="active"
-                      href="/"
-                      onClick={[Function]}
-                      style={Object {}}
-                    >
-                      Start
-                    </a>
-                  </div>
+                    Start
+                  </a>
                 </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
                 <div
-                  className="item"
-                  data-value={undefined}
-                  onClick={[Function]}
-                  role="listitem"
+                  className="content"
                 >
-                  <div
-                    className="content"
+                  <i
+                    aria-hidden="true"
+                    className="user icon"
+                  />
+                  <a
+                    aria-current={false}
+                    className={undefined}
+                    href="/login"
+                    onClick={[Function]}
+                    style={undefined}
                   >
-                    <i
-                      aria-hidden="true"
-                      className="user icon"
-                    />
-                    <a
-                      aria-current={false}
-                      className={undefined}
-                      href="/login"
-                      onClick={[Function]}
-                      style={undefined}
-                    >
-                      Login
-                    </a>
-                  </div>
+                    Login
+                  </a>
                 </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
                 <div
-                  className="item"
-                  data-value={undefined}
-                  onClick={[Function]}
-                  role="listitem"
+                  className="content"
                 >
-                  <div
-                    className="content"
+                  <i
+                    aria-hidden="true"
+                    className="database icon"
+                  />
+                  <a
+                    aria-current={false}
+                    className={undefined}
+                    href="/docs"
+                    onClick={[Function]}
+                    style={undefined}
                   >
-                    <i
-                      aria-hidden="true"
-                      className="database icon"
-                    />
-                    <a
-                      aria-current={false}
-                      className={undefined}
-                      href="/docs"
-                      onClick={[Function]}
-                      style={undefined}
-                    >
-                      Data model
-                    </a>
-                  </div>
+                    Data model
+                  </a>
                 </div>
               </div>
             </div>
-            <div
-              className="three wide column"
+          </div>
+          <div
+            className="three wide column"
+          >
+            <h4
+              className="ui inverted header"
             >
-              <h4
-                className="ui inverted header"
-              >
-                Documentation
-              </h4>
+              Documentation
+            </h4>
+            <div
+              className="ui large inverted link list"
+              role="list"
+            >
               <div
-                className="ui large inverted link list"
-                role="list"
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
               >
                 <div
-                  className="item"
-                  data-value={undefined}
-                  onClick={[Function]}
-                  role="listitem"
+                  className="content"
                 >
-                  <div
-                    className="content"
+                  <i
+                    aria-hidden="true"
+                    className="wikipedia icon"
+                  />
+                  <a
+                    href="https://www.dina-project.net/wiki/Welcome_to_the_DINA_project!"
                   >
-                    <i
-                      aria-hidden="true"
-                      className="wikipedia icon"
-                    />
-                    <a
-                      href="https://www.dina-project.net/wiki/Welcome_to_the_DINA_project!"
-                    >
-                      DINA wiki
-                    </a>
-                  </div>
+                    DINA wiki
+                  </a>
                 </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
                 <div
-                  className="item"
-                  data-value={undefined}
-                  onClick={[Function]}
-                  role="listitem"
+                  className="content"
                 >
-                  <div
-                    className="content"
+                  <i
+                    aria-hidden="true"
+                    className="database icon"
+                  />
+                  <a
+                    aria-current={false}
+                    className={undefined}
+                    href="/docs"
+                    onClick={[Function]}
+                    style={undefined}
                   >
-                    <i
-                      aria-hidden="true"
-                      className="database icon"
-                    />
-                    <a
-                      aria-current={false}
-                      className={undefined}
-                      href="/docs"
-                      onClick={[Function]}
-                      style={undefined}
-                    >
-                      Data model
-                    </a>
-                  </div>
+                    Data model
+                  </a>
                 </div>
               </div>
             </div>
-            <div
-              className="three wide column"
+          </div>
+          <div
+            className="three wide column"
+          >
+            <h4
+              className="ui inverted header"
             >
-              <h4
-                className="ui inverted header"
-              >
-                Developer
-              </h4>
+              Developer
+            </h4>
+            <div
+              className="ui large inverted link list"
+              role="list"
+            >
               <div
-                className="ui large inverted link list"
-                role="list"
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
               >
                 <div
-                  className="item"
-                  data-value={undefined}
-                  onClick={[Function]}
-                  role="listitem"
+                  className="content"
                 >
-                  <div
-                    className="content"
+                  <i
+                    aria-hidden="true"
+                    className="github icon"
+                  />
+                  <a
+                    href="https://github.com/DINA-Web"
+                  >
+                    DINA-Web Github
+                  </a>
+                </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
+                <div
+                  className="content"
+                >
+                  <a
+                    href="https://github.com/DINA-Web/dina-collections-ui"
                   >
                     <i
                       aria-hidden="true"
                       className="github icon"
                     />
-                    <a
-                      href="https://github.com/DINA-Web"
-                    >
-                      DINA-Web Github
-                    </a>
-                  </div>
+                    Collections ui Github
+                  </a>
                 </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
                 <div
-                  className="item"
-                  data-value={undefined}
-                  onClick={[Function]}
-                  role="listitem"
+                  className="content"
                 >
-                  <div
-                    className="content"
+                  <i
+                    aria-hidden="true"
+                    className="external icon"
+                  />
+                  <a
+                    href="https://alpha-style.dina-web.net/"
                   >
-                    <a
-                      href="https://github.com/DINA-Web/dina-collections-ui"
-                    >
-                      <i
-                        aria-hidden="true"
-                        className="github icon"
-                      />
-                      Collections ui Github
-                    </a>
-                  </div>
+                    Style guide
+                  </a>
                 </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
                 <div
-                  className="item"
-                  data-value={undefined}
-                  onClick={[Function]}
-                  role="listitem"
+                  className="content"
                 >
-                  <div
-                    className="content"
+                  <i
+                    aria-hidden="true"
+                    className="external icon"
+                  />
+                  <a
+                    href="https://alpha-api-docs.dina-web.net/?url=https://alpha-api-docs.dina-web.net/openApi.json&docExpansion=false&defaultModelRendering=model&defaultModelExpandDepth=0"
                   >
-                    <i
-                      aria-hidden="true"
-                      className="external icon"
-                    />
-                    <a
-                      href="https://alpha-style.dina-web.net/"
-                    >
-                      Style guide
-                    </a>
-                  </div>
+                    Api documentation
+                  </a>
                 </div>
+              </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
                 <div
-                  className="item"
-                  data-value={undefined}
-                  onClick={[Function]}
-                  role="listitem"
+                  className="content"
                 >
-                  <div
-                    className="content"
+                  <i
+                    aria-hidden="true"
+                    className="external icon"
+                  />
+                  <a
+                    href="/storybook/index.html"
                   >
-                    <i
-                      aria-hidden="true"
-                      className="external icon"
-                    />
-                    <a
-                      href="https://alpha-api-docs.dina-web.net/?url=https://alpha-api-docs.dina-web.net/openApi.json&docExpansion=false&defaultModelRendering=model&defaultModelExpandDepth=0"
-                    >
-                      Api documentation
-                    </a>
-                  </div>
+                    Component documentation
+                  </a>
                 </div>
               </div>
             </div>
@@ -397,95 +408,86 @@ exports[`Storyshots coreModules/commonUi/Footer Default 1`] = `
 exports[`Storyshots coreModules/commonUi/NavigationSidebar Default 1`] = `
 <div>
   <div
-    className="ui container"
+    className="ui inverted vertical labeled icon ui overlay left visible sidebar flex menu"
     style={
       Object {
-        "position": "relative",
+        "overflow": "hidden",
+        "width": 100,
       }
     }
   >
-    <div
-      className="ui inverted vertical labeled icon ui overlay left visible sidebar flex menu"
-      style={
-        Object {
-          "overflow": "hidden",
-          "width": 100,
-        }
-      }
+    <a
+      aria-current={false}
+      className="item"
+      href="/app"
+      onClick={[Function]}
+      style={undefined}
     >
-      <a
-        aria-current={false}
-        className="item"
-        href="/app"
-        onClick={[Function]}
-        style={undefined}
-      >
-        <i
-          aria-hidden="true"
-          className="home large icon"
-        />
-        <span>
-          Start
-        </span>
-      </a>
-      <a
-        aria-current={false}
-        className="item"
-        href="/app/mammals/register"
-        onClick={[Function]}
-        style={undefined}
-      >
-        <i
-          aria-hidden="true"
-          className="plus large icon"
-        />
-        <span>
-          Register mammal
-        </span>
-      </a>
-      <a
-        aria-current={false}
-        className="item"
-        href="/app/mammals/lookup"
-        onClick={[Function]}
-        style={undefined}
-      >
-        <i
-          aria-hidden="true"
-          className="search large icon"
-        />
-        <span>
-          Lookup mammals
-        </span>
-      </a>
-      <a
-        aria-current={false}
-        className="item push bottom"
-        href="/app/settings"
-        onClick={[Function]}
-        style={undefined}
-      >
-        <i
-          aria-hidden="true"
-          className="setting large icon"
-        />
-        <span>
-          Settings
-        </span>
-      </a>
-      <a
-        className="item"
-        onClick={[Function]}
-      >
-        <i
-          aria-hidden="true"
-          className="sign out icon"
-        />
-        <span>
-          Logout
-        </span>
-      </a>
-    </div>
+      <i
+        aria-hidden="true"
+        className="home large icon"
+      />
+      <span>
+        Start
+      </span>
+    </a>
+    <a
+      aria-current={false}
+      className="item"
+      href="/app/mammals/register"
+      onClick={[Function]}
+      style={undefined}
+    >
+      <i
+        aria-hidden="true"
+        className="plus large icon"
+      />
+      <span>
+        Register mammal
+      </span>
+    </a>
+    <a
+      aria-current={false}
+      className="item"
+      href="/app/mammals/lookup"
+      onClick={[Function]}
+      style={undefined}
+    >
+      <i
+        aria-hidden="true"
+        className="search large icon"
+      />
+      <span>
+        Lookup mammals
+      </span>
+    </a>
+    <a
+      aria-current={false}
+      className="item push bottom"
+      href="/app/settings"
+      onClick={[Function]}
+      style={undefined}
+    >
+      <i
+        aria-hidden="true"
+        className="setting large icon"
+      />
+      <span>
+        Settings
+      </span>
+    </a>
+    <a
+      className="item"
+      onClick={[Function]}
+    >
+      <i
+        aria-hidden="true"
+        className="sign out icon"
+      />
+      <span>
+        Logout
+      </span>
+    </a>
   </div>
 </div>
 `;
@@ -1317,6 +1319,155 @@ exports[`Storyshots coreModules/keyboardShortcuts/ShortcutsDisplay Default 1`] =
   </div>
 </div>
 `;
+
+exports[`Storyshots coreModules/notifications/Flash Default 1`] = `
+<div>
+  <div
+    className="ui info message flash"
+    onClick={[Function]}
+  >
+    <i
+      aria-hidden="true"
+      className="close icon"
+      onClick={[Function]}
+    />
+    <div
+      className="content"
+    >
+      <div
+        className="header"
+      >
+        headerKey
+      </div>
+      <p>
+        descriptionKey
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/notifications/Flash Error 1`] = `
+<div>
+  <div
+    className="ui error message flash"
+    onClick={[Function]}
+  >
+    <i
+      aria-hidden="true"
+      className="close icon"
+      onClick={[Function]}
+    />
+    <div
+      className="content"
+    >
+      <div
+        className="header"
+      >
+        headerKey
+      </div>
+      <p>
+        descriptionKey
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/notifications/Flash Info 1`] = `
+<div>
+  <div
+    className="ui info message flash"
+    onClick={[Function]}
+  >
+    <i
+      aria-hidden="true"
+      className="close icon"
+      onClick={[Function]}
+    />
+    <div
+      className="content"
+    >
+      <div
+        className="header"
+      >
+        headerKey
+      </div>
+      <p>
+        descriptionKey
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/notifications/Flash Success 1`] = `
+<div>
+  <div
+    className="ui success message flash"
+    onClick={[Function]}
+  >
+    <i
+      aria-hidden="true"
+      className="close icon"
+      onClick={[Function]}
+    />
+    <div
+      className="content"
+    >
+      <div
+        className="header"
+      >
+        headerKey
+      </div>
+      <p>
+        descriptionKey
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/notifications/Flash Warning 1`] = `
+<div>
+  <div
+    className="ui warning message flash"
+    onClick={[Function]}
+  >
+    <i
+      aria-hidden="true"
+      className="close icon"
+      onClick={[Function]}
+    />
+    <div
+      className="content"
+    >
+      <div
+        className="header"
+      >
+        headerKey
+      </div>
+      <p>
+        descriptionKey
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots coreModules/notifications/FormFieldHelpIcon Default 1`] = `
+<div>
+  <i
+    aria-hidden="true"
+    className="blue help circle outline link icon"
+    onClick={[Function]}
+  />
+</div>
+`;
+
+exports[`Storyshots coreModules/notifications/NotificationDisplay Default 1`] = `<div />`;
+
+exports[`Storyshots coreModules/notifications/NotificationModal Default 1`] = `<div />`;
 
 exports[`Storyshots coreModules/user/LoginForm Default 1`] = `
 <div>
