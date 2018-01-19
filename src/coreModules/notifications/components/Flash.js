@@ -12,6 +12,7 @@ const propTypes = {
   }).isRequired,
   removeNotification: PropTypes.func.isRequired,
   sequentialId: PropTypes.number.isRequired,
+  // TODO rename style. Style is a reserved prop
   style: PropTypes.oneOf(['error', 'info', 'success', 'warning']),
   ttl: PropTypes.number,
 }
@@ -22,7 +23,7 @@ const defaultProps = {
   ttl: undefined,
 }
 
-class Flash extends Component {
+export class Flash extends Component {
   componentDidMount() {
     const { removeNotification, sequentialId, ttl } = this.props
 

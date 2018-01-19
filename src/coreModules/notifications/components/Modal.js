@@ -11,6 +11,7 @@ const propTypes = {
   headerKey: PropTypes.string,
   linkTextKey: PropTypes.string,
   linkTo: PropTypes.string,
+  open: PropTypes.bool,
   removeNotification: PropTypes.func.isRequired,
   sequentialId: PropTypes.number.isRequired,
   size: PropTypes.string,
@@ -22,16 +23,18 @@ const defaultProps = {
   headerKey: undefined,
   linkTextKey: undefined,
   linkTo: undefined,
+  open: true,
   size: undefined,
 }
 
-const NotificationModal = ({
+export const NotificationModal = ({
   description,
   descriptionHeaderKey,
   descriptionKey,
   headerKey,
   linkTextKey,
   linkTo,
+  open,
   removeNotification,
   sequentialId,
   size,
@@ -39,7 +42,7 @@ const NotificationModal = ({
   return (
     <Modal
       onClose={() => removeNotification({ sequentialId })}
-      open
+      open={open}
       size={size}
     >
       {headerKey && (

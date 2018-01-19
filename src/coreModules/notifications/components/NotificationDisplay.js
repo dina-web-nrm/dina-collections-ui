@@ -28,7 +28,7 @@ const defaultProps = {
   activeNotification: undefined,
 }
 
-class NotificationDisplay extends Component {
+export class NotificationDisplay extends Component {
   render() {
     const { activeNotification } = this.props
 

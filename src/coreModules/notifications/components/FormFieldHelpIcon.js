@@ -20,7 +20,10 @@ const propTypes = {
   }).isRequired,
 }
 
-const FormFieldHelpIcon = ({ createNotification, helpNotificationProps }) => {
+export const FormFieldHelpIcon = ({
+  createNotification,
+  helpNotificationProps,
+}) => {
   return (
     <Icon
       color="blue"
