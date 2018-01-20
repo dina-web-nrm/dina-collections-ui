@@ -49,7 +49,7 @@ export default function updateIndividualGroup(
               include: [
                 'identifications',
                 'featureObservations.featureObservationType',
-                'occurrences',
+                'occurrences.localityInformation',
                 'physicalUnits.catalogedUnit',
               ].join(),
             })

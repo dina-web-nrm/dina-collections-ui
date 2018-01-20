@@ -63,7 +63,7 @@ class EditMammal extends Component {
         include: [
           'identifications',
           'featureObservations.featureObservationType',
-          'occurrences',
+          'occurrences.localityInformation',
           'physicalUnits.catalogedUnit',
         ].join(),
       }
