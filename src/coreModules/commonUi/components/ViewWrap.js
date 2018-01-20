@@ -9,7 +9,8 @@ import commonUiSelectors from '../globalSelectors'
 const mapStateToProps = state => {
   return {
     isLarge: sizeSelectors.getIsLarge(state),
-    leftSidebarIsOpen: commonUiSelectors.getSidebarIsOpen(state),
+    leftSidebarIsOpen: commonUiSelectors.getLeftSidebarIsOpen(state),
+    rightSidebarIsOpen: commonUiSelectors.getRightSidebarIsOpen(state), // import/no-named-as-default-member
   }
 }
 
@@ -23,12 +24,15 @@ const propTypes = {
   leftSidebarEnabled: PropTypes.bool,
   leftSidebarIsOpen: PropTypes.bool.isRequired,
   leftSidebarWidth: PropTypes.number,
+  rightSidebarIsOpen: PropTypes.bool.isRequired,
+  rightSidebarWidth: PropTypes.number,
   toggleLeftSidebar: PropTypes.func.isRequired,
 }
 
 const defaultProps = {
   leftSidebarEnabled: false,
   leftSidebarWidth: 100,
+  rightSidebarWidth: 300,
 }
 
 export const getViewWrapStyle = ({
@@ -36,6 +40,9 @@ export const getViewWrapStyle = ({
   leftSidebarIsOpen,
   leftSidebarTogglable,
   leftSidebarWidth,
+  rightSidebarEnabled,
+  rightSidebarIsOpen,
+  rightSidebarWidth,
 }) => {
   const viewWrapBaseStyle = {
     bottom: '100%',
@@ -48,7 +55,7 @@ export const getViewWrapStyle = ({
     zIndex: 200,
   }
 
-  const sizeBaseStyle = leftSidebarTogglable
+  const leftSidebarStyle = leftSidebarTogglable
     ? {
         transform: leftSidebarIsOpen
           ? `translate(${leftSidebarWidth}px, 0px)`
@@ -64,9 +71,17 @@ export const getViewWrapStyle = ({
         zIndex: 1,
       }
 
+  const rightSidebarStyle =
+    rightSidebarEnabled && rightSidebarIsOpen
+      ? {
+          paddingRight: rightSidebarWidth,
+        }
+      : {}
+
   return {
     ...viewWrapBaseStyle,
-    ...sizeBaseStyle,
+    ...leftSidebarStyle,
+    ...rightSidebarStyle,
   }
 }
 
@@ -76,8 +91,12 @@ const ViewWrap = ({
   leftSidebarEnabled,
   leftSidebarIsOpen,
   leftSidebarWidth,
+  rightSidebarIsOpen,
+  rightSidebarWidth,
   toggleLeftSidebar,
 }) => {
+  const rightSidebarEnabled = true
+
   const leftSidebarAlwaysVisible = isLarge && leftSidebarEnabled
   const leftSidebarTogglable = !isLarge && leftSidebarEnabled
   const viewWrapStyle = getViewWrapStyle({
@@ -85,6 +104,9 @@ const ViewWrap = ({
     leftSidebarIsOpen,
     leftSidebarTogglable,
     leftSidebarWidth,
+    rightSidebarEnabled,
+    rightSidebarIsOpen,
+    rightSidebarWidth,
   })
   const dimmerActive = leftSidebarTogglable && leftSidebarIsOpen
   return (
