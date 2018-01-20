@@ -3,8 +3,14 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Icon } from 'semantic-ui-react'
 
-import createNotificationAC from '../actionCreators/createNotification'
+import globalSizeSelectors from 'coreModules/size/globalSelectors'
+import createNotificationAC from 'coreModules/notifications/actionCreators/createNotification'
 
+const mapStateToProps = state => {
+  return {
+    isLarge: globalSizeSelectors.getIsLarge(state),
+  }
+}
 const mapDispatchToProps = { createNotification: createNotificationAC }
 
 const propTypes = {
@@ -18,11 +24,13 @@ const propTypes = {
     linkTo: PropTypes.string,
     size: PropTypes.string,
   }).isRequired,
+  isLarge: PropTypes.bool.isRequired,
 }
 
 export const FormFieldHelpIcon = ({
   createNotification,
   helpNotificationProps,
+  isLarge,
 }) => {
   return (
     <Icon
@@ -32,6 +40,7 @@ export const FormFieldHelpIcon = ({
       onClick={() =>
         createNotification({
           componentProps: helpNotificationProps,
+          displayType: isLarge ? 'inline' : 'fixed',
           type: 'HELP_TEXT',
         })
       }
@@ -41,4 +50,4 @@ export const FormFieldHelpIcon = ({
 
 FormFieldHelpIcon.propTypes = propTypes
 
-export default connect(undefined, mapDispatchToProps)(FormFieldHelpIcon)
+export default connect(mapStateToProps, mapDispatchToProps)(FormFieldHelpIcon)
