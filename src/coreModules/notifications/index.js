@@ -4,6 +4,7 @@ import * as components from './components'
 import * as constants from './constants'
 import * as selectors from './selectors'
 import globalSelectors from './globalSelectors'
+import middleware from './middleware'
 import reducer from './reducer'
 
 const name = constants.MODULE_NAME
@@ -14,6 +15,7 @@ export {
   components,
   constants,
   globalSelectors,
+  middleware,
   name,
   reducer,
   selectors,
