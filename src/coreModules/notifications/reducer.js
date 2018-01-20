@@ -11,11 +11,11 @@ import {
   NOTIFICATIONS_CREATE_NOTIFICATION,
   NOTIFICATIONS_REMOVE_NOTIFICATION,
 } from './actionTypes'
-import { NOTIFICATIONS, NOTIFICATIONS_REGISTER } from './constants'
+import { NOTIFICATIONS, NOTIFICATION_SPECIFICATIONS } from './constants'
 
 const initState = {
   activeNotifications: {},
-  [NOTIFICATIONS_REGISTER]: {},
+  [NOTIFICATION_SPECIFICATIONS]: {},
 }
 
 export default function reducer(state = initState, action) {
@@ -23,7 +23,7 @@ export default function reducer(state = initState, action) {
     case BOOTSTRAP_REGISTER_MODULES: {
       const nextState = registerModuleProperty({
         action,
-        customRegisterKey: NOTIFICATIONS_REGISTER,
+        customRegisterKey: NOTIFICATION_SPECIFICATIONS,
         ignoreModuleNames: true,
         property: NOTIFICATIONS,
         state,
@@ -34,7 +34,7 @@ export default function reducer(state = initState, action) {
     case BOOTSTRAP_UNREGISTER_MODULES: {
       const nextState = unregisterModuleProperty({
         action,
-        customRegisterKey: NOTIFICATIONS_REGISTER,
+        customRegisterKey: NOTIFICATION_SPECIFICATIONS,
         ignoreModuleNames: true,
         property: NOTIFICATIONS,
         state,

@@ -6,31 +6,31 @@ export const getLocalState = state => {
 
 const getSecondArgument = (_, secondArg) => secondArg
 
-export const getNotificationsRegister = state => {
-  return state.notificationsRegister
+export const getSpecifications = state => {
+  return state.specifications
 }
 
-export const getRegisteredNotificationByType = (state, type) => {
-  const notificationsRegister = getNotificationsRegister(state)
-  if (!notificationsRegister[type]) {
+export const getSpecificationsByType = (state, type) => {
+  const specifications = getSpecifications(state)
+  if (!specifications[type]) {
     return null
   }
-  return notificationsRegister[type]
+  return specifications[type]
 }
 
-export const getRegisteredNotificationsArrayWithTerminateActions = createSelector(
-  getNotificationsRegister,
-  notificationsRegister => {
-    return Object.keys(notificationsRegister)
+export const getSpecificationArrayWithTerminateActions = createSelector(
+  getSpecifications,
+  specifications => {
+    return Object.keys(specifications)
       .map(key => {
-        return notificationsRegister[key]
+        return specifications[key]
       })
       .filter(registeredNotification => registeredNotification.terminateActions)
   }
 )
 
-export const getRegisteredNotificationsTerminateActionMap = createSelector(
-  getRegisteredNotificationsArrayWithTerminateActions,
+export const getSpecificationTerminateActionMap = createSelector(
+  getSpecificationArrayWithTerminateActions,
   registeredNotifications => {
     return registeredNotifications.reduce(
       (terminateActionMap, { type, terminateActions = [] }) => {
@@ -53,12 +53,12 @@ export const getRegisteredNotificationsTerminateActionMap = createSelector(
   }
 )
 
-export const getActiveNotifications = state => {
+export const getNotifications = state => {
   return state.activeNotifications
 }
 
-export const getActiveNotificationsInArray = createSelector(
-  getActiveNotifications,
+export const getNotificationsInArray = createSelector(
+  getNotifications,
   activeNotifications => {
     const sequentialIds = Object.keys(activeNotifications)
 
@@ -72,8 +72,8 @@ export const getActiveNotificationsInArray = createSelector(
   }
 )
 
-export const getActiveNotificationsByType = createSelector(
-  getActiveNotificationsInArray,
+export const getNotificationsByType = createSelector(
+  getNotificationsInArray,
   getSecondArgument,
   (activeNotificationsArray, selectedType) => {
     return (
@@ -84,8 +84,8 @@ export const getActiveNotificationsByType = createSelector(
   }
 )
 
-export const getActiveNotificationsByDisplayType = createSelector(
-  getActiveNotificationsInArray,
+export const getNotificationsByDisplayType = createSelector(
+  getNotificationsInArray,
   getSecondArgument,
   (activeNotificationsArray, selectedDisplayType) => {
     return (
@@ -118,8 +118,8 @@ const getHighestPriorityAndOldestNotification = (
   return newCandidate
 }
 
-export const getPrioritizedActiveNotificationByDisplayType = createSelector(
-  getActiveNotificationsByDisplayType,
+export const getPrioritizedNotificationByDisplayType = createSelector(
+  getNotificationsByDisplayType,
   notifications => {
     return (
       notifications &&

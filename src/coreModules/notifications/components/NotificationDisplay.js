@@ -8,7 +8,7 @@ import globalSelectors from '../globalSelectors'
 
 const mapStateToProps = (state, { displayType }) => {
   return {
-    activeNotification: globalSelectors.getPrioritizedActiveNotificationByDisplayType(
+    activeNotification: globalSelectors.getPrioritizedNotificationByDisplayType(
       state,
       displayType
     ),

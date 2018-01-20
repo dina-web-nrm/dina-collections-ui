@@ -3,7 +3,7 @@ import notificationSelectors from 'coreModules/notifications/globalSelectors'
 import * as selectors from './selectors'
 
 const getRightSidebarIsOpen = globalState => {
-  const notification = notificationSelectors.getPrioritizedActiveNotificationByDisplayType(
+  const notification = notificationSelectors.getPrioritizedNotificationByDisplayType(
     globalState,
     'inline'
   )

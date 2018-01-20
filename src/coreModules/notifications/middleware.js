@@ -7,13 +7,13 @@ export default function notificationMiddleware() {
   return ({ dispatch, getState }) => next => action => {
     const result = next(action)
 
-    const terminateActionMap = globalSelectors.getRegisteredNotificationsTerminateActionMap(
+    const terminateActionMap = globalSelectors.getSpecificationTerminateActionMap(
       getState()
     )
 
     if (terminateActionMap[action.type]) {
       terminateActionMap[action.type].forEach(type => {
-        const activeNotifictions = globalSelectors.getActiveNotificationsByType(
+        const activeNotifictions = globalSelectors.getNotificationsByType(
           getState(),
           type
         )
@@ -32,7 +32,7 @@ export default function notificationMiddleware() {
           type,
         } = action.payload
         if (collision === COLLISION_REPLACE) {
-          const activeNotificationsSameType = globalSelectors.getActiveNotificationsByType(
+          const activeNotificationsSameType = globalSelectors.getNotificationsByType(
             getState(),
             type
           )

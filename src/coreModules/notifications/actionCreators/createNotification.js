@@ -7,7 +7,7 @@ export default function createNotification({
   ...specificationOverrides
 }) {
   return (dispatch, getState) => {
-    const notificationSpecification = globalSelectors.getRegisteredNotificationByType(
+    const notificationSpecification = globalSelectors.getSpecificationsByType(
       getState(),
       type
     )
