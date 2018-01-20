@@ -1,7 +1,7 @@
 import { COLLISION_REPLACE } from './constants'
 import { NOTIFICATIONS_CREATE_NOTIFICATION } from './actionTypes'
 import globalSelectors from './globalSelectors'
-import { removeNotification } from './actionCreators'
+import { createNotification, removeNotification } from './actionCreators'
 
 export default function notificationMiddleware() {
   return ({ dispatch, getState }) => next => action => {
@@ -21,6 +21,16 @@ export default function notificationMiddleware() {
         activeNotifictions.forEach(({ sequentialId }) => {
           dispatch(removeNotification({ sequentialId }))
         })
+      })
+    }
+
+    const triggerActionMap = globalSelectors.getSpecificationTriggerActionMap(
+      getState()
+    )
+
+    if (triggerActionMap[action.type]) {
+      triggerActionMap[action.type].forEach(type => {
+        dispatch(createNotification({ type }))
       })
     }
 

@@ -10,7 +10,7 @@ export const getSpecifications = state => {
   return state.specifications
 }
 
-export const getSpecificationsByType = (state, type) => {
+export const getSpecificationByType = (state, type) => {
   const specifications = getSpecifications(state)
   if (!specifications[type]) {
     return null
@@ -26,6 +26,17 @@ export const getSpecificationArrayWithTerminateActions = createSelector(
         return specifications[key]
       })
       .filter(registeredNotification => registeredNotification.terminateActions)
+  }
+)
+
+export const getSpecificationArrayWithTriggerActions = createSelector(
+  getSpecifications,
+  specifications => {
+    return Object.keys(specifications)
+      .map(key => {
+        return specifications[key]
+      })
+      .filter(registeredNotification => registeredNotification.triggerActions)
   }
 )
 
@@ -47,6 +58,30 @@ export const getSpecificationTerminateActionMap = createSelector(
             [action]: [type],
           }
         }, terminateActionMap)
+      },
+      {}
+    )
+  }
+)
+
+export const getSpecificationTriggerActionMap = createSelector(
+  getSpecificationArrayWithTriggerActions,
+  specifications => {
+    return specifications.reduce(
+      (triggerActionMap, { type, triggerActions = [] }) => {
+        return triggerActions.reduce((obj, action) => {
+          if (obj[action]) {
+            return {
+              ...obj,
+              [action]: [...obj[action], type],
+            }
+          }
+
+          return {
+            ...obj,
+            [action]: [type],
+          }
+        }, triggerActionMap)
       },
       {}
     )
