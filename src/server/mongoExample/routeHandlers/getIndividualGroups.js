@@ -8,7 +8,7 @@ module.exports = function createIndividualGroup({ controllers, request }) {
 
   if (!catalogNumber && !identifiedTaxonNameStandardized) {
     const error = new Error('Provide input')
-    error.statusCode = 400
+    error.status = 400
     throw error
   }
 
