@@ -22,7 +22,7 @@
       "xfwd": true
     },
     "/collections": {
-      "target": "https://alpha-api.dina-web.net/",
+      "target": "http://127.0.0.1:4444",
       "xfwd": true,
       "changeOrigin": true
     }
@@ -54,6 +54,8 @@
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "markdown-it": "^8.4.0",
+    "mongodb": "^3.0.1",
+    "mongoose": "^5.0.1",
     "object-path": "^0.11.4",
     "object-path-immutable": "^0.5.2",
     "pg": "^7.4.1",
@@ -99,8 +101,10 @@
     "mount:collectionsUi": "MOUNT_APP=collectionsUi node ./src/scripts/app/mountApp.js",
     "pretty": "prettier --single-quote --write 'src/**/*.{js,jsx}'",
     "start": "NODE_PATH=./src/ npm-run-all -p watch-css markdown:watch start-js",
-    "start:server": "DEBUG='DINA*' pm2 start src/server/index.js --watch && pm2 logs",
-    "stop:server": "pm2 stop index",
+    "start:server:mongo": "DEBUG='DINA*' pm2 start src/server/mongoExample/index.js --watch --name mongo-test-server && pm2 logs",
+    "stop:server:mongo": "pm2 stop mongo-test-server",
+    "start:server:postgres": "DEBUG='DINA*' pm2 start src/server/mongoExample/index.js --watch --name postgres-test-server && pm2 logs",
+    "stop:server:postgres": "pm2 stop postgres-test-server",
     "start-js": "react-scripts start",
     "storybook": "npm run update-storybook-imports && start-storybook -p 9009 -s public",
     "test": "npm run update-storybook-imports && npm run lint:js && react-scripts test --env=jsdom",
