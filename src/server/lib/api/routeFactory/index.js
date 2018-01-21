@@ -16,7 +16,8 @@ const flattenPaths = paths => {
           method,
           methodSpecification,
           operationId: methodSpecification.operationId,
-          pathname,
+          // TODO fix this hack
+          pathname: pathname.replace('{id}', ':id'),
         }
       }),
     ]

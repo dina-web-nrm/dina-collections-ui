@@ -8,7 +8,7 @@ module.exports = function createRequestMiddleware({
   endpointConfig,
 }) {
   return (req, res, next) => {
-    const { body, headers, pathParams, queryParams } = req
+    const { body, headers, params: pathParams, query: queryParams } = req
 
     const input = {
       body,
