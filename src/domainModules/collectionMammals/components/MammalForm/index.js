@@ -121,8 +121,9 @@ class RawMammalForm extends Component {
       .catch(error => {
         // prettier-ignore
         const errorMessage = `Status: ${error.status}, message: ${
-        error.error.message
+          error.error ? error.error.message : error.message
       }`
+
         throw new SubmissionError({
           _error: errorMessage,
         })
