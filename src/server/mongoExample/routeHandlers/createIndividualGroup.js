@@ -23,7 +23,9 @@ module.exports = function createIndividualGroup({ controllers, request }) {
   return Record.findOne({ 'catalogedUnit.catalogNumber': catalogNumber }).then(
     existingRecord => {
       if (existingRecord) {
-        throw new Error(`Record with id ${catalogNumber} exists`)
+        const error = new Error(`Record with id ${catalogNumber} exists`)
+        error.status = 400
+        throw error
       }
       return model.save().then(({ _id }) => {
         return Record.findById(_id).then(res => {
