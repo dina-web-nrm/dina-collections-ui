@@ -1,3 +1,4 @@
+const path = require('path')
 /* eslint-disable global-require, import/no-dynamic-require */
 const express = require('express')
 const createLog = require('../../utilities/log')
@@ -6,6 +7,7 @@ const createRoutes = require('./routeFactory')
 const log = createLog('api')
 
 module.exports = function createApi({
+  basePath = '../../postgresExample',
   config,
   controllers,
   keycloak,
@@ -14,16 +16,18 @@ module.exports = function createApi({
   routeMockFiles = [],
 }) {
   const routeHandlers = routeHandlerFiles.reduce((obj, name) => {
+    const routePath = path.join(basePath, 'routeHandlers', name)
     return {
       ...obj,
-      [name]: require(`../../routeHandlers/${name}`),
+      [name]: require(routePath),
     }
   }, {})
 
   const routeMocks = routeMockFiles.reduce((obj, name) => {
+    const routeMockPath = path.join(basePath, 'routeMocks', name)
     return {
       ...obj,
-      [name]: require(`../../routeMocks/${name}`),
+      [name]: require(routeMockPath),
     }
   }, {})
 

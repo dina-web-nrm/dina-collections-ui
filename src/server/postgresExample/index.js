@@ -1,10 +1,10 @@
 const openApiSpec = require('dina-schema/build/openApi.json')
-const createLog = require('./utilities/log')
-const createApi = require('./lib/api')
-const createApp = require('./lib/app')
+const createLog = require('./../utilities/log')
+const createApi = require('./../lib/api')
+const createApp = require('./../lib/app')
 const createConfig = require('./config')
-const bootstrapLogic = require('./lib/logic')
-const createKeycloak = require('./lib/auth/keycloak')
+const bootstrapPostgres = require('./../lib/postgres')
+const createKeycloak = require('./../lib/auth/keycloak')
 
 const config = createConfig()
 
@@ -26,7 +26,7 @@ const routeHandlerFiles = ['createIndividualGroup', 'getIndividualGroups']
 
 const routeMockFiles = ['getTaxaByName']
 
-bootstrapLogic({
+bootstrapPostgres({
   config,
   controllerFiles,
   modelFiles,
