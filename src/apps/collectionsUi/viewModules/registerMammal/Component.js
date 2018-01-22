@@ -23,7 +23,7 @@ const RegisterMammal = ({ registerMammal }) => (
     </h1>
     <Grid textAlign="left" verticalAlign="middle">
       <Grid.Column>
-        <MammalForm handleFormSubmit={registerMammal} />
+        <MammalForm handleFormSubmit={registerMammal} redirectOnSuccess />
       </Grid.Column>
     </Grid>
   </PageTemplate>

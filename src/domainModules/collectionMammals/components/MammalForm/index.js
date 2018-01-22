@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Button, Form, Message, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { push } from 'react-router-redux'
 import {
   change,
   formValueSelector as formValueSelectorFactory,
@@ -45,6 +46,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
   changeFormValue: change,
   clearTaxonSearch,
+  push,
 }
 
 const propTypes = {
@@ -75,6 +77,8 @@ const propTypes = {
   initialize: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
   pristine: PropTypes.bool.isRequired,
+  push: PropTypes.func.isRequired,
+  redirectOnSuccess: PropTypes.bool,
   reset: PropTypes.func.isRequired,
   schemaErrors: PropTypes.arrayOf(
     PropTypes.shape({ errorCode: PropTypes.string.isRequired })
@@ -88,6 +92,7 @@ const defaultProps = {
   error: '',
   individualGroupAttributes: undefined,
   individualGroupId: undefined,
+  redirectOnSuccess: false,
   schemaErrors: [],
 }
 
@@ -116,8 +121,18 @@ class RawMammalForm extends Component {
       id: this.props.individualGroupId,
       ...data,
     }
+
+    const output = transformOutput(patchedData)
+
     return this.props
-      .handleFormSubmit(transformOutput(patchedData))
+      .handleFormSubmit(output)
+      .then(() => {
+        const catalogNumber =
+          output.catalogedUnit && output.catalogedUnit.catalogNumber
+        if (this.props.redirectOnSuccess && catalogNumber) {
+          this.props.push(`/app/mammals/${catalogNumber}/edit`)
+        }
+      })
       .catch(error => {
         // prettier-ignore
         const errorMessage = `Status: ${error.status}, message: ${
