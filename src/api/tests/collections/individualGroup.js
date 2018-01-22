@@ -1,16 +1,4 @@
-const chainPromises = require('../../../utilities/chainPromises')
-const {
-  createErrorRequestTestFactory,
-  createSuccessRequestTestFactory,
-} = require('../utilities')
-
-const testGetSuccess = createSuccessRequestTestFactory('getIndividualGroups')
-const testPatchError = createErrorRequestTestFactory('updateIndividualGroup')
-const testPatchSuccess = createSuccessRequestTestFactory(
-  'updateIndividualGroup'
-)
-const testPostError = createErrorRequestTestFactory('createIndividualGroup')
-const testPostSuccess = createSuccessRequestTestFactory('createIndividualGroup')
+const { login, makeTestCall } = require('../utilities')
 
 const onlyCatalogedUnit = {
   data: {
@@ -252,58 +240,195 @@ const fullFormExample = {
   },
 }
 
-module.exports = function createIndividualGroup({ collectionsClient }) {
-  return chainPromises(
-    [
-      testPostSuccess('onlyCatalogedUnit', { body: onlyCatalogedUnit }),
-      testPostSuccess('allAttributesAsEmptyArrays', {
+const UNEXPECTED_SUCCESS = 'Call successfull but should have failed'
+
+describe('individualGroup', () => {
+  let authToken
+  beforeEach(() => {
+    return login().then(loginToken => {
+      authToken = loginToken
+    })
+  })
+
+  it('Runs individualGroup tests', () => {
+    expect(!!authToken).toBeTruthy()
+    expect(1).toBe(1)
+  })
+
+  describe('createIndividualGroup', () => {
+    it('Succeed with onlyCatalogedUnit', () => {
+      return makeTestCall({
+        authToken,
+        body: onlyCatalogedUnit,
+        operationId: 'createIndividualGroup',
+      }).then(res => {
+        expect(res).toBeTruthy()
+      })
+    })
+    it('Succeed with allAttributesAsEmptyArrays', () => {
+      return makeTestCall({
+        authToken,
         body: allAttributesAsEmptyArrays,
-      }),
-      testPostSuccess('withIndividualGroup', { body: withIndividualGroup }),
-      testPostError('missingCatalogNumber', {
+        operationId: 'createIndividualGroup',
+      }).then(res => {
+        expect(res).toBeTruthy()
+      })
+    })
+
+    it('Succeed with individual group', () => {
+      return makeTestCall({
+        authToken,
+        body: withIndividualGroup,
+        operationId: 'createIndividualGroup',
+      }).then(res => {
+        expect(res).toBeTruthy()
+      })
+    })
+
+    it('Succeed with full form example', () => {
+      return makeTestCall({
+        authToken,
+        body: fullFormExample,
+        operationId: 'createIndividualGroup',
+      }).then(res => {
+        expect(res).toBeTruthy()
+      })
+    })
+    it('Fails create with missing catalog number', () => {
+      return makeTestCall({
+        authToken,
         body: badRequestMissingCatalogNumber,
-        statusCode: 400,
-      }),
-      testPatchSuccess('updateValidIndividualGroup', {
+        operationId: 'createIndividualGroup',
+      })
+        .then(() => {
+          throw new Error(UNEXPECTED_SUCCESS)
+        })
+        .catch(err => {
+          expect(err.message).not.toBe(UNEXPECTED_SUCCESS)
+        })
+    })
+  })
+
+  describe('updateIndividualGroup', () => {
+    let existingId
+    beforeEach(() => {
+      return makeTestCall({
+        authToken,
+        body: onlyCatalogedUnit,
+        operationId: 'createIndividualGroup',
+      }).then(res => {
+        existingId = res.data.id
+      })
+    })
+    it('Succeed with valid individualGroup', () => {
+      return makeTestCall({
+        authToken,
         body: updateValidIndividualGroup,
-        pathParams: { id: '1' }, // there will be at least one individualGroup after the above POST requests
-      }),
-      testPatchError('missingBody', {
-        pathParams: { id: '1' },
-        statusCode: 400,
-      }),
-      testPatchError('invalidId', {
+        operationId: 'updateIndividualGroup',
+        pathParams: { id: existingId },
+      }).then(res => {
+        expect(res).toBeTruthy()
+      })
+    })
+    it('Fails with missing body', () => {
+      return makeTestCall({
+        authToken,
+        operationId: 'updateIndividualGroup',
+        pathParams: { id: existingId },
+      })
+        .then(() => {
+          throw new Error(UNEXPECTED_SUCCESS)
+        })
+        .catch(err => {
+          expect(err.message).not.toBe(UNEXPECTED_SUCCESS)
+          expect(err).toBeTruthy()
+          expect(err.status).toBe(400)
+        })
+    })
+    it('Fails with invalid id', () => {
+      return makeTestCall({
+        authToken,
+        operationId: 'updateIndividualGroup',
         pathParams: { id: '-1' },
-        statusCode: 400,
-      }),
-      testGetSuccess('getByCatalogNumber', {
-        queryParams: { 'filter[catalogNumber]': validCatalogNumber },
-      }),
-      testGetSuccess('getByCatalogNumber with includes', {
-        queryParams: {
-          'filter[catalogNumber]': validCatalogNumber,
-          include: 'identifications,physicalUnits.catalogedUnit',
-        },
-      }),
-      testGetSuccess('getByIdentifiedTaxonNameStandardized', {
-        queryParams: {
-          'filter[identifiedTaxonNameStandardized]': validTaxonName,
-        },
-      }),
-      testGetSuccess('getByIdentifiedTaxonNameStandardized with includes', {
-        queryParams: {
-          'filter[identifiedTaxonNameStandardized]': validTaxonName,
-          include: 'identifications,physicalUnits.catalogedUnit',
-        },
-      }),
-      testPostSuccess('fullFormExample', { body: fullFormExample }),
-      testGetSuccess('getByCatalogNumber fullFormExample with includes', {
-        queryParams: {
-          'filter[catalogNumber]': '584028',
-          include: 'identifications,physicalUnits.catalogedUnit',
-        },
-      }),
-    ],
-    collectionsClient
-  )
-}
+      })
+        .then(() => {
+          throw new Error(UNEXPECTED_SUCCESS)
+        })
+        .catch(err => {
+          expect(err.message).not.toBe(UNEXPECTED_SUCCESS)
+          expect(err).toBeTruthy()
+          expect(err.status).toBe(400)
+        })
+    })
+  })
+
+  describe('getIndividualGroups', () => {
+    describe('by catalogNumber', () => {
+      it('Succeed with valid catalogNumber', () => {
+        return makeTestCall({
+          authToken,
+          body: updateValidIndividualGroup,
+          operationId: 'getIndividualGroups',
+          queryParams: { 'filter[catalogNumber]': validCatalogNumber },
+        }).then(res => {
+          expect(res).toBeTruthy()
+        })
+      })
+
+      it('Succeed with valid catalogNumber and includes', () => {
+        return makeTestCall({
+          authToken,
+          body: updateValidIndividualGroup,
+          operationId: 'getIndividualGroups',
+          queryParams: {
+            'filter[catalogNumber]': validCatalogNumber,
+            include: 'identifications,physicalUnits.catalogedUnit',
+          },
+        }).then(res => {
+          expect(res).toBeTruthy()
+        })
+      })
+      it('Succeed with fetching full form example', () => {
+        return makeTestCall({
+          authToken,
+          body: updateValidIndividualGroup,
+          operationId: 'getIndividualGroups',
+          queryParams: {
+            'filter[catalogNumber]': '584028',
+            include: 'identifications,physicalUnits.catalogedUnit',
+          },
+        }).then(res => {
+          expect(res).toBeTruthy()
+        })
+      })
+    })
+
+    describe('by identifiedTaxonNameStandardized', () => {
+      it('Succeed with valid identifiedTaxonNameStandardized', () => {
+        return makeTestCall({
+          authToken,
+          body: updateValidIndividualGroup,
+          operationId: 'getIndividualGroups',
+          queryParams: {
+            'filter[identifiedTaxonNameStandardized]': validTaxonName,
+          },
+        }).then(res => {
+          expect(res).toBeTruthy()
+        })
+      })
+      it('Succeed with valid identifiedTaxonNameStandardized and includes', () => {
+        return makeTestCall({
+          authToken,
+          body: updateValidIndividualGroup,
+          operationId: 'getIndividualGroups',
+          queryParams: {
+            'filter[identifiedTaxonNameStandardized]': validTaxonName,
+            include: 'identifications,physicalUnits.catalogedUnit',
+          },
+        }).then(res => {
+          expect(res).toBeTruthy()
+        })
+      })
+    })
+  })
+})
