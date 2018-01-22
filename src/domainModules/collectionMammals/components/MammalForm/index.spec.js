@@ -243,16 +243,26 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
       },
       {
         id: 'add-feature-observation',
+        ignore: true,
         interaction: 'click',
       },
       {
+        ignore: true,
+        interaction: 'click',
+        name:
+          'featureObservations[1].featureObservationType.featureObservationTypeName',
+      },
+      {
+        interaction: 'click',
         name:
           'featureObservations[1].featureObservationType.featureObservationTypeName',
         selector: ({ form, name }) => {
-          const first = form.find({ name })
-          return first.find('input').hostNodes()
+          return form
+            .find({ name })
+            .find('.item')
+            .at(0)
+            .hostNodes()
         },
-        value: 'sex',
       },
       {
         name: 'featureObservations[1].featureObservationText',
@@ -286,17 +296,17 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
             featureObservationText: 'A condition at collecting',
             featureObservationType: {
               featureObservationTypeName: 'conditionAtCollecting',
+              id: 5,
             },
           },
           {
             featureObservationAgent: 'JD',
             featureObservationDate: 'A date',
             featureObservationText: 'male',
-            // TODO - fix after FeatureTypeNameDropdown is tested
-            // This should be set but is not atm
-            // featureObservationType: {
-            //   featureObservationTypeName: 'sex',
-            // },
+            featureObservationType: {
+              featureObservationTypeName: 'age',
+              id: 3,
+            },
             methodText: 'method text',
           },
         ],
@@ -365,13 +375,15 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     const form = mountedComponent.find('form')
     simulateFormFieldChanges(mountedComponent, mutations)
 
+    let formState = store.getState().form.mammalForm
+    expect(formState.syncErrors).toBe(undefined)
     form.simulate('submit')
 
-    const formState = store.getState().form.mammalForm
+    formState = store.getState().form.mammalForm
     const { registeredFields, submitFailed, syncErrors, values } = formState
 
     expect(
-      mutations.map(mutation => mutation.name).filter(name => !!name)
+      mutations.filter(({ ignore }) => !ignore).map(mutation => mutation.name)
     ).toMatchObject(Object.keys(registeredFields))
 
     expect(transformOutput(values)).toEqual(expectedOutput)
