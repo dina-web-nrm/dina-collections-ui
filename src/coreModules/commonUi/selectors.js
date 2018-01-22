@@ -1,6 +1,6 @@
 import { createGetter } from 'utilities/stateHelper'
 
-const sidebarOpenGetter = createGetter(['sidebar', 'isOpen'])
+const leftSidebarOpenGetter = createGetter(['leftSidebar', 'isOpen'])
+
 export const getLocalState = state => state.commonUi
-export const getSidebarIsOpen = state => sidebarOpenGetter(state)
-export const getSidebarIsClosed = state => !sidebarOpenGetter(state)
+export const getLeftSidebarIsOpen = state => leftSidebarOpenGetter(state)

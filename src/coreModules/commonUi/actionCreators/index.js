@@ -1,5 +1,5 @@
-import closeSidebar from './closeSidebar'
-import openSidebar from './openSidebar'
-import toggleSidebar from './toggleSidebar'
+import closeLeftSidebar from './closeLeftSidebar'
+import openLeftSidebar from './openLeftSidebar'
+import toggleLeftSidebar from './toggleLeftSidebar'
 
-export { closeSidebar, openSidebar, toggleSidebar }
+export { closeLeftSidebar, openLeftSidebar, toggleLeftSidebar }

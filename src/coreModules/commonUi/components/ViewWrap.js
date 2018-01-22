@@ -3,39 +3,46 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Dimmer, Icon, Menu } from 'semantic-ui-react'
 import sizeSelectors from 'coreModules/size/globalSelectors'
-import toggleSidebarAC from '../actionCreators/toggleSidebar'
+import toggleLeftSidebarAC from '../actionCreators/toggleLeftSidebar'
 import commonUiSelectors from '../globalSelectors'
 
 const mapStateToProps = state => {
   return {
     isLarge: sizeSelectors.getIsLarge(state),
-    sidebarIsOpen: commonUiSelectors.getSidebarIsOpen(state),
+    leftSidebarIsOpen: commonUiSelectors.getLeftSidebarIsOpen(state),
+    rightSidebarIsOpen: commonUiSelectors.getRightSidebarIsOpen(state), // import/no-named-as-default-member
   }
 }
 
 const mapDispatchToProps = {
-  toggleSidebar: toggleSidebarAC,
+  toggleLeftSidebar: toggleLeftSidebarAC,
 }
 
 const propTypes = {
   children: PropTypes.node.isRequired,
   isLarge: PropTypes.bool.isRequired,
-  sidebarEnabled: PropTypes.bool,
-  sidebarIsOpen: PropTypes.bool.isRequired,
-  sidebarWidth: PropTypes.number,
-  toggleSidebar: PropTypes.func.isRequired,
+  leftSidebarEnabled: PropTypes.bool,
+  leftSidebarIsOpen: PropTypes.bool.isRequired,
+  leftSidebarWidth: PropTypes.number,
+  rightSidebarIsOpen: PropTypes.bool.isRequired,
+  rightSidebarWidth: PropTypes.number,
+  toggleLeftSidebar: PropTypes.func.isRequired,
 }
 
 const defaultProps = {
-  sidebarEnabled: false,
-  sidebarWidth: 100,
+  leftSidebarEnabled: false,
+  leftSidebarWidth: 100,
+  rightSidebarWidth: 300,
 }
 
 export const getViewWrapStyle = ({
-  sidebarAlwaysVisible,
-  sidebarIsOpen,
-  sidebarTogglable,
-  sidebarWidth,
+  leftSidebarAlwaysVisible,
+  leftSidebarIsOpen,
+  leftSidebarTogglable,
+  leftSidebarWidth,
+  rightSidebarEnabled,
+  rightSidebarIsOpen,
+  rightSidebarWidth,
 }) => {
   const viewWrapBaseStyle = {
     bottom: '100%',
@@ -48,54 +55,71 @@ export const getViewWrapStyle = ({
     zIndex: 200,
   }
 
-  const sizeBaseStyle = sidebarTogglable
+  const leftSidebarStyle = leftSidebarTogglable
     ? {
-        transform: sidebarIsOpen ? `translate(${sidebarWidth}px, 0px)` : '',
-        WebkitTransform: sidebarIsOpen
-          ? `translate(${sidebarWidth}px, 0px)`
+        transform: leftSidebarIsOpen
+          ? `translate(${leftSidebarWidth}px, 0px)`
+          : '',
+        WebkitTransform: leftSidebarIsOpen
+          ? `translate(${leftSidebarWidth}px, 0px)`
           : '',
 
         zIndex: 200,
       }
     : {
-        paddingLeft: sidebarAlwaysVisible ? sidebarWidth : 0,
+        paddingLeft: leftSidebarAlwaysVisible ? leftSidebarWidth : 0,
         zIndex: 1,
       }
 
+  const rightSidebarStyle =
+    rightSidebarEnabled && rightSidebarIsOpen
+      ? {
+          paddingRight: rightSidebarWidth,
+        }
+      : {}
+
   return {
     ...viewWrapBaseStyle,
-    ...sizeBaseStyle,
+    ...leftSidebarStyle,
+    ...rightSidebarStyle,
   }
 }
 
 const ViewWrap = ({
   children,
   isLarge,
-  sidebarEnabled,
-  sidebarIsOpen,
-  sidebarWidth,
-  toggleSidebar,
+  leftSidebarEnabled,
+  leftSidebarIsOpen,
+  leftSidebarWidth,
+  rightSidebarIsOpen,
+  rightSidebarWidth,
+  toggleLeftSidebar,
 }) => {
-  const sidebarAlwaysVisible = isLarge && sidebarEnabled
-  const sidebarTogglable = !isLarge && sidebarEnabled
+  const rightSidebarEnabled = true
+
+  const leftSidebarAlwaysVisible = isLarge && leftSidebarEnabled
+  const leftSidebarTogglable = !isLarge && leftSidebarEnabled
   const viewWrapStyle = getViewWrapStyle({
-    sidebarAlwaysVisible,
-    sidebarIsOpen,
-    sidebarTogglable,
-    sidebarWidth,
+    leftSidebarAlwaysVisible,
+    leftSidebarIsOpen,
+    leftSidebarTogglable,
+    leftSidebarWidth,
+    rightSidebarEnabled,
+    rightSidebarIsOpen,
+    rightSidebarWidth,
   })
-  const dimmerActive = sidebarTogglable && sidebarIsOpen
+  const dimmerActive = leftSidebarTogglable && leftSidebarIsOpen
   return (
     <div style={viewWrapStyle}>
       <Dimmer.Dimmable dimmed={dimmerActive}>
-        {sidebarTogglable && (
+        {leftSidebarTogglable && (
           <Menu inverted style={{ margin: 0 }}>
-            <Menu.Item onClick={toggleSidebar}>
+            <Menu.Item onClick={toggleLeftSidebar}>
               <Icon name="sidebar" size="large" />
             </Menu.Item>
           </Menu>
         )}
-        <Dimmer active={dimmerActive} onClickOutside={toggleSidebar} />
+        <Dimmer active={dimmerActive} onClickOutside={toggleLeftSidebar} />
         <div
           className="ui fluid dina background"
           style={{ overflow: 'hidden' }}

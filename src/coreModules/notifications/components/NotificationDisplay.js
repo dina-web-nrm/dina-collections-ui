@@ -8,7 +8,7 @@ import globalSelectors from '../globalSelectors'
 
 const mapStateToProps = (state, { displayType }) => {
   return {
-    activeNotification: globalSelectors.getPrioritizedActiveNotificationByDisplayType(
+    activeNotification: globalSelectors.getPrioritizedNotificationByDisplayType(
       state,
       displayType
     ),
@@ -22,6 +22,7 @@ const propTypes = {
     componentProps: PropTypes.object,
     sequentialId: PropTypes.number.isRequired,
   }),
+  displayType: PropTypes.oneOf(['fixed', 'static', 'inline']).isRequired,
   removeNotification: PropTypes.func.isRequired,
 }
 const defaultProps = {
@@ -30,7 +31,7 @@ const defaultProps = {
 
 export class NotificationDisplay extends Component {
   render() {
-    const { activeNotification } = this.props
+    const { activeNotification, displayType } = this.props
 
     if (activeNotification) {
       const {
@@ -43,6 +44,7 @@ export class NotificationDisplay extends Component {
       return (
         <NotificationComponent
           {...componentProps}
+          displayType={displayType}
           removeNotification={this.props.removeNotification}
           sequentialId={sequentialId}
           ttl={ttl}
