@@ -95,7 +95,7 @@
     "start-js": "react-scripts start",
     "storybook": "npm run update-storybook-imports && start-storybook -p 9009 -s public",
     "test": "npm run update-storybook-imports && npm run lint:js && react-scripts test --env=jsdom",
-    "test:api": "node -r dotenv/config src/api/endpointTests/index.js dotenv_config_path=.env.test.local",
+    "test:api": "API_TESTS=true jest --env=node ./src/api/__tests__/index.js",
     "test:coverage": "npm test -- --coverage",
     "test:unit:watch": "react-scripts test --env=jsdom --watch",
     "update-git-dependencies": "yarn upgrade dina-schema && yarn upgrade semantic-ui",
