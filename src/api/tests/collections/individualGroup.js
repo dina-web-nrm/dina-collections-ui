@@ -160,82 +160,80 @@ const fullFormExample = {
       },
     ],
     attributes: {
-      individualGroup: {
-        causeOfDeathStandardized: 'Standardized death cause',
-        causeOfDeathText: 'Cause of death ',
-        featureObservations: [
-          {
-            featureObservationText: 'A condition at collecting',
-            featureObservationType: {
-              featureObservationTypeName: 'conditionAtCollecting',
-              id: 2,
-            },
+      causeOfDeathStandardized: 'Standardized death cause',
+      causeOfDeathText: 'Cause of death ',
+      featureObservations: [
+        {
+          featureObservationText: 'A condition at collecting',
+          featureObservationType: {
+            featureObservationTypeName: 'conditionAtCollecting',
+            id: 2,
           },
-          {
-            featureObservationAgent: 'JD',
-            featureObservationDate: 'A date',
-            featureObservationText: 'male',
-            featureObservationType: {
-              featureObservationTypeName: 'sex',
-              id: 1,
-            },
-            methodText: 'method text',
+        },
+        {
+          featureObservationAgent: 'JD',
+          featureObservationDate: 'A date',
+          featureObservationText: 'male',
+          featureObservationType: {
+            featureObservationTypeName: 'sex',
+            id: 1,
           },
-        ],
-        identifications: [
-          {
-            identificationRemarks: 'some remarks',
-            identifiedAsVerbatim: 'Sorex minutus',
-            identifiedByAgentText: 'Doe, J.',
-            identifiedDateText: 'Date text',
-            isCurrentIdentification: true,
+          methodText: 'method text',
+        },
+      ],
+      identifications: [
+        {
+          identificationRemarks: 'some remarks',
+          identifiedAsVerbatim: 'Sorex minutus',
+          identifiedByAgentText: 'Doe, J.',
+          identifiedDateText: 'Date text',
+          isCurrentIdentification: true,
+        },
+      ],
+      occurrences: [
+        {
+          collectorsText: 'Bergström, U',
+          dayEnd: 15,
+          dayStart: 15,
+          establishmentMeansStandardized: 'establishmentMeansStandardized',
+          expeditionText: 'Vega Expedition',
+          isDeathEvent: true,
+          localityInformation: {
+            coordinatesVerbatim: 'coord-string',
+            coordinateUncertaintyInMeters: '10',
+            geodeticDatumStandardized: 'geodeticDatumStandardized text',
+            georeferenceSourcesText: 'georeferenceSourcesText text',
+            latitudeStandardized: 'latitude-string',
+            localityRemarks: 'localityRemarks text',
+            localityStandardized: 'Vasastan',
+            localityVerbatim: 'Some localityVerbatim text',
+            longitudeStandardized: 'longitude-string',
+            maximumDepthInMeters: '100',
+            maximumElevationInMeters: '100',
+            minimumDepthInMeters: '20',
+            minimumElevationInMeters: '20',
           },
-        ],
-        occurrences: [
-          {
-            collectorsText: 'Bergström, U',
-            dayEnd: 15,
-            dayStart: 15,
-            establishmentMeansStandardized: 'establishmentMeansStandardized',
-            expeditionText: 'Vega Expedition',
-            isDeathEvent: true,
-            localityInformation: {
-              coordinatesVerbatim: 'coord-string',
-              coordinateUncertaintyInMeters: '10',
-              geodeticDatumStandardized: 'geodeticDatumStandardized text',
-              georeferenceSourcesText: 'georeferenceSourcesText text',
-              latitudeStandardized: 'latitude-string',
-              localityRemarks: 'localityRemarks text',
-              localityStandardized: 'Vasastan',
-              localityVerbatim: 'Some localityVerbatim text',
-              longitudeStandardized: 'longitude-string',
-              maximumDepthInMeters: '100',
-              maximumElevationInMeters: '100',
-              minimumDepthInMeters: '20',
-              minimumElevationInMeters: '20',
-            },
-            localityText: 'localityText',
-            monthEnd: 1,
-            monthStart: 1,
-            occurrenceDateText: '15 jan 1986',
-            yearEnd: 1986,
-            yearStart: 1986,
+          localityText: 'localityText',
+          monthEnd: 1,
+          monthStart: 1,
+          occurrenceDateText: '15 jan 1986',
+          yearEnd: 1986,
+          yearStart: 1986,
+        },
+      ],
+      originStandardized: 'Standardized origin',
+      physicalUnits: [
+        {
+          alternateIdentifiersText: 'alternateIdentifiersText',
+          catalogedUnit: {
+            catalogNumber: '584028',
+            publishRecord: true,
+            storedUnderTaxonName: 'Sorex minutus',
           },
-        ],
-        originStandardized: 'Standardized origin',
-        physicalUnits: [
-          {
-            alternateIdentifiersText: 'alternateIdentifiersText',
-            catalogedUnit: {
-              catalogNumber: '584028',
-              publishRecord: true,
-              storedUnderTaxonName: 'Sorex minutus',
-            },
-            normalStorageLocationText: 'normalStorageLocationText',
-            physicalUnitText: 'physicalUnitText',
-          },
-        ],
-      },
+          normalStorageLocationText: 'normalStorageLocationText',
+          physicalUnitText: 'physicalUnitText',
+        },
+      ],
     },
   },
 }
@@ -292,6 +290,13 @@ describe('individualGroup', () => {
         operationId: 'createIndividualGroup',
       }).then(res => {
         expect(res).toBeTruthy()
+        expect(res.data).toBeTruthy()
+        expect(res.data.type).toBe('individualGroup')
+        expect(res.data.attributes).toBeTruthy()
+        expect(res.data.attributes.physicalUnits).toBeTruthy()
+        expect(res.data.attributes.featureObservations).toBeTruthy()
+        expect(res.data.attributes.identifications).toBeTruthy()
+        expect(res.data.attributes.occurrences).toBeTruthy()
       })
     })
     it('Fails create with missing catalog number', () => {
