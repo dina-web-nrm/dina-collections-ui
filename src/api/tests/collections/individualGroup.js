@@ -372,7 +372,6 @@ describe('individualGroup', () => {
       it('Succeed with valid catalogNumber', () => {
         return makeTestCall({
           authToken,
-          body: updateValidIndividualGroup,
           operationId: 'getIndividualGroups',
           queryParams: { 'filter[catalogNumber]': validCatalogNumber },
         }).then(res => {
@@ -383,7 +382,6 @@ describe('individualGroup', () => {
       it('Succeed with valid catalogNumber and includes', () => {
         return makeTestCall({
           authToken,
-          body: updateValidIndividualGroup,
           operationId: 'getIndividualGroups',
           queryParams: {
             'filter[catalogNumber]': validCatalogNumber,
@@ -396,7 +394,6 @@ describe('individualGroup', () => {
       it('Succeed with fetching full form example', () => {
         return makeTestCall({
           authToken,
-          body: updateValidIndividualGroup,
           operationId: 'getIndividualGroups',
           queryParams: {
             'filter[catalogNumber]': '584028',
