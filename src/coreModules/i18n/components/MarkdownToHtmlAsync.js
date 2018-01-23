@@ -23,7 +23,18 @@ class MarkdownToHtmlAsync extends Component {
       })
     })
   }
-
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.markdown !== this.props.markdown) {
+      this.setState({
+        html: null,
+      })
+      markdownToHtmlAsync(nextProps.markdown).then(html => {
+        this.setState({
+          html,
+        })
+      })
+    }
+  }
   render() {
     if (this.state.html) {
       return <div dangerouslySetInnerHTML={{ __html: this.state.html }} /> // eslint-disable-line react/no-danger
