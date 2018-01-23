@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 
-module.exports = function createIndividualGroup({ controllers, request }) {
+module.exports = function getIndividualGroup({ controllers, request }) {
   const { queryParams = {} } = request
 
   const { catalogNumber, identifiedTaxonNameStandardized } =
