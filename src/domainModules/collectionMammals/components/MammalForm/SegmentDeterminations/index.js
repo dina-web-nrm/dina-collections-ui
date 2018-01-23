@@ -41,7 +41,7 @@ const defaultProps = {
   identifications: undefined,
 }
 
-const SegmentDetermination = ({
+const SegmentDeterminations = ({
   changeFieldValue,
   formValueSelector,
   identifications,
@@ -155,7 +155,7 @@ const SegmentDetermination = ({
   )
 }
 
-SegmentDetermination.propTypes = propTypes
-SegmentDetermination.defaultProps = defaultProps
+SegmentDeterminations.propTypes = propTypes
+SegmentDeterminations.defaultProps = defaultProps
 
-export default compose(connect(mapStateToProps))(SegmentDetermination)
+export default compose(connect(mapStateToProps))(SegmentDeterminations)

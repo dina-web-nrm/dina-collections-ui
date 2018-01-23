@@ -17,7 +17,7 @@ import { clearTaxonSearch } from 'domainModules/taxonomy/actionCreators'
 import createLog from 'utilities/log'
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import SegmentCatalogedUnit from './SegmentCatalogedUnit'
-import SegmentDetermination from './SegmentDetermination'
+import SegmentDeterminations from './SegmentDeterminations'
 import SegmentFeatureObservations from './SegmentFeatureObservations/index'
 import SegmentCollectingInformation from './SegmentCollectingInformation/index'
 import SegmentPhysicalUnits from './SegmentPhysicalUnits'
@@ -170,7 +170,7 @@ class RawMammalForm extends Component {
         success={submitSucceeded}
       >
         <SegmentCatalogedUnit />
-        <SegmentDetermination
+        <SegmentDeterminations
           changeFieldValue={this.changeFieldValue}
           formValueSelector={formValueSelector}
           taxonNameFieldKey={TAXON_NAME_FIELD_KEY}
