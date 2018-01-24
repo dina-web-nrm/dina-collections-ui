@@ -18,6 +18,7 @@ const PropertyOverview = ({ properties, model, version }) => {
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell>Key</Table.HeaderCell>
+          <Table.HeaderCell>Description</Table.HeaderCell>
           <Table.HeaderCell>Type</Table.HeaderCell>
           <Table.HeaderCell>Example</Table.HeaderCell>
         </Table.Row>
@@ -38,6 +39,7 @@ const PropertyOverview = ({ properties, model, version }) => {
                   {property.key}
                 </Link>
               </Table.Cell>
+              <Table.Cell>{property.description}</Table.Cell>
               <Table.Cell>
                 <Type property={property} version={version} />
               </Table.Cell>

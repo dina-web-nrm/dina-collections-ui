@@ -37,7 +37,13 @@ const Type = ({ property, version }) => {
     )
   }
 
-  return property.type || ''
+  const type = property.type || ''
+
+  if (!property.enum) {
+    return type
+  }
+
+  return `${type}, enum: [${property.enum.join(', ')}]`
 }
 
 Type.propTypes = propTypes
