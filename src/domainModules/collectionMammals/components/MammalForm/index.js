@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { push } from 'react-router-redux'
 import {
+  arrayRemove,
   change,
   formValueSelector as formValueSelectorFactory,
   getFormSyncErrors,
@@ -28,8 +29,6 @@ import transformOutput from './transformations/output'
 const log = createLog('modules:collectionMammals:MammalForm')
 const ModuleTranslate = createModuleTranslate('collectionMammals')
 
-const TAXON_NAME_FIELD_KEY =
-  'identifications[0].identifiedTaxonNameStandardized'
 const FORM_NAME = MAMMAL_FORM_NAME
 
 const formValueSelector = formValueSelectorFactory(FORM_NAME)
@@ -48,6 +47,7 @@ const mapDispatchToProps = {
   changeFormValue: change,
   clearTaxonSearch,
   push,
+  removeArrayField: arrayRemove,
 }
 
 const propTypes = {
@@ -80,6 +80,7 @@ const propTypes = {
   pristine: PropTypes.bool.isRequired,
   push: PropTypes.func.isRequired,
   redirectOnSuccess: PropTypes.bool,
+  removeArrayField: PropTypes.func.isRequired,
   reset: PropTypes.func.isRequired,
   schemaErrors: PropTypes.arrayOf(
     PropTypes.shape({ errorCode: PropTypes.string.isRequired })
@@ -150,6 +151,10 @@ class RawMammalForm extends Component {
     this.props.changeFormValue(FORM_NAME, fieldName, value)
   }
 
+  removeArrayFieldByIndex = (fieldName, index) => {
+    this.props.removeArrayField(FORM_NAME, fieldName, index)
+  }
+
   render() {
     const {
       error,
@@ -174,7 +179,7 @@ class RawMammalForm extends Component {
         <SegmentDeterminations
           changeFieldValue={this.changeFieldValue}
           formValueSelector={formValueSelector}
-          taxonNameFieldKey={TAXON_NAME_FIELD_KEY}
+          removeArrayFieldByIndex={this.removeArrayFieldByIndex}
         />
         <SegmentCollectingInformation formValueSelector={formValueSelector} />
         <SegmentFeatureObservations formValueSelector={formValueSelector} />
