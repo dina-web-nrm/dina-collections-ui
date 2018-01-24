@@ -12,9 +12,17 @@ const log = createLog('server')
 
 const modelFiles = ['IndividualGroup']
 
-const controllerFiles = ['createIndividualGroup', 'getIndividualGroups']
+const controllerFiles = [
+  'createIndividualGroup',
+  'getIndividualGroups',
+  'updateIndividualGroup',
+]
 
-const routeHandlerFiles = ['createIndividualGroup', 'getIndividualGroups']
+const routeHandlerFiles = [
+  'createIndividualGroup',
+  'getIndividualGroups',
+  'updateIndividualGroup',
+]
 
 bootstrapPostgres({
   basePath: __dirname,

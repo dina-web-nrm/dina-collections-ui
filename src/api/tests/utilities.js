@@ -66,7 +66,7 @@ export const createTestClient = ({
       }
     },
     mapResponse: ({ json }) => {
-      return json.data
+      return json
     },
     validateInput,
     validateOutput,

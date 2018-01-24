@@ -43,7 +43,8 @@ const tranformOutput = output => {
 module.exports = function createIndividualGroup({ sequelize }) {
   const { models } = sequelize
 
-  return data => {
+  return ({ body }) => {
+    const { data } = body
     validateInput(data)
 
     const individualGroupData = {
