@@ -25,6 +25,17 @@ export const config = {
       type: 'array',
       uniqueItems: true,
     },
+    currentBreakpoint: {
+      additionalProperties: false,
+      properties: {
+        size: {
+          enum: sizeEnum,
+          type: 'string',
+        },
+      },
+      required: ['size'],
+      type: 'object',
+    },
   },
   required: ['breakpoints'],
 }
