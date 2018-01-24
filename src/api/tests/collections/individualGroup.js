@@ -376,6 +376,9 @@ describe('individualGroup', () => {
           queryParams: { 'filter[catalogNumber]': validCatalogNumber },
         }).then(res => {
           expect(res).toBeTruthy()
+          expect(res.data).toBeTruthy()
+          expect(Array.isArray(res.data)).toBe(true)
+          expect(res.data.length > 0).toBe(true)
         })
       })
 
@@ -389,6 +392,9 @@ describe('individualGroup', () => {
           },
         }).then(res => {
           expect(res).toBeTruthy()
+          expect(res.data).toBeTruthy()
+          expect(Array.isArray(res.data)).toBe(true)
+          expect(res.data.length > 0).toBe(true)
         })
       })
       it('Succeed with fetching full form example', () => {
@@ -401,6 +407,9 @@ describe('individualGroup', () => {
           },
         }).then(res => {
           expect(res).toBeTruthy()
+          expect(res.data).toBeTruthy()
+          expect(Array.isArray(res.data)).toBe(true)
+          expect(res.data.length > 0).toBe(true)
         })
       })
     })
@@ -416,6 +425,9 @@ describe('individualGroup', () => {
           },
         }).then(res => {
           expect(res).toBeTruthy()
+          expect(res.data).toBeTruthy()
+          expect(Array.isArray(res.data)).toBe(true)
+          expect(res.data.length > 0).toBe(true)
         })
       })
       it('Succeed with valid identifiedTaxonNameStandardized and includes', () => {
@@ -429,6 +441,9 @@ describe('individualGroup', () => {
           },
         }).then(res => {
           expect(res).toBeTruthy()
+          expect(res.data).toBeTruthy()
+          expect(Array.isArray(res.data)).toBe(true)
+          expect(res.data.length > 0).toBe(true)
         })
       })
     })
