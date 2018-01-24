@@ -86,11 +86,8 @@ class TaxonNameSearchInputWithResults extends Component {
     ) {
       const value = result.content.attributes.scientificName
 
-      // keep search and name in sync to ensure that if the user focuses the
-      // input again, it should show the current taxonName as suggestion instead
-      // of "no results"
-      this.props.updateTaxonSearchFilterName(value)
       this.props.input.onBlur(value)
+      this.props.updateTaxonSearchFilterName(null)
     }
   }
 
