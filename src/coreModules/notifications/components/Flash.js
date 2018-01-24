@@ -10,16 +10,15 @@ const propTypes = {
   i18n: PropTypes.shape({
     translate: PropTypes.func.isRequired,
   }).isRequired,
+  level: PropTypes.oneOf(['error', 'info', 'success', 'warning']),
   removeNotification: PropTypes.func.isRequired,
   sequentialId: PropTypes.number.isRequired,
-  // TODO rename style. Style is a reserved prop
-  style: PropTypes.oneOf(['error', 'info', 'success', 'warning']),
   ttl: PropTypes.number,
 }
 const defaultProps = {
   descriptionKey: undefined,
   headerKey: undefined,
-  style: 'info',
+  level: 'info',
   ttl: undefined,
 }
 
@@ -45,23 +44,23 @@ export class Flash extends Component {
     const {
       descriptionKey,
       headerKey,
+      level,
       removeNotification,
       sequentialId,
       i18n: { translate },
-      style,
     } = this.props
 
     return (
       <Message
         className="flash"
         content={descriptionKey && translate({ textKey: descriptionKey })}
-        error={style === 'error'}
         header={headerKey && translate({ textKey: headerKey })}
-        info={style === 'info'}
+        error={level === 'error'}
+        info={level === 'info'}
         onClick={() => removeNotification({ sequentialId })}
         onDismiss={() => removeNotification({ sequentialId })}
-        success={style === 'success'}
-        warning={style === 'warning'}
+        success={level === 'success'}
+        warning={level === 'warning'}
       />
     )
   }
