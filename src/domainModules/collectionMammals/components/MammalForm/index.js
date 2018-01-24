@@ -16,6 +16,7 @@ import { FormSchemaError } from 'coreModules/error/components'
 import { clearTaxonSearch } from 'domainModules/taxonomy/actionCreators'
 import createLog from 'utilities/log'
 import { createModuleTranslate } from 'coreModules/i18n/components'
+import { MAMMAL_FORM_NAME } from '../../constants'
 import SegmentCatalogedUnit from './SegmentCatalogedUnit'
 import SegmentDeterminations from './SegmentDeterminations'
 import SegmentFeatureObservations from './SegmentFeatureObservations/index'
@@ -27,9 +28,9 @@ import transformOutput from './transformations/output'
 const log = createLog('modules:collectionMammals:MammalForm')
 const ModuleTranslate = createModuleTranslate('collectionMammals')
 
-const FORM_NAME = 'mammalForm'
 const TAXON_NAME_FIELD_KEY =
   'identifications[0].identifiedTaxonNameStandardized'
+const FORM_NAME = MAMMAL_FORM_NAME
 
 const formValueSelector = formValueSelectorFactory(FORM_NAME)
 const getFormSyncErrorsSelector = getFormSyncErrors(FORM_NAME)
