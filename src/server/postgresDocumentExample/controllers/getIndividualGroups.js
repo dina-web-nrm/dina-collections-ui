@@ -1,6 +1,4 @@
 /* eslint-disable no-param-reassign */
-const Sequelize = require('sequelize')
-
 const validateInput = queryParams => {
   const { catalogNumber, identifiedTaxonNameStandardized } =
     queryParams.filter || {}
@@ -37,7 +35,7 @@ const tranformOutput = output => {
     return []
   }
 
-  const tmp = output.map(model => {
+  return output.map(model => {
     const { dataValues } = model
     delete dataValues.document.catalogedUnit
     return {
@@ -45,8 +43,6 @@ const tranformOutput = output => {
       ...dataValues.document,
     }
   })
-  console.log('tmp', tmp)
-  return tmp
 }
 
 module.exports = function getIndividualGroups({ sequelize }) {
@@ -58,11 +54,20 @@ module.exports = function getIndividualGroups({ sequelize }) {
     const { catalogNumber, identifiedTaxonNameStandardized } = transformInput(
       queryParams
     )
-    console.log('catalogNumber', catalogNumber)
     if (catalogNumber) {
       return models.IndividualGroup.findAll({
         where: {
           'document.catalogedUnit.catalogNumber': catalogNumber,
+        },
+      }).then(result => {
+        return tranformOutput(result)
+      })
+    }
+
+    if (identifiedTaxonNameStandardized) {
+      return models.IndividualGroup.findAll({
+        where: {
+          'document.identifications.0.identifiedTaxonNameStandardized': identifiedTaxonNameStandardized,
         },
       }).then(result => {
         return tranformOutput(result)

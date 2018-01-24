@@ -1,8 +1,11 @@
 const createObjectResponse = require('../../lib/api/utilities/createObjectResponse')
 
-module.exports = function createIndividualGroup({ controllers, request }) {
+module.exports = function updateIndividualGroup({ controllers, request }) {
   return controllers
-    .createIndividualGroup({ body: request.body })
+    .updateIndividualGroup({
+      body: request.body,
+      pathParams: request.pathParams,
+    })
     .then(data => {
       return createObjectResponse({
         data,
