@@ -6,6 +6,7 @@ const INITIAL_VALUES = {
       },
     },
   ],
+  identifications: [{}],
   physicalUnits: [
     {
       catalogedUnit: {
@@ -52,5 +53,10 @@ export default function transformInput(individualGroup) {
   } else {
     attributes.featureObservations = INITIAL_VALUES.featureObservations
   }
+
+  if (!attributes.identifications) {
+    attributes.identifications = INITIAL_VALUES.identifications
+  }
+
   return attributes
 }

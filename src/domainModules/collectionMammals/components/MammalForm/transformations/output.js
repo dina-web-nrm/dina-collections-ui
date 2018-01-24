@@ -45,6 +45,13 @@ export default function transformOutput(formData) {
     )
   }
 
+  if (
+    !individualGroup.identifications ||
+    !individualGroup.identifications.length
+  ) {
+    individualGroup.identifications = [{}]
+  }
+
   const { catalogedUnit } = individualGroup.physicalUnits[0]
 
   individualGroup = immutable.set(
@@ -68,7 +75,6 @@ export default function transformOutput(formData) {
 
   individualGroup = {
     featureObservations: [],
-    identifications: [],
     occurrences: [],
     physicalUnits: [],
     ...individualGroup,
