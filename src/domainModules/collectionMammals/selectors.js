@@ -2,6 +2,10 @@ export const getLocalState = state => {
   return state.collectionMammals
 }
 
+export const getAccordionActiveIndex = (state, accordion) => {
+  return state.accordion[accordion]
+}
+
 export const getFeatureTypeNameSearchQueries = state => {
   return state.featureTypeNameSearchQueries
 }
