@@ -37,17 +37,15 @@ export class NotificationDisplay extends Component {
       const {
         component: NotificationComponent,
         componentProps,
-        sequentialId,
-        ttl,
+        ...rest
       } = activeNotification
 
       return (
         <NotificationComponent
           {...componentProps}
+          {...rest}
           displayType={displayType}
           removeNotification={this.props.removeNotification}
-          sequentialId={sequentialId}
-          ttl={ttl}
         />
       )
     }
