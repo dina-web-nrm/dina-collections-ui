@@ -135,10 +135,7 @@ const updateValidIndividualGroup = {
       physicalUnits: [
         {
           catalogedUnit: {
-            attributes: {
-              catalogNumber: validCatalogNumber,
-            },
-            type: 'catalogedUnit',
+            catalogNumber: validCatalogNumber,
           },
           normalStorageLocationText: 'Stockholm',
           physicalUnitText: 'Updated text',
@@ -418,7 +415,6 @@ describe('individualGroup', () => {
       it('Succeed with valid identifiedTaxonNameStandardized', () => {
         return makeTestCall({
           authToken,
-          body: updateValidIndividualGroup,
           operationId: 'getIndividualGroups',
           queryParams: {
             'filter[identifiedTaxonNameStandardized]': validTaxonName,
@@ -433,7 +429,6 @@ describe('individualGroup', () => {
       it('Succeed with valid identifiedTaxonNameStandardized and includes', () => {
         return makeTestCall({
           authToken,
-          body: updateValidIndividualGroup,
           operationId: 'getIndividualGroups',
           queryParams: {
             'filter[identifiedTaxonNameStandardized]': validTaxonName,
