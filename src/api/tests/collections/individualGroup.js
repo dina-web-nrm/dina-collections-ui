@@ -135,10 +135,7 @@ const updateValidIndividualGroup = {
       physicalUnits: [
         {
           catalogedUnit: {
-            attributes: {
-              catalogNumber: validCatalogNumber,
-            },
-            type: 'catalogedUnit',
+            catalogNumber: validCatalogNumber,
           },
           normalStorageLocationText: 'Stockholm',
           physicalUnitText: 'Updated text',
@@ -376,6 +373,9 @@ describe('individualGroup', () => {
           queryParams: { 'filter[catalogNumber]': validCatalogNumber },
         }).then(res => {
           expect(res).toBeTruthy()
+          expect(res.data).toBeTruthy()
+          expect(Array.isArray(res.data)).toBe(true)
+          expect(res.data.length > 0).toBe(true)
         })
       })
 
@@ -389,6 +389,9 @@ describe('individualGroup', () => {
           },
         }).then(res => {
           expect(res).toBeTruthy()
+          expect(res.data).toBeTruthy()
+          expect(Array.isArray(res.data)).toBe(true)
+          expect(res.data.length > 0).toBe(true)
         })
       })
       it('Succeed with fetching full form example', () => {
@@ -401,6 +404,9 @@ describe('individualGroup', () => {
           },
         }).then(res => {
           expect(res).toBeTruthy()
+          expect(res.data).toBeTruthy()
+          expect(Array.isArray(res.data)).toBe(true)
+          expect(res.data.length > 0).toBe(true)
         })
       })
     })
@@ -409,19 +415,20 @@ describe('individualGroup', () => {
       it('Succeed with valid identifiedTaxonNameStandardized', () => {
         return makeTestCall({
           authToken,
-          body: updateValidIndividualGroup,
           operationId: 'getIndividualGroups',
           queryParams: {
             'filter[identifiedTaxonNameStandardized]': validTaxonName,
           },
         }).then(res => {
           expect(res).toBeTruthy()
+          expect(res.data).toBeTruthy()
+          expect(Array.isArray(res.data)).toBe(true)
+          expect(res.data.length > 0).toBe(true)
         })
       })
       it('Succeed with valid identifiedTaxonNameStandardized and includes', () => {
         return makeTestCall({
           authToken,
-          body: updateValidIndividualGroup,
           operationId: 'getIndividualGroups',
           queryParams: {
             'filter[identifiedTaxonNameStandardized]': validTaxonName,
@@ -429,6 +436,9 @@ describe('individualGroup', () => {
           },
         }).then(res => {
           expect(res).toBeTruthy()
+          expect(res.data).toBeTruthy()
+          expect(Array.isArray(res.data)).toBe(true)
+          expect(res.data.length > 0).toBe(true)
         })
       })
     })
