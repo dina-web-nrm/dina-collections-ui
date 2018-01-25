@@ -100,7 +100,7 @@ class AccordionItem extends Component {
           event.preventDefault()
           setAccordionActiveIndex({
             accordion: 'determinations',
-            activeIndex: index,
+            activeIndex: active ? -1 : index,
           })
         }}
       >
