@@ -1,7 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { capitalizeFirstLetter, getTranslationByPath } from '../utilities'
+import {
+  capitalizeFirstLetter,
+  getTranslationByPath,
+  outputIsATextKey,
+} from '../utilities'
 
 const contextTypes = {
   language: PropTypes.string.isRequired,
@@ -35,15 +39,12 @@ const Translate = (
 
   const output =
     capitalize && translation ? capitalizeFirstLetter(translation) : translation
-  if (!output) {
+
+  if (!output || outputIsATextKey({ output, textKey, textKeys })) {
     console.warn(`Translation not found for path: ${textKey}`, translations) // eslint-disable-line no-console
   }
 
-  if (
-    fallback &&
-    (output === textKey ||
-      (output && textKeys && textKeys[0] && output.indexOf(textKeys[0]) > -1)) // enough to check the first textKey
-  ) {
+  if (outputIsATextKey({ output, textKey, textKeys }) && fallback) {
     return <span>{fallback}</span>
   }
 
