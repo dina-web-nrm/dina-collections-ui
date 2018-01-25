@@ -1,15 +1,21 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Grid, Segment } from 'semantic-ui-react'
 
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Checkbox, Field, Input } from 'coreModules/form/components'
+import { pathBuilder } from 'coreModules/form/higherOrderComponents'
 
 const buildModuleTextKey = textKey => `modules.collectionMammals.${textKey}`
 const ModuleTranslate = createModuleTranslate('collectionMammals', {
   scope: 'catalogedUnit',
 })
 
-export default () => {
+const propTypes = {
+  getPath: PropTypes.func.isRequired,
+}
+
+const SegmentCatalogedUnit = ({ getPath }) => {
   return (
     <Segment color="green">
       <Grid textAlign="left" verticalAlign="top">
@@ -30,7 +36,7 @@ export default () => {
             helpText={<ModuleTranslate textKey="sixOrEightDigits" />}
             label={<ModuleTranslate textKey="catalogNumber" />}
             module="collectionMammals"
-            name="physicalUnits[0].catalogedUnit.catalogNumber"
+            name={getPath('catalogNumber')}
             type="text"
           />
         </Grid.Column>
@@ -41,7 +47,7 @@ export default () => {
             disabled
             label={<ModuleTranslate textKey="storedUnderTaxonName" />}
             module="collectionMammals"
-            name="physicalUnits[0].catalogedUnit.storedUnderTaxonName"
+            name={getPath('storedUnderTaxonName')}
             type="text"
           />
         </Grid.Column>
@@ -51,7 +57,7 @@ export default () => {
             component={Checkbox}
             label={<ModuleTranslate textKey="isPublic" />}
             module="collectionMammals"
-            name="physicalUnits[0].catalogedUnit.publishRecord"
+            name={getPath('publishRecord')}
             type="checkbox"
           />
         </Grid.Column>
@@ -59,3 +65,9 @@ export default () => {
     </Segment>
   )
 }
+
+SegmentCatalogedUnit.propTypes = propTypes
+
+export default pathBuilder({ name: 'physicalUnits.0.catalogedUnit' })(
+  SegmentCatalogedUnit
+)

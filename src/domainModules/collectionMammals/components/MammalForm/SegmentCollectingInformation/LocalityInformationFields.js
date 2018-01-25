@@ -5,8 +5,8 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 
 import { Field, Input } from 'coreModules/form/components'
-import { fieldNamePathFactory } from 'coreModules/form/utilities'
 import { withI18n } from 'coreModules/i18n/higherOrderComponents'
+import { pathBuilder } from 'coreModules/form/higherOrderComponents'
 
 import { CONTINENTS, COUNTRIES, DISTRICTS, PROVINCES } from '../../../constants'
 import globalSelectors from '../../../globalSelectors'
@@ -15,29 +15,22 @@ import updateLocalityInformationSearchQueryAC from '../../../actionCreators/upda
 
 const buildModuleTextKey = textKey =>
   `modules.collectionMammals.occurrences.localityInformation.${textKey}`
-const buildOccurrencePath = fieldNamePathFactory(
-  'occurrences',
-  'localityInformation'
-)
 
 const mapDispatchToProps = {
   updateLocalityInformationSearchQuery: updateLocalityInformationSearchQueryAC,
 }
 
 const propTypes = {
+  getPath: PropTypes.func.isRequired,
   i18n: PropTypes.shape({
     moduleTranslate: PropTypes.func.isRequired,
   }).isRequired,
-  index: PropTypes.number,
   updateLocalityInformationSearchQuery: PropTypes.func.isRequired,
-}
-const defaultProps = {
-  index: 0,
 }
 
 function LocalityInformationFields({
+  getPath,
   i18n: { moduleTranslate },
-  index,
   updateLocalityInformationSearchQuery,
 }) {
   return (
@@ -52,7 +45,7 @@ function LocalityInformationFields({
           }}
           label={moduleTranslate({ textKey: 'localityVerbatim' })}
           module="collectionMammals"
-          name={buildOccurrencePath('localityVerbatim', index)}
+          name={getPath('localityVerbatim')}
           type="text"
         />
       </Grid.Column>
@@ -71,7 +64,7 @@ function LocalityInformationFields({
             initialText={moduleTranslate({ textKey: 'choose' })}
             label={moduleTranslate({ textKey: 'continentStandardized' })}
             module="collectionMammals"
-            name={buildOccurrencePath('continentStandardized', index)}
+            name={getPath('continentStandardized')}
             options={CONTINENTS}
             updateSearchQuery={updateLocalityInformationSearchQuery}
           />
@@ -90,7 +83,7 @@ function LocalityInformationFields({
             initialText={moduleTranslate({ textKey: 'choose' })}
             label={moduleTranslate({ textKey: 'countryStandardized' })}
             module="collectionMammals"
-            name={buildOccurrencePath('countryStandardized', index)}
+            name={getPath('countryStandardized')}
             options={COUNTRIES}
             updateSearchQuery={updateLocalityInformationSearchQuery}
           />
@@ -109,7 +102,7 @@ function LocalityInformationFields({
             initialText={moduleTranslate({ textKey: 'choose' })}
             label={moduleTranslate({ textKey: 'provinceStandardized' })}
             module="collectionMammals"
-            name={buildOccurrencePath('provinceStandardized', index)}
+            name={getPath('provinceStandardized')}
             options={PROVINCES}
             updateSearchQuery={updateLocalityInformationSearchQuery}
           />
@@ -128,7 +121,7 @@ function LocalityInformationFields({
             initialText={moduleTranslate({ textKey: 'choose' })}
             label={moduleTranslate({ textKey: 'districtStandardized' })}
             module="collectionMammals"
-            name={buildOccurrencePath('districtStandardized', index)}
+            name={getPath('districtStandardized')}
             options={DISTRICTS}
             updateSearchQuery={updateLocalityInformationSearchQuery}
           />
@@ -146,7 +139,7 @@ function LocalityInformationFields({
           }}
           label={moduleTranslate({ textKey: 'localityStandardized' })}
           module="collectionMammals"
-          name={buildOccurrencePath('localityStandardized', index)}
+          name={getPath('localityStandardized')}
           type="text"
         />
       </Grid.Column>
@@ -160,7 +153,7 @@ function LocalityInformationFields({
           }}
           label={moduleTranslate({ textKey: 'coordinatesVerbatim' })}
           module="collectionMammals"
-          name={buildOccurrencePath('coordinatesVerbatim', index)}
+          name={getPath('coordinatesVerbatim')}
           type="text"
         />
       </Grid.Column>
@@ -177,7 +170,7 @@ function LocalityInformationFields({
             }}
             label={moduleTranslate({ textKey: 'latitudeStandardized' })}
             module="collectionMammals"
-            name={buildOccurrencePath('latitudeStandardized', index)}
+            name={getPath('latitudeStandardized')}
             type="text"
           />
         </Grid.Column>
@@ -193,7 +186,7 @@ function LocalityInformationFields({
             }}
             label={moduleTranslate({ textKey: 'longitudeStandardized' })}
             module="collectionMammals"
-            name={buildOccurrencePath('longitudeStandardized', index)}
+            name={getPath('longitudeStandardized')}
             type="text"
           />
         </Grid.Column>
@@ -213,7 +206,7 @@ function LocalityInformationFields({
               textKey: 'coordinateUncertaintyInMeters',
             })}
             module="collectionMammals"
-            name={buildOccurrencePath('coordinateUncertaintyInMeters', index)}
+            name={getPath('coordinateUncertaintyInMeters')}
             type="text"
           />
         </Grid.Column>
@@ -231,7 +224,7 @@ function LocalityInformationFields({
             }}
             label={moduleTranslate({ textKey: 'geodeticDatumStandardized' })}
             module="collectionMammals"
-            name={buildOccurrencePath('geodeticDatumStandardized', index)}
+            name={getPath('geodeticDatumStandardized')}
             type="text"
           />
         </Grid.Column>
@@ -248,7 +241,7 @@ function LocalityInformationFields({
           }}
           label={moduleTranslate({ textKey: 'georeferenceSourcesText' })}
           module="collectionMammals"
-          name={buildOccurrencePath('georeferenceSourcesText', index)}
+          name={getPath('georeferenceSourcesText')}
           type="text"
         />
       </Grid.Column>
@@ -267,7 +260,7 @@ function LocalityInformationFields({
             }}
             label={moduleTranslate({ textKey: 'minimumElevationInMeters' })}
             module="collectionMammals"
-            name={buildOccurrencePath('minimumElevationInMeters', index)}
+            name={getPath('minimumElevationInMeters')}
             type="text"
           />
         </Grid.Column>
@@ -285,7 +278,7 @@ function LocalityInformationFields({
             }}
             label={moduleTranslate({ textKey: 'maximumElevationInMeters' })}
             module="collectionMammals"
-            name={buildOccurrencePath('maximumElevationInMeters', index)}
+            name={getPath('maximumElevationInMeters')}
             type="text"
           />
         </Grid.Column>
@@ -303,7 +296,7 @@ function LocalityInformationFields({
             }}
             label={moduleTranslate({ textKey: 'minimumDepthInMeters' })}
             module="collectionMammals"
-            name={buildOccurrencePath('minimumDepthInMeters', index)}
+            name={getPath('minimumDepthInMeters')}
             type="text"
           />
         </Grid.Column>
@@ -319,7 +312,7 @@ function LocalityInformationFields({
             }}
             label={moduleTranslate({ textKey: 'maximumDepthInMeters' })}
             module="collectionMammals"
-            name={buildOccurrencePath('maximumDepthInMeters', index)}
+            name={getPath('maximumDepthInMeters')}
             type="text"
           />
         </Grid.Column>
@@ -334,7 +327,7 @@ function LocalityInformationFields({
           }}
           label={moduleTranslate({ textKey: 'localityRemarks' })}
           module="collectionMammals"
-          name={buildOccurrencePath('localityRemarks', index)}
+          name={getPath('localityRemarks')}
           type="text"
         />
       </Grid.Column>
@@ -343,12 +336,12 @@ function LocalityInformationFields({
 }
 
 LocalityInformationFields.propTypes = propTypes
-LocalityInformationFields.defaultProps = defaultProps
 
 export default compose(
   connect(undefined, mapDispatchToProps),
   withI18n({
     module: 'collectionMammals',
     scope: 'occurrences.localityInformation',
-  })
+  }),
+  pathBuilder({ name: 'localityInformation' })
 )(LocalityInformationFields)

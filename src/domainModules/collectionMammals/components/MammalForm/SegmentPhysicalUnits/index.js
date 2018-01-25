@@ -1,18 +1,21 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Header, Grid, Segment } from 'semantic-ui-react'
 import { Field } from 'redux-form'
 
 import { createModuleTranslate } from 'coreModules/i18n/components'
 import { Input } from 'coreModules/form/components'
-import { fieldNamePathFactory } from 'coreModules/form/utilities'
+import { pathBuilder } from 'coreModules/form/higherOrderComponents'
 
 const ModuleTranslate = createModuleTranslate('collectionMammals', {
   scope: 'physicalUnit',
 })
 
-const buildPath = fieldNamePathFactory('physicalUnits')
+const propTypes = {
+  getPath: PropTypes.func.isRequired,
+}
 
-export default () => {
+const SegmentPhysicalUnits = ({ getPath }) => {
   return (
     <Segment color="green">
       <Header size="medium">
@@ -30,7 +33,7 @@ export default () => {
               />
             }
             module="collectionMammals"
-            name={buildPath('physicalUnitText')}
+            name={getPath('physicalUnitText')}
             type="text"
           />
         </Grid.Column>
@@ -45,7 +48,7 @@ export default () => {
               />
             }
             module="collectionMammals"
-            name={buildPath('normalStorageLocationText')}
+            name={getPath('normalStorageLocationText')}
             type="text"
           />
         </Grid.Column>
@@ -60,7 +63,7 @@ export default () => {
               />
             }
             module="collectionMammals"
-            name={buildPath('alternateIdentifiersText')}
+            name={getPath('alternateIdentifiersText')}
             type="text"
           />
         </Grid.Column>
@@ -68,3 +71,9 @@ export default () => {
     </Segment>
   )
 }
+
+SegmentPhysicalUnits.propTypes = propTypes
+
+export default pathBuilder({
+  name: 'physicalUnits.0',
+})(SegmentPhysicalUnits)
