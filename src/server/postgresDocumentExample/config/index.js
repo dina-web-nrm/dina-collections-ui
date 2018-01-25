@@ -25,7 +25,7 @@ module.exports = function createConfig() {
   }
 
   const log = {
-    db: true,
+    db: false,
     error: true,
     incomingRequest: false,
     outgoingResponse: false,

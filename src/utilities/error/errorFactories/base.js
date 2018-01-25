@@ -1,7 +1,6 @@
 const { ERROR_CODES } = require('../constants')
 
 const createErrorMessageFromError = error => {
-  console.log('error', JSON.stringify(error, null, 2))
   if (Array.isArray(error)) {
     return `${error[0].errorCode} - ${error[0].fullPath}`
   }
