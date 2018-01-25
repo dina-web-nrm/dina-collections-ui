@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+const diff = require('deep-diff').diff
 
 const validateInput = ({ data, pathParams }) => {
   if (!pathParams || !pathParams.id) {
@@ -50,9 +51,9 @@ module.exports = function updateIndividualGroup({ sequelize }) {
     validateInput({ data, pathParams })
 
     return models.IndividualGroup.findOne({
-      order: [['id', 'DESC']],
+      order: [['versionId', 'DESC']],
       where: {
-        documentId: pathParams.id,
+        id: pathParams.id,
       },
     }).then(individualGroup => {
       if (!individualGroup) {
@@ -63,9 +64,11 @@ module.exports = function updateIndividualGroup({ sequelize }) {
         throw error
       }
       const newVersionIndividualGroup = individualGroup.get()
-      delete newVersionIndividualGroup.id
-      newVersionIndividualGroup.document = transformInput(data)
-      console.log('newVersionIndividualGroup', newVersionIndividualGroup)
+      delete newVersionIndividualGroup.versionId
+      const newDocument = transformInput(data)
+      const difference = diff(newVersionIndividualGroup.document, newDocument)
+      newVersionIndividualGroup.document = newDocument
+      newVersionIndividualGroup.diff = difference
       return models.IndividualGroup.create(newVersionIndividualGroup).then(
         result => {
           return tranformOutput(result)
