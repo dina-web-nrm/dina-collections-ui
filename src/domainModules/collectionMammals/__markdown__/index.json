@@ -1,0 +1,12 @@
+{
+  "occurrences": {
+    "localityInformation": {
+      "helpTexts": {
+        "localityVerbatim": {
+          "en": "<p>Verbatim locality names and description, as in the original source, typos and all.</p>\n",
+          "sv": "<p>Verbatim namn och beskrivning av lokalitet, så som i originalkällan, med stavfel och allt.</p>\n"
+        }
+      }
+    }
+  }
+}

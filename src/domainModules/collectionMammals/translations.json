@@ -224,10 +224,6 @@
           "en": "Locality name(s) which don’t fit to other fields. E.g. detailed place or water body (e.g. “Frescati” or “Baltic sea”)",
           "sv": ""
         },
-        "localityVerbatim": {
-          "en": "Verbatim locality names and description, as in the original source, typos and all.",
-          "sv": ""
-        },
         "longitudeStandardized": {
           "en": "Longitude or easting. Use negative number or letter W for coordinates on western hemisphere.",
           "sv": ""
