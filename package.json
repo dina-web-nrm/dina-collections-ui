@@ -40,6 +40,7 @@
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
     "debug": "^3.1.0",
+    "deep-diff": "^0.3.8",
     "dina-schema": "https://github.com/DINA-Web/dina-schema.git#master",
     "dns": "file:./src/mock/dns",
     "dotenv": "^4.0.0",
