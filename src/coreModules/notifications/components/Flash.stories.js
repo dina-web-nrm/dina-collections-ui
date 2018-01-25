@@ -33,10 +33,10 @@ storiesOf('coreModules/notifications/Flash', module)
           <FlashWithI18n
             descriptionKey="descriptionKey"
             headerKey="headerKey"
+            level="info"
             removeNotification={action('removeNotification')}
             sequentialId={1}
             showShortcutInfo
-            style="info"
           />
         )
       }
@@ -50,10 +50,10 @@ storiesOf('coreModules/notifications/Flash', module)
           <FlashWithI18n
             descriptionKey="descriptionKey"
             headerKey="headerKey"
+            level="error"
             removeNotification={action('removeNotification')}
             sequentialId={1}
             showShortcutInfo
-            style="error"
           />
         )
       }
@@ -67,10 +67,10 @@ storiesOf('coreModules/notifications/Flash', module)
           <FlashWithI18n
             descriptionKey="descriptionKey"
             headerKey="headerKey"
+            level="success"
             removeNotification={action('removeNotification')}
             sequentialId={1}
             showShortcutInfo
-            style="success"
           />
         )
       }
@@ -84,10 +84,10 @@ storiesOf('coreModules/notifications/Flash', module)
           <FlashWithI18n
             descriptionKey="descriptionKey"
             headerKey="headerKey"
+            level="warning"
             removeNotification={action('removeNotification')}
             sequentialId={1}
             showShortcutInfo
-            style="warning"
           />
         )
       }

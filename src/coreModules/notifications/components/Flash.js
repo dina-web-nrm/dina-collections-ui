@@ -6,20 +6,23 @@ import { withI18n } from 'coreModules/i18n/higherOrderComponents'
 
 const propTypes = {
   descriptionKey: PropTypes.string,
+  descriptionParams: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   headerKey: PropTypes.string,
+  headerParams: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   i18n: PropTypes.shape({
     translate: PropTypes.func.isRequired,
   }).isRequired,
+  level: PropTypes.oneOf(['error', 'info', 'success', 'warning']),
   removeNotification: PropTypes.func.isRequired,
   sequentialId: PropTypes.number.isRequired,
-  // TODO rename style. Style is a reserved prop
-  style: PropTypes.oneOf(['error', 'info', 'success', 'warning']),
   ttl: PropTypes.number,
 }
 const defaultProps = {
   descriptionKey: undefined,
+  descriptionParams: undefined,
   headerKey: undefined,
-  style: 'info',
+  headerParams: undefined,
+  level: 'info',
   ttl: undefined,
 }
 
@@ -44,24 +47,31 @@ export class Flash extends Component {
   render() {
     const {
       descriptionKey,
+      descriptionParams,
       headerKey,
+      headerParams,
+      level,
       removeNotification,
       sequentialId,
       i18n: { translate },
-      style,
     } = this.props
 
     return (
       <Message
         className="flash"
-        content={descriptionKey && translate({ textKey: descriptionKey })}
-        error={style === 'error'}
-        header={headerKey && translate({ textKey: headerKey })}
-        info={style === 'info'}
+        content={
+          descriptionKey &&
+          translate({ params: descriptionParams, textKey: descriptionKey })
+        }
+        error={level === 'error'}
+        header={
+          headerKey && translate({ params: headerParams, textKey: headerKey })
+        }
+        info={level === 'info'}
         onClick={() => removeNotification({ sequentialId })}
         onDismiss={() => removeNotification({ sequentialId })}
-        success={style === 'success'}
-        warning={style === 'warning'}
+        success={level === 'success'}
+        warning={level === 'warning'}
       />
     )
   }

@@ -22,6 +22,14 @@
     }
   },
   "determination": {
+    "addDetermination": {
+      "en": "Add determination",
+      "sv": "Lägg till bestämning"
+    },
+    "cancel": {
+      "en": "Cancel",
+      "sv": "Avbryt"
+    },
     "copy": {
       "en": "Copy",
       "sv": "Kopiera"
@@ -42,6 +50,10 @@
       "en": "Determined by",
       "sv": "Bestämd av"
     },
+    "emptyDetermination": {
+      "en": "Empty determination",
+      "sv": "Tom bestämning"
+    },
     "identificationText": {
       "en": "Taxon name, determiner, determination date, etc.",
       "sv": "Taxonnamn, bestämmare, bestämningsdatum, etc."
@@ -50,9 +62,25 @@
       "en": "Is current",
       "sv": "Är aktuell"
     },
+    "nowThisDeterminationCurrent": {
+      "en": "Now only this determination is marked as current.",
+      "sv": "Nu är endast denna bestämning markerad som aktuell."
+    },
+    "remove": {
+      "en": "Remove",
+      "sv": "Ta bort"
+    },
+    "removeThisDetermination": {
+      "en": "Remove this determination?",
+      "sv": "Ta bort denna bestämning?"
+    },
     "verbatimTaxonName": {
       "en": "Verbatim taxon name",
       "sv": "Verbatim taxonnamn"
+    },
+    "warningChangedDetermination": {
+      "en": "Warning: Another determination \"{{taxonName}}\" was already marked as current.",
+      "sv": "Varning: En annan bestämning \"{{taxonName}}\" var redan markerad som aktuell."
     }
   },
   "individualGroup": {

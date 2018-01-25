@@ -1,9 +1,10 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, prefer-destructuring */
 import React from 'react'
 import setupTestComponent from 'utilities/test/setupTestComponent'
 import simulateFormFieldChanges from 'utilities/test/simulateFormFieldChanges'
 import MammalForm from 'domainModules/collectionMammals/components/MammalForm'
 import transformOutput from './transformations/output'
+import { dep } from '../../middleware'
 
 describe('domainModules/collectionMammals/components/MammalForm', () => {
   let handleFormSubmit
@@ -28,6 +29,217 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     })
 
     expect(store.getState().form.mammalForm).toBeTruthy()
+  })
+
+  it('Is initialized with empty identification', () => {
+    const { store } = setupTestComponent({
+      component: <MammalForm handleFormSubmit={handleFormSubmit} />,
+      fullExport: true,
+      mount: true,
+    })
+
+    expect(store.getState().form.mammalForm.values.identifications).toBeTruthy()
+    expect(store.getState().form.mammalForm.values.identifications.length).toBe(
+      1
+    )
+  })
+
+  it('adds empty identification in transformOutput, if all identifications have been removed', () => {
+    const { store, rootComponent } = setupTestComponent({
+      component: <MammalForm handleFormSubmit={handleFormSubmit} />,
+      fullExport: true,
+      mount: true,
+    })
+
+    expect(store.getState().form.mammalForm.values.identifications.length).toBe(
+      1
+    )
+
+    const removeDeterminationButton = rootComponent
+      .find('Accordion')
+      .find('Button')
+      .at(1)
+    removeDeterminationButton.simulate('click')
+
+    // all identifications removed
+    expect(store.getState().form.mammalForm.values.identifications.length).toBe(
+      0
+    )
+
+    const form = rootComponent.find('form')
+    // required for successful submit
+    simulateFormFieldChanges(form, [
+      {
+        name: 'physicalUnits[0].catalogedUnit.catalogNumber',
+        value: '123456',
+      },
+    ])
+    form.simulate('submit')
+
+    const { submitFailed, values } = store.getState().form.mammalForm
+    const output = transformOutput(values)
+    // should now have empty identification
+    expect(output.individualGroup.identifications.length).toBe(1)
+    expect(Object.keys(output.individualGroup.identifications[0]).length).toBe(
+      0
+    )
+    expect(submitFailed).toBe(undefined)
+  })
+
+  it('adds empty identifications when clicking "Add determination"', () => {
+    const { store, rootComponent } = setupTestComponent({
+      component: <MammalForm handleFormSubmit={handleFormSubmit} />,
+      fullExport: true,
+      mount: true,
+    })
+
+    expect(store.getState().form.mammalForm.values.identifications.length).toBe(
+      1
+    )
+
+    const addDeterminationButton = rootComponent
+      .find('Segment')
+      .at(1)
+      .find('Button')
+      .at(2)
+
+    addDeterminationButton.simulate('click')
+    addDeterminationButton.simulate('click')
+    addDeterminationButton.simulate('click')
+
+    expect(store.getState().form.mammalForm.values.identifications.length).toBe(
+      4
+    )
+  })
+
+  it('sets other identifications as not current when setting one as current', () => {
+    const { store, rootComponent } = setupTestComponent({
+      component: <MammalForm handleFormSubmit={handleFormSubmit} />,
+      fullExport: true,
+      mount: true,
+    })
+
+    expect(store.getState().form.mammalForm.values.identifications.length).toBe(
+      1
+    )
+
+    const addDeterminationButton = rootComponent
+      .find('Segment')
+      .at(1)
+      .find('Button')
+      .at(2)
+
+    addDeterminationButton.simulate('click')
+    addDeterminationButton.simulate('click')
+
+    expect(store.getState().form.mammalForm.values.identifications.length).toBe(
+      3
+    )
+
+    let { identifications } = store.getState().form.mammalForm.values
+    expect(identifications[0].isCurrentIdentification).toBeFalsy()
+    expect(identifications[1].isCurrentIdentification).toBeFalsy()
+    expect(identifications[2].isCurrentIdentification).toBeFalsy()
+
+    const checkbox1 = rootComponent
+      .find('[name="identifications[0].isCurrentIdentification"]')
+      .find('Checkbox')
+    const checkbox2 = rootComponent
+      .find('[name="identifications[1].isCurrentIdentification"]')
+      .find('Checkbox')
+    const checkbox3 = rootComponent
+      .find('[name="identifications[2].isCurrentIdentification"]')
+      .find('Checkbox')
+
+    // check first box
+    checkbox1.simulate('click')
+    identifications = store.getState().form.mammalForm.values.identifications
+    expect(identifications[0].isCurrentIdentification).toBe(true)
+    expect(identifications[1].isCurrentIdentification).toBeFalsy()
+    expect(identifications[2].isCurrentIdentification).toBeFalsy()
+
+    // check second box, first should be unchecked
+    checkbox2.simulate('click')
+    identifications = store.getState().form.mammalForm.values.identifications
+    expect(identifications[0].isCurrentIdentification).toBeFalsy()
+    expect(identifications[1].isCurrentIdentification).toBe(true)
+    expect(identifications[2].isCurrentIdentification).toBeFalsy()
+
+    // check third box, second should be unchecked
+    checkbox3.simulate('click')
+    identifications = store.getState().form.mammalForm.values.identifications
+    expect(identifications[0].isCurrentIdentification).toBeFalsy()
+    expect(identifications[1].isCurrentIdentification).toBeFalsy()
+    expect(identifications[2].isCurrentIdentification).toBe(true)
+
+    // uncheck third box
+    checkbox3.simulate('click')
+    identifications = store.getState().form.mammalForm.values.identifications
+    expect(identifications[0].isCurrentIdentification).toBeFalsy()
+    expect(identifications[1].isCurrentIdentification).toBeFalsy()
+    expect(identifications[2].isCurrentIdentification).toBe(false)
+  })
+
+  describe('with Dependor', () => {
+    let mockCreateNotification
+    beforeEach(() => {
+      mockCreateNotification = jest.fn()
+      dep.freeze()
+
+      dep.mock({
+        createNotification: () => {
+          return mockCreateNotification
+        },
+      })
+    })
+
+    afterEach(() => {
+      dep.reset()
+    })
+
+    it('creates notification when setting current identification if other was previously set as current', () => {
+      const { store, rootComponent } = setupTestComponent({
+        component: <MammalForm handleFormSubmit={handleFormSubmit} />,
+        fullExport: true,
+        mount: true,
+      })
+
+      expect(
+        store.getState().form.mammalForm.values.identifications.length
+      ).toBe(1)
+
+      const addDeterminationButton = rootComponent
+        .find('Segment')
+        .at(1)
+        .find('Button')
+        .at(2)
+
+      addDeterminationButton.simulate('click')
+
+      let { identifications } = store.getState().form.mammalForm.values
+      expect(identifications[0].isCurrentIdentification).toBeFalsy()
+      expect(identifications[1].isCurrentIdentification).toBeFalsy()
+
+      const checkbox1 = rootComponent
+        .find('[name="identifications[0].isCurrentIdentification"]')
+        .find('Checkbox')
+      const checkbox2 = rootComponent
+        .find('[name="identifications[1].isCurrentIdentification"]')
+        .find('Checkbox')
+
+      // check first box
+      checkbox1.simulate('click')
+      identifications = store.getState().form.mammalForm.values.identifications
+      expect(identifications[0].isCurrentIdentification).toBe(true)
+      expect(identifications[1].isCurrentIdentification).toBeFalsy()
+
+      // check second box, first should be unchecked and createNotification dispatched
+      checkbox2.simulate('click')
+      identifications = store.getState().form.mammalForm.values.identifications
+      expect(identifications[0].isCurrentIdentification).toBeFalsy()
+      expect(identifications[1].isCurrentIdentification).toBe(true)
+      expect(mockCreateNotification.mock.calls.length).toBe(1)
+    })
   })
 
   it('Submit fail when catalog number not provided', () => {

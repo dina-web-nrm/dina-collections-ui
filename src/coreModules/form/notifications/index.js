@@ -1,6 +1,11 @@
 import { LOCATION_CHANGE } from 'react-router-redux'
 import { SIZE_SET_BREAKPOINT } from 'coreModules/size/actionTypes'
-import { COLLISION_REPLACE, INLINE } from 'coreModules/notifications/constants'
+import { Flash } from 'coreModules/notifications/components'
+import {
+  COLLISION_REPLACE,
+  FIXED,
+  INLINE,
+} from 'coreModules/notifications/constants'
 import HelpTextNotification from '../components/HelpTextNotification'
 
 const fieldHelpTextDefaults = {
@@ -16,4 +21,15 @@ const HELP_TEXT = {
   ...fieldHelpTextDefaults,
 }
 
-export { HELP_TEXT }
+const FIELD_CHANGE_WARNING = {
+  collision: COLLISION_REPLACE,
+  component: Flash,
+  displayType: FIXED,
+  level: 'warning',
+  priority: 10,
+  terminateActions: [LOCATION_CHANGE],
+  ttl: 8000,
+  type: 'FIELD_CHANGE_WARNING',
+}
+
+export { FIELD_CHANGE_WARNING, HELP_TEXT }

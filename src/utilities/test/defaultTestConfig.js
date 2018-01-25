@@ -28,6 +28,7 @@ export default function createConfig() {
           size: 'large',
         },
       ],
+      currentBreakpoint: { size: 'large' },
     },
   }
 }

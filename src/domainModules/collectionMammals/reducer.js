@@ -6,6 +6,7 @@ import {
   COLLECTION_MAMMALS_LOOKUP_MAMMALS_FAIL,
   COLLECTION_MAMMALS_LOOKUP_MAMMALS_SUCCESS,
   COLLECTION_MAMMALS_REGISTER_NEW_MAMMAL_SUCCESS,
+  COLLECTION_MAMMALS_SET_ACCORDION_ACTIVE_INDEX,
   COLLECTION_MAMMALS_UPDATE_FEATURE_TYPE_NAME_SEARCH_QUERY,
   COLLECTION_MAMMALS_UPDATE_INDIVIDUAL_GROUP_SUCCESS,
   COLLECTION_MAMMALS_UPDATE_LOCALITY_INFORMATION_SEARCH_QUERY,
@@ -18,6 +19,7 @@ const getLookupSearch = createGetter(['lookup', 'search'])
 const setLookupSearch = createSetter(['lookup', 'search'])
 
 const initialState = {
+  accordion: {},
   featureTypeNameSearchQueries: {},
   individualGroups: {},
   localityInformationSearchQueries: {},
@@ -54,6 +56,16 @@ export default function reducer(state = initialState, action) {
     case COLLECTION_MAMMALS_LOOKUP_MAMMALS_SUCCESS: {
       const emptyErrorState = setLookupError(state, [])
       return setLookupResult(emptyErrorState, action.payload.data)
+    }
+
+    case COLLECTION_MAMMALS_SET_ACCORDION_ACTIVE_INDEX: {
+      return {
+        ...state,
+        accordion: {
+          ...state.accordion,
+          [action.payload.accordion]: action.payload.activeIndex,
+        },
+      }
     }
 
     case COLLECTION_MAMMALS_UPDATE_FEATURE_TYPE_NAME_SEARCH_QUERY: {
