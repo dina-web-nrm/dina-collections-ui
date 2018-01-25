@@ -29,6 +29,7 @@ const propTypes = {
     })
   ).isRequired,
   isSmallScreen: PropTypes.bool.isRequired,
+  mode: PropTypes.oneOf(['edit', 'register']).isRequired,
   removeArrayFieldByIndex: PropTypes.func.isRequired,
   // for testing purposes, to bypass popup that is not possible (?) to select in enzyme
   requireRemoveDeterminationConfirmation: PropTypes.bool,
@@ -41,22 +42,13 @@ const defaultProps = {
 }
 
 class AccordionWrapper extends Component {
-  componentWillReceiveProps(nextProps) {
-    // on first load, set current determination, if any, as active
-    if (
-      nextProps.identifications &&
-      this.props.activeIndex === undefined &&
-      nextProps.activeIndex === undefined
-    ) {
-      const { identifications, setAccordionActiveIndex } = nextProps
-
-      const activeIndex = identifications.findIndex(
-        ({ isCurrentIdentification }) => isCurrentIdentification
-      )
-
-      if (activeIndex > -1) {
-        setAccordionActiveIndex({ accordion: 'determinations', activeIndex })
-      }
+  componentWillMount() {
+    // collapse all in edit mode
+    if (this.props.mode === 'edit') {
+      this.props.setAccordionActiveIndex({
+        accordion: 'determinations',
+        activeIndex: -1,
+      })
     }
   }
 

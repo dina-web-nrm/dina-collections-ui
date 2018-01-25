@@ -50,10 +50,6 @@
       "en": "Determined by",
       "sv": "Bestämd av"
     },
-    "emptyDetermination": {
-      "en": "Empty determination",
-      "sv": "Tom bestämning"
-    },
     "identificationText": {
       "en": "Taxon name, determiner, determination date, etc.",
       "sv": "Taxonnamn, bestämmare, bestämningsdatum, etc."

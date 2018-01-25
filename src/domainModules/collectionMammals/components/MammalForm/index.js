@@ -77,6 +77,7 @@ const propTypes = {
   individualGroupId: PropTypes.number,
   initialize: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
+  mode: PropTypes.oneOf(['edit', 'register']),
   pristine: PropTypes.bool.isRequired,
   push: PropTypes.func.isRequired,
   redirectOnSuccess: PropTypes.bool,
@@ -94,6 +95,7 @@ const defaultProps = {
   error: '',
   individualGroupAttributes: undefined,
   individualGroupId: undefined,
+  mode: 'register',
   redirectOnSuccess: false,
   schemaErrors: [],
 }
@@ -160,6 +162,7 @@ class RawMammalForm extends Component {
       error,
       handleSubmit,
       invalid,
+      mode,
       pristine,
       reset,
       schemaErrors,
@@ -179,6 +182,7 @@ class RawMammalForm extends Component {
         <SegmentDeterminations
           changeFieldValue={this.changeFieldValue}
           formValueSelector={formValueSelector}
+          mode={mode}
           removeArrayFieldByIndex={this.removeArrayFieldByIndex}
         />
         <SegmentCollectingInformation formValueSelector={formValueSelector} />

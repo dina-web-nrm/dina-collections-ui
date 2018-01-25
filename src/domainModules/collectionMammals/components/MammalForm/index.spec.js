@@ -306,16 +306,16 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         value: 'Sorex minutus',
       },
       {
-        name: 'identifications[0].identificationRemarks',
-        value: 'some remarks',
-      },
-      {
         name: 'identifications[0].identifiedByAgentText',
         value: 'Doe, J.',
       },
       {
         name: 'identifications[0].identifiedDateText',
         value: 'Date text',
+      },
+      {
+        name: 'identifications[0].identificationRemarks',
+        value: 'some remarks',
       },
       {
         name: 'occurrences[0].localityInformation.localityVerbatim',
