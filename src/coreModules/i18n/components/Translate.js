@@ -9,11 +9,13 @@ import {
 
 const contextTypes = {
   language: PropTypes.string.isRequired,
+  markdown: PropTypes.object.isRequired,
   translations: PropTypes.object.isRequired,
 }
 const propTypes = {
   capitalize: PropTypes.bool,
   fallback: PropTypes.string,
+  fallbackLanguage: PropTypes.string,
   params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   textKey: PropTypes.string,
   textKeys: PropTypes.arrayOf(PropTypes.string),
@@ -21,15 +23,31 @@ const propTypes = {
 const defaultProps = {
   capitalize: false,
   fallback: undefined,
+  fallbackLanguage: undefined,
+
   params: null,
   textKey: '',
   textKeys: [],
 }
 
 const Translate = (
-  { capitalize, fallback, params, textKey, textKeys },
-  { language, translations }
+  { capitalize, fallback, fallbackLanguage, params, textKey, textKeys },
+  { language, markdown, translations }
 ) => {
+  const markdownOutput = getTranslationByPath(markdown, {
+    fallbackLanguage,
+    language,
+    textKey,
+    textKeys,
+  })
+
+  if (
+    markdownOutput &&
+    !outputIsATextKey({ output: markdownOutput, textKey, textKeys })
+  ) {
+    return <div dangerouslySetInnerHTML={{ __html: markdownOutput }} /> // eslint-disable-line react/no-danger
+  }
+
   const translation = getTranslationByPath(translations, {
     language,
     params,
