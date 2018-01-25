@@ -65,7 +65,7 @@ const SegmentDeterminations = ({
           <Button
             onClick={event => {
               event.preventDefault()
-              changeFieldValue(`identifications[${identifications.length}]`, {})
+              changeFieldValue(`identifications.${identifications.length}`, {})
               setAccordionActiveIndex({
                 accordion: 'determinations',
                 activeIndex: identifications.length,

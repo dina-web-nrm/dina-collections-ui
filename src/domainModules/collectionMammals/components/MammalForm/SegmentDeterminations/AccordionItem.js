@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { compose } from 'redux'
 import { Accordion, Button, Grid, Icon, Popup } from 'semantic-ui-react'
 
 import { withI18n } from 'coreModules/i18n/higherOrderComponents'
-import { fieldNamePathFactory } from 'coreModules/form/utilities'
 import {
   ButtonCopyPasteField,
   Checkbox,
@@ -11,13 +11,13 @@ import {
   Input,
 } from 'coreModules/form/components'
 import { TaxonNameSearchInputWithResults } from 'domainModules/taxonomy/components'
-
-const buildPath = fieldNamePathFactory('identifications')
+import { pathBuilder } from 'coreModules/form/higherOrderComponents'
 
 const propTypes = {
   active: PropTypes.bool.isRequired,
   changeFieldValue: PropTypes.func.isRequired,
   formValueSelector: PropTypes.func.isRequired,
+  getPath: PropTypes.func.isRequired,
   i18n: PropTypes.shape({
     moduleTranslate: PropTypes.func.isRequired,
   }).isRequired,
@@ -57,6 +57,7 @@ class AccordionItem extends Component {
       active,
       changeFieldValue,
       formValueSelector,
+      getPath,
       i18n: { moduleTranslate },
       identification,
       index,
@@ -86,10 +87,7 @@ class AccordionItem extends Component {
       .filter(str => !!str)
       .join(', ')
 
-    const taxonNameFieldKey = buildPath(
-      'identifiedTaxonNameStandardized',
-      index
-    )
+    const taxonNameFieldKey = getPath('identifiedTaxonNameStandardized')
 
     return [
       <Accordion.Title
@@ -116,7 +114,7 @@ class AccordionItem extends Component {
                 component={Checkbox}
                 label={moduleTranslate({ textKey: 'isCurrent' })}
                 module="collectionMammals"
-                name={buildPath('isCurrentIdentification', index)}
+                name={getPath('isCurrentIdentification')}
                 type="checkbox"
               />
             </Grid.Column>
@@ -140,7 +138,7 @@ class AccordionItem extends Component {
                 fluid={!isSmallScreen}
                 formValueSelector={formValueSelector}
                 label={moduleTranslate({ textKey: 'copyToVerbatim' })}
-                pasteField={buildPath('identifiedAsVerbatim', index)}
+                pasteField={getPath('identifiedAsVerbatim')}
               />
             </Grid.Column>
             <Grid.Column computer={8} mobile={16} tablet={8}>
@@ -149,7 +147,7 @@ class AccordionItem extends Component {
                 component={Input}
                 label={moduleTranslate({ textKey: 'verbatimTaxonName' })}
                 module="collectionMammals"
-                name={buildPath('identifiedAsVerbatim', index)}
+                name={getPath('identifiedAsVerbatim')}
                 type="text"
               />
             </Grid.Column>
@@ -160,7 +158,7 @@ class AccordionItem extends Component {
               component={Input}
               label={moduleTranslate({ textKey: 'determinedBy' })}
               module="collectionMammals"
-              name={buildPath('identifiedByAgentText', index)}
+              name={getPath('identifiedByAgentText')}
               type="text"
             />
           </Grid.Column>
@@ -170,7 +168,7 @@ class AccordionItem extends Component {
               component={Input}
               label={moduleTranslate({ textKey: 'date' })}
               module="collectionMammals"
-              name={buildPath('identifiedDateText', index)}
+              name={getPath('identifiedDateText')}
               type="text"
             />
           </Grid.Column>
@@ -180,7 +178,7 @@ class AccordionItem extends Component {
               component={Input}
               label={moduleTranslate({ textKey: 'remarks' })}
               module="collectionMammals"
-              name={buildPath('identificationRemarks', index)}
+              name={getPath('identificationRemarks')}
               type="text"
             />
           </Grid.Column>
@@ -246,7 +244,12 @@ class AccordionItem extends Component {
 AccordionItem.propTypes = propTypes
 AccordionItem.defaultProps = defaultProps
 
-export default withI18n({
-  module: 'collectionMammals',
-  scope: 'determination',
-})(AccordionItem)
+export default compose(
+  withI18n({
+    module: 'collectionMammals',
+    scope: 'determination',
+  }),
+  pathBuilder({
+    name: 'identifications',
+  })
+)(AccordionItem)

@@ -27,8 +27,8 @@ export default function createMammalMiddleware() {
           action.payload === true
         ) {
           // slice identificationIndex from field
-          const beginIndex = 'identifications['.length
-          const endIndex = action.meta.field.indexOf(']')
+          const beginIndex = 'identifications.'.length
+          const endIndex = action.meta.field.indexOf('.isCurrentIdentification')
           const isCurrentIdentificationIndex = Number(
             action.meta.field.slice(beginIndex, endIndex)
           )

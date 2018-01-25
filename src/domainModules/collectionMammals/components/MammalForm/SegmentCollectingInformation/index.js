@@ -11,14 +11,11 @@ import {
   Field,
   Input,
 } from 'coreModules/form/components'
-import { fieldNamePathFactory } from 'coreModules/form/utilities'
 import { DAY, MONTH, YEAR } from 'coreModules/form/constants'
+import { pathBuilder } from 'coreModules/form/higherOrderComponents'
 import LocalityInformationFields from './LocalityInformationFields'
 
 const ModuleTranslate = createModuleTranslate('collectionMammals')
-
-const buildFeatureObservationsPath = fieldNamePathFactory('featureObservations')
-const buildOccurrencePath = fieldNamePathFactory('occurrences')
 
 const mapStateToProps = (state, { formValueSelector }) => {
   return {
@@ -27,6 +24,7 @@ const mapStateToProps = (state, { formValueSelector }) => {
 }
 
 const propTypes = {
+  getPath: PropTypes.func.isRequired,
   occurrences: PropTypes.arrayOf(
     PropTypes.shape({
       dayStart: PropTypes.number,
@@ -39,14 +37,14 @@ const defaultProps = {
   occurrences: undefined,
 }
 
-function SegmentCollectingInformation({ occurrences }) {
+function SegmentCollectingInformation({ occurrences, getPath }) {
   return (
     <Segment color="green">
       <Header size="medium">
         <ModuleTranslate textKey="collectingInformation" />
       </Header>
       <Grid textAlign="left" verticalAlign="top">
-        <LocalityInformationFields index={0} />
+        <LocalityInformationFields />
 
         <Grid.Column computer={10} mobile={16}>
           <Field
@@ -56,7 +54,7 @@ function SegmentCollectingInformation({ occurrences }) {
               <ModuleTranslate scope="occurrences" textKey="collectorsText" />
             }
             module="collectionMammals"
-            name={buildOccurrencePath('collectorsText')}
+            name={getPath('collectorsText')}
             type="text"
           />
         </Grid.Column>
@@ -69,7 +67,7 @@ function SegmentCollectingInformation({ occurrences }) {
               <ModuleTranslate scope="occurrences" textKey="expeditionText" />
             }
             module="collectionMammals"
-            name={buildOccurrencePath('expeditionText')}
+            name={getPath('expeditionText')}
             type="text"
           />
         </Grid.Column>
@@ -80,7 +78,7 @@ function SegmentCollectingInformation({ occurrences }) {
             datePart={YEAR}
             label={<ModuleTranslate scope="occurrences" textKey="year" />}
             module="collectionMammals"
-            name={buildOccurrencePath('yearStart')}
+            name={getPath('yearStart')}
             type="numberAsText"
             value={occurrences && occurrences[0] && occurrences[0].yearStart}
           />
@@ -92,7 +90,7 @@ function SegmentCollectingInformation({ occurrences }) {
             datePart={MONTH}
             label={<ModuleTranslate scope="occurrences" textKey="month" />}
             module="collectionMammals"
-            name={buildOccurrencePath('monthStart')}
+            name={getPath('monthStart')}
             type="numberAsText"
             value={occurrences && occurrences[0] && occurrences[0].monthStart}
           />
@@ -104,7 +102,7 @@ function SegmentCollectingInformation({ occurrences }) {
             datePart={DAY}
             label={<ModuleTranslate scope="occurrences" textKey="day" />}
             module="collectionMammals"
-            name={buildOccurrencePath('dayStart')}
+            name={getPath('dayStart')}
             type="numberAsText"
             value={occurrences && occurrences[0] && occurrences[0].dayStart}
           />
@@ -120,7 +118,7 @@ function SegmentCollectingInformation({ occurrences }) {
               />
             }
             module="collectionMammals"
-            name={buildOccurrencePath('occurrenceDateText')}
+            name={getPath('occurrenceDateText')}
             type="text"
           />
         </Grid.Column>
@@ -132,7 +130,7 @@ function SegmentCollectingInformation({ occurrences }) {
               <ModuleTranslate scope="occurrences" textKey="isDeathEvent" />
             }
             module="collectionMammals"
-            name={buildOccurrencePath('isDeathEvent')}
+            name={getPath('isDeathEvent')}
             type="checkbox"
           />
         </Grid.Column>
@@ -178,7 +176,7 @@ function SegmentCollectingInformation({ occurrences }) {
             }
             module="collectionMammals"
             // TODO: make this work so the index is dynamic and not colliding with other featureobservations
-            name={buildFeatureObservationsPath('featureObservationText', 0)}
+            name="featureObservations.0.featureObservationText"
             type="text"
           />
         </Grid.Column>
@@ -208,7 +206,7 @@ function SegmentCollectingInformation({ occurrences }) {
               />
             }
             module="collectionMammals"
-            name={buildOccurrencePath('localityText')}
+            name={getPath('localityText')}
             type="text"
           />
         </Grid.Column>
@@ -223,7 +221,7 @@ function SegmentCollectingInformation({ occurrences }) {
               />
             }
             module="collectionMammals"
-            name={buildOccurrencePath('establishmentMeansStandardized')}
+            name={getPath('establishmentMeansStandardized')}
             type="text"
           />
         </Grid.Column>
@@ -235,4 +233,7 @@ function SegmentCollectingInformation({ occurrences }) {
 SegmentCollectingInformation.propTypes = propTypes
 SegmentCollectingInformation.defaultProps = defaultProps
 
-export default compose(connect(mapStateToProps))(SegmentCollectingInformation)
+export default compose(
+  connect(mapStateToProps),
+  pathBuilder({ name: 'occurrences.0' })
+)(SegmentCollectingInformation)

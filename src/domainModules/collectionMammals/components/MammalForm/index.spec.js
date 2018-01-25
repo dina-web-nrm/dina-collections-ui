@@ -70,7 +70,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     // required for successful submit
     simulateFormFieldChanges(form, [
       {
-        name: 'physicalUnits[0].catalogedUnit.catalogNumber',
+        name: 'physicalUnits.0.catalogedUnit.catalogNumber',
         value: '123456',
       },
     ])
@@ -122,7 +122,6 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     expect(store.getState().form.mammalForm.values.identifications.length).toBe(
       1
     )
-
     const addDeterminationButton = rootComponent
       .find('Segment')
       .at(1)
@@ -142,13 +141,13 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     expect(identifications[2].isCurrentIdentification).toBeFalsy()
 
     const checkbox1 = rootComponent
-      .find('[name="identifications[0].isCurrentIdentification"]')
+      .find('[name="identifications.0.isCurrentIdentification"]')
       .find('Checkbox')
     const checkbox2 = rootComponent
-      .find('[name="identifications[1].isCurrentIdentification"]')
+      .find('[name="identifications.1.isCurrentIdentification"]')
       .find('Checkbox')
     const checkbox3 = rootComponent
-      .find('[name="identifications[2].isCurrentIdentification"]')
+      .find('[name="identifications.2.isCurrentIdentification"]')
       .find('Checkbox')
 
     // check first box
@@ -157,7 +156,6 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     expect(identifications[0].isCurrentIdentification).toBe(true)
     expect(identifications[1].isCurrentIdentification).toBeFalsy()
     expect(identifications[2].isCurrentIdentification).toBeFalsy()
-
     // check second box, first should be unchecked
     checkbox2.simulate('click')
     identifications = store.getState().form.mammalForm.values.identifications
@@ -171,7 +169,6 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     expect(identifications[0].isCurrentIdentification).toBeFalsy()
     expect(identifications[1].isCurrentIdentification).toBeFalsy()
     expect(identifications[2].isCurrentIdentification).toBe(true)
-
     // uncheck third box
     checkbox3.simulate('click')
     identifications = store.getState().form.mammalForm.values.identifications
@@ -221,10 +218,10 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
       expect(identifications[1].isCurrentIdentification).toBeFalsy()
 
       const checkbox1 = rootComponent
-        .find('[name="identifications[0].isCurrentIdentification"]')
+        .find('[name="identifications.0.isCurrentIdentification"]')
         .find('Checkbox')
       const checkbox2 = rootComponent
-        .find('[name="identifications[1].isCurrentIdentification"]')
+        .find('[name="identifications.1.isCurrentIdentification"]')
         .find('Checkbox')
 
       // check first box
@@ -269,7 +266,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     const form = mountedComponent.find('form')
     simulateFormFieldChanges(form, [
       {
-        name: 'physicalUnits[0].catalogedUnit.catalogNumber',
+        name: 'physicalUnits.0.catalogedUnit.catalogNumber',
         value: 'xxxxxx',
       },
     ])
@@ -280,141 +277,140 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
   it('Submit success when all fields set', () => {
     const mutations = [
       {
-        name: 'physicalUnits[0].catalogedUnit.catalogNumber',
+        name: 'physicalUnits.0.catalogedUnit.catalogNumber',
         value: '584028',
       },
       {
-        name: 'physicalUnits[0].catalogedUnit.storedUnderTaxonName',
+        name: 'physicalUnits.0.catalogedUnit.storedUnderTaxonName',
         value: 'Sorex minutus',
       },
       {
-        name: 'physicalUnits[0].catalogedUnit.publishRecord',
+        name: 'physicalUnits.0.catalogedUnit.publishRecord',
         value: true,
       },
       // Determination
       {
-        name: 'identifications[0].isCurrentIdentification',
+        name: 'identifications.0.isCurrentIdentification',
         value: true,
       },
 
       {
-        name: 'identifications[0].identifiedTaxonNameStandardized',
+        name: 'identifications.0.identifiedTaxonNameStandardized',
         value: 'Chironectes minimus',
       },
       {
-        name: 'identifications[0].identifiedAsVerbatim',
+        name: 'identifications.0.identifiedAsVerbatim',
         value: 'Sorex minutus',
       },
       {
-        name: 'identifications[0].identifiedByAgentText',
+        name: 'identifications.0.identifiedByAgentText',
         value: 'Doe, J.',
       },
       {
-        name: 'identifications[0].identifiedDateText',
+        name: 'identifications.0.identifiedDateText',
         value: 'Date text',
       },
       {
-        name: 'identifications[0].identificationRemarks',
+        name: 'identifications.0.identificationRemarks',
         value: 'some remarks',
       },
       {
-        name: 'occurrences[0].localityInformation.localityVerbatim',
+        name: 'occurrences.0.localityInformation.localityVerbatim',
         value: 'Some localityVerbatim text',
       },
       {
-        name: 'occurrences[0].localityInformation.continentStandardized',
+        name: 'occurrences.0.localityInformation.continentStandardized',
         value: 'Europe',
       },
       {
-        name: 'occurrences[0].localityInformation.countryStandardized',
+        name: 'occurrences.0.localityInformation.countryStandardized',
         value: 'Sweden',
       },
       {
-        name: 'occurrences[0].localityInformation.provinceStandardized',
+        name: 'occurrences.0.localityInformation.provinceStandardized',
         value: 'Stockholm',
       },
       {
-        name: 'occurrences[0].localityInformation.districtStandardized',
+        name: 'occurrences.0.localityInformation.districtStandardized',
         value: 'Vasastan',
       },
       {
-        name: 'occurrences[0].localityInformation.localityStandardized',
+        name: 'occurrences.0.localityInformation.localityStandardized',
         value: 'Vasastan',
       },
       {
-        name: 'occurrences[0].localityInformation.coordinatesVerbatim',
+        name: 'occurrences.0.localityInformation.coordinatesVerbatim',
         value: 'coord-string',
       },
       {
-        name: 'occurrences[0].localityInformation.latitudeStandardized',
+        name: 'occurrences.0.localityInformation.latitudeStandardized',
         value: 'latitude-string',
       },
       {
-        name: 'occurrences[0].localityInformation.longitudeStandardized',
+        name: 'occurrences.0.localityInformation.longitudeStandardized',
         value: 'longitude-string',
       },
       {
-        name:
-          'occurrences[0].localityInformation.coordinateUncertaintyInMeters',
+        name: 'occurrences.0.localityInformation.coordinateUncertaintyInMeters',
         value: '10',
       },
 
       {
-        name: 'occurrences[0].localityInformation.geodeticDatumStandardized',
+        name: 'occurrences.0.localityInformation.geodeticDatumStandardized',
         value: 'geodeticDatumStandardized text',
       },
       {
-        name: 'occurrences[0].localityInformation.georeferenceSourcesText',
+        name: 'occurrences.0.localityInformation.georeferenceSourcesText',
         value: 'georeferenceSourcesText text',
       },
       {
-        name: 'occurrences[0].localityInformation.minimumElevationInMeters',
+        name: 'occurrences.0.localityInformation.minimumElevationInMeters',
         value: '20',
       },
       {
-        name: 'occurrences[0].localityInformation.maximumElevationInMeters',
+        name: 'occurrences.0.localityInformation.maximumElevationInMeters',
         value: '100',
       },
       {
-        name: 'occurrences[0].localityInformation.minimumDepthInMeters',
+        name: 'occurrences.0.localityInformation.minimumDepthInMeters',
         value: '20',
       },
       {
-        name: 'occurrences[0].localityInformation.maximumDepthInMeters',
+        name: 'occurrences.0.localityInformation.maximumDepthInMeters',
         value: '100',
       },
       {
-        name: 'occurrences[0].localityInformation.localityRemarks',
+        name: 'occurrences.0.localityInformation.localityRemarks',
         value: 'localityRemarks text',
       },
 
       // Collecting information
       {
-        name: 'occurrences[0].collectorsText',
+        name: 'occurrences.0.collectorsText',
         value: 'Bergström, U',
       },
       {
-        name: 'occurrences[0].expeditionText',
+        name: 'occurrences.0.expeditionText',
         value: 'Vega Expedition',
       },
       {
-        name: 'occurrences[0].yearStart',
+        name: 'occurrences.0.yearStart',
         value: '1986',
       },
       {
-        name: 'occurrences[0].monthStart',
+        name: 'occurrences.0.monthStart',
         value: '1',
       },
       {
-        name: 'occurrences[0].dayStart',
+        name: 'occurrences.0.dayStart',
         value: '15',
       },
       {
-        name: 'occurrences[0].occurrenceDateText',
+        name: 'occurrences.0.occurrenceDateText',
         value: '15 jan 1986',
       },
       {
-        name: 'occurrences[0].isDeathEvent',
+        name: 'occurrences.0.isDeathEvent',
         value: true,
       },
       {
@@ -426,7 +422,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         value: 'Cause of death ',
       },
       {
-        name: 'featureObservations[0].featureObservationText',
+        name: 'featureObservations.0.featureObservationText',
         value: 'A condition at collecting',
       },
       {
@@ -434,23 +430,23 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         value: 'Standardized origin',
       },
       {
-        name: 'occurrences[0].localityText',
+        name: 'occurrences.0.localityText',
         value: 'localityText',
       },
       {
-        name: 'occurrences[0].establishmentMeansStandardized',
+        name: 'occurrences.0.establishmentMeansStandardized',
         value: 'establishmentMeansStandardized',
       },
       {
-        name: 'physicalUnits[0].physicalUnitText',
+        name: 'physicalUnits.0.physicalUnitText',
         value: 'physicalUnitText',
       },
       {
-        name: 'physicalUnits[0].normalStorageLocationText',
+        name: 'physicalUnits.0.normalStorageLocationText',
         value: 'normalStorageLocationText',
       },
       {
-        name: 'physicalUnits[0].alternateIdentifiersText',
+        name: 'physicalUnits.0.alternateIdentifiersText',
         value: 'alternateIdentifiersText',
       },
       {
@@ -462,12 +458,12 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         ignore: true,
         interaction: 'click',
         name:
-          'featureObservations[1].featureObservationType.featureObservationTypeName',
+          'featureObservations.1.featureObservationType.featureObservationTypeName',
       },
       {
         interaction: 'click',
         name:
-          'featureObservations[1].featureObservationType.featureObservationTypeName',
+          'featureObservations.1.featureObservationType.featureObservationTypeName',
         selector: ({ form, name }) => {
           return form
             .find({ name })
@@ -477,19 +473,19 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         },
       },
       {
-        name: 'featureObservations[1].featureObservationText',
+        name: 'featureObservations.1.featureObservationText',
         value: 'male',
       },
       {
-        name: 'featureObservations[1].methodText',
+        name: 'featureObservations.1.methodText',
         value: 'method text',
       },
       {
-        name: 'featureObservations[1].featureObservationAgent',
+        name: 'featureObservations.1.featureObservationAgent',
         value: 'JD',
       },
       {
-        name: 'featureObservations[1].featureObservationDate',
+        name: 'featureObservations.1.featureObservationDate',
         value: 'A date',
       },
     ]
@@ -656,7 +652,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     const form = mountedComponent.find('form')
     const catalogedNumberInput = form
       .find({
-        name: 'physicalUnits[0].catalogedUnit.catalogNumber',
+        name: 'physicalUnits.0.catalogedUnit.catalogNumber',
       })
       .hostNodes()
 
