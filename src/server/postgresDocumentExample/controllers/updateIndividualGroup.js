@@ -32,8 +32,6 @@ const transformInput = data => {
     ...individualGroup,
     catalogedUnit: individualGroup.physicalUnits[0].catalogedUnit,
   }
-
-  return individualGroup
 }
 
 const tranformOutput = ({ dataValues }) => {
@@ -48,32 +46,31 @@ module.exports = function updateIndividualGroup({ sequelize }) {
   const { models } = sequelize
 
   return ({ pathParams, body }) => {
-    console.log('IN updateIndividualGroup')
     const { data } = body
     validateInput({ data, pathParams })
 
-    return models.IndividualGroup.findById(pathParams.id).then(
-      individualGroup => {
-        console.log(
-          'individualGroup',
-          JSON.stringify(individualGroup.dataValues, null, 2)
+    return models.IndividualGroup.findOne({
+      order: [['id', 'DESC']],
+      where: {
+        documentId: pathParams.id,
+      },
+    }).then(individualGroup => {
+      if (!individualGroup) {
+        const error = new Error(
+          `IndividualGroup not found for id ${pathParams.id}`
         )
-        if (!individualGroup) {
-          const error = new Error(
-            `IndividualGroup not found for id ${pathParams.id}`
-          )
-          error.status = 404
-          throw error
-        }
-        return individualGroup
-          .update({
-            document: transformInput(data),
-          })
-          .then(result => {
-            console.log('result', JSON.stringify(result, null, 2))
-            return tranformOutput(result)
-          })
+        error.status = 404
+        throw error
       }
-    )
+      const newVersionIndividualGroup = individualGroup.get()
+      delete newVersionIndividualGroup.id
+      newVersionIndividualGroup.document = transformInput(data)
+      console.log('newVersionIndividualGroup', newVersionIndividualGroup)
+      return models.IndividualGroup.create(newVersionIndividualGroup).then(
+        result => {
+          return tranformOutput(result)
+        }
+      )
+    })
   }
 }

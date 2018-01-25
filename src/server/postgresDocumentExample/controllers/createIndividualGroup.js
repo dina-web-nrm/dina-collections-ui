@@ -51,8 +51,11 @@ module.exports = function createIndividualGroup({ sequelize }) {
       document: transformInput(data),
     }
 
-    return models.IndividualGroup.create(individualGroupData).then(result => {
-      return tranformOutput(result)
+    return models.IndividualGroup.create(individualGroupData).then(newModel => {
+      newModel.set('documentId', newModel.get('id'))
+      return newModel.save().then(result => {
+        return tranformOutput(result.dataValues)
+      })
     })
   }
 }

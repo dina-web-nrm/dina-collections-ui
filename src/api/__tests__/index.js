@@ -7,5 +7,6 @@ if (!process.env.API_TESTS) {
 } else {
   describe('Endpoint tests', () => {
     require('../tests/collections/individualGroup')
+    require('../tests/collections/nextGen')
   })
 }
