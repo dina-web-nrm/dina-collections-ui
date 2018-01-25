@@ -154,17 +154,7 @@ class AccordionItem extends Component {
               />
             </Grid.Column>
           </Grid.Row>
-          <Grid.Column computer={8} mobile={16} tablet={8}>
-            <Field
-              autoComplete="off"
-              component={Input}
-              label={moduleTranslate({ textKey: 'remarks' })}
-              module="collectionMammals"
-              name={buildPath('identificationRemarks', index)}
-              type="text"
-            />
-          </Grid.Column>
-          <Grid.Column computer={8} mobile={16} tablet={8}>
+          <Grid.Column computer={5} mobile={16} tablet={5}>
             <Field
               autoComplete="off"
               component={Input}
@@ -174,13 +164,23 @@ class AccordionItem extends Component {
               type="text"
             />
           </Grid.Column>
-          <Grid.Column computer={8} mobile={16} tablet={8}>
+          <Grid.Column computer={3} mobile={8} tablet={3}>
             <Field
               autoComplete="off"
               component={Input}
               label={moduleTranslate({ textKey: 'date' })}
               module="collectionMammals"
               name={buildPath('identifiedDateText', index)}
+              type="text"
+            />
+          </Grid.Column>
+          <Grid.Column computer={8} mobile={16} tablet={8}>
+            <Field
+              autoComplete="off"
+              component={Input}
+              label={moduleTranslate({ textKey: 'remarks' })}
+              module="collectionMammals"
+              name={buildPath('identificationRemarks', index)}
               type="text"
             />
           </Grid.Column>
