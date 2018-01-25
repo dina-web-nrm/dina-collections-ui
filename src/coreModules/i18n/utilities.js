@@ -110,3 +110,11 @@ export const markdownToHtmlAsync = markdown => {
     return renderer(markdown)
   })
 }
+
+export const outputIsATextKey = ({ output, textKey, textKeys }) => {
+  return !!(
+    output === textKey ||
+    // enough to check the first entry in textKeys
+    (output && textKeys && textKeys[0] && output.indexOf(textKeys[0]) > -1)
+  )
+}

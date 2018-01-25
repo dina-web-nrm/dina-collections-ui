@@ -58,11 +58,7 @@ export const NotificationModal = ({
             </Header>
           )}
           {description && description}
-          {descriptionKey && (
-            <p>
-              <Translate textKey={descriptionKey} />
-            </p>
-          )}
+          {descriptionKey && <Translate textKey={descriptionKey} />}
           {linkTextKey &&
             linkTo && (
               <p key="link">

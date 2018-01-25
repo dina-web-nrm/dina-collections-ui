@@ -1,8 +1,9 @@
 import {
-  format,
-  translationByPathGetter,
-  getTranslationByPath,
   capitalizeFirstLetter,
+  format,
+  getTranslationByPath,
+  outputIsATextKey,
+  translationByPathGetter,
 } from './utilities'
 
 describe('i18n/utilities', () => {
@@ -96,6 +97,45 @@ describe('i18n/utilities', () => {
     it('returns string with capitalized first letter', () => {
       const testValue = capitalizeFirstLetter('need capital')
       const result = 'Need capital'
+
+      expect(testValue).toEqual(result)
+    })
+  })
+  describe('outputIsATextKey', () => {
+    it('returns false if no output', () => {
+      const testValue = outputIsATextKey({
+        output: undefined,
+        textKey: 'textKey',
+      })
+      const result = false
+
+      expect(testValue).toEqual(result)
+    })
+    it('returns false if output is not equal to textKey nor contains the first key in textKeys', () => {
+      const testValue = outputIsATextKey({
+        output: 'foo',
+        textKey: 'bar',
+        textKeys: ['other.key', 'some.key'],
+      })
+      const result = false
+
+      expect(testValue).toEqual(result)
+    })
+    it('returns true if output equals textKey', () => {
+      const testValue = outputIsATextKey({
+        output: 'textKey',
+        textKey: 'textKey',
+      })
+      const result = true
+
+      expect(testValue).toEqual(result)
+    })
+    it('returns true if output contains the first textKey', () => {
+      const testValue = outputIsATextKey({
+        output: 'some.other.key other.key',
+        textKeys: ['other.key', 'some.key'],
+      })
+      const result = true
 
       expect(testValue).toEqual(result)
     })
