@@ -75,17 +75,16 @@ class AccordionItem extends Component {
     } =
       identification || {}
 
-    const headline =
-      [
-        identifiedTaxonNameStandardized,
-        identifiedByAgentText,
-        identifiedDateText,
-        identificationRemarks,
-        isCurrentIdentification &&
-          moduleTranslate({ textKey: 'isCurrent' }).toLowerCase(),
-      ]
-        .filter(str => !!str)
-        .join(', ') || moduleTranslate({ textKey: 'emptyDetermination' })
+    const headline = [
+      identifiedTaxonNameStandardized,
+      identifiedByAgentText,
+      identifiedDateText,
+      identificationRemarks,
+      isCurrentIdentification &&
+        moduleTranslate({ textKey: 'isCurrent' }).toLowerCase(),
+    ]
+      .filter(str => !!str)
+      .join(', ')
 
     const taxonNameFieldKey = buildPath(
       'identifiedTaxonNameStandardized',
