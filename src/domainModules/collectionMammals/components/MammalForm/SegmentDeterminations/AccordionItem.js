@@ -105,7 +105,7 @@ class AccordionItem extends Component {
         }}
       >
         <Icon name="dropdown" />
-        {headline}
+        {!active && headline}
       </Accordion.Title>,
       <Accordion.Content active={active} key={`${index}.2`}>
         <Grid textAlign="left" verticalAlign="top">
