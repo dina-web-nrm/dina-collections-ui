@@ -30,6 +30,7 @@ const propTypes = {
     })
   ).isRequired,
   isSmallScreen: PropTypes.bool.isRequired,
+  mode: PropTypes.oneOf(['edit', 'register']).isRequired,
   removeArrayFieldByIndex: PropTypes.func.isRequired,
   setAccordionActiveIndex: PropTypes.func.isRequired,
 }
@@ -39,6 +40,7 @@ const SegmentDeterminations = ({
   formValueSelector,
   identifications,
   isSmallScreen,
+  mode,
   removeArrayFieldByIndex,
   setAccordionActiveIndex,
 }) => {
@@ -54,6 +56,7 @@ const SegmentDeterminations = ({
             formValueSelector={formValueSelector}
             identifications={identifications}
             isSmallScreen={isSmallScreen}
+            mode={mode}
             removeArrayFieldByIndex={removeArrayFieldByIndex}
             setAccordionActiveIndex={setAccordionActiveIndex}
           />

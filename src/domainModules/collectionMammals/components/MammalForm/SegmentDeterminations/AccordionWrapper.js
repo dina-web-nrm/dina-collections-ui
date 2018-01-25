@@ -29,6 +29,7 @@ const propTypes = {
     })
   ).isRequired,
   isSmallScreen: PropTypes.bool.isRequired,
+  mode: PropTypes.oneOf(['edit', 'register']).isRequired,
   removeArrayFieldByIndex: PropTypes.func.isRequired,
   // for testing purposes, to bypass popup that is not possible (?) to select in enzyme
   requireRemoveDeterminationConfirmation: PropTypes.bool,
