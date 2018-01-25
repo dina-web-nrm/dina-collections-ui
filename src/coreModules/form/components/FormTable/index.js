@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react'
 
 import createLog from 'utilities/log'
-import FormTableBodyRow from './FormTableBodyRow'
 import FormTableHeaderRow from './FormTableHeaderRow'
 
 const log = createLog(`modules:form:components:FormTable`)
@@ -12,9 +11,9 @@ const propTypes = {
   columnHeaderTextKeys: PropTypes.arrayOf(PropTypes.string.isRequired)
     .isRequired,
   footer: PropTypes.node,
-  getRowCells: PropTypes.func.isRequired,
   numberOfItemsToSkip: PropTypes.number,
   numberOfRows: PropTypes.number.isRequired,
+  renderRow: PropTypes.func.isRequired,
 }
 const defaultProps = {
   footer: undefined,
@@ -30,9 +29,9 @@ class FormTable extends Component {
     const {
       columnHeaderTextKeys,
       footer,
-      getRowCells,
       numberOfItemsToSkip,
       numberOfRows,
+      renderRow,
     } = this.props
 
     let rowIndices = []
@@ -50,12 +49,7 @@ class FormTable extends Component {
 
         <Table.Body>
           {rowIndices.map(index => {
-            return (
-              <FormTableBodyRow
-                cells={getRowCells(index, numberOfRows)}
-                key={index}
-              />
-            )
+            return renderRow({ index, numberOfRows })
           })}
         </Table.Body>
 
