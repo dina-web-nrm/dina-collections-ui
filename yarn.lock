@@ -4859,9 +4859,10 @@ get-value@^2.0.3, get-value@^2.0.6:
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
 
 getmac@^1.0.6:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/getmac/-/getmac-1.2.1.tgz#0d095fd0627850043eac1dcfa0b120bbdc1426d1"
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/getmac/-/getmac-1.4.0.tgz#9468825e1c17a77256da17e99b887428f8a1443f"
   dependencies:
+    editions "^1.3.3"
     extract-opts "^3.2.0"
 
 getpass@^0.1.1:
@@ -5060,8 +5061,8 @@ globule@~0.2.0:
     minimatch "~0.2.11"
 
 glogg@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/glogg/-/glogg-1.0.0.tgz#7fe0f199f57ac906cf512feead8f90ee4a284fc5"
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/glogg/-/glogg-1.0.1.tgz#dcf758e44789cc3f3d32c1f3562a3676e6a34810"
   dependencies:
     sparkles "^1.0.0"
 
@@ -8824,20 +8825,16 @@ process@~0.5.1:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/process/-/process-0.5.2.tgz#1638d8a8e34c2f440a91db95ab9aeb677fc185cf"
 
-progress@1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
-
-progress@^2.0.0:
+progress@2.0.0, progress@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.0.tgz#8a1be366bf8fc23db2bd23f10c6fe920b4389d1f"
 
 progressbar@^1.0.3:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/progressbar/-/progressbar-1.1.1.tgz#9b4e75821609c2363a62f5f744c711d88a3ae700"
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/progressbar/-/progressbar-1.3.0.tgz#18cf61618dc7508cbc7b3c2578c0c4665e838e9c"
   dependencies:
-    editions "^1.1.1"
-    progress "1.1.8"
+    editions "^1.3.3"
+    progress "2.0.0"
 
 promise.prototype.finally@^3.1.0:
   version "3.1.0"
@@ -10075,7 +10072,7 @@ semantic-ui-react@^0.74.2:
 
 "semantic-ui@https://github.com/DINA-Web/dina-semantic-ui.git#master":
   version "2.2.13"
-  resolved "https://github.com/DINA-Web/dina-semantic-ui.git#222fc668baffa725c7aaa34a57c93b023b6d56e8"
+  resolved "https://github.com/DINA-Web/dina-semantic-ui.git#1249461fccadb2eeb3b73a90452f8d2e0b1219fc"
   dependencies:
     better-console "*"
     del "^3.0.0"
