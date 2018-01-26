@@ -25,10 +25,10 @@ module.exports = function createConfig() {
   }
 
   const log = {
-    db: false,
+    db: true,
     error: true,
     incomingRequest: false,
-    outgoingResponse: false,
+    outgoingResponse: true,
   }
 
   return {

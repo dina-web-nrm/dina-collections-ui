@@ -1,4 +1,4 @@
-module.exports = function createObjectResponse({ data, type, id }) {
+module.exports = function createObjectResponse({ data, type, id, versionId }) {
   return {
     data: {
       data: {
@@ -7,6 +7,7 @@ module.exports = function createObjectResponse({ data, type, id }) {
         },
         id,
         type,
+        versionId,
       },
     },
   }

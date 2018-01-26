@@ -16,6 +16,7 @@ module.exports = function createArraytResponse({ items, type }) {
           },
           id: item.id,
           type,
+          versionId: item.versionId,
         }
       }),
     },
