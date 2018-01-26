@@ -10,17 +10,24 @@ const config = createConfig()
 
 const log = createLog('server')
 
-const modelFiles = ['IndividualGroup']
+const modelFiles = ['CuratedLocality', 'IndividualGroup']
 
 const controllerFiles = [
   'createIndividualGroup',
   'getIndividualGroups',
   'updateIndividualGroup',
+  'createCuratedLocality',
+  'getCuratedLocality',
+  'updateCuratedLocality',
 ]
 
 const routeHandlerFiles = [
+  'createCuratedLocality',
   'createIndividualGroup',
+  'getCuratedLocality',
+  'getCuratedLocalityByVersion',
   'getIndividualGroups',
+  'updateCuratedLocality',
   'updateIndividualGroup',
 ]
 

@@ -41,6 +41,24 @@ module.exports = function createModel({
     },
   })
 
+  const getById = ({ id, versionId }) => {
+    if (versionId) {
+      return Model.findOne({
+        where: {
+          id,
+          versionId,
+        },
+      })
+    }
+
+    return Model.findOne({
+      order: [['versionId', 'DESC']],
+      where: {
+        id,
+      },
+    })
+  }
+
   const create = doc => {
     const data = {
       document: doc,
@@ -55,12 +73,7 @@ module.exports = function createModel({
   }
 
   const update = ({ id, doc }) => {
-    return Model.findOne({
-      order: [['versionId', 'DESC']],
-      where: {
-        id,
-      },
-    }).then(existingModel => {
+    return getById({ id }).then(existingModel => {
       if (!existingModel) {
         const error = new Error(`Not found for id ${id}`)
         error.status = 404
@@ -79,5 +92,10 @@ module.exports = function createModel({
     })
   }
 
-  return { create, Model, update }
+  return {
+    create,
+    getById,
+    Model,
+    update,
+  }
 }
