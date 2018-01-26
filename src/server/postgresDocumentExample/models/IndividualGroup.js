@@ -1,22 +1,10 @@
-const Sequelize = require('sequelize')
+const createModel = require('../../lib/postgres/models/createModel')
 
 module.exports = function individualGroup({ sequelize }) {
-  return sequelize.define('IndividualGroup', {
-    diff: {
-      type: Sequelize.JSONB,
-    },
-    document: {
-      type: Sequelize.JSONB,
-    },
-
-    id: {
-      type: Sequelize.INTEGER,
-    },
-    version: { allowNull: true, type: Sequelize.INTEGER },
-    versionId: {
-      autoIncrement: true,
-      primaryKey: true,
-      type: Sequelize.INTEGER,
-    },
+  return createModel({
+    name: 'IndividualGroup',
+    schemaModelName: 'individualGroup',
+    schemaVersion: '1.0.1',
+    sequelize,
   })
 }

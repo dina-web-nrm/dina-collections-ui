@@ -5,9 +5,10 @@ const createDb = require('./db')
 
 const syncModels = models => {
   return chainPromises(
-    models.map(model => {
+    Object.keys(models).map(modelName => {
+      const model = models[modelName]
       return () => {
-        return model.sync({ force: true })
+        return model.Model.sync({ force: true })
       }
     })
   )

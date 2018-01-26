@@ -7,17 +7,31 @@ module.exports = function createModels({
   modelFiles,
   sequelize,
 }) {
-  const models = modelFiles.map(name => {
+  const rawModels = modelFiles.map(name => {
     const modelPath = path.join(basePath, 'models', name)
-    return require(modelPath)
+    return {
+      modelFactory: require(modelPath),
+      name,
+    }
   })
 
   return Promise.all(
-    models.map(modelFactory => {
-      return modelFactory({
+    rawModels.map(({ name, modelFactory }) => {
+      const model = modelFactory({
         config,
         sequelize,
       })
+      return {
+        model,
+        name,
+      }
     })
-  )
+  ).then(models => {
+    return models.reduce((obj, { model, name }) => {
+      return {
+        ...obj,
+        [name]: model,
+      }
+    }, {})
+  })
 }
