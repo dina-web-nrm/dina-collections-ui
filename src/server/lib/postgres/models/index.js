@@ -1,20 +1,16 @@
-const path = require('path')
-/* eslint-disable global-require, import/no-dynamic-require */
+const extractModelsFromModules = modules => {
+  return Object.keys(modules)
+    .map(moduleName => {
+      return {
+        modelFactory: modules[moduleName].model,
+        name: moduleName,
+      }
+    })
+    .filter(({ modelFactory }) => !!modelFactory)
+}
 
-module.exports = function createModels({
-  basePath,
-  config,
-  modelFiles,
-  sequelize,
-}) {
-  const rawModels = modelFiles.map(name => {
-    const modelPath = path.join(basePath, 'models', name)
-    return {
-      modelFactory: require(modelPath),
-      name,
-    }
-  })
-
+module.exports = function createModels({ config, modules, sequelize }) {
+  const rawModels = extractModelsFromModules(modules)
   return Promise.all(
     rawModels.map(({ name, modelFactory }) => {
       const model = modelFactory({

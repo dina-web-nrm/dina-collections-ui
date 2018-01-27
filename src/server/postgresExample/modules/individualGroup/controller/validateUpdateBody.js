@@ -1,5 +1,5 @@
-module.exports = function validateInput({ data, pathParams }) {
-  if (!pathParams || !pathParams.id) {
+module.exports = function validateInput({ data, id }) {
+  if (!id) {
     const error = new Error('pathParams.id is required')
     error.status = 400
     throw error

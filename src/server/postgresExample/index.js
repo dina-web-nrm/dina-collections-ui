@@ -10,44 +10,21 @@ const config = createConfig()
 
 const log = createLog('server')
 
-const modelFiles = ['CuratedLocality', 'IndividualGroup']
-
-const controllerFiles = [
-  'createIndividualGroup',
-  'getIndividualGroups',
-  'updateIndividualGroup',
-  'createCuratedLocality',
-  'getCuratedLocality',
-  'updateCuratedLocality',
-]
-
-const routeHandlerFiles = [
-  'createCuratedLocality',
-  'createIndividualGroup',
-  'getCuratedLocality',
-  'getCuratedLocalityByVersion',
-  'getIndividualGroups',
-  'updateCuratedLocality',
-  'updateIndividualGroup',
-]
+const modules = require('./modules')
 
 bootstrapPostgres({
-  basePath: __dirname,
   config,
-  controllerFiles,
-  modelFiles,
+  modules,
 })
   .then(({ controllers }) => {
     const keycloak = createKeycloak({ config })
 
     const api = createApi({
-      basePath: __dirname,
       config,
       controllers,
       keycloak,
+      modules,
       openApiSpec,
-      routeHandlerFiles,
-      routeMockFiles: [],
     })
 
     const app = createApp({

@@ -10,13 +10,13 @@ module.exports = function createArraytResponse({ items, type }) {
   return {
     data: {
       data: items.map(item => {
+        const { id, ...rest } = item
         return {
           attributes: {
-            ...item,
+            ...rest,
           },
-          id: item.id,
+          id: `${id}`,
           type,
-          versionId: item.versionId,
         }
       }),
     },

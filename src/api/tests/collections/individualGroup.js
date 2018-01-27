@@ -54,7 +54,7 @@ const withIndividualGroup = {
           featureObservationText: '21',
           featureObservationType: {
             featureObservationTypeName: 'age',
-            id: 1,
+            id: '1',
           },
         },
       ],
@@ -66,7 +66,6 @@ const withIndividualGroup = {
       occurrences: [
         {
           collectorsText: 'Ida Li',
-          localityText: 'Sollentuna, Sweden',
           occurrenceDateText: '2017-10-12',
         },
       ],
@@ -110,7 +109,7 @@ const updateValidIndividualGroup = {
           featureObservationText: '22',
           featureObservationType: {
             featureObservationTypeName: 'age',
-            id: 1,
+            id: '1',
           },
         },
       ],
@@ -122,12 +121,10 @@ const updateValidIndividualGroup = {
       occurrences: [
         {
           collectorsText: 'Ida Li',
-          localityText: 'Sollentuna, Sweden',
           occurrenceDateText: '2017-10-12',
         },
         {
           collectorsText: 'Ada Lovelace',
-          localityText: 'Sollentuna, Sweden',
           occurrenceDateText: '2017-11-11',
         },
       ],
@@ -164,7 +161,7 @@ const fullFormExample = {
           featureObservationText: 'A condition at collecting',
           featureObservationType: {
             featureObservationTypeName: 'conditionAtCollecting',
-            id: 2,
+            id: '2',
           },
         },
         {
@@ -173,7 +170,7 @@ const fullFormExample = {
           featureObservationText: 'male',
           featureObservationType: {
             featureObservationTypeName: 'sex',
-            id: 1,
+            id: '1',
           },
           methodText: 'method text',
         },
@@ -197,20 +194,29 @@ const fullFormExample = {
           isDeathEvent: true,
           localityInformation: {
             coordinatesVerbatim: 'coord-string',
-            coordinateUncertaintyInMeters: '10',
-            geodeticDatumStandardized: 'geodeticDatumStandardized text',
+            curatedLocalities: [
+              {
+                id: '123',
+              },
+              {
+                id: '125',
+              },
+            ],
             georeferenceSourcesText: 'georeferenceSourcesText text',
-            latitudeStandardized: 'latitude-string',
             localityRemarks: 'localityRemarks text',
-            localityStandardized: 'Vasastan',
             localityVerbatim: 'Some localityVerbatim text',
-            longitudeStandardized: 'longitude-string',
-            maximumDepthInMeters: '100',
-            maximumElevationInMeters: '100',
-            minimumDepthInMeters: '20',
-            minimumElevationInMeters: '20',
+            position: {
+              latitude: 'latitude-string',
+              longitude: 'longitude-string',
+              uncertaintyInMeters: 10,
+            },
+            verticalPosition: {
+              maximumDepthInMeters: 100,
+              maximumElevationInMeters: 100,
+              minimumDepthInMeters: 20,
+              minimumElevationInMeters: 20,
+            },
           },
-          localityText: 'localityText',
           monthEnd: 1,
           monthStart: 1,
           occurrenceDateText: '15 jan 1986',

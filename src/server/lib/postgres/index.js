@@ -14,32 +14,24 @@ const syncModels = models => {
   )
 }
 
-module.exports = function bootstrapDatalayer({
-  basePath,
-  config,
-  controllerFiles,
-  modelFiles,
-}) {
+module.exports = function bootstrapDatalayer({ config, modules }) {
   return Promise.resolve().then(() => {
     return createDb({ config }).then(sequelize => {
-      return createModels({ basePath, config, modelFiles, sequelize }).then(
-        models => {
-          return syncModels(models).then(() => {
-            return createControllers({
-              basePath,
-              config,
-              controllerFiles,
+      return createModels({ config, modules, sequelize }).then(models => {
+        return syncModels(models).then(() => {
+          return createControllers({
+            config,
+            models,
+            modules,
+            sequelize,
+          }).then(controllers => {
+            return {
+              controllers,
               models,
-              sequelize,
-            }).then(controllers => {
-              return {
-                controllers,
-                models,
-              }
-            })
+            }
           })
-        }
-      )
+        })
+      })
     })
   })
 }

@@ -1,21 +1,23 @@
-const path = require('path')
-/* eslint-disable global-require, import/no-dynamic-require */
-
-module.exports = function createControllers({
-  basePath,
-  config,
-  controllerFiles,
-  models,
-  sequelize,
-}) {
-  const controllers = controllerFiles.reduce((obj, name) => {
-    const controllerPath = path.join(basePath, 'controllers', name)
+const extractControllersFromModules = modules => {
+  return Object.keys(modules).reduce((controllers, moduleName) => {
+    const controller = modules[moduleName].controller
+    if (!controller) {
+      return controllers
+    }
     return {
-      ...obj,
-      [name]: require(controllerPath),
+      ...controllers,
+      [moduleName]: controller,
     }
   }, {})
+}
 
+module.exports = function createControllers({
+  config,
+  models,
+  modules,
+  sequelize,
+}) {
+  const controllers = extractControllersFromModules(modules)
   return Promise.resolve(
     Object.keys(controllers).reduce((obj, key) => {
       return {

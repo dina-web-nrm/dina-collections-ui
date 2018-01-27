@@ -1,36 +1,38 @@
-const path = require('path')
-/* eslint-disable global-require, import/no-dynamic-require */
 const express = require('express')
 const createLog = require('../../utilities/log')
 const createRoutes = require('./routeFactory')
 
 const log = createLog('api')
 
+const extractRouteHandlersFromModules = modules => {
+  return Object.keys(modules).reduce((routeHandlers, moduleName) => {
+    const { endpoints } = modules[moduleName]
+
+    if (!endpoints) {
+      return routeHandlers
+    }
+
+    return {
+      ...routeHandlers,
+      ...Object.keys(endpoints).reduce((obj, endpointName) => {
+        return {
+          ...obj,
+          [endpointName]: endpoints[endpointName],
+        }
+      }, {}),
+    }
+  }, {})
+}
+
 module.exports = function createApi({
-  basePath = '../../postgresExample',
   config,
   controllers,
   keycloak,
+  modules,
   openApiSpec,
-  routeHandlerFiles = [],
-  routeMockFiles = [],
 }) {
-  const routeHandlers = routeHandlerFiles.reduce((obj, name) => {
-    const routePath = path.join(basePath, 'routeHandlers', name)
-    return {
-      ...obj,
-      [name]: require(routePath),
-    }
-  }, {})
-
-  const routeMocks = routeMockFiles.reduce((obj, name) => {
-    const routeMockPath = path.join(basePath, 'routeMocks', name)
-    return {
-      ...obj,
-      [name]: require(routeMockPath),
-    }
-  }, {})
-
+  const routeHandlers = extractRouteHandlersFromModules(modules)
+  const routeMocks = {}
   const apiConfig = { controllers, ...config.api, log: config.log }
 
   const routes = createRoutes({

@@ -1,13 +1,13 @@
-module.exports = function createObjectResponse({ data, type, id, versionId }) {
+module.exports = function createObjectResponse({ data, type }) {
+  const { id, ...rest } = data
   return {
     data: {
       data: {
         attributes: {
-          ...data,
+          ...rest,
         },
-        id,
+        id: `${id}`,
         type,
-        versionId,
       },
     },
   }

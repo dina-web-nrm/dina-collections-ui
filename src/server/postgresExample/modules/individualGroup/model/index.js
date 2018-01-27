@@ -1,4 +1,4 @@
-const createModel = require('../../lib/postgres/models/createModel')
+const createModel = require('../../../../lib/postgres/models/createModel')
 
 module.exports = function individualGroup({ sequelize }) {
   return createModel({
