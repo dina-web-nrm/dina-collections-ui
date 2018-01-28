@@ -20,6 +20,7 @@ module.exports = function individualGroupController({ models }) {
       identifiedTaxonNameStandardized,
     } = transformInputSearch(queryParams)
     if (catalogNumber) {
+      // some inner join raw query is required
       return models.individualGroup.Model.findAll({
         where: {
           'document.catalogedUnit.catalogNumber': catalogNumber,

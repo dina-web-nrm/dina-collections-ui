@@ -9,7 +9,7 @@ export const getIndividualGroup = (queryParams = {}) => {
           featureObservationText: 'female',
           featureObservationType: {
             featureObservationTypeName: 'sex',
-            id: 1,
+            id: '1',
           },
         },
       ],
@@ -23,7 +23,7 @@ export const getIndividualGroup = (queryParams = {}) => {
         },
       ],
       occurrences: [
-        { id: 1, localityInformation: { localityVerbatim: 'Hemsö' } },
+        { id: '1', localityInformation: { localityVerbatim: 'Hemsö' } },
       ],
       physicalUnits: [
         {
@@ -35,7 +35,7 @@ export const getIndividualGroup = (queryParams = {}) => {
         },
       ],
     },
-    id: mockId,
+    id: `${mockId}`,
     type: 'individualGroup',
   }
 }

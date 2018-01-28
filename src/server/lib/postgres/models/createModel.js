@@ -5,6 +5,8 @@ const {
   createSystemModelSchemaValidator,
 } = require('../../../../utilities/error')
 
+// make model-factory more advanced
+// * add where search to get single revision
 module.exports = function createModel({
   name,
   sequelize,

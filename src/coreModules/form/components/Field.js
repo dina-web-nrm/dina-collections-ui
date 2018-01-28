@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Field } from 'redux-form'
 
-const PARSE_AS_NUMBER_TYPES = ['numberAsText']
+const PARSE_AS_NUMBER_TYPES = ['numberAsText', 'number']
 const FORMAT_AS_STRING_TYPES = ['numberAsText']
 
 const parseToNumber = value => {

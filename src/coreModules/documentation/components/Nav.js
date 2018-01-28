@@ -60,14 +60,25 @@ class Nav extends Component {
       }
     })
 
-    const modelNavItems = models.map(model => {
-      return {
-        exact: false,
-        name: model.key,
-        path: createModelLink({ modelName: model.key, version }),
-        translate: false,
-      }
-    })
+    const modelCategories = models
+      .map(model => {
+        return {
+          category: model['x-category'],
+          exact: false,
+          name: model.key,
+          path: createModelLink({ modelName: model.key, version }),
+          translate: false,
+        }
+      })
+      .reduce((obj, modelNavItem) => {
+        const { category } = modelNavItem
+        let group = obj[category] || []
+        group = [...group, modelNavItem]
+        return {
+          ...obj,
+          [category]: group,
+        }
+      }, {})
 
     const markdownNavItemsGroup = {
       items: markdownNavItems,
@@ -79,12 +90,25 @@ class Nav extends Component {
       name: 'versions',
     }
 
-    const modelItemsGroup = {
-      items: modelNavItems,
-      name: 'models',
-    }
+    const modelItemGroups = Object.keys(modelCategories).reduce(
+      (obj, category) => {
+        return [
+          ...obj,
+          {
+            items: modelCategories[category],
+            name: category,
+            translate: false,
+          },
+        ]
+      },
+      []
+    )
 
-    const navItems = [markdownNavItemsGroup, versionItemsGroup, modelItemsGroup]
+    const navItems = [
+      markdownNavItemsGroup,
+      versionItemsGroup,
+      ...modelItemGroups,
+    ]
 
     return (
       <NavigationSidebar

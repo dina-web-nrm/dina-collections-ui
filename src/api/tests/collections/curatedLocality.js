@@ -99,7 +99,7 @@ describe('curatedLocality', () => {
             id,
           },
         }).then(res2 => {
-          expect(res).toBeTruthy()
+          expect(res2).toBeTruthy()
         })
       })
     })
