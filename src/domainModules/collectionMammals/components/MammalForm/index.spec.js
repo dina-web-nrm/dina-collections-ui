@@ -660,7 +660,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
 
     formState = store.getState().form.mammalForm
     const { registeredFields, submitFailed, syncErrors, values } = formState
-    console.log('JSON', JSON.stringify(values, null, 2))
+
     expect(
       mutations.filter(({ ignore }) => !ignore).map(mutation => mutation.name)
     ).toMatchObject(Object.keys(registeredFields))
