@@ -3388,9 +3388,9 @@ diffie-hellman@^5.0.0:
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
 
-"dina-schema@https://github.com/DINA-Web/dina-schema.git#master":
+"dina-schema@https://github.com/DINA-Web/dina-schema.git#next":
   version "0.1.0"
-  resolved "https://github.com/DINA-Web/dina-schema.git#5f9d65d83dec3903ec297995fd7a2b05d0d0f8a2"
+  resolved "https://github.com/DINA-Web/dina-schema.git#526fb3e2283f5f5cf3f5889cc7dfa7df60b31ae4"
 
 discontinuous-range@1.0.0:
   version "1.0.0"
