@@ -23,7 +23,13 @@ export const getIndividualGroup = (queryParams = {}) => {
         },
       ],
       occurrences: [
-        { id: '1', localityInformation: { localityVerbatim: 'Hemsö' } },
+        {
+          id: '1',
+          localityInformation: {
+            curatedLocalities: [],
+            localityVerbatim: 'Hemsö',
+          },
+        },
       ],
       physicalUnits: [
         {
