@@ -90,19 +90,13 @@ class Nav extends Component {
       name: 'versions',
     }
 
-    const modelItemGroups = Object.keys(modelCategories).reduce(
-      (obj, category) => {
-        return [
-          ...obj,
-          {
-            items: modelCategories[category],
-            name: category,
-            translate: false,
-          },
-        ]
-      },
-      []
-    )
+    const modelItemGroups = Object.keys(modelCategories).map(category => {
+      return {
+        items: modelCategories[category],
+        name: category,
+        translate: false,
+      }
+    })
 
     const navItems = [
       markdownNavItemsGroup,
