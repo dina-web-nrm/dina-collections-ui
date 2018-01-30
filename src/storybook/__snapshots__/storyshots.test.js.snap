@@ -396,6 +396,26 @@ exports[`Storyshots coreModules/commonUi/Footer Default 1`] = `
                   </a>
                 </div>
               </div>
+              <div
+                className="item"
+                data-value={undefined}
+                onClick={[Function]}
+                role="listitem"
+              >
+                <div
+                  className="content"
+                >
+                  <i
+                    aria-hidden="true"
+                    className="external icon"
+                  />
+                  <a
+                    href="/coverage/index.html"
+                  >
+                    Test coverage
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
