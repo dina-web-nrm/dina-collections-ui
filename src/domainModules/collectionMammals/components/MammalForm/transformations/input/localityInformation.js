@@ -11,15 +11,14 @@ export default function transformLocalityInformation(localityInformation) {
     return localityInformation
   }
 
-  const currentCuratedLocalityMap = localityInformation.curatedLocalities.reduce(
-    (obj, curatedLocality) => {
-      return {
-        ...obj,
-        [curatedLocality.type]: curatedLocality,
-      }
-    },
-    {}
-  )
+  const currentCuratedLocalityMap = (
+    localityInformation.curatedLocalities || []
+  ).reduce((obj, curatedLocality) => {
+    return {
+      ...obj,
+      [curatedLocality.type]: curatedLocality,
+    }
+  }, {})
 
   const curatedLocalities = curatedLocalitiesTypes.map(type => {
     if (currentCuratedLocalityMap[type]) {
