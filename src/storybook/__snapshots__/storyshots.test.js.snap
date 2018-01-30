@@ -2160,7 +2160,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.continentStandardized"
+                      htmlFor="occurrences.0.localityInformation.curatedLocalities.0.id"
                     >
                       Continent
                        
@@ -2176,7 +2176,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       aria-expanded={false}
                       autoComplete="off"
                       className="ui search selection dropdown"
-                      name="occurrences.0.localityInformation.continentStandardized"
+                      name="occurrences.0.localityInformation.curatedLocalities.0.id"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onClick={[Function]}
@@ -2441,7 +2441,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.countryStandardized"
+                      htmlFor="occurrences.0.localityInformation.curatedLocalities.1.id"
                     >
                       Country
                        
@@ -2457,7 +2457,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       aria-expanded={false}
                       autoComplete="off"
                       className="ui search selection dropdown"
-                      name="occurrences.0.localityInformation.countryStandardized"
+                      name="occurrences.0.localityInformation.curatedLocalities.1.id"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onClick={[Function]}
@@ -5667,7 +5667,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.provinceStandardized"
+                      htmlFor="occurrences.0.localityInformation.curatedLocalities.2.id"
                     >
                       Province
                        
@@ -5683,7 +5683,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       aria-expanded={false}
                       autoComplete="off"
                       className="ui search selection dropdown"
-                      name="occurrences.0.localityInformation.provinceStandardized"
+                      name="occurrences.0.localityInformation.curatedLocalities.2.id"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onClick={[Function]}
@@ -13719,7 +13719,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.districtStandardized"
+                      htmlFor="occurrences.0.localityInformation.curatedLocalities.3.id"
                     >
                       District
                        
@@ -13735,7 +13735,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       aria-expanded={false}
                       autoComplete="off"
                       className="ui search selection dropdown"
-                      name="occurrences.0.localityInformation.districtStandardized"
+                      name="occurrences.0.localityInformation.curatedLocalities.3.id"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onClick={[Function]}
@@ -16604,7 +16604,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                   }
                 >
                   <label
-                    htmlFor="occurrences.0.localityInformation.localityStandardized"
+                    htmlFor="occurrences.0.localityInformation.curatedLocalities.4.id"
                   >
                     Interpreted locality
                      
@@ -16621,7 +16621,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     <input
                       autoComplete="off"
                       disabled={undefined}
-                      name="occurrences.0.localityInformation.localityStandardized"
+                      name="occurrences.0.localityInformation.curatedLocalities.4.id"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onDragStart={[Function]}
@@ -16693,7 +16693,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.latitudeStandardized"
+                      htmlFor="occurrences.0.localityInformation.position.latitude"
                     >
                       Latitude (N)
                        
@@ -16710,7 +16710,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       <input
                         autoComplete="off"
                         disabled={undefined}
-                        name="occurrences.0.localityInformation.latitudeStandardized"
+                        name="occurrences.0.localityInformation.position.latitude"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onDragStart={[Function]}
@@ -16736,7 +16736,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.longitudeStandardized"
+                      htmlFor="occurrences.0.localityInformation.position.longitude"
                     >
                       Longitude (E)
                        
@@ -16753,7 +16753,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       <input
                         autoComplete="off"
                         disabled={undefined}
-                        name="occurrences.0.localityInformation.longitudeStandardized"
+                        name="occurrences.0.localityInformation.position.longitude"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onDragStart={[Function]}
@@ -16779,9 +16779,9 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.coordinateUncertaintyInMeters"
+                      htmlFor="occurrences.0.localityInformation.position.uncertaintyInMeters"
                     >
-                      Coord. uncertainty (m)
+                      Coordinate uncertainty in meters
                        
                       <i
                         aria-hidden="true"
@@ -16796,7 +16796,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       <input
                         autoComplete="off"
                         disabled={undefined}
-                        name="occurrences.0.localityInformation.coordinateUncertaintyInMeters"
+                        name="occurrences.0.localityInformation.position.uncertaintyInMeters"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onDragStart={[Function]}
@@ -16804,7 +16804,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                         onFocus={[Function]}
                         placeholder={undefined}
                         tabIndex={undefined}
-                        type="text"
+                        type="number"
                         value=""
                       />
                     </div>
@@ -16822,7 +16822,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.geodeticDatumStandardized"
+                      htmlFor="occurrences.0.localityInformation.position.geodeticDatum"
                     >
                       Geodetic datum
                        
@@ -16839,7 +16839,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       <input
                         autoComplete="off"
                         disabled={undefined}
-                        name="occurrences.0.localityInformation.geodeticDatumStandardized"
+                        name="occurrences.0.localityInformation.position.geodeticDatum"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onDragStart={[Function]}
@@ -16912,7 +16912,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.minimumElevationInMeters"
+                      htmlFor="occurrences.0.localityInformation.verticalPosition.minimumElevationInMeters"
                     >
                       Min elevation (m)
                        
@@ -16929,7 +16929,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       <input
                         autoComplete="off"
                         disabled={undefined}
-                        name="occurrences.0.localityInformation.minimumElevationInMeters"
+                        name="occurrences.0.localityInformation.verticalPosition.minimumElevationInMeters"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onDragStart={[Function]}
@@ -16937,7 +16937,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                         onFocus={[Function]}
                         placeholder={undefined}
                         tabIndex={undefined}
-                        type="text"
+                        type="number"
                         value=""
                       />
                     </div>
@@ -16955,7 +16955,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.maximumElevationInMeters"
+                      htmlFor="occurrences.0.localityInformation.verticalPosition.maximumElevationInMeters"
                     >
                       Max elevation (m)
                        
@@ -16972,7 +16972,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       <input
                         autoComplete="off"
                         disabled={undefined}
-                        name="occurrences.0.localityInformation.maximumElevationInMeters"
+                        name="occurrences.0.localityInformation.verticalPosition.maximumElevationInMeters"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onDragStart={[Function]}
@@ -16980,7 +16980,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                         onFocus={[Function]}
                         placeholder={undefined}
                         tabIndex={undefined}
-                        type="text"
+                        type="number"
                         value=""
                       />
                     </div>
@@ -17002,7 +17002,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.minimumDepthInMeters"
+                      htmlFor="occurrences.0.localityInformation.verticalPosition.minimumDepthInMeters"
                     >
                       Min depth (m)
                        
@@ -17019,7 +17019,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       <input
                         autoComplete="off"
                         disabled={undefined}
-                        name="occurrences.0.localityInformation.minimumDepthInMeters"
+                        name="occurrences.0.localityInformation.verticalPosition.minimumDepthInMeters"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onDragStart={[Function]}
@@ -17027,7 +17027,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                         onFocus={[Function]}
                         placeholder={undefined}
                         tabIndex={undefined}
-                        type="text"
+                        type="number"
                         value=""
                       />
                     </div>
@@ -17045,7 +17045,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     }
                   >
                     <label
-                      htmlFor="occurrences.0.localityInformation.maximumDepthInMeters"
+                      htmlFor="occurrences.0.localityInformation.verticalPosition.maximumDepthInMeters"
                     >
                       Max depth (m)
                        
@@ -17062,7 +17062,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                       <input
                         autoComplete="off"
                         disabled={undefined}
-                        name="occurrences.0.localityInformation.maximumDepthInMeters"
+                        name="occurrences.0.localityInformation.verticalPosition.maximumDepthInMeters"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onDragStart={[Function]}
@@ -17070,7 +17070,7 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                         onFocus={[Function]}
                         placeholder={undefined}
                         tabIndex={undefined}
-                        type="text"
+                        type="number"
                         value=""
                       />
                     </div>
@@ -17600,45 +17600,6 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                     autoComplete="off"
                     disabled={undefined}
                     name="originStandardized"
-                    onBlur={[Function]}
-                    onChange={[Function]}
-                    onDragStart={[Function]}
-                    onDrop={[Function]}
-                    onFocus={[Function]}
-                    placeholder={undefined}
-                    tabIndex={undefined}
-                    type="text"
-                    value=""
-                  />
-                </div>
-              </div>
-            </div>
-            <div
-              className="eight wide computer sixteen wide mobile column"
-            >
-              <div
-                className="field"
-                style={
-                  Object {
-                    "position": "relative",
-                  }
-                }
-              >
-                <label
-                  htmlFor="occurrences.0.localityText"
-                >
-                  <span>
-                    Origin locality
-                  </span>
-                </label>
-                <div
-                  className="ui input"
-                  scope={undefined}
-                >
-                  <input
-                    autoComplete="off"
-                    disabled={undefined}
-                    name="occurrences.0.localityText"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onDragStart={[Function]}

@@ -319,23 +319,67 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         value: 'Some localityVerbatim text',
       },
       {
-        name: 'occurrences.0.localityInformation.continentStandardized',
-        value: 'Europe',
+        interaction: 'click',
+        name: 'occurrences.0.localityInformation.curatedLocalities.0.id',
+        selector: ({ form, name }) => {
+          return form
+            .find({ name })
+            .find('.item')
+            .at(0)
+            .hostNodes()
+        },
       },
       {
-        name: 'occurrences.0.localityInformation.countryStandardized',
-        value: 'Sweden',
+        interaction: 'click',
+        name: 'occurrences.0.localityInformation.curatedLocalities.1.id',
+        selector: ({ form, name }) => {
+          return form
+            .find({ name })
+            .find('.item')
+            .at(0)
+            .hostNodes()
+        },
       },
       {
-        name: 'occurrences.0.localityInformation.provinceStandardized',
-        value: 'Stockholm',
+        interaction: 'click',
+        name: 'occurrences.0.localityInformation.curatedLocalities.2.id',
+        selector: ({ form, name }) => {
+          return form
+            .find({ name })
+            .find('.item')
+            .at(0)
+            .hostNodes()
+        },
       },
       {
-        name: 'occurrences.0.localityInformation.districtStandardized',
-        value: 'Vasastan',
+        interaction: 'click',
+        name: 'occurrences.0.localityInformation.curatedLocalities.3.id',
+        selector: ({ form, name }) => {
+          return form
+            .find({ name })
+            .find('.item')
+            .at(0)
+            .hostNodes()
+        },
       },
+      // {
+      //   name: 'occurrences.0.localityInformation.curatedLocalities.0.id',
+      //   value: 'Europe',
+      // },
+      // {
+      //   name: 'occurrences.0.localityInformation.curatedLocalities.1.id',
+      //   value: 'Sweden',
+      // },
+      // {
+      //   name: 'occurrences.0.localityInformation.curatedLocalities.2.id',
+      //   value: 'Stockholm',
+      // },
+      // {
+      //   name: 'occurrences.0.localityInformation.curatedLocalities.3.id',
+      //   value: 'Vasastan',
+      // },
       {
-        name: 'occurrences.0.localityInformation.localityStandardized',
+        name: 'occurrences.0.localityInformation.curatedLocalities.4.id',
         value: 'Vasastan',
       },
       {
@@ -343,41 +387,45 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         value: 'coord-string',
       },
       {
-        name: 'occurrences.0.localityInformation.latitudeStandardized',
+        name: 'occurrences.0.localityInformation.position.latitude',
         value: 'latitude-string',
       },
       {
-        name: 'occurrences.0.localityInformation.longitudeStandardized',
+        name: 'occurrences.0.localityInformation.position.longitude',
         value: 'longitude-string',
       },
       {
-        name: 'occurrences.0.localityInformation.coordinateUncertaintyInMeters',
-        value: '10',
+        name: 'occurrences.0.localityInformation.position.uncertaintyInMeters',
+        value: 10,
       },
 
       {
-        name: 'occurrences.0.localityInformation.geodeticDatumStandardized',
-        value: 'geodeticDatumStandardized text',
+        name: 'occurrences.0.localityInformation.position.geodeticDatum',
+        value: 'geodeticDatum text',
       },
       {
         name: 'occurrences.0.localityInformation.georeferenceSourcesText',
         value: 'georeferenceSourcesText text',
       },
       {
-        name: 'occurrences.0.localityInformation.minimumElevationInMeters',
-        value: '20',
+        name:
+          'occurrences.0.localityInformation.verticalPosition.minimumElevationInMeters',
+        value: 20,
       },
       {
-        name: 'occurrences.0.localityInformation.maximumElevationInMeters',
-        value: '100',
+        name:
+          'occurrences.0.localityInformation.verticalPosition.maximumElevationInMeters',
+        value: 100,
       },
       {
-        name: 'occurrences.0.localityInformation.minimumDepthInMeters',
-        value: '20',
+        name:
+          'occurrences.0.localityInformation.verticalPosition.minimumDepthInMeters',
+        value: 20,
       },
       {
-        name: 'occurrences.0.localityInformation.maximumDepthInMeters',
-        value: '100',
+        name:
+          'occurrences.0.localityInformation.verticalPosition.maximumDepthInMeters',
+        value: 100,
       },
       {
         name: 'occurrences.0.localityInformation.localityRemarks',
@@ -430,10 +478,6 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         value: 'Standardized origin',
       },
       {
-        name: 'occurrences.0.localityText',
-        value: 'localityText',
-      },
-      {
         name: 'occurrences.0.establishmentMeansStandardized',
         value: 'establishmentMeansStandardized',
       },
@@ -460,6 +504,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         name:
           'featureObservations.1.featureObservationType.featureObservationTypeName',
       },
+      // do like this with the curatedLocalities
       {
         interaction: 'click',
         name:
@@ -537,20 +582,46 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
             isDeathEvent: true,
             localityInformation: {
               coordinatesVerbatim: 'coord-string',
-              coordinateUncertaintyInMeters: '10',
-              geodeticDatumStandardized: 'geodeticDatumStandardized text',
+              curatedLocalities: [
+                {
+                  id: 'Africa',
+                  type: 'continent',
+                },
+                {
+                  id: 'Algeria',
+                  type: 'country',
+                },
+                {
+                  id: 'Balearic Islands',
+                  type: 'province',
+                },
+                {
+                  id: 'GaspÃ© Peninsula',
+                  type: 'district',
+                },
+                {
+                  id: 'Vasastan',
+                  type: 'locality',
+                },
+              ],
               georeferenceSourcesText: 'georeferenceSourcesText text',
-              latitudeStandardized: 'latitude-string',
+
               localityRemarks: 'localityRemarks text',
-              localityStandardized: 'Vasastan',
               localityVerbatim: 'Some localityVerbatim text',
-              longitudeStandardized: 'longitude-string',
-              maximumDepthInMeters: '100',
-              maximumElevationInMeters: '100',
-              minimumDepthInMeters: '20',
-              minimumElevationInMeters: '20',
+
+              position: {
+                geodeticDatum: 'geodeticDatum text',
+                latitude: 'latitude-string',
+                longitude: 'longitude-string',
+                uncertaintyInMeters: 10,
+              },
+              verticalPosition: {
+                maximumDepthInMeters: 100,
+                maximumElevationInMeters: 100,
+                minimumDepthInMeters: 20,
+                minimumElevationInMeters: 20,
+              },
             },
-            localityText: 'localityText',
             monthEnd: 1,
             monthStart: 1,
             occurrenceDateText: '15 jan 1986',
@@ -621,7 +692,6 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         occurrences: [
           {
             id: 1,
-            localityText: 'Hemsö',
           },
         ],
         physicalUnits: [

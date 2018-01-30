@@ -40,6 +40,11 @@ const apiConfigSchema = {
     validateOutput: {
       type: 'boolean',
     },
+    validateResponse: {
+      not: {
+        type: 'string',
+      },
+    },
   },
   required: ['validateInput', 'validateOutput'],
 }

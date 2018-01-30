@@ -3,6 +3,8 @@ const path = require('path')
 const dotenv = require('dotenv')
 require('isomorphic-fetch')
 
+const jsonApiSchema = require('../../coreModules/api/schemas/jsonApi')
+const { createSystemModelSchemaValidator } = require('../../utilities/error')
 const buildEndpointSpec = require('../../coreModules/api/endpointSpecFactory/server')
 const createApiClient = require('../../coreModules/api/apiClient')
 
@@ -50,6 +52,11 @@ export const login = (
     })
 }
 
+const jsonApiValidator = createSystemModelSchemaValidator({
+  schema: jsonApiSchema,
+  throwOnError: true,
+})
+
 export const createTestClient = ({
   authToken,
   validateInput = false,
@@ -68,6 +75,10 @@ export const createTestClient = ({
     },
     validateInput,
     validateOutput,
+    validateResponse: ({ json }) => {
+      jsonApiValidator(json)
+      return { json }
+    },
   })
 }
 

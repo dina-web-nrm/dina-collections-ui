@@ -202,21 +202,6 @@ function SegmentCollectingInformation({ occurrences, getPath }) {
             label={
               <ModuleTranslate
                 scope="occurrences"
-                textKey="originLocalityText"
-              />
-            }
-            module="collectionMammals"
-            name={getPath('localityText')}
-            type="text"
-          />
-        </Grid.Column>
-        <Grid.Column computer={8} mobile={16}>
-          <Field
-            autoComplete="off"
-            component={Input}
-            label={
-              <ModuleTranslate
-                scope="occurrences"
                 textKey="establishmentMeansStandardized"
               />
             }
