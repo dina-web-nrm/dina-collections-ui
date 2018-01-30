@@ -39,7 +39,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "classnames": "^2.2.5",
     "debug": "^3.1.0",
-    "dina-schema": "https://github.com/DINA-Web/dina-schema.git#master",
+    "dina-schema": "https://github.com/DINA-Web/dina-schema.git#next",
     "dns": "file:./src/mock/dns",
     "dotenv": "^4.0.0",
     "enzyme": "^3.3.0",
