@@ -88,6 +88,12 @@ export default () => {
                     <a href="/storybook/index.html">Component documentation</a>
                   </List.Content>
                 </List.Item>
+                <List.Item>
+                  <List.Content>
+                    <Icon name="external" />
+                    <a href="/coverage/index.html">Test coverage</a>
+                  </List.Content>
+                </List.Item>
               </List>
             </Grid.Column>
           </Grid.Row>
