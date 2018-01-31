@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, Form, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { push } from 'react-router-redux'
@@ -16,7 +16,7 @@ import { createFormModelSchemaValidator } from 'utilities/error'
 import { FormSchemaError } from 'coreModules/error/components'
 import { clearTaxonSearch } from 'domainModules/taxonomy/actionCreators'
 import createLog from 'utilities/log'
-import { createModuleTranslate } from 'coreModules/i18n/components'
+import { createModuleTranslate, Translate } from 'coreModules/i18n/components'
 import { MAMMAL_FORM_NAME } from '../../constants'
 import SegmentCatalogedUnit from './SegmentCatalogedUnit'
 import SegmentDeterminations from './SegmentDeterminations'
@@ -174,58 +174,76 @@ class RawMammalForm extends Component {
         onSubmit={handleSubmit(this.handleFormSubmit)}
         success={submitSucceeded}
       >
-        <SegmentCatalogedUnit />
-        <SegmentDeterminations
-          changeFieldValue={this.changeFieldValue}
-          formValueSelector={formValueSelector}
-          mode={mode}
-          removeArrayFieldByIndex={this.removeArrayFieldByIndex}
-        />
-        <SegmentCollectingInformation formValueSelector={formValueSelector} />
-        <SegmentFeatureObservations formValueSelector={formValueSelector} />
-        <SegmentPhysicalUnits />
+        <h1>
+          <Translate
+            textKey={
+              mode === 'edit'
+                ? 'modules.editMammal.editMammal'
+                : 'modules.registerMammal.registerMammal'
+            }
+          />
+        </h1>
+        <Grid textAlign="left" verticalAlign="middle">
+          <Grid.Column>
+            <SegmentCatalogedUnit />
+            <SegmentDeterminations
+              changeFieldValue={this.changeFieldValue}
+              formValueSelector={formValueSelector}
+              mode={mode}
+              removeArrayFieldByIndex={this.removeArrayFieldByIndex}
+            />
+            <SegmentCollectingInformation
+              formValueSelector={formValueSelector}
+            />
+            <SegmentFeatureObservations formValueSelector={formValueSelector} />
+            <SegmentPhysicalUnits />
 
-        <Segment>
-          <div>
-            <Button
-              disabled={pristine || submitting}
-              size="large"
-              type="submit"
-            >
-              <ModuleTranslate textKey="save" />
-            </Button>
-            <Button
-              basic
-              disabled={pristine || submitting}
-              onClick={reset}
-              size="large"
-            >
-              <ModuleTranslate textKey="cancel" />
-            </Button>
-            {schemaErrors.length > 0 && (
-              <FormSchemaError errors={schemaErrors} />
-            )}
-            {invalid &&
-              !error &&
-              submitFailed && (
-                <Message
-                  error
-                  header={<ModuleTranslate textKey="formContainsErrors" />}
-                />
-              )}
-            {submitFailed &&
-              error && (
-                <Message
-                  content={error}
-                  error
-                  header={<ModuleTranslate textKey="submitFailed" />}
-                />
-              )}
-            {submitSucceeded && (
-              <Message header={<ModuleTranslate textKey="saved" />} success />
-            )}
-          </div>
-        </Segment>
+            <Segment>
+              <div>
+                <Button
+                  disabled={pristine || submitting}
+                  size="large"
+                  type="submit"
+                >
+                  <ModuleTranslate textKey="save" />
+                </Button>
+                <Button
+                  basic
+                  disabled={pristine || submitting}
+                  onClick={reset}
+                  size="large"
+                >
+                  <ModuleTranslate textKey="cancel" />
+                </Button>
+                {schemaErrors.length > 0 && (
+                  <FormSchemaError errors={schemaErrors} />
+                )}
+                {invalid &&
+                  !error &&
+                  submitFailed && (
+                    <Message
+                      error
+                      header={<ModuleTranslate textKey="formContainsErrors" />}
+                    />
+                  )}
+                {submitFailed &&
+                  error && (
+                    <Message
+                      content={error}
+                      error
+                      header={<ModuleTranslate textKey="submitFailed" />}
+                    />
+                  )}
+                {submitSucceeded && (
+                  <Message
+                    header={<ModuleTranslate textKey="saved" />}
+                    success
+                  />
+                )}
+              </div>
+            </Segment>
+          </Grid.Column>
+        </Grid>
       </Form>
     )
   }
