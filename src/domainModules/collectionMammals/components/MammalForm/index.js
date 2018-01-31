@@ -56,7 +56,8 @@ const propTypes = {
   error: PropTypes.string,
   handleFormSubmit: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  individualGroupAttributes: PropTypes.shape({
+  individualGroup: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     // TODO: define and possibly centralize propTypes for individualGroup
     identifications: PropTypes.arrayOf(
       PropTypes.shape({
@@ -74,7 +75,6 @@ const propTypes = {
       }).isRequired
     ).isRequired,
   }),
-  individualGroupId: PropTypes.number,
   initialize: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
   mode: PropTypes.oneOf(['edit', 'register']),
@@ -93,8 +93,7 @@ const propTypes = {
 
 const defaultProps = {
   error: '',
-  individualGroupAttributes: undefined,
-  individualGroupId: undefined,
+  individualGroup: undefined,
   mode: 'register',
   redirectOnSuccess: false,
   schemaErrors: [],
@@ -104,15 +103,12 @@ class RawMammalForm extends Component {
   constructor(props) {
     super(props)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
-    props.initialize(transformInput(props.individualGroupAttributes))
+    props.initialize(transformInput(props.individualGroup))
   }
 
   componentWillReceiveProps(nextProps) {
-    if (
-      this.props.individualGroupAttributes !==
-      nextProps.individualGroupAttributes
-    ) {
-      this.props.initialize(transformInput(nextProps.individualGroupAttributes))
+    if (this.props.individualGroup !== nextProps.individualGroup) {
+      this.props.initialize(transformInput(nextProps.individualGroup))
     }
   }
 
@@ -122,7 +118,7 @@ class RawMammalForm extends Component {
 
   handleFormSubmit(data) {
     const patchedData = {
-      id: this.props.individualGroupId,
+      id: this.props.individualGroup && this.props.individualGroup.id,
       ...data,
     }
 

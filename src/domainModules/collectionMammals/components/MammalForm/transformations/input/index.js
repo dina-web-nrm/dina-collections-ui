@@ -4,7 +4,8 @@ import transformPhysicalUnits from './physicalUnits'
 import transformOccurrences from './occurrences'
 
 export default function transformInput(individualGroup = {}) {
-  const attributes = { ...individualGroup }
+  const { id, type, ...rest } = individualGroup
+  const attributes = { ...rest }
 
   const occurrences = transformOccurrences(attributes.occurrences)
 
