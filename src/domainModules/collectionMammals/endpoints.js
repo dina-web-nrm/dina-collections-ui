@@ -39,10 +39,12 @@ export const LOOKUP_MAMMALS = buildEndpointSpec({
 
 export const REGISTER_MAMMAL = buildEndpointSpec({
   mapResponse: result => flattenDataAttributes(extractData(result)),
+  mock: () => ({ data: getIndividualGroup() }),
   operationId: 'createIndividualGroup',
 })
 
 export const UPDATE_INDIVIDUAL_GROUP = buildEndpointSpec({
   mapResponse: result => flattenDataAttributes(extractData(result)),
+  mock: () => ({ data: getIndividualGroup() }),
   operationId: 'updateIndividualGroup',
 })
