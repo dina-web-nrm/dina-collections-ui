@@ -79,7 +79,7 @@
     "reselect": "^3.0.1",
     "response-time": "^2.3.2",
     "semantic-ui": "https://github.com/DINA-Web/dina-semantic-ui.git#master",
-    "semantic-ui-react": "^0.74.2",
+    "semantic-ui-react": "^0.77.2",
     "sequelize": "^4.31.2",
     "uuid": "^3.2.1",
     "watch-glob": "^0.1.3",

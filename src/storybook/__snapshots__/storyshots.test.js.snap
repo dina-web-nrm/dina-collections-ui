@@ -766,13 +766,17 @@ exports[`Storyshots coreModules/form/Checkbox Default 1`] = `
           <input
             checked={false}
             className="hidden"
+            id={undefined}
             name={undefined}
+            onClick={[Function]}
             readOnly={true}
             tabIndex={0}
             type="checkbox"
             value={undefined}
           />
-          <label />
+          <label
+            htmlFor={undefined}
+          />
         </div>
       </div>
     </div>
@@ -1522,10 +1526,6 @@ exports[`Storyshots coreModules/user/LoginForm Default 1`] = `
               className="ui left icon input"
               scope={undefined}
             >
-              <i
-                aria-hidden="true"
-                className="user icon"
-              />
               <input
                 autoComplete="off"
                 disabled={undefined}
@@ -1539,6 +1539,10 @@ exports[`Storyshots coreModules/user/LoginForm Default 1`] = `
                 tabIndex={undefined}
                 type="text"
                 value=""
+              />
+              <i
+                aria-hidden="true"
+                className="user icon"
               />
             </div>
           </div>
@@ -1554,10 +1558,6 @@ exports[`Storyshots coreModules/user/LoginForm Default 1`] = `
               className="ui left icon input"
               scope={undefined}
             >
-              <i
-                aria-hidden="true"
-                className="lock icon"
-              />
               <input
                 autoComplete="off"
                 disabled={undefined}
@@ -1571,6 +1571,10 @@ exports[`Storyshots coreModules/user/LoginForm Default 1`] = `
                 tabIndex={undefined}
                 type="password"
                 value=""
+              />
+              <i
+                aria-hidden="true"
+                className="lock icon"
               />
             </div>
           </div>
@@ -1739,13 +1743,17 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                   <input
                     checked={false}
                     className="hidden"
+                    id={undefined}
                     name="physicalUnits.0.catalogedUnit.publishRecord"
+                    onClick={[Function]}
                     readOnly={true}
                     tabIndex={0}
                     type="checkbox"
                     value={undefined}
                   />
-                  <label />
+                  <label
+                    htmlFor={undefined}
+                  />
                 </div>
               </div>
             </div>
@@ -1818,13 +1826,17 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                             <input
                               checked={false}
                               className="hidden"
+                              id={undefined}
                               name="identifications.0.isCurrentIdentification"
+                              onClick={[Function]}
                               readOnly={true}
                               tabIndex={0}
                               type="checkbox"
                               value={undefined}
                             />
-                            <label />
+                            <label
+                              htmlFor={undefined}
+                            />
                           </div>
                         </div>
                       </div>
@@ -17467,13 +17479,17 @@ exports[`Storyshots domainModules/collectionMammals/MammalForm Default 1`] = `
                   <input
                     checked={false}
                     className="hidden"
+                    id={undefined}
                     name="occurrences.0.isDeathEvent"
+                    onClick={[Function]}
                     readOnly={true}
                     tabIndex={0}
                     type="checkbox"
                     value={undefined}
                   />
-                  <label />
+                  <label
+                    htmlFor={undefined}
+                  />
                 </div>
               </div>
             </div>
