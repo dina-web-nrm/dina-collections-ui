@@ -55,7 +55,7 @@ export default function reducer(state = initialState, action) {
 
     case COLLECTION_MAMMALS_LOOKUP_MAMMALS_SUCCESS: {
       const emptyErrorState = setLookupError(state, [])
-      return setLookupResult(emptyErrorState, action.payload.data)
+      return setLookupResult(emptyErrorState, action.payload)
     }
 
     case COLLECTION_MAMMALS_SET_ACCORDION_ACTIVE_INDEX: {

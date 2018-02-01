@@ -267,7 +267,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     simulateFormFieldChanges(form, [
       {
         name: 'physicalUnits.0.catalogedUnit.catalogNumber',
-        value: 'xxxxxx',
+        value: '123456',
       },
     ])
     form.simulate('submit')
@@ -710,8 +710,10 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
       component: (
         <MammalForm
           handleFormSubmit={handleFormSubmit}
-          individualGroupAttributes={individualGroup.attributes}
-          individualGroupId={2}
+          individualGroup={{
+            ...individualGroup.attributes,
+            id: individualGroup.id,
+          }}
           transformOutputForUpdate
         />
       ),

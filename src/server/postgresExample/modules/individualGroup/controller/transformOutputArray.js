@@ -4,7 +4,7 @@ module.exports = function tranformOutput(output) {
     return []
   }
 
-  return output.map(model => {
+  return output.filter(model => !!model).map(model => {
     const { dataValues } = model
     delete dataValues.document.catalogedUnit
     return {

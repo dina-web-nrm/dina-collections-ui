@@ -44,15 +44,13 @@ const propTypes = {
   push: PropTypes.func.isRequired,
   result: PropTypes.arrayOf(
     PropTypes.shape({
-      attributes: PropTypes.shape({
-        physicalUnits: PropTypes.arrayOf(
-          PropTypes.shape({
-            catalogedUnit: PropTypes.shape({
-              catalogNumber: PropTypes.string.isRequired,
-            }).isRequired,
-          }).isRequired
-        ).isRequired,
-      }).isRequired,
+      physicalUnits: PropTypes.arrayOf(
+        PropTypes.shape({
+          catalogedUnit: PropTypes.shape({
+            catalogNumber: PropTypes.string.isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
     })
   ).isRequired,
   searchParameters: PropTypes.shape({
@@ -136,14 +134,12 @@ class LookupMammals extends Component {
           </Table.Header>
           {result.length ? (
             <Table.Body>
-              {result.map(({ attributes, id }) => {
-                const {
-                  catalogNumber,
-                } = attributes.physicalUnits[0].catalogedUnit
+              {result.map(({ id, identifications, physicalUnits }) => {
+                const { catalogNumber } = physicalUnits[0].catalogedUnit
                 const { identifiedTaxonNameStandardized } =
-                  attributes.identifications &&
-                  attributes.identifications.length &&
-                  attributes.identifications[0]
+                  identifications &&
+                  identifications.length &&
+                  identifications[0]
 
                 const tableValues = {
                   catalogNumber,
