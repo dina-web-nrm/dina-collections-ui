@@ -5,7 +5,7 @@ require('isomorphic-fetch')
 
 const jsonApiSchema = require('../../coreModules/api/schemas/jsonApi')
 const { createSystemModelSchemaValidator } = require('../../utilities/error')
-const buildEndpointSpec = require('../../coreModules/api/endpointSpecFactory/server')
+const createEndpoint = require('../../coreModules/api/endpointFactory/server')
 const createApiClient = require('../../coreModules/api/apiClient')
 
 const dotEnvPath = path.join(__dirname, '../../../.env.test.local')
@@ -30,7 +30,7 @@ export const login = (
   const authClient = createAuthClient()
   return authClient
     .formPost(
-      buildEndpointSpec({
+      createEndpoint({
         mapResponse: json => {
           return {
             accessToken: json.access_token,
@@ -98,7 +98,7 @@ export const makeTestCall = ({
     validateOutput,
   })
   return testClient.call(
-    buildEndpointSpec({
+    createEndpoint({
       operationId,
     }),
     { body, pathParams, queryParams }

@@ -1,4 +1,4 @@
-import buildEndpointSpec from 'coreModules/api/endpointSpecFactory/client'
+import createEndpoint from 'coreModules/api/endpointFactory/client'
 import { createDeleter, createSetter } from 'utilities/stateHelper'
 import { taxonomyResponse } from './mockData'
 
@@ -10,7 +10,7 @@ const deleteScientificUnderscoreName = createDeleter([
 
 const baseUrl = '/taxonomy'
 
-export const TAXONOMY_SEARCH = buildEndpointSpec({
+export const TAXONOMY_SEARCH = createEndpoint({
   baseUrl,
   mapResponse: json => {
     const parsedResult = {

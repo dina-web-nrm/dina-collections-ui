@@ -1,6 +1,6 @@
-import buildEndpointSpec from 'coreModules/api/endpointSpecFactory/client'
+import createEndpoint from 'coreModules/api/endpointFactory/client'
 
-export const LOG_IN = buildEndpointSpec({
+export const LOG_IN = createEndpoint({
   mapResponse: json => {
     return {
       accessToken: json.access_token,
@@ -10,7 +10,7 @@ export const LOG_IN = buildEndpointSpec({
   operationId: 'loginUser',
 })
 
-export const GET_USER = buildEndpointSpec({
+export const GET_USER = createEndpoint({
   mapResponse: json => {
     return {
       email: json.email,
