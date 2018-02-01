@@ -3,7 +3,7 @@ const path = require('path')
 const dotenv = require('dotenv')
 require('isomorphic-fetch')
 
-const jsonApiSchema = require('../../coreModules/api/schemas/jsonApi')
+const jsonApiSchema = require('../../utilities/apiClient/schemas/jsonApi')
 const { createSystemModelSchemaValidator } = require('../../utilities/error')
 const createEndpoint = require('../../utilities/endpointFactory/server')
 const createApiClient = require('../../utilities/apiClient')
