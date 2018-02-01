@@ -108,7 +108,7 @@ const createMockData = ({ importFaker, methodSpecification }) => {
   return null
 }
 
-module.exports = function createBuildEndpointSpec({ importFaker }) {
+module.exports = function createEndpointFactory({ importFaker }) {
   return function createEndpoint({ operationId, ...rest }) {
     if (!map[operationId]) {
       console.warn(`Operation id: ${operationId} unknown`) // eslint-disable-line no-console

@@ -1,6 +1,6 @@
-const createBuildEndpointSpec = require('./createBuildEndpointSpec')
+const createEndpointFactory = require('./createEndpointFactory')
 const faker = require('json-schema-faker')
 
 const importFaker = () => Promise.resolve(faker)
 
-module.exports = createBuildEndpointSpec({ importFaker })
+module.exports = createEndpointFactory({ importFaker })
