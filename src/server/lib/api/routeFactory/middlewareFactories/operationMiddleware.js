@@ -1,5 +1,5 @@
 const createLog = require('../../../../utilities/log')
-const createResponse = require('../../../../../coreModules/api/apiClient/createResponse')
+const createResponse = require('../../../../../utilities/apiClient/createResponse')
 
 const log = createLog('operationMiddleware')
 

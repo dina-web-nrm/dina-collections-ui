@@ -1,6 +1,6 @@
 const openApiSpec = require('dina-schema/build/openApi.json')
-const { createSystemModelSchemaValidator } = require('../../../utilities/error')
-const createMockGenerator = require('../../../utilities/jsonSchema/createMockGenerator')
+const { createSystemModelSchemaValidator } = require('../error')
+const createMockGenerator = require('../jsonSchema/createMockGenerator')
 
 const buildOperationIdPathnameMap = () => {
   const map = {}

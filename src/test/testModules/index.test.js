@@ -3,7 +3,7 @@ import path from 'path'
 import fs from 'fs'
 import validateAgainstSchema from 'utilities/jsonSchema/validateAgainstSchema'
 import isKnownError from 'utilities/error/isKnownError'
-import createApiClient from 'coreModules/api/apiClient'
+import createApiClient from 'utilities/apiClient'
 import { testNotificationSpecification } from 'coreModules/notifications/utilities'
 
 import viewModuleSchema from './viewModuleSchema.json'

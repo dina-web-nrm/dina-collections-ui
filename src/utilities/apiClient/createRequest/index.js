@@ -1,4 +1,4 @@
-const chainPromises = require('../../../../utilities/chainPromises')
+const chainPromises = require('../../chainPromises')
 
 const extractMethodsFromConfigs = (configs, key) => {
   return configs.map(config => config[key])

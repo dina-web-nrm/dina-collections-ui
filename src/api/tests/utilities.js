@@ -5,8 +5,8 @@ require('isomorphic-fetch')
 
 const jsonApiSchema = require('../../coreModules/api/schemas/jsonApi')
 const { createSystemModelSchemaValidator } = require('../../utilities/error')
-const createEndpoint = require('../../coreModules/api/endpointFactory/server')
-const createApiClient = require('../../coreModules/api/apiClient')
+const createEndpoint = require('../../utilities/endpointFactory/server')
+const createApiClient = require('../../utilities/apiClient')
 
 const dotEnvPath = path.join(__dirname, '../../../.env.test.local')
 

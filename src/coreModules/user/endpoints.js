@@ -1,4 +1,4 @@
-import createEndpoint from 'coreModules/api/endpointFactory/client'
+import createEndpoint from 'utilities/endpointFactory/client'
 
 export const LOG_IN = createEndpoint({
   mapResponse: json => {

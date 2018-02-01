@@ -1,4 +1,4 @@
-import createEndpoint from 'coreModules/api/endpointFactory/client'
+import createEndpoint from 'utilities/endpointFactory/client'
 import { createDeleter, createSetter } from 'utilities/stateHelper'
 import { taxonomyResponse } from './mockData'
 

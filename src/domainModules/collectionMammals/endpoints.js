@@ -1,4 +1,4 @@
-import createEndpoint from 'coreModules/api/endpointFactory/client'
+import createEndpoint from 'utilities/endpointFactory/client'
 import { createLookupMammalsResponse, getIndividualGroup } from './mockData'
 
 const extractData = result => result.data
