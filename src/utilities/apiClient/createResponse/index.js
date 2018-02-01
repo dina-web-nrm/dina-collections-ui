@@ -1,8 +1,5 @@
-const chainPromises = require('../../chainPromises')
-
-const extractMethodsFromConfigs = (configs, key) => {
-  return configs.map(config => config[key])
-}
+const validateOutput = require('./validateOutput')
+const mapOutput = require('./mapOutput')
 
 module.exports = function createResponse({
   apiConfig,
@@ -10,26 +7,17 @@ module.exports = function createResponse({
   methodConfig,
   responseData,
 }) {
-  const { validateOutput } = apiConfig
-
-  const configs = [apiConfig, endpointConfig, methodConfig]
-
-  return (!validateOutput
-    ? Promise.resolve()
-    : Promise.all([
-        chainPromises(
-          extractMethodsFromConfigs(configs, 'validateResponse'),
-          responseData
-        ),
-      ])
-  ).then(() => {
-    return Promise.all([
-      chainPromises(
-        extractMethodsFromConfigs(configs, 'mapResponse'),
-        responseData || {}
-      ),
-    ]).then(([response]) => {
-      return response
+  return validateOutput({
+    apiConfig,
+    endpointConfig,
+    methodConfig,
+    responseData,
+  }).then(() => {
+    return mapOutput({
+      apiConfig,
+      endpointConfig,
+      methodConfig,
+      responseData,
     })
   })
 }

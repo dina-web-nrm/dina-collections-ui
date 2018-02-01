@@ -1,8 +1,5 @@
-const chainPromises = require('../../chainPromises')
-
-const extractMethodsFromConfigs = (configs, key) => {
-  return configs.map(config => config[key])
-}
+const mapInput = require('./mapInput')
+const validateInput = require('./validateInput')
 
 module.exports = function createRequest({
   apiConfig,
@@ -10,56 +7,25 @@ module.exports = function createRequest({
   methodConfig,
   userInput,
 }) {
-  const { validateInput } = apiConfig
-
-  const configs = [apiConfig, endpointConfig, methodConfig]
-
-  return Promise.all([
-    chainPromises(
-      extractMethodsFromConfigs(configs, 'mapBody'),
-      userInput.body || {}
-    ),
-    chainPromises(
-      extractMethodsFromConfigs(configs, 'mapHeaders'),
-      userInput.headers || {}
-    ),
-    chainPromises(
-      extractMethodsFromConfigs(configs, 'mapPathParams'),
-      userInput.pathParams || {}
-    ),
-    chainPromises(
-      extractMethodsFromConfigs(configs, 'mapQueryParams'),
-      userInput.queryParams || {}
-    ),
-  ]).then(([body, headers, pathParams, queryParams]) => {
+  return mapInput({
+    apiConfig,
+    endpointConfig,
+    methodConfig,
+    userInput,
+  }).then(({ body, headers, pathParams, queryParams }) => {
     const request = {
       body,
       headers,
       pathParams,
       queryParams,
     }
-    if (!validateInput) {
-      return request
-    }
 
-    return Promise.all([
-      chainPromises(
-        extractMethodsFromConfigs(configs, 'validateBody'),
-        request.body
-      ),
-      chainPromises(
-        extractMethodsFromConfigs(configs, 'validateHeaders'),
-        request.headers
-      ),
-      chainPromises(
-        extractMethodsFromConfigs(configs, 'validatePathParams'),
-        request.pathParams
-      ),
-      chainPromises(
-        extractMethodsFromConfigs(configs, 'validateQueryParams'),
-        request.queryParams
-      ),
-    ]).then(() => {
+    return validateInput({
+      apiConfig,
+      endpointConfig,
+      methodConfig,
+      request,
+    }).then(() => {
       return request
     })
   })
