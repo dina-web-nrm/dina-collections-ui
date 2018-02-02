@@ -276,6 +276,10 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
         name: 'physicalUnits.0.catalogedUnit.publishRecord',
         value: true,
       },
+      {
+        name: 'physicalUnits.0.catalogedUnit.remarks',
+        value: 'some remark',
+      },
       // Determination
       {
         name: 'identifications.0.isCurrentIdentification',
@@ -527,6 +531,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
       catalogedUnit: {
         catalogNumber: '584028',
         publishRecord: true,
+        remarks: 'some remark',
         storedUnderTaxonName: 'Sorex minutus',
       },
       individualGroup: {
@@ -624,6 +629,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
             catalogedUnit: {
               catalogNumber: '584028',
               publishRecord: true,
+              remarks: 'some remark',
               storedUnderTaxonName: 'Sorex minutus',
             },
             normalStorageLocationText: 'normalStorageLocationText',
@@ -650,9 +656,11 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     const { registeredFields, submitFailed, syncErrors, values } = formState
 
     expect(
-      mutations.filter(({ ignore }) => !ignore).map(mutation => mutation.name)
-    ).toMatchObject(Object.keys(registeredFields))
-
+      mutations
+        .filter(({ ignore }) => !ignore)
+        .map(mutation => mutation.name)
+        .sort()
+    ).toMatchObject(Object.keys(registeredFields).sort())
     expect(transformOutput(values)).toEqual(expectedOutput)
     expect(syncErrors).toBe(undefined)
     expect(submitFailed).toBe(undefined)

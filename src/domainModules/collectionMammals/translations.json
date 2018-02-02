@@ -40,6 +40,10 @@
     }
   },
   "catalogedUnit": {
+    "remarks": {
+      "en": "Specimen remarks",
+      "sv": "Exemplarsnoteringar"
+    },
     "storedUnderTaxonName": {
       "en": "Stored under name",
       "sv": "Förvaras under namn"

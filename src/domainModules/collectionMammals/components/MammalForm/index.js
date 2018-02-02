@@ -24,6 +24,7 @@ import SegmentDeterminations from './SegmentDeterminations'
 import SegmentFeatureObservations from './SegmentFeatureObservations/index'
 import SegmentCollectingInformation from './SegmentCollectingInformation/index'
 import SegmentPhysicalUnits from './SegmentPhysicalUnits'
+import SegmentOther from './SegmentOther'
 import transformInput from './transformations/input'
 import transformOutput from './transformations/output'
 
@@ -206,6 +207,7 @@ class RawMammalForm extends Component {
             />
             <SegmentFeatureObservations formValueSelector={formValueSelector} />
             <SegmentPhysicalUnits />
+            <SegmentOther />
 
             <Segment>
               <div>
