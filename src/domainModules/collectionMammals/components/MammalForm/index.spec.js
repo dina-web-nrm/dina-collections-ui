@@ -67,13 +67,6 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     )
 
     const form = rootComponent.find('form')
-    // required for successful submit
-    simulateFormFieldChanges(form, [
-      {
-        name: 'physicalUnits.0.catalogedUnit.catalogNumber',
-        value: '123456',
-      },
-    ])
     form.simulate('submit')
 
     const { submitFailed, values } = store.getState().form.mammalForm
@@ -239,21 +232,16 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     })
   })
 
-  it('Submit fail when catalog number not provided', () => {
+  it('Submit success when no catalog number provided', () => {
     const { store, rootComponent: mountedComponent } = setupTestComponent({
       component: <MammalForm handleFormSubmit={handleFormSubmit} />,
       fullExport: true,
       mount: true,
     })
 
-    expect(store.getState().form.mammalForm).toBeTruthy()
-
-    expect(store.getState().form.mammalForm.submitFailed).toBe(undefined)
-
     const form = mountedComponent.find('form')
     form.simulate('submit')
-
-    expect(store.getState().form.mammalForm.submitFailed).toBe(true)
+    expect(store.getState().form.mammalForm.submitFailed).toBe(undefined)
   })
 
   it('Submit success when catalog number provided', () => {

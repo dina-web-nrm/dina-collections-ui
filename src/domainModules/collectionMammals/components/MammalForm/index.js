@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
@@ -16,7 +17,7 @@ import { createFormModelSchemaValidator } from 'utilities/error'
 import { FormSchemaError } from 'coreModules/error/components'
 import { clearTaxonSearch } from 'domainModules/taxonomy/actionCreators'
 import createLog from 'utilities/log'
-import { createModuleTranslate, Translate } from 'coreModules/i18n/components'
+import { createModuleTranslate } from 'coreModules/i18n/components'
 import { MAMMAL_FORM_NAME } from '../../constants'
 import SegmentCatalogedUnit from './SegmentCatalogedUnit'
 import SegmentDeterminations from './SegmentDeterminations'
@@ -77,6 +78,11 @@ const propTypes = {
   }),
   initialize: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      catalogNumber: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
   mode: PropTypes.oneOf(['edit', 'register']),
   pristine: PropTypes.bool.isRequired,
   push: PropTypes.func.isRequired,
@@ -117,27 +123,36 @@ class RawMammalForm extends Component {
   }
 
   handleFormSubmit(data) {
+    const {
+      handleFormSubmit,
+      individualGroup,
+      match,
+      push: pushRoute,
+      redirectOnSuccess,
+    } = this.props
     const patchedData = {
-      id: this.props.individualGroup && this.props.individualGroup.id,
+      id: individualGroup && individualGroup.id,
       ...data,
     }
 
     const output = transformOutput(patchedData)
 
-    return this.props
-      .handleFormSubmit(output)
+    return handleFormSubmit(output)
       .then(() => {
         const catalogNumber =
           output.catalogedUnit && output.catalogedUnit.catalogNumber
-        if (this.props.redirectOnSuccess && catalogNumber) {
-          this.props.push(`/app/mammals/${catalogNumber}/edit`)
+
+        if (
+          catalogNumber &&
+          (redirectOnSuccess || catalogNumber !== match.params.catalogNumber)
+        ) {
+          pushRoute(`/app/mammals/${catalogNumber}/edit`)
         }
       })
       .catch(error => {
-        // prettier-ignore
         const errorMessage = `Status: ${error.status}, message: ${
           error.error ? error.error.message : error.message
-      }`
+        }`
 
         throw new SubmissionError({
           _error: errorMessage,
@@ -174,18 +189,12 @@ class RawMammalForm extends Component {
         onSubmit={handleSubmit(this.handleFormSubmit)}
         success={submitSucceeded}
       >
-        <h1>
-          <Translate
-            textKey={
-              mode === 'edit'
-                ? 'modules.editMammal.editMammal'
-                : 'modules.registerMammal.registerMammal'
-            }
-          />
-        </h1>
         <Grid textAlign="left" verticalAlign="middle">
           <Grid.Column>
-            <SegmentCatalogedUnit />
+            <SegmentCatalogedUnit
+              editMode={mode === 'edit'}
+              formValueSelector={formValueSelector}
+            />
             <SegmentDeterminations
               changeFieldValue={this.changeFieldValue}
               formValueSelector={formValueSelector}
@@ -200,11 +209,7 @@ class RawMammalForm extends Component {
 
             <Segment>
               <div>
-                <Button
-                  disabled={pristine || submitting}
-                  size="large"
-                  type="submit"
-                >
+                <Button disabled={submitting} size="large" type="submit">
                   <ModuleTranslate textKey="save" />
                 </Button>
                 <Button
@@ -259,4 +264,7 @@ export const MammalForm = reduxForm({
   }),
 })(RawMammalForm)
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(MammalForm)
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(MammalForm)
