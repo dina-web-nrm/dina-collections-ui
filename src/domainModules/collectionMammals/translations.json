@@ -3,14 +3,46 @@
     "en": "Add",
     "sv": "Lägg till"
   },
-  "catalogedUnit": {
+  "catalogNumber": {
+    "en": "Catalog number",
+    "sv": "Katalognummer",
+    "add": {
+      "en": "Add",
+      "sv": "Lägg till"
+    },
+    "addCatalogNumber": {
+      "en": "Add catalog number",
+      "sv": "Lägg till katalognummer"
+    },
+    "cancel": {
+      "en": "Cancel",
+      "sv": "Ångra"
+    },
+    "edit": {
+      "en": "Edit",
+      "sv": "Redigera"
+    },
+    "editCatalogNumber": {
+      "en": "Edit catalog number",
+      "sv": "Redigera katalognummer"
+    },
+    "newSpecimen": {
+      "en": "New specimen",
+      "sv": "Nytt exemplar"
+    },
+    "saveChanges": {
+      "en": "Save changes",
+      "sv": "Spara ändringar"
+    },
     "sixOrEightDigits": {
       "en": "6 or 8 digits",
       "sv": "6 eller 8 siffror"
-    },
-    "catalogNumber": {
-      "en": "Catalog number",
-      "sv": "Katalognummer"
+    }
+  },
+  "catalogedUnit": {
+    "remarks": {
+      "en": "Specimen remarks",
+      "sv": "Exemplarsnoteringar"
     },
     "storedUnderTaxonName": {
       "en": "Stored under name",
@@ -75,10 +107,8 @@
       "sv": "Verbatim taxonnamn"
     },
     "warningChangedDetermination": {
-      "en":
-        "Warning: Another determination \"{{taxonName}}\" was already marked as current.",
-      "sv":
-        "Varning: En annan bestämning \"{{taxonName}}\" var redan markerad som aktuell."
+      "en": "Warning: Another determination \"{{taxonName}}\" was already marked as current.",
+      "sv": "Varning: En annan bestämning \"{{taxonName}}\" var redan markerad som aktuell."
     }
   },
   "individualGroup": {
@@ -139,7 +169,6 @@
           "sv": "Land"
         }
       },
-
       "coordinatesVerbatim": {
         "en": "Coordinates (verbatim)",
         "sv": "Koordinater (verbatim)"
@@ -148,7 +177,6 @@
         "en": "Coord. uncertainty (m)",
         "sv": "Koordinatosäkerhet (m)"
       },
-
       "georeferenceSourcesText": {
         "en": "Georeference sources",
         "sv": "Georeferenskälla"
@@ -157,12 +185,10 @@
         "en": "Locality remarks",
         "sv": "Lokalitetsnoteringar"
       },
-
       "localityVerbatim": {
         "en": "Stated (verbatim) locality",
         "sv": "Angiven (verbatim) lokalitet"
       },
-
       "position": {
         "uncertaintyInMeters": {
           "en": "Coordinate uncertainty in meters",
@@ -199,15 +225,13 @@
           "sv": "Minhöjd (m)"
         }
       },
-
       "helpTexts": {
         "continentStandardized": {
           "en": "Name of a continent",
           "sv": "Namn på en kontinent"
         },
         "coordinatesVerbatim": {
-          "en":
-            "Verbatim coordinates (or corresponding information, e.g. map number) from the original source",
+          "en": "Verbatim coordinates (or corresponding information, e.g. map number) from the original source",
           "sv": ""
         },
         "countryStandardized": {
@@ -219,18 +243,15 @@
           "sv": ""
         },
         "geodeticDatum": {
-          "en":
-            "Datum (coordinate system), e.g. “wgs84” or “sweref99”. Leave empty if unknown.",
+          "en": "Datum (coordinate system), e.g. “wgs84” or “sweref99”. Leave empty if unknown.",
           "sv": ""
         },
         "georeferenceSourcesText": {
-          "en":
-            "Describe how you got the georeferenced coordinates (data source(s), tools, maps ...)",
+          "en": "Describe how you got the georeferenced coordinates (data source(s), tools, maps ...)",
           "sv": ""
         },
         "latitude": {
-          "en":
-            "Latitude or northing. Use negative number or letter S for coordinates on southern hemisphere.",
+          "en": "Latitude or northing. Use negative number or letter S for coordinates on southern hemisphere.",
           "sv": ""
         },
         "localityRemarks": {
@@ -238,33 +259,27 @@
           "sv": ""
         },
         "localityStandardized": {
-          "en":
-            "Locality name(s) which don’t fit to other fields. E.g. detailed place or water body (e.g. “Frescati” or “Baltic sea”)",
+          "en": "Locality name(s) which don’t fit to other fields. E.g. detailed place or water body (e.g. “Frescati” or “Baltic sea”)",
           "sv": ""
         },
         "longitude": {
-          "en":
-            "Longitude or easting. Use negative number or letter W for coordinates on western hemisphere.",
+          "en": "Longitude or easting. Use negative number or letter W for coordinates on western hemisphere.",
           "sv": ""
         },
         "maximumDepthInMeters": {
-          "en":
-            "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
+          "en": "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
           "sv": ""
         },
         "maximumElevationInMeters": {
-          "en":
-            "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
+          "en": "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
           "sv": ""
         },
         "minimumDepthInMeters": {
-          "en":
-            "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
+          "en": "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
           "sv": ""
         },
         "minimumElevationInMeters": {
-          "en":
-            "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
+          "en": "If you fill in one, you have to fill in the other also. Use “?” for unknown data",
           "sv": ""
         },
         "provinceStandardized": {
@@ -389,10 +404,6 @@
   "formContainsErrors": {
     "en": "Form contains errors",
     "sv": "Formuläret innehåller fel"
-  },
-  "catalogNumber": {
-    "en": "Catalog number",
-    "sv": "Katalognummer"
   },
   "clearSearchParameters": {
     "en": "Clear search parameters",

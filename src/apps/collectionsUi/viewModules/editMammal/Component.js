@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Grid } from 'semantic-ui-react'
 
-import { Translate } from 'coreModules/i18n/components'
 import { MammalForm } from 'domainModules/collectionMammals/components'
 import {
   actionCreators as mammalActionCreators,
@@ -75,18 +73,11 @@ class EditMammal extends Component {
 
     return (
       <PageTemplate>
-        <h1>
-          <Translate textKey="modules.editMammal.editMammal" />
-        </h1>
-        <Grid textAlign="left" verticalAlign="middle">
-          <Grid.Column>
-            <MammalForm
-              handleFormSubmit={updateIndividualGroup}
-              individualGroup={individualGroup}
-              mode="edit"
-            />
-          </Grid.Column>
-        </Grid>
+        <MammalForm
+          handleFormSubmit={updateIndividualGroup}
+          individualGroup={individualGroup}
+          mode="edit"
+        />
       </PageTemplate>
     )
   }

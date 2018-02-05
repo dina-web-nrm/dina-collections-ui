@@ -9,6 +9,10 @@
       "sv": "Obligatorisk: {{fullPath}}"
     }
   },
+  "pattern": {
+    "en": "Does not match required pattern",
+    "sv": "Matchar inte det begärda mönstret"
+  },
   "MIN_LENGTH": {
     "en": "Must be at least {{limit}} characters",
     "sv": "Måste vara minst {{limit}} tecken"

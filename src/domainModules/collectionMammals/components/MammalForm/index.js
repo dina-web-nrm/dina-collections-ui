@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
-import { Button, Form, Message, Segment } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom'
+import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { push } from 'react-router-redux'
@@ -23,6 +24,7 @@ import SegmentDeterminations from './SegmentDeterminations'
 import SegmentFeatureObservations from './SegmentFeatureObservations/index'
 import SegmentCollectingInformation from './SegmentCollectingInformation/index'
 import SegmentPhysicalUnits from './SegmentPhysicalUnits'
+import SegmentOther from './SegmentOther'
 import transformInput from './transformations/input'
 import transformOutput from './transformations/output'
 
@@ -77,6 +79,11 @@ const propTypes = {
   }),
   initialize: PropTypes.func.isRequired,
   invalid: PropTypes.bool.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      catalogNumber: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
   mode: PropTypes.oneOf(['edit', 'register']),
   pristine: PropTypes.bool.isRequired,
   push: PropTypes.func.isRequired,
@@ -117,27 +124,36 @@ class RawMammalForm extends Component {
   }
 
   handleFormSubmit(data) {
+    const {
+      handleFormSubmit,
+      individualGroup,
+      match,
+      push: pushRoute,
+      redirectOnSuccess,
+    } = this.props
     const patchedData = {
-      id: this.props.individualGroup && this.props.individualGroup.id,
+      id: individualGroup && individualGroup.id,
       ...data,
     }
 
     const output = transformOutput(patchedData)
 
-    return this.props
-      .handleFormSubmit(output)
+    return handleFormSubmit(output)
       .then(() => {
         const catalogNumber =
           output.catalogedUnit && output.catalogedUnit.catalogNumber
-        if (this.props.redirectOnSuccess && catalogNumber) {
-          this.props.push(`/app/mammals/${catalogNumber}/edit`)
+
+        if (
+          catalogNumber &&
+          (redirectOnSuccess || catalogNumber !== match.params.catalogNumber)
+        ) {
+          pushRoute(`/app/mammals/${catalogNumber}/edit`)
         }
       })
       .catch(error => {
-        // prettier-ignore
         const errorMessage = `Status: ${error.status}, message: ${
           error.error ? error.error.message : error.message
-      }`
+        }`
 
         throw new SubmissionError({
           _error: errorMessage,
@@ -174,58 +190,67 @@ class RawMammalForm extends Component {
         onSubmit={handleSubmit(this.handleFormSubmit)}
         success={submitSucceeded}
       >
-        <SegmentCatalogedUnit />
-        <SegmentDeterminations
-          changeFieldValue={this.changeFieldValue}
-          formValueSelector={formValueSelector}
-          mode={mode}
-          removeArrayFieldByIndex={this.removeArrayFieldByIndex}
-        />
-        <SegmentCollectingInformation formValueSelector={formValueSelector} />
-        <SegmentFeatureObservations formValueSelector={formValueSelector} />
-        <SegmentPhysicalUnits />
+        <Grid textAlign="left" verticalAlign="middle">
+          <Grid.Column>
+            <SegmentCatalogedUnit
+              editMode={mode === 'edit'}
+              formValueSelector={formValueSelector}
+            />
+            <SegmentDeterminations
+              changeFieldValue={this.changeFieldValue}
+              formValueSelector={formValueSelector}
+              mode={mode}
+              removeArrayFieldByIndex={this.removeArrayFieldByIndex}
+            />
+            <SegmentCollectingInformation
+              formValueSelector={formValueSelector}
+            />
+            <SegmentFeatureObservations formValueSelector={formValueSelector} />
+            <SegmentPhysicalUnits />
+            <SegmentOther />
 
-        <Segment>
-          <div>
-            <Button
-              disabled={pristine || submitting}
-              size="large"
-              type="submit"
-            >
-              <ModuleTranslate textKey="save" />
-            </Button>
-            <Button
-              basic
-              disabled={pristine || submitting}
-              onClick={reset}
-              size="large"
-            >
-              <ModuleTranslate textKey="cancel" />
-            </Button>
-            {schemaErrors.length > 0 && (
-              <FormSchemaError errors={schemaErrors} />
-            )}
-            {invalid &&
-              !error &&
-              submitFailed && (
-                <Message
-                  error
-                  header={<ModuleTranslate textKey="formContainsErrors" />}
-                />
-              )}
-            {submitFailed &&
-              error && (
-                <Message
-                  content={error}
-                  error
-                  header={<ModuleTranslate textKey="submitFailed" />}
-                />
-              )}
-            {submitSucceeded && (
-              <Message header={<ModuleTranslate textKey="saved" />} success />
-            )}
-          </div>
-        </Segment>
+            <Segment>
+              <div>
+                <Button disabled={submitting} size="large" type="submit">
+                  <ModuleTranslate textKey="save" />
+                </Button>
+                <Button
+                  basic
+                  disabled={pristine || submitting}
+                  onClick={reset}
+                  size="large"
+                >
+                  <ModuleTranslate textKey="cancel" />
+                </Button>
+                {schemaErrors.length > 0 && (
+                  <FormSchemaError errors={schemaErrors} />
+                )}
+                {invalid &&
+                  !error &&
+                  submitFailed && (
+                    <Message
+                      error
+                      header={<ModuleTranslate textKey="formContainsErrors" />}
+                    />
+                  )}
+                {submitFailed &&
+                  error && (
+                    <Message
+                      content={error}
+                      error
+                      header={<ModuleTranslate textKey="submitFailed" />}
+                    />
+                  )}
+                {submitSucceeded && (
+                  <Message
+                    header={<ModuleTranslate textKey="saved" />}
+                    success
+                  />
+                )}
+              </div>
+            </Segment>
+          </Grid.Column>
+        </Grid>
       </Form>
     )
   }
@@ -241,4 +266,7 @@ export const MammalForm = reduxForm({
   }),
 })(RawMammalForm)
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(MammalForm)
+export default compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
+)(MammalForm)

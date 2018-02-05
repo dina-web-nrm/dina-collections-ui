@@ -22,4 +22,3 @@ require('../src/coreModules/notifications/components/FormFieldHelpIcon.stories.j
 require('../src/coreModules/notifications/components/Modal.stories.js')
 require('../src/coreModules/notifications/components/NotificationDisplay.stories.js')
 require('../src/coreModules/user/components/LoginForm.stories.js')
-require('../src/domainModules/collectionMammals/components/MammalForm.stories.js')

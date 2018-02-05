@@ -67,16 +67,14 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     )
 
     const form = rootComponent.find('form')
-    // required for successful submit
-    simulateFormFieldChanges(form, [
-      {
-        name: 'physicalUnits.0.catalogedUnit.catalogNumber',
-        value: '123456',
-      },
-    ])
     form.simulate('submit')
 
-    const { submitFailed, values } = store.getState().form.mammalForm
+    const {
+      submitFailed,
+      values,
+      syncErrors,
+    } = store.getState().form.mammalForm
+    expect(syncErrors).toBe(undefined)
     const output = transformOutput(values)
     // should now have empty identification
     expect(output.individualGroup.identifications.length).toBe(1)
@@ -239,21 +237,16 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     })
   })
 
-  it('Submit fail when catalog number not provided', () => {
+  it('Submit success when no catalog number provided', () => {
     const { store, rootComponent: mountedComponent } = setupTestComponent({
       component: <MammalForm handleFormSubmit={handleFormSubmit} />,
       fullExport: true,
       mount: true,
     })
 
-    expect(store.getState().form.mammalForm).toBeTruthy()
-
-    expect(store.getState().form.mammalForm.submitFailed).toBe(undefined)
-
     const form = mountedComponent.find('form')
     form.simulate('submit')
-
-    expect(store.getState().form.mammalForm.submitFailed).toBe(true)
+    expect(store.getState().form.mammalForm.submitFailed).toBe(undefined)
   })
 
   it('Submit success when catalog number provided', () => {
@@ -287,6 +280,10 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
       {
         name: 'physicalUnits.0.catalogedUnit.publishRecord',
         value: true,
+      },
+      {
+        name: 'physicalUnits.0.catalogedUnit.remarks',
+        value: 'some remark',
       },
       // Determination
       {
@@ -539,6 +536,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
       catalogedUnit: {
         catalogNumber: '584028',
         publishRecord: true,
+        remarks: 'some remark',
         storedUnderTaxonName: 'Sorex minutus',
       },
       individualGroup: {
@@ -636,6 +634,7 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
             catalogedUnit: {
               catalogNumber: '584028',
               publishRecord: true,
+              remarks: 'some remark',
               storedUnderTaxonName: 'Sorex minutus',
             },
             normalStorageLocationText: 'normalStorageLocationText',
@@ -662,9 +661,11 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     const { registeredFields, submitFailed, syncErrors, values } = formState
 
     expect(
-      mutations.filter(({ ignore }) => !ignore).map(mutation => mutation.name)
-    ).toMatchObject(Object.keys(registeredFields))
-
+      mutations
+        .filter(({ ignore }) => !ignore)
+        .map(mutation => mutation.name)
+        .sort()
+    ).toMatchObject(Object.keys(registeredFields).sort())
     expect(transformOutput(values)).toEqual(expectedOutput)
     expect(syncErrors).toBe(undefined)
     expect(submitFailed).toBe(undefined)

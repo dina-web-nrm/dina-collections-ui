@@ -10,6 +10,7 @@ module.exports = function createConfig() {
 
   const db = {
     database: 'postgres',
+    flushOnRestart: false,
     password: 'mysecretpassword',
     username: 'postgres',
   }

@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Grid } from 'semantic-ui-react'
 
 import { actionCreators as mammalActionCreators } from 'domainModules/collectionMammals'
 import { MammalForm } from 'domainModules/collectionMammals/components'
-import { Translate } from 'coreModules/i18n/components'
 import PageTemplate from 'coreModules/commonUi/components/PageTemplate'
 
 const mapDispatchToProps = {
@@ -18,14 +16,11 @@ const propTypes = {
 
 const RegisterMammal = ({ registerMammal }) => (
   <PageTemplate>
-    <h1>
-      <Translate textKey="modules.registerMammal.registerMammal" />
-    </h1>
-    <Grid textAlign="left" verticalAlign="middle">
-      <Grid.Column>
-        <MammalForm handleFormSubmit={registerMammal} redirectOnSuccess />
-      </Grid.Column>
-    </Grid>
+    <MammalForm
+      handleFormSubmit={registerMammal}
+      mode="register"
+      redirectOnSuccess
+    />
   </PageTemplate>
 )
 
