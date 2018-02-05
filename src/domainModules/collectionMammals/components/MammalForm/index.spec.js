@@ -69,7 +69,12 @@ describe('domainModules/collectionMammals/components/MammalForm', () => {
     const form = rootComponent.find('form')
     form.simulate('submit')
 
-    const { submitFailed, values } = store.getState().form.mammalForm
+    const {
+      submitFailed,
+      values,
+      syncErrors,
+    } = store.getState().form.mammalForm
+    expect(syncErrors).toBe(undefined)
     const output = transformOutput(values)
     // should now have empty identification
     expect(output.individualGroup.identifications.length).toBe(1)
