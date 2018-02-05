@@ -1,6 +1,6 @@
 const openApiSpec = require('dina-schema/build/openApi.json')
-const { createSystemModelSchemaValidator } = require('../../../utilities/error')
-const createMockGenerator = require('../../../utilities/jsonSchema/createMockGenerator')
+const { createSystemModelSchemaValidator } = require('../error')
+const createMockGenerator = require('../jsonSchema/createMockGenerator')
 
 const buildOperationIdPathnameMap = () => {
   const map = {}
@@ -108,8 +108,8 @@ const createMockData = ({ importFaker, methodSpecification }) => {
   return null
 }
 
-module.exports = function createBuildEndpointSpec({ importFaker }) {
-  return function buildEndpointSpec({ operationId, ...rest }) {
+module.exports = function createEndpointFactory({ importFaker }) {
+  return function createEndpoint({ operationId, ...rest }) {
     if (!map[operationId]) {
       console.warn(`Operation id: ${operationId} unknown`) // eslint-disable-line no-console
     }

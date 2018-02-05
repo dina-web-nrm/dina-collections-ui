@@ -49,18 +49,4 @@ const apiConfigSchema = {
   required: ['validateInput', 'validateOutput'],
 }
 
-module.exports = function createApiConfig(apiConfigInput = {}) {
-  const apiConfig = {
-    validateInput: true,
-    validateOutput: true,
-    ...apiConfigInput,
-  }
-
-  const { systemValidate } = apiConfig
-
-  const error = systemValidate && systemValidate(apiConfig, apiConfigSchema)
-  if (error) {
-    throw error
-  }
-  return apiConfig
-}
+export default apiConfigSchema

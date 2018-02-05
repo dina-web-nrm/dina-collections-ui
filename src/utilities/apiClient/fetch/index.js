@@ -1,5 +1,4 @@
-const createFormBody = require('./createFormBody')
-const createJsonBody = require('./createJsonBody')
+const createBody = require('./createBody')
 const createUrl = require('./createUrl')
 const parseResponse = require('./parseResponse')
 
@@ -12,14 +11,10 @@ module.exports = function wrappedFetch({
   const { method } = methodConfig
   const { body, headers } = request
 
-  let formattedBody
-  if (Object.keys(body).length) {
-    if (headers['Content-Type'] === 'application/x-www-form-urlencoded') {
-      formattedBody = createFormBody(body)
-    } else {
-      formattedBody = createJsonBody(body)
-    }
-  }
+  const formattedBody = createBody({
+    body,
+    headers,
+  })
 
   const url = createUrl({
     apiConfig,
@@ -27,6 +22,7 @@ module.exports = function wrappedFetch({
     methodConfig,
     request,
   })
+
   return fetch(url, {
     body: formattedBody,
     headers,

@@ -1,6 +1,6 @@
 import globalUserSelectors from 'coreModules/user/globalSelectors'
 import { createSystemSchemaValidator } from 'utilities/error'
-import createApiClient from './apiClient'
+import createApiClient from 'utilities/apiClient'
 
 export const buildAuthHeaders = state => {
   const authToken = globalUserSelectors.getAuthToken(state)
