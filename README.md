@@ -1,3 +1,6 @@
+# Note: This repository is archived
+It has been replaced by https://github.com/DINA-Web/dina-collections
+
 # DINA frontend platform
 This is the frontend platform of DINA Natural History Collections for the Web.
 
